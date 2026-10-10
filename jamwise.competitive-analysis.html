@@ -12,7 +12,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script>document.documentElement.className += ' js' + (/^#build/.test(location.hash) ? ' tab-build' : '');</script>
 <style>
 :root {
   --bg: #FCFBF9;            /* warm off-white */
@@ -332,57 +331,7 @@ tr.highlight th { box-shadow: inset 4px 0 0 var(--accent); }
   .site-footer { background: #fff; }
 }
 
-/* Tabs: hidden without JavaScript, so both panels simply follow each other */
-:root { --tabbar-h: 64px; }
-.tabbar-wrap { display: none; }
-.js .tabbar-wrap { display: block; position: sticky; top: 0; z-index: 30; background: var(--bg); border-bottom: 1px solid var(--border); box-shadow: 0 6px 16px -12px rgba(26,26,46,.25); }
-.tabbar { max-width: calc(var(--wide) + 32px); margin: 0 auto; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px; }
-.tab {
-  -webkit-appearance: none; appearance: none; margin: 0; cursor: pointer;
-  font-family: var(--serif); font-size: 1rem; font-weight: 600; line-height: 1.2; letter-spacing: 0;
-  color: var(--accent-strong); background: var(--accent-soft); border: 1px solid var(--accent-line);
-  border-radius: 999px; padding: 10px 20px; min-height: 44px; min-width: 0;
-}
-.tab:hover { border-color: var(--accent); background: var(--surface); }
-.tab[aria-selected="true"] { background: #7C3AED; border-color: #7C3AED; color: #fff; box-shadow: var(--shadow); }
-.tab:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 999px; }
-@media (max-width: 560px) {
-  .tabbar { flex-wrap: nowrap; gap: 6px; padding: 8px 16px; }
-  .tab { flex: 1 1 0; padding: 8px 10px; font-size: .95rem; text-align: center; }
-}
-.tabpanel[hidden] { display: none !important; }
-.js:not(.tabs-ready):not(.tab-build) #build, .js:not(.tabs-ready).tab-build #analysis { display: none; }
-.tabpanel { scroll-margin-top: var(--tabbar-h); }
-.js main [id] { scroll-margin-top: calc(var(--tabbar-h) + 12px); }
-.js .panel-body > section { scroll-margin-top: calc(var(--tabbar-h) - 24px); }
-.js h2, .js h3 { scroll-margin-top: calc(var(--tabbar-h) + 20px); }
-html:not(.js) .tabpanel + .tabpanel { border-top: 3px solid var(--accent-line); margin-top: 24px; }
-.panel-body { min-width: 0; padding-bottom: 40px; }
-.panel-body > section { padding-top: 48px; }
-.panel-body > section + section { border-top: 1px solid var(--border); margin-top: 8px; }
-@media (min-width: 1240px) {
-  .tabbar { max-width: calc(var(--wide) + 260px + 48px + 32px); }
-  .js .toc { top: calc(var(--tabbar-h) + 24px); max-height: calc(100vh - var(--tabbar-h) - 48px); }
-  .js thead th { top: var(--tabbar-h); }
-}
-
-/* Tab 2: what we'll build next */
-.panel-lede { font-size: 1.08rem; max-width: var(--measure); }
-.polish { background: var(--accent-soft); border: 1px solid var(--accent-line); border-left: 6px solid var(--accent); border-radius: 18px; padding: 20px 22px; max-width: var(--measure); box-shadow: var(--shadow); margin: 1.2rem 0 0; }
-.polish p { margin: 0; }
-.polish .why-label { font-family: var(--mono); font-size: max(12px, .72rem); text-transform: uppercase; letter-spacing: .12em; color: var(--accent); font-weight: 800; margin: 0 0 .35rem; }
-.idea-cards { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 12px; }
-.idea { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; margin: 0; box-shadow: var(--shadow); break-inside: avoid; display: flex; flex-direction: column; gap: .45rem; }
-.idea h3 { margin: 0; font-size: 1.12rem; }
-.idea h3::before { content: "\266B"; color: var(--accent); margin-right: .45rem; font-weight: 600; }
-.idea p { margin: 0; font-size: .95rem; }
-.idea .idea-label { font-family: var(--mono); font-size: max(12px, .7rem); text-transform: uppercase; letter-spacing: .12em; color: var(--accent); font-weight: 800; margin-top: .3rem; }
-.idea .idea-close { color: var(--muted); }
-.idea-cards.plain .idea h3::before { content: none; }
-.steps { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: 12px; max-width: var(--measure); counter-reset: s; }
-.steps li { counter-increment: s; position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px 16px 14px 64px; margin: 0; box-shadow: var(--shadow); break-inside: avoid; }
-.steps li::before { content: counter(s); position: absolute; left: 16px; top: 12px; width: 34px; height: 34px; border-radius: 10px; background: #7C3AED; color: #fff; font-family: var(--serif); font-weight: 700; font-size: 1.1rem; display: grid; place-items: center; }
-.steps strong { display: block; font-family: var(--serif); font-size: 1.06rem; font-weight: 600; margin-bottom: .15rem; }
+/* Capability check table */
 .cap-table td { white-space: normal; }
 .cap-table .badge { margin-right: 0; }
 .cap-note { font-size: .84rem; color: var(--muted); margin-top: .7rem; max-width: var(--wide); }
@@ -395,15 +344,6 @@ html:not(.js) .tabpanel + .tabpanel { border-top: 3px solid var(--accent-line); 
   .cap-table tbody td { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
   .cap-table tbody td::before { flex: 0 0 100%; margin-bottom: 0; }
   .cap-table .cell-detail { display: inline; margin: 0; }
-}
-
-@media print {
-  .tabbar-wrap { display: none !important; }
-  .tabpanel[hidden], .js:not(.tabs-ready) #build, .js:not(.tabs-ready) #analysis { display: block !important; }
-  .panel-body > section { padding-top: 16pt; }
-  #build { break-before: page; page-break-before: always; }
-  .polish, .idea, .steps li { box-shadow: none; background: #fff; break-inside: avoid; page-break-inside: avoid; }
-  .steps li::before, .tab[aria-selected="true"] { background: #000 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 </style>
 </head>
@@ -421,15 +361,7 @@ html:not(.js) .tabpanel + .tabpanel { border-top: 3px solid var(--accent-line); 
   </div>
 </header>
 
-<div class="tabbar-wrap">
-  <div class="tabbar" role="tablist" aria-label="Report views">
-    <button type="button" class="tab" role="tab" id="tab-analysis" aria-controls="analysis" aria-selected="true">Competitive analysis</button>
-    <button type="button" class="tab" role="tab" id="tab-build" aria-controls="build" aria-selected="false" tabindex="-1">What we'll build next</button>
-  </div>
-</div>
-
-<main id="main" tabindex="-1">
-<div class="layout tabpanel" id="analysis" role="tabpanel" aria-labelledby="tab-analysis" tabindex="-1">
+<div class="layout">
   <nav class="toc" aria-labelledby="toc-heading">
     <h2 id="toc-heading">Contents</h2>
     <ol>
@@ -450,7 +382,7 @@ html:not(.js) .tabpanel + .tabpanel { border-top: 3px solid var(--accent-line); 
     </ol>
   </nav>
 
-  <div class="panel-body">
+  <main id="main" tabindex="-1">
 
     <section id="executive-summary" aria-labelledby="executive-summary-h" style="padding-top:32px">
       <div class="exec">
@@ -475,7 +407,7 @@ html:not(.js) .tabpanel + .tabpanel { border-top: 3px solid var(--accent-line); 
         </ol>
 
         <h3>What we'll do next, at a glance</h3>
-        <p>In order: finish the compliance and accessibility kit before district outreach. Line up our site's pages before launch. Test moving the annual price closer to the $59.88 anchor, while keeping the paid value in advanced analytics, the full game set, offline downloads and school features, not in custom jams or Classroom sync. Call the product "retrieval practice set to music", keep evidence claims honest, and use our 1,801-term K-8 glossary to show what each jam covers. Post free sample songs on short-form video. Build a guard-railed custom jam feature that students under 13 can use safely. And offer a modest school license plus a pilot study that could lead to ESSA Tier III evidence. Where a figure is a company's own claim, or a price isn't publicly listed, we say so. The features we'll build are on the <a href="#build">What we'll build next</a> tab.</p>
+        <p>In order: finish the compliance and accessibility kit before district outreach. Line up our site's pages before launch. Test moving the annual price closer to the $59.88 anchor, while keeping the paid value in advanced analytics, the full game set, offline downloads and school features, not in custom jams or Classroom sync. Call the product "retrieval practice set to music", keep evidence claims honest, and use our 1,801-term K-8 glossary to show what each jam covers. Post free sample songs on short-form video. Build a guard-railed custom jam feature that students under 13 can use safely. And offer a modest school license plus a pilot study that could lead to ESSA Tier III evidence. Where a figure is a company's own claim, or a price isn't publicly listed, we say so.</p>
       </div>
     </section>
 
@@ -847,8 +779,8 @@ html:not(.js) .tabpanel + .tabpanel { border-top: 3px solid var(--accent-line); 
 
       <p>Here's what the tables tell us. At $7.99 a month, or $95.88 a year paid monthly, <strong>Premium costs about 60% more than the common $59.88 annual anchor</strong> at Gimkit and Baamboozle. (Blooket doesn't publish its Plus price, so we leave it out of the anchor.) Our annual option, $6.99 a month billed annually ($83.88 a year, as shown on Pricing), narrows the gap to about 40%, but still sits above the anchor. Both are at or below Deck.Toys at $96 a year. Flocabulary Lite, the closest music rival for a single teacher, costs more than either of our options: $11.50 a month, billed annually, or $138 a year. That's about 44% above our monthly-billed year and about 65% above our annual price. Quizlet Plus charges the same $7.99 billed monthly, and MagicSchool Plus is $8.33 a month billed annually, on top of a free plan that already makes songs. So our monthly price has well-known peers, and it has to buy more than a song. Unlimited students on Premium compare well with Kahoot's player caps. And because Kahoot often holds standards features back for school tiers, <strong>giving individual teachers standards-aligned content and per-student analytics is a real contrast</strong>.</p>
 
-      <h3 id="capability-check">Capability check: the features behind our build plan.</h3>
-      <p>We checked the practice and school features that shape our build plan (see the What we'll build next tab) on each company's own site. Here's what we found. Most rivals already offer AI quizzes and homework, and the school-focused ones already offer sign-in through Clever or ClassLink and school dashboards. Sung song generation is still rare.</p>
+      <h3 id="capability-check">Capability check: practice and school features, rival by rival.</h3>
+      <p>We checked the practice and school features that teachers and districts now expect on each company's own site. Here's what we found. Most rivals already offer AI quizzes and homework, and the school-focused ones already offer sign-in through Clever or ClassLink and school dashboards. Sung song generation is still rare.</p>
       <div class="table-block">
         <div class="table-wrap wide" role="region" aria-labelledby="cap-capability" tabindex="0">
           <table class="cap-table">
@@ -1006,7 +938,7 @@ html:not(.js) .tabpanel + .tabpanel { border-top: 3px solid var(--accent-line); 
 
     <section id="compliance" class="prose" aria-labelledby="compliance-h">
       <h2 id="compliance-h">Privacy and accessibility come first.</h2>
-      <p>For a K-8 product, privacy and accessibility are the entry ticket. The amended COPPA rule took effect on June 23, 2025, with compliance required by April 22, 2026 (<a href="https://www.federalregister.gov/documents/2025/04/22/2025-05904/childrens-online-privacy-protection-rule" target="_blank" rel="noopener">Federal Register</a>). It adds separate parental consent for sharing children's data with third parties, a written data-retention policy and a written information security program (<a href="https://www.loeb.com/en/insights/publications/2025/05/childrens-online-privacy-in-2025-the-amended-coppa-rule" target="_blank" rel="noopener">Loeb &amp; Loeb</a>; <a href="https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-changes-childrens-privacy-rule-limiting-companies-ability-monetize-kids-data" target="_blank" rel="noopener">FTC</a>). The FTC chose not to write the school-authorization exception into the rule and will keep relying on its existing guidance (<a href="https://www.govinfo.gov/content/pkg/FR-2025-04-22/html/2025-05904.htm" target="_blank" rel="noopener">govinfo</a>). That guidance recommends that schools or districts, not individual teachers, decide whether a service's practices are appropriate (<a href="https://www.ftc.gov/business-guidance/resources/complying-coppa-frequently-asked-questions" target="_blank" rel="noopener">FTC COPPA FAQ</a>). This matters for any teacher-led sign-up, including ours. Per our privacy policy, children use JamWise only through teacher-managed classrooms or parent-managed family accounts. Whether one teacher can authorize student accounts for a school is a gray area. That's our reading, and we'll check it with privacy counsel.</p>
+      <p>For a K-8 product, privacy and accessibility are the price of entry. The amended COPPA rule took effect on June 23, 2025, with compliance required by April 22, 2026 (<a href="https://www.federalregister.gov/documents/2025/04/22/2025-05904/childrens-online-privacy-protection-rule" target="_blank" rel="noopener">Federal Register</a>). It adds separate parental consent for sharing children's data with third parties, a written data-retention policy and a written information security program (<a href="https://www.loeb.com/en/insights/publications/2025/05/childrens-online-privacy-in-2025-the-amended-coppa-rule" target="_blank" rel="noopener">Loeb &amp; Loeb</a>; <a href="https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-changes-childrens-privacy-rule-limiting-companies-ability-monetize-kids-data" target="_blank" rel="noopener">FTC</a>). The FTC chose not to write the school-authorization exception into the rule and will keep relying on its existing guidance (<a href="https://www.govinfo.gov/content/pkg/FR-2025-04-22/html/2025-05904.htm" target="_blank" rel="noopener">govinfo</a>). That guidance recommends that schools or districts, not individual teachers, decide whether a service's practices are appropriate (<a href="https://www.ftc.gov/business-guidance/resources/complying-coppa-frequently-asked-questions" target="_blank" rel="noopener">FTC COPPA FAQ</a>). This matters for any teacher-led sign-up, including ours. Per our privacy policy, children use JamWise only through teacher-managed classrooms or parent-managed family accounts. Whether one teacher can authorize student accounts for a school is a gray area. That's our reading, and we'll check it with privacy counsel.</p>
       <p>State laws add direct duties for vendors. California's SOPIPA bans targeted advertising, profiling and sale of student data (<a href="https://fpf.org/blog/fpf-guide-student-data-protections-sopipa-k-12-school-administrators-ed-tech-vendors/" target="_blank" rel="noopener">FPF</a>). New York Education Law 2-d requires a Parents' Bill of Rights and a vendor security plan in every contract, plus encryption in transit and at rest (<a href="https://www.bsk.com/news-events-videos/new-york-state-education-law-sect-2-d-where-are-we-now" target="_blank" rel="noopener">Bond Schoeneck &amp; King</a>; <a href="https://www.nysed.gov/data-privacy-security" target="_blank" rel="noopener">NYSED</a>). Illinois SOPPA requires a written agreement with every operator that receives student data, and districts must post those agreements (<a href="https://www.cps.edu/about/policies/student-online-personal-protection-act/vendors-and-contracts/" target="_blank" rel="noopener">CPS</a>; <a href="https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=3806&amp;ChapterID=17" target="_blank" rel="noopener">105 ILCS 85</a>). Many districts use the Student Data Privacy Consortium's agreements. SDPC reports 233,924 active data privacy agreements in its registry, with participating districts in 41 states (<a href="https://privacy.a4l.org/" target="_blank" rel="noopener">SDPC</a>). Common Sense's Privacy Seal, met by fewer than 10% of evaluated companies, is held by Kahoot, Prodigy and Wayground (formerly Quizizz), among others (<a href="https://www.commonsense.org/education/articles/introducing-the-common-sense-privacy-seal-a-new-standard-in-digital-privacy" target="_blank" rel="noopener">Common Sense</a>).</p>
       <p>Our published policy is a good start. The privacy policy, updated February 20, 2026, includes a COPPA statement. It names Resend (email delivery for waitlist and account emails), Stripe (payments), Cloudflare (content delivery and asset storage) and PostHog (anonymous product analytics). It says we use no Google Analytics or ad tracking, commits to deletion within 30 days of account deletion and lists privacy@jamwise.app as the contact (<a href="https://jamwise.com/privacy" target="_blank" rel="noopener">JamWise privacy policy</a>). The Pricing FAQ adds that we're COPPA compliant by design, don't track children, show no ads and sell no data, and that every jam is reviewed for age-appropriateness (<a href="https://jamwise.com/pricing" target="_blank" rel="noopener">JamWise Pricing</a>). For Parents promises "no tracking" (<a href="https://jamwise.com/for-parents" target="_blank" rel="noopener">JamWise For Parents</a>). District reviewers will still want the written security program, retention schedule and signed agreements below to stand behind these statements. They may also ask how "no tracking" fits with PostHog analytics, so a one-line clarification will help.</p>
       <p>Accessibility is just as pressing. The Justice Department's ADA Title II rule requires WCAG 2.1 AA for school district web content, including content that contractors provide (<a href="https://www.ada.gov/resources/2024-03-08-web-rule/" target="_blank" rel="noopener">ADA.gov</a>). An interim final rule published April 20, 2026 pushed the deadlines back a year, to April 26, 2027 for entities serving 50,000 people or more, and April 26, 2028 for smaller ones and special districts (<a href="https://www.federalregister.gov/documents/2026/04/20/2026-07663/extension-of-compliance-dates-for-nondiscrimination-on-the-basis-of-disability-accessibility-of-web" target="_blank" rel="noopener">Federal Register</a>; <a href="https://www.techlearning.com/technology/accessability/the-title-ii-accessibility-deadline-is-soon-heres-what-you-need-to-know" target="_blank" rel="noopener">Tech &amp; Learning</a>). The 2027 date falls inside our likely first district sales window. For us, that means accurate captions or lyric transcripts for all 250+ songs, plus keyboard and screen-reader support in the games. Audio-based games like Lyric Lockdown and Rhythm Recall will need carefully designed alternatives.</p>
@@ -1334,277 +1266,8 @@ html:not(.js) .tabpanel + .tabpanel { border-top: 3px solid var(--accent-line); 
       </ol>
     </section>
 
-  </div>
+  </main>
 </div>
-
-<div class="layout tabpanel" id="build" role="tabpanel" aria-labelledby="tab-build" tabindex="-1">
-  <nav class="toc" aria-labelledby="toc-build-heading">
-    <h2 id="toc-build-heading">Contents</h2>
-    <ol>
-      <li><a href="#build-polish">Polish first</a></li>
-      <li><a href="#build-schools">Before we sell to schools</a></li>
-      <li><a href="#build-practice">Practice tools teachers expect</a></li>
-      <li><a href="#build-music">Only we can build these</a></li>
-      <li><a href="#build-growth">Growth</a></li>
-      <li><a href="#build-site-fixes">Quick fixes on our site</a></li>
-      <li><a href="#build-start">Where we'll start</a></li>
-      <li><a href="#build-sources">Sources</a></li>
-    </ol>
-  </nav>
-
-  <div class="panel-body">
-
-    <section id="build-polish" class="prose" aria-labelledby="build-polish-h" style="padding-top:32px">
-      <h2 id="build-polish-h">Polish first, then build what only we can.</h2>
-      <p class="panel-lede">This is our product plan, and it comes straight out of the competitive analysis. Some features are the price of entry for schools. Some are practice tools teachers now expect from every product. The rest are things only a music-first product can do, and that's where we'll spend most of our effort. Where we say a competitor already offers something, we checked it on that company's own site on October 11, 2026. If we couldn't confirm it there, we leave that competitor out.</p>
-      <div class="polish">
-        <p class="why-label">Polish first</p>
-        <p>Polish the games before adding more: every game mode should run smoothly end to end on phones and desktops before we add new ones.</p>
-      </div>
-    </section>
-
-    <section id="build-schools" class="prose" aria-labelledby="build-schools-h">
-      <h2 id="build-schools-h">Needed before we sell to schools and districts.</h2>
-      <p>District buyers check these before they sign. Most of our larger rivals already have them, so they won't set us apart. Without them, we don't get past the first review.</p>
-      <div class="table-block">
-        <div class="table-wrap wide" role="region" aria-labelledby="cap-build-schools" tabindex="0">
-          <table>
-            <caption id="cap-build-schools">School-ready features and who already offers them</caption>
-            <thead>
-              <tr>
-                <th scope="col">Feature</th>
-                <th scope="col">Why it matters</th>
-                <th scope="col">Who already offers it</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row" data-label="Feature">School sign-in and rostering (Clever, ClassLink, Google)</th>
-                <td data-label="Why it matters">Students sign in with the accounts their school already uses, and class lists stay in sync without typing. Clever and ClassLink provide single sign-on and rostering for schools (<a href="https://www.clever.com/products/sso" target="_blank" rel="noopener">Clever</a>; <a href="https://www.classlink.com/" target="_blank" rel="noopener">ClassLink</a>). Our school license already promises rostering (<a href="https://jamwise.com/pricing" target="_blank" rel="noopener">our Pricing page</a>), so we need to build it.</td>
-                <td data-label="Who already offers it">Wayground, Clever and ClassLink on school and district plans (<a href="https://wayground.com/home/integrations" target="_blank" rel="noopener">Wayground</a>). Nearpod, Clever and ClassLink sign-in, with rostering on school and district plans (<a href="https://nearpod.com/pricing" target="_blank" rel="noopener">Nearpod</a>). Flocabulary Plus (<a href="https://www.flocabulary.com/plans/" target="_blank" rel="noopener">Flocabulary</a>). MagicSchool Enterprise (<a href="https://www.magicschool.ai/integrations" target="_blank" rel="noopener">MagicSchool</a>). Knowt's School Site license (<a href="https://knowt.com/plans?tab=teachers" target="_blank" rel="noopener">Knowt</a>).</td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Feature">School and district dashboard</th>
-                <td data-label="Why it matters">Administrators keep or cut tools mainly on cost, ease of use and teacher buy-in (<a href="https://marketbrief.edweek.org/education-market/what-makes-schools-keep-or-cut-ed-tech-tools/2026/05" target="_blank" rel="noopener">EdWeek Market Brief</a>). A dashboard showing usage and standards coverage by class and school answers those questions. Our school license offer already mentions admin dashboards (<a href="https://jamwise.com/pricing" target="_blank" rel="noopener">our Pricing page</a>).</td>
-                <td data-label="Who already offers it">Wayground, with standards-aligned reports (<a href="https://wayground.com/home/plans" target="_blank" rel="noopener">Wayground</a>). Nearpod's Admin Reports Dashboard (<a href="https://nearpod.com/pricing" target="_blank" rel="noopener">Nearpod</a>). Flocabulary's Administrator Dashboards (<a href="https://www.flocabulary.com/plans/" target="_blank" rel="noopener">Flocabulary</a>). MagicSchool Enterprise (<a href="https://www.magicschool.ai/faq" target="_blank" rel="noopener">MagicSchool</a>). Knowt (<a href="https://knowt.com/schools/bulk-pricing" target="_blank" rel="noopener">Knowt</a>). Kahoot EDU (<a href="https://kahoot.com/schools/edu-school-and-district/" target="_blank" rel="noopener">Kahoot</a>). Blooket group plans, usage only (<a href="https://help.blooket.com/hc/en-us/articles/35972464206103-Group-Plan-Reports-Overview" target="_blank" rel="noopener">Blooket</a>).</td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Feature">Captions and accessibility for every jam</th>
-                <td data-label="Why it matters">The ADA Title II web rule requires WCAG 2.1 AA for public school web content, including content vendors provide (<a href="https://www.ada.gov/resources/2024-03-08-web-rule/" target="_blank" rel="noopener">ADA.gov</a>). Large public entities must comply by April 26, 2027 (<a href="https://www.federalregister.gov/documents/2026/04/20/2026-07663/extension-of-compliance-dates-for-nondiscrimination-on-the-basis-of-disability-accessibility-of-web" target="_blank" rel="noopener">Federal Register</a>). Every jam needs captions, and our lyric games need a way to play without sound.</td>
-                <td data-label="Who already offers it">Flocabulary, closed captions and printable video transcripts (<a href="https://blog.flocabulary.com/a-guide-to-teaching-literacy-across-the-curriculum/" target="_blank" rel="noopener">Flocabulary blog</a>; <a href="https://www.flocabulary.com/plans/" target="_blank" rel="noopener">plans</a>). Wayground, 20+ accommodations including read aloud (<a href="https://wayground.com/home/accommodations" target="_blank" rel="noopener">Wayground</a>). Kahoot, a published accessibility conformance report (<a href="https://trust.kahoot.com/" target="_blank" rel="noopener">Kahoot Trust Center</a>). Nearpod, video captions where available and Immersive Reader (<a href="https://nearpod.com/blog/nearpod-updates/" target="_blank" rel="noopener">Nearpod blog</a>; <a href="https://nearpod.com/blog/text-to-speech-immersive-reader/" target="_blank" rel="noopener">Nearpod blog</a>).</td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Feature">Privacy paperwork: a signed SDPC data privacy agreement and a Common Sense privacy evaluation</th>
-                <td data-label="Why it matters">The 2025 COPPA amendments are in force, with compliance required by April 22, 2026 (<a href="https://www.federalregister.gov/documents/2025/04/22/2025-05904/childrens-online-privacy-protection-rule" target="_blank" rel="noopener">Federal Register</a>). Many districts contract through the Student Data Privacy Consortium's National Data Privacy Agreement (<a href="https://privacy.a4l.org/national-dpa/" target="_blank" rel="noopener">SDPC</a>), and Common Sense evaluates edtech privacy policies for teachers and parents (<a href="https://privacy.commonsense.org/" target="_blank" rel="noopener">Common Sense Privacy Program</a>).</td>
-                <td data-label="Who already offers it">MagicSchool, an SDPC member with a 95% Common Sense privacy rating (<a href="https://www.magicschool.ai/privacy/trust" target="_blank" rel="noopener">MagicSchool trust page</a>; <a href="https://www.magicschool.ai/blog-posts/magicschool-privacy-rating" target="_blank" rel="noopener">MagicSchool blog</a>). Wayground, state agreements for most states and the Common Sense Privacy Seal (<a href="https://wayground.com/home/security" target="_blank" rel="noopener">Wayground</a>). Kahoot, the Common Sense Privacy seal (<a href="https://trust.kahoot.com/" target="_blank" rel="noopener">Kahoot Trust Center</a>). Knowt says it signs data privacy agreements for free (<a href="https://knowt.com/schools/bulk-pricing" target="_blank" rel="noopener">Knowt</a>).</td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Feature">Google Classroom on the free plan</th>
-                <td data-label="Why it matters">Our For Teachers page lists Classroom in the free plan, while Pricing lists it as Premium (see <a href="#site-inconsistencies">our site inconsistencies</a>). Google's add-on program lets tools send grades straight to the Classroom gradebook (<a href="https://developers.google.com/workspace/classroom/add-ons/walkthroughs/grade-passback" target="_blank" rel="noopener">Google for Developers</a>), and teachers now expect it.</td>
-                <td data-label="Who already offers it">Kahoot's add-on posts kahoots and sends results back to Classroom (<a href="https://support.kahoot.com/hc/en-us/articles/9593760308883-Google-Classroom-Kahoot-add-on" target="_blank" rel="noopener">Kahoot Help</a>). Wayground assigns and syncs class lists on its free plan (<a href="https://help.wayground.com/support/solutions/articles/158000404860-wayground-x-google-classroom-integration" target="_blank" rel="noopener">Wayground Help</a>). Quizlet adds students from Classroom (<a href="https://help.quizlet.com/hc/en-us/articles/360030874992-Using-Quizlet-classes-with-Google-Classroom" target="_blank" rel="noopener">Quizlet Help</a>). Nearpod includes it on individual plans (<a href="https://nearpod.com/pricing" target="_blank" rel="noopener">Nearpod</a>).</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="build-practice" class="prose" aria-labelledby="build-practice-h">
-      <h2 id="build-practice-h">Catching up on practice tools teachers expect.</h2>
-      <p>Teachers use these every week in other products. We'll build them our way, from the jams and the glossary we already have, so each one also points back to the music.</p>
-      <div class="table-block">
-        <div class="table-wrap wide" role="region" aria-labelledby="cap-build-practice" tabindex="0">
-          <table>
-            <caption id="cap-build-practice">Practice tools, our twist, and who already offers them</caption>
-            <thead>
-              <tr>
-                <th scope="col">Feature</th>
-                <th scope="col">Our twist</th>
-                <th scope="col">Who already offers it</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row" data-label="Feature">AI quiz from a teacher's own material</th>
-                <td data-label="Our twist">Built from a jam's lyrics and its glossary terms, so every question matches the song the class just heard. Teachers can still add their own notes.</td>
-                <td data-label="Who already offers it">Kahoot, from PDFs on paid plans (<a href="https://kahoot.com/schools/plans/" target="_blank" rel="noopener">Kahoot</a>). Wayground, from a topic, document or standard (<a href="https://wayground.com/" target="_blank" rel="noopener">Wayground</a>). MagicSchool, from a reading or uploaded document (<a href="https://www.magicschool.ai/tools/multiple-choice-quiz-assessment" target="_blank" rel="noopener">MagicSchool</a>). Knowt, from any uploaded file (<a href="https://help.knowt.com/en/articles/10722276-teacher-s-guide-to-getting-started" target="_blank" rel="noopener">Knowt Help</a>). Quizlet Practice Tests, from notes (<a href="https://help.quizlet.com/hc/en-us/articles/25946589648013-Studying-with-Practice-Tests" target="_blank" rel="noopener">Quizlet Help</a>). Nearpod (<a href="https://nearpod.com/ai" target="_blank" rel="noopener">Nearpod</a>).</td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Feature">Flashcards and spaced review</th>
-                <td data-label="Our twist">Cards come from our 1,801-term K-8 glossary (<a href="https://jamwise.com/glossary" target="_blank" rel="noopener">our Glossary</a>), with the song line that uses the word as the memory cue. Spaced review brings each card back over days and weeks.</td>
-                <td data-label="Who already offers it">Quizlet, with spaced repetition (<a href="https://help.quizlet.com/hc/en-us/articles/48324742264077-Studying-with-Spaced-Repetition" target="_blank" rel="noopener">Quizlet Help</a>). Knowt, with a spaced repetition mode (<a href="https://help.knowt.com/en/articles/10714645-how-do-i-use-the-spaced-repetition-mode" target="_blank" rel="noopener">Knowt Help</a>). Kahoot, a flashcards self-study mode (<a href="https://support.kahoot.com/hc/en-us/articles/31566898896029-How-to-learn-and-practice-with-Kahoot-self-study-modes" target="_blank" rel="noopener">Kahoot Help</a>). Blooket, a solo Study mode (<a href="https://help.blooket.com/hc/en-us/articles/31650433480343-Game-Overview-Study" target="_blank" rel="noopener">Blooket Help</a>).</td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Feature">Homework mode with due dates and per-standard results</th>
-                <td data-label="Our twist">Students replay the jam and its games at home, at their own pace. Teachers see results by standard, not just by game. We already let teachers assign jams as homework (<a href="https://jamwise.com/for-teachers" target="_blank" rel="noopener">For Teachers</a>), so this adds the due date and the standards view.</td>
-                <td data-label="Who already offers it">Kahoot, deadlines up to 28 days (<a href="https://support.kahoot.com/hc/en-us/articles/360039411334-How-to-assign-a-kahoot-in-web-platform" target="_blank" rel="noopener">Kahoot Help</a>). Wayground, homework deadlines and standards-aligned reports on school plans (<a href="https://help.wayground.com/support/solutions/articles/158000404967-how-do-i-extend-the-deadline-for-an-assigned-homework-game-" target="_blank" rel="noopener">Wayground Help</a>; <a href="https://wayground.com/home/plans" target="_blank" rel="noopener">plans</a>). Blooket, due dates (<a href="https://help.blooket.com/hc/en-us/articles/16179771027863-How-to-Assign-Homework-in-Blooket" target="_blank" rel="noopener">Blooket Help</a>). Gimkit, assignments on Pro (<a href="https://help.gimkit.com/en/article/create-an-assignment-cr9vnb/" target="_blank" rel="noopener">Gimkit Help</a>). Quizlet, assignments (<a href="https://help.quizlet.com/hc/en-us/articles/39836814088845-Using-Assignments" target="_blank" rel="noopener">Quizlet Help</a>).</td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Feature">Sharing with grade teams</th>
-                <td data-label="Our twist">Share jams, playlists and game sets with the teachers in a grade or school, so a whole team can teach the same unit with the same songs.</td>
-                <td data-label="Who already offers it">Wayground, sharing with colleagues in the same school or district (<a href="https://help.wayground.com/support/solutions/articles/158000405117-share-access-with-teachers-collaborators" target="_blank" rel="noopener">Wayground Help</a>). Kahoot EDU team workspaces (<a href="https://kahoot.com/schools/edu-school-and-district/" target="_blank" rel="noopener">Kahoot</a>). Gimkit's School Library (<a href="https://help.gimkit.com/en/article/school-library-8ntdgf/" target="_blank" rel="noopener">Gimkit Help</a>). Nearpod, shared school and district libraries (<a href="https://nearpod.com/pricing" target="_blank" rel="noopener">Nearpod</a>).</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="build-music" class="prose" aria-labelledby="build-music-h">
-      <h2 id="build-music-h">Only we can build these.</h2>
-      <p>These ideas need a library of songs, games played inside the music and per-student data in one place. That combination is ours. Each one builds on what the research supports best: practice that makes students pull words and facts back out of memory (<a href="https://doi.org/10.1007/s10648-021-09595-9" target="_blank" rel="noopener">Agarwal, Nunes &amp; Blunt, 2021</a>).</p>
-      <ul class="idea-cards" aria-label="Music-native features">
-        <li class="idea">
-          <h3 id="build-recall-checks">Recall checks</h3>
-          <p>We play a line from the jam with the key word muted. Students sing it or type it. It takes two minutes, and it shows teachers what stuck. That's proof of learning, not just time spent playing.</p>
-          <p class="idea-label">Who is close</p>
-          <p class="idea-close">Flocabulary ends each lesson with a text quiz (<a href="https://www.flocabulary.com/how-it-works/" target="_blank" rel="noopener">Flocabulary</a>). We didn't find a rival that checks recall against the song itself.</p>
-        </li>
-        <li class="idea">
-          <h3 id="build-genre-remix">Genre remix</h3>
-          <p>This is what "Remix styles" on our Pricing page will mean (<a href="https://jamwise.com/pricing" target="_blank" rel="noopener">Pricing</a>): the same jam in a new style, like pop, country or hip-hop, so a class can hear it again without it getting old. We'll keep the words and the tune and change the sound around them, because recall gains are strongest when the melody repeats (<a href="https://doi.org/10.1037/0278-7393.20.6.1471" target="_blank" rel="noopener">Wallace, 1994</a>).</p>
-          <p class="idea-label">Who is close</p>
-          <p class="idea-close">We didn't find a rival that remixes its own curriculum songs.</p>
-        </li>
-        <li class="idea">
-          <h3 id="build-verse-writing">Student verse writing</h3>
-          <p>Students write their own verse to a jam's beat. Teachers approve every verse before classmates see it, and we filter out names and personal details, so it's safe for students under 13. An approved verse can become a fill-in-the-blank round for the class.</p>
-          <p class="idea-label">Who is close</p>
-          <p class="idea-close">Flocabulary's Lyric Lab lets students write rhymes over a beat (<a href="https://www.flocabulary.com/how-it-works/" target="_blank" rel="noopener">Flocabulary</a>). Ours pairs writing with our games. General AI music tools like Suno bar users under 13 (<a href="https://suno.com/legal/terms" target="_blank" rel="noopener">Suno Terms</a>).</p>
-        </li>
-        <li class="idea">
-          <h3 id="build-move-mode">Move mode for K-2</h3>
-          <p>Simple moves set to the jams young students are already learning. A brain break that also reviews the lesson.</p>
-          <p class="idea-label">Who is close</p>
-          <p class="idea-close">GoNoodle is the classroom favorite for movement breaks, "designed with K-5 classrooms in mind" (<a href="https://support.gonoodle.com/article/241-what-is-gonoodle" target="_blank" rel="noopener">GoNoodle</a>). Its focus is movement and mindfulness, not our curriculum songs.</p>
-        </li>
-        <li class="idea">
-          <h3 id="build-spanish">Spanish and English-learner versions</h3>
-          <p>Spanish versions of our core jams, plus support for English learners: a slower vocal track, lyrics on screen and glossary terms with simple definitions.</p>
-          <p class="idea-label">Who is close</p>
-          <p class="idea-close">Flocabulary added Spanish math lessons in March 2026 (<a href="https://blog.flocabulary.com/flocabulary-espanol-math-is-here/" target="_blank" rel="noopener">Flocabulary blog</a>), and its plans page now lists Flocabulary Espa&ntilde;ol K-8 lessons (<a href="https://www.flocabulary.com/plans/" target="_blank" rel="noopener">Flocabulary</a>).</p>
-        </li>
-        <li class="idea">
-          <h3 id="build-safe-custom">Safe custom jams</h3>
-          <p>A teacher's custom jam goes through an accuracy review and the teacher's own approval before any student hears it. Our Terms already say AI content is reviewed but can't be guaranteed error-free (<a href="https://jamwise.com/terms" target="_blank" rel="noopener">Terms</a>). A visible review step turns that warning into a promise teachers can see.</p>
-          <p class="idea-label">Who is close</p>
-          <p class="idea-close">MagicSchool makes sung, curriculum-aligned songs in under a minute (company claim; <a href="https://www.magicschool.ai/blog-posts/whats-new-april-2026" target="_blank" rel="noopener">MagicSchool</a>), on a platform with a free teacher plan (<a href="https://www.magicschool.ai/pricing" target="_blank" rel="noopener">MagicSchool pricing</a>). This is our answer: a song we stand behind.</p>
-        </li>
-      </ul>
-    </section>
-
-    <section id="build-growth" class="prose" aria-labelledby="build-growth-h">
-      <h2 id="build-growth-h">Growth: get jams in front of more teachers and families.</h2>
-      <p>Distribution is our biggest risk. These three ideas cost little and each one feeds the free plan.</p>
-      <ul class="idea-cards plain" aria-label="Growth ideas">
-        <li class="idea">
-          <h3 id="build-tpt">Free lyric sheets on Teachers Pay Teachers</h3>
-          <p>Free printable lyric sheets and worksheets for our most popular jams, posted where teachers already shop. Each sheet works on its own and links only to the free song it goes with. TPT's rules say the site shouldn't be used to drive traffic to another business, and a resource can't require an account elsewhere (<a href="https://help.teacherspayteachers.com/hc/en-us/articles/360042626591-What-are-TPT-s-Seller-Guidelines" target="_blank" rel="noopener">TPT Seller Guidelines</a>; <a href="https://help.teacherspayteachers.com/hc/en-us/articles/360043004671-Is-it-ok-to-include-hyperlinks-or-QR-codes-to-other-websites-in-my-resources-What-about-embedded-videos" target="_blank" rel="noopener">TPT Help</a>). We'll keep our links inside those rules.</p>
-        </li>
-        <li class="idea">
-          <h3 id="build-family-link">Class jam of the week</h3>
-          <p>A weekly family link to the jam the class is learning. No student account, no sign-in and no tracking. California's SOPIPA bars using data from a school product to target ads at students or families (<a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&amp;sectionNum=22584" target="_blank" rel="noopener">Cal. Bus. &amp; Prof. Code &sect;22584</a>), so the link carries no student data at all.</p>
-        </li>
-        <li class="idea">
-          <h3 id="build-pilot-evidence">Pilot-ready evidence</h3>
-          <p>Recall checks built in at the start and end of a unit, so a partner school can run a pilot that builds toward ESSA Tier III. That tier needs a well-designed correlational study with statistical controls for selection bias (<a href="https://www.law.cornell.edu/uscode/text/20/7801" target="_blank" rel="noopener">20 U.S.C. 7801(21)</a>; <a href="https://www.ed.gov/sites/ed/files/policy/elsec/leg/essa/guidanceuseseinvestment.pdf" target="_blank" rel="noopener">U.S. Department of Education guidance</a>).</p>
-        </li>
-      </ul>
-    </section>
-
-    <section id="build-site-fixes" class="prose" aria-labelledby="build-site-fixes-h">
-      <h2 id="build-site-fixes-h">Quick fixes on our site.</h2>
-      <p>These take days, not months, and they protect trust before anyone tries a game. The full list, with what each page says today, is in <a href="#site-inconsistencies">Our site should tell one story</a> on the Competitive analysis tab.</p>
-      <ul>
-        <li>Make every page agree on the game count, the Premium price and the schools email address.</li>
-        <li>Fix the glossary grade counts so they add up to the subject totals, or say plainly that some terms repeat across grades.</li>
-        <li>Choose one launch status: a waitlist or open sign-up. Then make every button say what it does.</li>
-      </ul>
-    </section>
-
-    <section id="build-start" class="prose" aria-labelledby="build-start-h">
-      <h2 id="build-start-h">Where we'll start.</h2>
-      <ol class="steps">
-        <li><strong>Polish the games</strong>Every game mode runs smoothly end to end on phones and desktops before we add new ones.</li>
-        <li><strong>Recall checks and glossary flashcards</strong>They prove learning, and they use what only we have: the songs, the games played inside them and 1,801 K-8 terms with grade-level definitions.</li>
-        <li><strong>School sign-in and privacy paperwork</strong>When we're ready to sell to districts, these open the door. We'll start them early enough to be ready for that first review.</li>
-      </ol>
-    </section>
-
-    <section id="build-sources" aria-labelledby="build-sources-h">
-      <h2 id="build-sources-h">Sources for this tab</h2>
-      <p style="max-width:var(--measure)">Competitor features were checked on each company's own site on October 11, 2026. Links open in a new tab. Sources are listed in order of first citation, with our own pages at the end.</p>
-      <ol class="sources-list">
-        <li><a href="https://www.clever.com/products/sso" target="_blank" rel="noopener">Single sign-on for schools</a>. Clever (company page), viewed October 11, 2026. <span class="src-host">clever.com</span></li>
-        <li><a href="https://www.classlink.com/" target="_blank" rel="noopener">ClassLink</a>. ClassLink (company page), viewed October 11, 2026. <span class="src-host">classlink.com</span></li>
-        <li><a href="https://wayground.com/home/integrations" target="_blank" rel="noopener">Integrations</a>. Wayground (company page), viewed October 11, 2026. <span class="src-host">wayground.com</span></li>
-        <li><a href="https://nearpod.com/pricing" target="_blank" rel="noopener">Pricing</a>. Nearpod (company page), viewed October 10, 2026. <span class="src-host">nearpod.com</span></li>
-        <li><a href="https://www.flocabulary.com/plans/" target="_blank" rel="noopener">Choose the plan that's right for you (Lite, Plus for schools and districts)</a>. Flocabulary (company page), viewed October 11, 2026. <span class="src-host">flocabulary.com</span></li>
-        <li><a href="https://www.magicschool.ai/integrations" target="_blank" rel="noopener">Integrations</a>. MagicSchool (company page), viewed October 11, 2026. <span class="src-host">magicschool.ai</span></li>
-        <li><a href="https://knowt.com/plans?tab=teachers" target="_blank" rel="noopener">Plans (Teachers tab)</a>. Knowt (company page), viewed October 11, 2026. <span class="src-host">knowt.com</span></li>
-        <li><a href="https://marketbrief.edweek.org/education-market/what-makes-schools-keep-or-cut-ed-tech-tools/2026/05" target="_blank" rel="noopener">What Makes Schools Keep, or Cut, Ed-Tech Tools?</a> EdWeek Market Brief, May 15, 2026. <span class="src-host">marketbrief.edweek.org</span></li>
-        <li><a href="https://wayground.com/home/plans" target="_blank" rel="noopener">Plans</a>. Wayground (company page), viewed October 11, 2026. <span class="src-host">wayground.com</span></li>
-        <li><a href="https://www.magicschool.ai/faq" target="_blank" rel="noopener">FAQ</a>. MagicSchool (company page), viewed October 11, 2026. <span class="src-host">magicschool.ai</span></li>
-        <li><a href="https://knowt.com/schools/bulk-pricing" target="_blank" rel="noopener">School bulk pricing</a>. Knowt (company page), viewed October 11, 2026. <span class="src-host">knowt.com</span></li>
-        <li><a href="https://kahoot.com/schools/edu-school-and-district/" target="_blank" rel="noopener">Kahoot! EDU for school and district</a>. Kahoot! (company page), viewed October 10, 2026. <span class="src-host">kahoot.com</span></li>
-        <li><a href="https://help.blooket.com/hc/en-us/articles/35972464206103-Group-Plan-Reports-Overview" target="_blank" rel="noopener">Group Plan Reports Overview</a>. Blooket Help (company), viewed October 11, 2026. <span class="src-host">help.blooket.com</span></li>
-        <li><a href="https://www.ada.gov/resources/2024-03-08-web-rule/" target="_blank" rel="noopener">Fact Sheet: New Rule on the Accessibility of Web Content and Mobile Apps</a>. ADA.gov, U.S. Department of Justice. <span class="src-host">ada.gov</span></li>
-        <li><a href="https://www.federalregister.gov/documents/2026/04/20/2026-07663/extension-of-compliance-dates-for-nondiscrimination-on-the-basis-of-disability-accessibility-of-web" target="_blank" rel="noopener">Extension of Compliance Dates for Nondiscrimination on the Basis of Disability; Accessibility of Web Information and Services (interim final rule)</a>. Federal Register, April 20, 2026. <span class="src-host">federalregister.gov</span></li>
-        <li><a href="https://blog.flocabulary.com/a-guide-to-teaching-literacy-across-the-curriculum/" target="_blank" rel="noopener">A guide to teaching literacy across the curriculum</a>. Flocabulary blog (company), April 3, 2025. <span class="src-host">blog.flocabulary.com</span></li>
-        <li><a href="https://wayground.com/home/accommodations" target="_blank" rel="noopener">Accommodations</a>. Wayground (company page), viewed October 11, 2026. <span class="src-host">wayground.com</span></li>
-        <li><a href="https://trust.kahoot.com/" target="_blank" rel="noopener">Kahoot! Trust Center</a>. Kahoot! (company page), viewed October 11, 2026. <span class="src-host">trust.kahoot.com</span></li>
-        <li><a href="https://nearpod.com/blog/nearpod-updates/" target="_blank" rel="noopener">Nearpod updates (closed captions in all teaching modes)</a>. Nearpod blog (company), September 24, 2020. <span class="src-host">nearpod.com</span></li>
-        <li><a href="https://nearpod.com/blog/text-to-speech-immersive-reader/" target="_blank" rel="noopener">Text to speech with Immersive Reader</a>. Nearpod blog (company), February 7, 2023. <span class="src-host">nearpod.com</span></li>
-        <li><a href="https://www.federalregister.gov/documents/2025/04/22/2025-05904/childrens-online-privacy-protection-rule" target="_blank" rel="noopener">Children's Online Privacy Protection Rule (final rule)</a>. Federal Register, April 22, 2025. <span class="src-host">federalregister.gov</span></li>
-        <li><a href="https://privacy.a4l.org/national-dpa/" target="_blank" rel="noopener">National Data Privacy Agreement (NDPA)</a>. Student Data Privacy Consortium, Access 4 Learning Community, viewed October 11, 2026. <span class="src-host">privacy.a4l.org</span></li>
-        <li><a href="https://privacy.commonsense.org/" target="_blank" rel="noopener">Common Sense Privacy Program</a>. Common Sense Media, viewed October 11, 2026. <span class="src-host">privacy.commonsense.org</span></li>
-        <li><a href="https://www.magicschool.ai/privacy/trust" target="_blank" rel="noopener">Trust and privacy</a>. MagicSchool (company page), viewed October 11, 2026. <span class="src-host">magicschool.ai</span></li>
-        <li><a href="https://www.magicschool.ai/blog-posts/magicschool-privacy-rating" target="_blank" rel="noopener">MagicSchool privacy rating (Common Sense Privacy Program)</a>. MagicSchool blog (company), March 19, 2026. <span class="src-host">magicschool.ai</span></li>
-        <li><a href="https://wayground.com/home/security" target="_blank" rel="noopener">Wayground Security Center</a>. Wayground (company page), viewed October 11, 2026. <span class="src-host">wayground.com</span></li>
-        <li><a href="https://developers.google.com/workspace/classroom/add-ons/walkthroughs/grade-passback" target="_blank" rel="noopener">Classroom add-ons: grade passback</a>. Google for Developers, viewed October 11, 2026. <span class="src-host">developers.google.com</span></li>
-        <li><a href="https://support.kahoot.com/hc/en-us/articles/9593760308883-Google-Classroom-Kahoot-add-on" target="_blank" rel="noopener">Google Classroom Kahoot! add-on</a>. Kahoot! Help &amp; Resource Center (company), viewed October 10, 2026. <span class="src-host">support.kahoot.com</span></li>
-        <li><a href="https://help.wayground.com/support/solutions/articles/158000404860-wayground-x-google-classroom-integration" target="_blank" rel="noopener">Wayground x Google Classroom integration</a>. Wayground Help (company), viewed October 11, 2026. <span class="src-host">help.wayground.com</span></li>
-        <li><a href="https://help.quizlet.com/hc/en-us/articles/360030874992-Using-Quizlet-classes-with-Google-Classroom" target="_blank" rel="noopener">Using Quizlet classes with Google Classroom</a>. Quizlet Help Center (company), viewed October 11, 2026. <span class="src-host">help.quizlet.com</span></li>
-        <li><a href="https://kahoot.com/schools/plans/" target="_blank" rel="noopener">Plans for teachers</a>. Kahoot! (company page), viewed October 10, 2026. <span class="src-host">kahoot.com</span></li>
-        <li><a href="https://wayground.com/" target="_blank" rel="noopener">Wayground (formerly Quizizz)</a>. Wayground (company page), viewed October 11, 2026. <span class="src-host">wayground.com</span></li>
-        <li><a href="https://www.magicschool.ai/tools/multiple-choice-quiz-assessment" target="_blank" rel="noopener">Multiple choice quiz and assessment tool</a>. MagicSchool (company page), viewed October 11, 2026. <span class="src-host">magicschool.ai</span></li>
-        <li><a href="https://help.knowt.com/en/articles/10722276-teacher-s-guide-to-getting-started" target="_blank" rel="noopener">Teacher's guide to getting started</a>. Knowt Help (company), viewed October 11, 2026. <span class="src-host">help.knowt.com</span></li>
-        <li><a href="https://help.quizlet.com/hc/en-us/articles/25946589648013-Studying-with-Practice-Tests" target="_blank" rel="noopener">Studying with Practice Tests</a>. Quizlet Help Center (company), viewed October 11, 2026. <span class="src-host">help.quizlet.com</span></li>
-        <li><a href="https://nearpod.com/ai" target="_blank" rel="noopener">AI in Nearpod</a>. Nearpod (company page), viewed October 11, 2026. <span class="src-host">nearpod.com</span></li>
-        <li><a href="https://help.quizlet.com/hc/en-us/articles/48324742264077-Studying-with-Spaced-Repetition" target="_blank" rel="noopener">Studying with Spaced Repetition</a>. Quizlet Help Center (company), viewed October 11, 2026. <span class="src-host">help.quizlet.com</span></li>
-        <li><a href="https://help.knowt.com/en/articles/10714645-how-do-i-use-the-spaced-repetition-mode" target="_blank" rel="noopener">How do I use the Spaced Repetition mode?</a> Knowt Help (company), viewed October 11, 2026. <span class="src-host">help.knowt.com</span></li>
-        <li><a href="https://support.kahoot.com/hc/en-us/articles/31566898896029-How-to-learn-and-practice-with-Kahoot-self-study-modes" target="_blank" rel="noopener">How to learn and practice with Kahoot! self-study modes</a>. Kahoot! Help &amp; Resource Center (company), viewed October 11, 2026. <span class="src-host">support.kahoot.com</span></li>
-        <li><a href="https://help.blooket.com/hc/en-us/articles/31650433480343-Game-Overview-Study" target="_blank" rel="noopener">Game Overview: Study</a>. Blooket Help (company), viewed October 11, 2026. <span class="src-host">help.blooket.com</span></li>
-        <li><a href="https://support.kahoot.com/hc/en-us/articles/360039411334-How-to-assign-a-kahoot-in-web-platform" target="_blank" rel="noopener">How to assign a kahoot</a>. Kahoot! Help &amp; Resource Center (company), viewed October 11, 2026. <span class="src-host">support.kahoot.com</span></li>
-        <li><a href="https://help.wayground.com/support/solutions/articles/158000404967-how-do-i-extend-the-deadline-for-an-assigned-homework-game-" target="_blank" rel="noopener">How do I extend the deadline for an assigned homework game?</a> Wayground Help (company), viewed October 11, 2026. <span class="src-host">help.wayground.com</span></li>
-        <li><a href="https://help.blooket.com/hc/en-us/articles/16179771027863-How-to-Assign-Homework-in-Blooket" target="_blank" rel="noopener">How to Assign Homework in Blooket</a>. Blooket Help (company), viewed October 11, 2026. <span class="src-host">help.blooket.com</span></li>
-        <li><a href="https://help.gimkit.com/en/article/create-an-assignment-cr9vnb/" target="_blank" rel="noopener">Create an assignment</a>. Gimkit Help (company), viewed October 11, 2026. <span class="src-host">help.gimkit.com</span></li>
-        <li><a href="https://help.quizlet.com/hc/en-us/articles/39836814088845-Using-Assignments" target="_blank" rel="noopener">Using Assignments</a>. Quizlet Help Center (company), viewed October 11, 2026. <span class="src-host">help.quizlet.com</span></li>
-        <li><a href="https://help.wayground.com/support/solutions/articles/158000405117-share-access-with-teachers-collaborators" target="_blank" rel="noopener">Share access with teachers (collaborators)</a>. Wayground Help (company), viewed October 11, 2026. <span class="src-host">help.wayground.com</span></li>
-        <li><a href="https://help.gimkit.com/en/article/school-library-8ntdgf/" target="_blank" rel="noopener">School Library</a>. Gimkit Help (company), viewed October 11, 2026. <span class="src-host">help.gimkit.com</span></li>
-        <li><a href="https://doi.org/10.1007/s10648-021-09595-9" target="_blank" rel="noopener">Agarwal, Nunes and Blunt, "Retrieval practice consistently benefits student learning: A systematic review of applied research in schools and classrooms"</a>. Educational Psychology Review, 33(4), 2021. <span class="src-host">doi.org</span></li>
-        <li><a href="https://www.flocabulary.com/how-it-works/" target="_blank" rel="noopener">How it works</a>. Flocabulary (company page), viewed October 10, 2026. <span class="src-host">flocabulary.com</span></li>
-        <li><a href="https://doi.org/10.1037/0278-7393.20.6.1471" target="_blank" rel="noopener">Wallace, "Memory for music: Effect of melody on recall of text"</a>. Journal of Experimental Psychology: Learning, Memory, and Cognition, 20(6), 1994. <span class="src-host">doi.org</span></li>
-        <li><a href="https://suno.com/legal/terms" target="_blank" rel="noopener">Terms of Service (revised August 10, 2026; effective September 3, 2026)</a>. Suno. <span class="src-host">suno.com</span></li>
-        <li><a href="https://support.gonoodle.com/article/241-what-is-gonoodle" target="_blank" rel="noopener">What is GoNoodle?</a> GoNoodle Support (company), viewed October 11, 2026. <span class="src-host">support.gonoodle.com</span></li>
-        <li><a href="https://blog.flocabulary.com/flocabulary-espanol-math-is-here/" target="_blank" rel="noopener">Flocabulary Espa&ntilde;ol Math Is Here</a>. Flocabulary blog (company), March 16, 2026. <span class="src-host">blog.flocabulary.com</span></li>
-        <li><a href="https://www.magicschool.ai/blog-posts/whats-new-april-2026" target="_blank" rel="noopener">April 2026 MagicDrop (Educational Song Generator)</a>. MagicSchool (company product update, company claims), April 10, 2026. <span class="src-host">magicschool.ai</span></li>
-        <li><a href="https://www.magicschool.ai/pricing" target="_blank" rel="noopener">Pricing</a>. MagicSchool (company page), viewed October 10, 2026. <span class="src-host">magicschool.ai</span></li>
-        <li><a href="https://help.teacherspayteachers.com/hc/en-us/articles/360042626591-What-are-TPT-s-Seller-Guidelines" target="_blank" rel="noopener">What are TPT's Seller Guidelines?</a> Teachers Pay Teachers Help Center, viewed October 11, 2026. <span class="src-host">help.teacherspayteachers.com</span></li>
-        <li><a href="https://help.teacherspayteachers.com/hc/en-us/articles/360043004671-Is-it-ok-to-include-hyperlinks-or-QR-codes-to-other-websites-in-my-resources-What-about-embedded-videos" target="_blank" rel="noopener">Is it ok to include hyperlinks or QR codes to other websites in my resources?</a> Teachers Pay Teachers Help Center, viewed October 11, 2026. <span class="src-host">help.teacherspayteachers.com</span></li>
-        <li><a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&amp;sectionNum=22584" target="_blank" rel="noopener">California Business and Professions Code &sect;22584 (SOPIPA)</a>. California Legislative Information. <span class="src-host">leginfo.legislature.ca.gov</span></li>
-        <li><a href="https://www.law.cornell.edu/uscode/text/20/7801" target="_blank" rel="noopener">20 U.S. Code &sect;7801, Definitions (ESEA &sect;8101(21), "evidence-based")</a>. Legal Information Institute, Cornell Law School. <span class="src-host">law.cornell.edu</span></li>
-        <li><a href="https://www.ed.gov/sites/ed/files/policy/elsec/leg/essa/guidanceuseseinvestment.pdf" target="_blank" rel="noopener">Non-Regulatory Guidance: Using Evidence to Strengthen Education Investments</a>. U.S. Department of Education, revised September 28, 2023. <span class="src-host">ed.gov</span></li>
-        <li><a href="https://jamwise.com/for-teachers" target="_blank" rel="noopener">For Teachers</a>. JamWise, checked October 10, 2026. <span class="src-host">jamwise.com</span></li>
-        <li><a href="https://jamwise.com/pricing" target="_blank" rel="noopener">Pricing (Monthly and Annual options, FAQ)</a>. JamWise, checked October 10, 2026. <span class="src-host">jamwise.com</span></li>
-        <li><a href="https://jamwise.com/glossary" target="_blank" rel="noopener">K-8 Vocabulary Glossary</a>. JamWise, checked October 10, 2026. <span class="src-host">jamwise.com</span></li>
-        <li><a href="https://jamwise.com/terms" target="_blank" rel="noopener">Terms of Service</a>. JamWise, checked October 10, 2026. <span class="src-host">jamwise.com</span></li>
-      </ol>
-    </section>
-
-  </div>
-</div>
-</main>
 
 <footer class="site-footer">
   <p>Figures reflect public sources as of October 10, 2026.</p>
@@ -1612,88 +1275,11 @@ html:not(.js) .tabpanel + .tabpanel { border-top: 3px solid var(--accent-line); 
 
 <script>
 (function () {
-  var root = document.documentElement;
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
-  var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
-  var bar = document.querySelector('.tabbar-wrap');
-  if (!tabs.length) return;
-  function setBarHeight() { if (bar && bar.offsetHeight) root.style.setProperty('--tabbar-h', bar.offsetHeight + 'px'); }
-  function panelOf(el) {
-    while (el && el !== document) { if (el.getAttribute && el.getAttribute('role') === 'tabpanel') return el; el = el.parentNode; }
-    return null;
-  }
-  function select(i) {
-    tabs.forEach(function (t, j) {
-      var on = i === j;
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-      t.tabIndex = on ? 0 : -1;
-      panels[j].hidden = !on;
-    });
-  }
-  function scrollTo(el, instant) {
-    try { el.scrollIntoView({ block: 'start', behavior: instant ? 'instant' : 'auto' }); } catch (e) { el.scrollIntoView(true); }
-  }
-  // Open the panel that holds the element with this id, then scroll to it.
-  function reveal(id, instant) {
-    var el = id && document.getElementById(id);
-    var p = el && panelOf(el);
-    if (!p) return false;
-    select(panels.indexOf(p));
-    scrollTo(el, instant);
-    return true;
-  }
-  function activate(i, focus) {
-    var wasHidden = panels[i].hidden;
-    select(i);
-    if (focus) tabs[i].focus();
-    if (history.replaceState) history.replaceState(null, '', '#' + panels[i].id);
-    if (wasHidden && panels[i].getBoundingClientRect().top < 0) scrollTo(panels[i], true);
-  }
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { activate(i, false); });
-    t.addEventListener('keydown', function (e) {
-      var n = tabs.length, k = e.key, j = null;
-      if (k === 'ArrowRight' || k === 'ArrowDown') j = (i + 1) % n;
-      else if (k === 'ArrowLeft' || k === 'ArrowUp') j = (i - 1 + n) % n;
-      else if (k === 'Home') j = 0;
-      else if (k === 'End') j = n - 1;
-      if (j === null) return;
-      e.preventDefault();
-      activate(j, true);
-    });
-  });
-  // In-page links that point into the hidden panel switch tabs first.
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
-    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    var id = decodeURIComponent(a.getAttribute('href').slice(1));
-    var el = id && document.getElementById(id);
-    var p = el && panelOf(el);
-    if (!p || !p.hidden) return;
-    e.preventDefault();
-    reveal(id, true);
-    if (history.pushState) history.pushState(null, '', '#' + id);
-  });
-  function sync() {
-    var id = decodeURIComponent(location.hash.slice(1));
-    var el = id && document.getElementById(id);
-    var p = el && panelOf(el);
-    if (p && p.hidden) reveal(id, true);
-  }
-  window.addEventListener('hashchange', sync);
-  window.addEventListener('popstate', sync);
-  window.addEventListener('resize', setBarHeight);
-  var start = decodeURIComponent(location.hash.slice(1));
-  if (!reveal(start, true)) select(0);
-  root.classList.add('tabs-ready');
-  setBarHeight();
-})();
-(function () {
   if (!('IntersectionObserver' in window)) return;
   var links = document.querySelectorAll('.toc a[href^="#"]');
   var map = {};
   links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
-  var sections = Array.prototype.filter.call(document.querySelectorAll('.panel-body > section[id]'), function (s) { return map[s.id]; });
+  var sections = Array.prototype.filter.call(document.querySelectorAll('main > section[id]'), function (s) { return map[s.id]; });
   var visible = {};
   function update() {
     var current = null;
