@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { color-scheme: light; }
+body { margin: 0; font-size: 14px; -webkit-text-size-adjust: 100%; }
+h1, h2, h3, p, pre { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<title>Sketchie Launch Tickets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one working column; a people-by-day board up top, then each epic as a ticket list you can copy from. */
+:root {
+  --bg: #F6F5FA; --surface: #FFFFFF; --ink: #1C1A2E; --muted: #5D5A75; --line: #E2E0EC;
+  --accent: #5341D6; --accent-soft: #ECE9FD; --l2: #0E6F6B; --l2-soft: #DCF1EF;
+  --warn: #9A4A06; --warn-soft: #FCEEDC; --today: #FFF6D6;
+  --sans: 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #14131D; --surface: #1D1C2A; --ink: #ECEAF6; --muted: #A6A3BE; --line: #302E45;
+  --accent: #A69BFF; --accent-soft: #2A2652; --l2: #5CCFC6; --l2-soft: #173836;
+  --warn: #F2AE62; --warn-soft: #3B2A16; --today: #2E2A17; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #14131D; --surface: #1D1C2A; --ink: #ECEAF6; --muted: #A6A3BE; --line: #302E45;
+  --accent: #A69BFF; --accent-soft: #2A2652; --l2: #5CCFC6; --l2-soft: #173836;
+  --warn: #F2AE62; --warn-soft: #3B2A16; --today: #2E2A17; color-scheme: dark }
+
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.5; padding: 32px 20px 64px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; }
+h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+h2 { font-size: 21px; font-weight: 600; }
+h3 { font-size: 15px; font-weight: 600; }
+.lede { color: var(--muted); max-width: 66ch; font-size: 16px; }
+.mono { font-family: var(--mono); font-size: 13px; }
+.label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+header { display: flex; flex-direction: column; gap: 12px; }
+.flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+.flow span.step { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; color: var(--ink); }
+.flow span.qa { border-style: dashed; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); padding-block: 10px; z-index: 5; border-bottom: 1px solid var(--line); }
+.filters button { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.filters button:focus-visible, .btn:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+section { display: flex; flex-direction: column; gap: 16px; }
+.sec-head { display: flex; flex-direction: column; gap: 4px; }
+
+/* Board */
+.board-scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.board { min-width: 1080px; display: grid; grid-template-columns: 150px 1fr; }
+.days { display: grid; grid-template-columns: repeat(14, 1fr); }
+.days div { font-size: 12px; color: var(--muted); padding: 8px 4px; text-align: center; border-left: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.days div.wk { border-left: 2px solid var(--ink); }
+.days div.is-today { background: var(--today); color: var(--ink); font-weight: 600; }
+.weeks { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+.weeks div { font-size: 12px; font-weight: 600; padding: 8px 10px; }
+.weeks div:first-child { color: var(--accent); background: var(--accent-soft); }
+.weeks div:last-child { color: var(--l2); background: var(--l2-soft); border-left: 2px solid var(--ink); }
+.who { padding: 10px 12px; border-top: 1px solid var(--line); font-weight: 600; font-size: 14px; display: flex; flex-direction: column; gap: 2px; }
+.who small { font-weight: 400; color: var(--muted); font-size: 12px; }
+.who.unnamed { color: var(--warn); }
+.lane { border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(14, 1fr); grid-auto-flow: row dense; gap: 4px 0; padding: 6px 0; position: relative;
+  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px); background-size: calc(100% / 14) 100%; }
+.chip { align-self: start; overflow-wrap: anywhere; margin: 0 3px; border-radius: 6px; padding: 4px 6px; font-size: 12px; line-height: 1.3; text-decoration: none; color: var(--ink); min-width: 0; overflow: hidden; display: flex; flex-direction: column; }
+.chip b { font-family: var(--mono); font-weight: 500; font-size: 11px; }
+.chip.L1 { background: var(--accent-soft); } .chip.L1 b { color: var(--accent); }
+.chip.L2 { background: var(--l2-soft); } .chip.L2 b { color: var(--l2); }
+.chip:hover { outline: 1px solid var(--ink); }
+
+/* Epics and tickets */
+.epic { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.epic-top { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; justify-content: space-between; }
+.epic-title { display: flex; flex-direction: column; gap: 4px; }
+.epic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; }
+.epic-grid p { color: var(--muted); max-width: 60ch; }
+.replaces { font-size: 13px; color: var(--muted); }
+.tickets { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.ticket { display: grid; grid-template-columns: 76px minmax(0, 1fr) 150px 120px 72px; gap: 8px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: start; scroll-margin-top: 72px; }
+.ticket:target { background: var(--today); }
+.ticket .id { font-family: var(--mono); font-size: 13px; padding-top: 1px; }
+.ticket.L1 .id { color: var(--accent); } .ticket.L2 .id { color: var(--l2); }
+.body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.done { color: var(--muted); max-width: 64ch; }
+.done strong { color: var(--ink); font-weight: 600; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: var(--muted); align-items: center; }
+.tag { border: 1px solid var(--line); border-radius: 5px; padding: 0 6px; font-size: 12px; color: var(--muted); text-decoration: none; }
+a.tag { font-family: var(--mono); color: var(--ink); }
+.tag.qa { border-style: dashed; }
+.tag.exist { background: var(--bg); }
+.owner { font-size: 14px; font-weight: 500; }
+.owner.unnamed { color: var(--warn); }
+.due { font-size: 14px; font-variant-numeric: tabular-nums; }
+.btn { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.btn:hover { border-color: var(--ink); }
+details.asana { grid-column: 2 / -1; }
+details.asana summary { font-size: 13px; color: var(--muted); cursor: pointer; }
+details.asana pre { margin-top: 8px; white-space: pre-wrap; font-family: var(--mono); font-size: 12.5px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 12px; }
+
+table.ex { width: 100%; border-collapse: collapse; background: var(--surface); }
+.ex-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+table.ex th, table.ex td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 14px; }
+table.ex th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+table.ex td:first-child { font-weight: 500; min-width: 240px; }
+table.ex td.now { color: var(--muted); white-space: nowrap; }
+table.ex tr:last-child td { border-bottom: none; }
+.hidden-by-filter { display: none !important; }
+
+@media (max-width: 760px) {
+  body { padding: 20px 16px 48px; }
+  h1 { font-size: 26px; }
+  .epic-grid { grid-template-columns: 1fr; }
+  .ticket { grid-template-columns: 64px minmax(0, 1fr); }
+  .ticket .owner, .ticket .due { grid-column: 2; }
+  .ticket .copy { grid-column: 2; justify-self: start; }
+  details.asana { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="label">Sketchie · Asana board</span>
+    <h1>Sketchie Launch Tickets</h1>
+    <p class="lede">Launch is Monday, October 19. All launch work sits in two epics, named the same way as E1 to E7. Each of the 25 tickets has one owner, one date, and one line that says when it's done.</p>
+    <div class="flow" aria-label="How a ticket moves on the board">
+      <span>How a ticket moves:</span>
+      <span class="step">📐 Planning</span>→<span class="step">📋 Ready</span>→<span class="step">🔧 In Progress</span>→<span class="step qa">🧪 Ready for QA</span>→<span class="step qa">In QA</span>→<span class="step">✅ Completed</span>
+      <span>· Dashed steps apply only to Andi's build tickets, which Olu tests.</span>
+    </div>
+  </header>
+
+  <nav class="filters" id="filters" aria-label="Show tickets for"></nav>
+
+  <section aria-labelledby="board-h">
+    <div class="sec-head">
+      <h2 id="board-h">Who does what, when</h2>
+      <p class="lede">Each box sits on its due date. Long boxes repeat every day. Select one to jump to the ticket.</p>
+    </div>
+    <div class="board-scroll"><div class="board" id="board"></div></div>
+  </section>
+
+  <div id="epics" style="display:flex;flex-direction:column;gap:40px"></div>
+
+  <section aria-labelledby="ex-h">
+    <div class="sec-head">
+      <h2 id="ex-h">Tickets already on the board</h2>
+      <p class="lede">These exist today. Reuse them instead of making duplicates.</p>
+    </div>
+    <div class="ex-wrap"><table class="ex"><thead><tr><th>Ticket</th><th>Now</th><th>What changes</th></tr></thead><tbody id="ex"></tbody></table></div>
+  </section>
+</div>
+
+<script>
+const DATA = {"people": {"rikuo": "Rikuo Koizumi", "olu": "Olumurewa Olubela", "mahir": "Mahir Galoriya", "andi": "Andi Maulana", "alex": "Alex Chernigov", "out": "Outreach owner (named in L1-T01)"}, "epics": [{"id": "L1", "name": "Launch Prep", "range": "Oct 12 to 18", "owner": "rikuo", "due": "2026-10-18", "replaces": "Launch readiness: reconcile mock release and October 19 target", "purpose": "Have everything Sketchie needs on launch day ready by Sunday night, October 18.", "outcome": "Credits pricing is final, the landing page shows it, signup works end to end, we can see where users come from, and a week of posts and outreach material is ready.", "out": "Product Hunt and Hacker News launch, cold email, new engine features, Team plan.", "exit": "On Sun Oct 18, Olu signs up, makes a video, changes one scene, makes a second video and upgrades on the live site, and the dashboard shows that test user with the link they came from."}, {"id": "L2", "name": "Launch Week", "range": "Oct 19 to 25", "owner": "rikuo", "due": "2026-10-25", "replaces": "GTM: confirm content, influencer and agency outreach plan", "purpose": "Put Sketchie in front of the right people every day for 7 days and learn who comes back for a second video.", "outcome": "7 posts published, about 110 people contacted personally, 5 user interviews done, and a week-one scorecard split by audience.", "out": "Paid ads, Product Hunt, cold email, agency outreach.", "exit": "Week-one scorecard shared before the Mon Oct 26 sync, showing signups, first videos, second videos and paid users by audience."}], "tickets": [{"id": "L1-T01", "epic": "L1", "short": "Name outreach owner", "title": "Name the launch-week outreach owner", "owner": "rikuo", "dates": [["2026-10-13", "2026-10-13"]], "done": "One person is named in this ticket and assigned to L1-T15 and L2-T03.", "needs": [], "notes": "Decide with Mahir. Until this is done, about 110 personal messages in launch week have no sender.", "existing": null, "help": null, "qa": false}, {"id": "L1-T02", "epic": "L1", "short": "Final credits pricing", "title": "Final credits pricing", "owner": "mahir", "dates": [["2026-10-14", "2026-10-14"]], "done": "One table lists credits per plan, price per plan, and what the free plan gives. Everyone quotes this table.", "needs": [], "notes": "Manuel approves. Everything on the landing page waits for this.", "existing": "Define Sketchie launch scenarios and a cost-backed credit pricing proposal", "help": "Alex's cost report (Measure V6 generation and edit costs) reviewed first", "qa": false}, {"id": "L1-T03", "epic": "L1", "short": "Mark launch-blocking bugs", "title": "Mark which open bugs must be fixed before launch", "owner": "mahir", "dates": [["2026-10-14", "2026-10-14"]], "done": "Every open bug in Ready and In Progress is marked Before launch or After launch, and each Before launch bug has a date from Andi.", "needs": [], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L1-T04", "epic": "L1", "short": "Pick playbook strategies", "title": "Pick 3 to 5 strategies from Baran's GTM playbook", "owner": "olu", "dates": [["2026-10-14", "2026-10-14"]], "done": "3 to 5 picks are linked here, each with a short to-do list. Rikuo turns any that fit launch week into L2 tickets.", "needs": [], "notes": "Pick low effort, high result, and only what works with videos Sketchie can make today.", "existing": null, "help": null, "qa": false}, {"id": "L1-T05", "epic": "L1", "short": "Landing page plan", "title": "Write the landing page plan", "owner": "rikuo", "dates": [["2026-10-15", "2026-10-15"]], "done": "A one-page plan lists each section in order, its wording, the credits pricing table and the Get started free button. It is attached to L1-T06.", "needs": ["L1-T02"], "notes": "Use Lamina Labs only for layout and section order. Never their wording or claims, and don't name them on the page.", "existing": null, "help": null, "qa": false}, {"id": "L1-T06", "epic": "L1", "short": "Build landing page", "title": "Build and publish the new landing page", "owner": "andi", "dates": [["2026-10-17", "2026-10-17"]], "done": "The new page is live, the signup button works, and no page on the site mentions minutes as the price.", "needs": ["L1-T05"], "notes": "This is the landing page ticket agreed on the Oct 9 call. Same no-minutes rule as E5-T05.", "existing": null, "help": null, "qa": true}, {"id": "L1-T07", "epic": "L1", "short": "Final wording check", "title": "Final wording check on the live page", "owner": "rikuo", "dates": [["2026-10-18", "2026-10-18"]], "done": "The live page has no unconfirmed numbers, no made-up reviews or customer logos, no promises about learning results, and no em dashes.", "needs": ["L1-T06"], "notes": "Olu checks with you.", "existing": null, "help": null, "qa": false}, {"id": "L1-T08", "epic": "L1", "short": "Fix launch-blocking bugs", "title": "Fix the Before launch bugs", "owner": "andi", "dates": [["2026-10-17", "2026-10-17"]], "done": "Each bug marked Before launch in L1-T03 is in Ready for QA or has an agreed workaround.", "needs": ["L1-T03"], "notes": "Video quality problems go to Alex, not this ticket.", "existing": null, "help": null, "qa": true}, {"id": "L1-T09", "epic": "L1", "short": "Test full user journey", "title": "Test the full user journey on the live site", "owner": "olu", "dates": [["2026-10-15", "2026-10-15"], ["2026-10-18", "2026-10-18"]], "done": "Sign up, make a video, download it, change one scene, make a second video and upgrade all pass, on Thu Oct 15 and again on Sun Oct 18. Failures are filed as normal bug tickets.", "needs": [], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L1-T10", "epic": "L1", "short": "Track user steps", "title": "Track the key user steps", "owner": "andi", "dates": [["2026-10-17", "2026-10-17"]], "done": "We can count signups, first videos, scene changes, second videos and payments, each with the link the user came from. Signup asks: What will you make first?", "needs": [], "notes": null, "existing": null, "help": null, "qa": true}, {"id": "L1-T11", "epic": "L1", "short": "Dashboard and links", "title": "Launch dashboard and tagged links", "owner": "mahir", "dates": [["2026-10-18", "2026-10-18"]], "done": "One screen shows signups, first videos, second videos and paid users by source. A tagged link exists for LinkedIn, X, Instagram, YouTube and outreach.", "needs": ["L1-T10"], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L1-T12", "epic": "L1", "short": "Social accounts", "title": "Set up Sketchie's social accounts", "owner": "olu", "dates": [["2026-10-15", "2026-10-15"]], "done": "LinkedIn, X and Instagram profiles are complete, linked from the website footer, and connected to a scheduling tool.", "needs": [], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L1-T13", "epic": "L1", "short": "Make 7 launch videos", "title": "Make the 7 launch videos", "owner": "rikuo", "dates": [["2026-10-17", "2026-10-17"]], "done": "7 videos are made in Sketchie, one per post in the launch calendar, and each was watched start to finish.", "needs": [], "notes": "Norj helps. Only show what Sketchie can make today.", "existing": null, "help": null, "qa": false}, {"id": "L1-T14", "epic": "L1", "short": "Write 7 posts", "title": "Write and schedule the 7 launch posts", "owner": "olu", "dates": [["2026-10-17", "2026-10-17"]], "done": "7 captions are written, checked by Rikuo, and scheduled for Oct 19 to 25.", "needs": ["L1-T12", "L1-T13"], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L1-T15", "epic": "L1", "short": "60 prospects", "title": "Build the first 60 outreach prospects", "owner": "out", "dates": [["2026-10-18", "2026-10-18"]], "done": "60 people are listed with name, profile link and what they teach. Course creators and teachers first.", "needs": ["L1-T01"], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L1-T16", "epic": "L1", "short": "Samples and scripts", "title": "Make 18 sample videos and finalize the 3 outreach messages", "owner": "rikuo", "dates": [["2026-10-18", "2026-10-18"]], "done": "18 short videos, each made from one prospect's own lesson, are ready for Day 1 and Day 2. The 3 message scripts quote the free plan exactly as L1-T02 states it.", "needs": ["L1-T02", "L1-T15"], "notes": "Norj helps. Samples stay private to the person.", "existing": null, "help": null, "qa": false}, {"id": "L2-T01", "epic": "L2", "short": "Go-live check", "title": "Go-live check", "owner": "olu", "dates": [["2026-10-19", "2026-10-19"]], "done": "Before the first post goes out, the full journey passes on the live site and a test signup shows on the dashboard.", "needs": [], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L2-T02", "epic": "L2", "short": "Post daily", "title": "Publish one post a day", "owner": "olu", "dates": [["2026-10-19", "2026-10-25"]], "done": "Each scheduled post went out on its day with a real Sketchie video. A link to each post is added as a comment.", "needs": [], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L2-T03", "epic": "L2", "short": "Daily outreach", "title": "Daily personal outreach", "owner": "out", "dates": [["2026-10-19", "2026-10-24"]], "done": "Each day: 8 sample videos sent, 10 free invites, 5 experts asked for feedback. Replies answered within 4 hours, new signups welcomed the same day, daily count posted as a comment.", "needs": ["L1-T15", "L1-T16"], "notes": "Saturday is one follow-up only to people who haven't replied.", "existing": null, "help": null, "qa": false}, {"id": "L2-T04", "epic": "L2", "short": "Next-day samples", "title": "Make tomorrow's sample videos", "owner": "rikuo", "dates": [["2026-10-19", "2026-10-23"]], "done": "8 new sample videos are ready each evening for the next day's outreach.", "needs": [], "notes": "Norj helps.", "existing": null, "help": null, "qa": false}, {"id": "L2-T05", "epic": "L2", "short": "Log failed videos", "title": "Log every failed video", "owner": "olu", "dates": [["2026-10-19", "2026-10-25"]], "done": "A daily comment lists failed videos with the reason. Quality problems go to Alex.", "needs": [], "notes": null, "existing": "V6 quality: share reproducible prompt and output examples with Alex", "help": null, "qa": false}, {"id": "L2-T06", "epic": "L2", "short": "Evening numbers", "title": "Evening numbers check", "owner": "mahir", "dates": [["2026-10-19", "2026-10-25"]], "done": "A one-line daily comment: signups, first videos, second videos, failures.", "needs": [], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L2-T07", "epic": "L2", "short": "5 interviews", "title": "Run 5 user interviews", "owner": "rikuo", "dates": [["2026-10-23", "2026-10-23"]], "done": "5 conversations done, notes attached, each answering: was it good enough, was it easier, what's the next video, would you pay.", "needs": [], "notes": null, "existing": null, "help": null, "qa": false}, {"id": "L2-T08", "epic": "L2", "short": "Friday review", "title": "Friday review: pick 1 or 2 changes", "owner": "rikuo", "dates": [["2026-10-23", "2026-10-23"]], "done": "A Slack update says what we learned and names 1 or 2 changes, each as a new ticket with an owner.", "needs": [], "notes": "Mahir joins.", "existing": null, "help": null, "qa": false}, {"id": "L2-T09", "epic": "L2", "short": "Week-one scorecard", "title": "Week-one scorecard", "owner": "rikuo", "dates": [["2026-10-25", "2026-10-25"]], "done": "Scorecard shared before the Mon Oct 26 sync, split by audience.", "needs": [], "notes": null, "existing": null, "help": null, "qa": false}], "existing": [{"name": "Launch readiness: reconcile mock release and October 19 target", "now": "Planning, no owner", "action": "Rename to EPIC L1 — Launch Prep (Oct 12 to 18). Assign Rikuo, due Oct 18, replace the description with the L1 epic text."}, {"name": "GTM: confirm content, influencer and agency outreach plan", "now": "Planning, no owner", "action": "Rename to EPIC L2 — Launch Week (Oct 19 to 25). Assign Rikuo, due Oct 25, replace the description with the L2 epic text."}, {"name": "Define Sketchie launch scenarios and a cost-backed credit pricing proposal", "now": "Planning, Mahir", "action": "This becomes L1-T02. Make it a subtask of EPIC L1 and set the due date to Wed Oct 14."}, {"name": "Measure V6 generation and edit costs to inform Sketchie credit pricing", "now": "Planning, Alex", "action": "Keep. Mahir reviews what Alex sent on Oct 9 by Tue Oct 13, because L1-T02 waits on it."}, {"name": "V6 quality: share reproducible prompt and output examples with Alex", "now": "In Progress, Olu", "action": "Keep. L2-T05 adds launch-week failures here."}, {"name": "V6 quality: prioritise engine improvements from GTM feedback", "now": "Planning, Rikuo", "action": "Not a launch ticket. Leave it for after Oct 25 unless something blocks a launch post."}, {"name": "V6 testing: run the representative prompt and visual-mode stress plan", "now": "Planning, Rikuo", "action": "Not a launch ticket. Leave it for after Oct 25."}]};
+const DESC = {"L1-T01": "OWNER: Rikuo Koizumi\nDUE: Tue Oct 13\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nOne person is named in this ticket and assigned to L1-T15 and L2-T03.\n\nNOTES\nDecide with Mahir. Until this is done, about 110 personal messages in launch week have no sender.", "L1-T02": "OWNER: Mahir Galoriya\nDUE: Wed Oct 14\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nOne table lists credits per plan, price per plan, and what the free plan gives. Everyone quotes this table.\n\nNEEDS FIRST\nAlex's cost report (Measure V6 generation and edit costs) reviewed first\n\nNOTES\nManuel approves. Everything on the landing page waits for this.", "L1-T03": "OWNER: Mahir Galoriya\nDUE: Wed Oct 14\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nEvery open bug in Ready and In Progress is marked Before launch or After launch, and each Before launch bug has a date from Andi.", "L1-T04": "OWNER: Olumurewa Olubela\nDUE: Wed Oct 14\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\n3 to 5 picks are linked here, each with a short to-do list. Rikuo turns any that fit launch week into L2 tickets.\n\nNOTES\nPick low effort, high result, and only what works with videos Sketchie can make today.", "L1-T05": "OWNER: Rikuo Koizumi\nDUE: Thu Oct 15\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nA one-page plan lists each section in order, its wording, the credits pricing table and the Get started free button. It is attached to L1-T06.\n\nNEEDS FIRST\nL1-T02 — Final credits pricing\n\nNOTES\nUse Lamina Labs only for layout and section order. Never their wording or claims, and don't name them on the page.", "L1-T06": "OWNER: Andi Maulana\nDUE: Sat Oct 17\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nThe new page is live, the signup button works, and no page on the site mentions minutes as the price.\n\nNEEDS FIRST\nL1-T05 — Write the landing page plan\n\nNOTES\nThis is the landing page ticket agreed on the Oct 9 call. Same no-minutes rule as E5-T05.\n\nQA\nMove to Ready for QA when done. Olu tests on staging, then production.", "L1-T07": "OWNER: Rikuo Koizumi\nDUE: Sun Oct 18\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nThe live page has no unconfirmed numbers, no made-up reviews or customer logos, no promises about learning results, and no em dashes.\n\nNEEDS FIRST\nL1-T06 — Build and publish the new landing page\n\nNOTES\nOlu checks with you.", "L1-T08": "OWNER: Andi Maulana\nDUE: Sat Oct 17\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nEach bug marked Before launch in L1-T03 is in Ready for QA or has an agreed workaround.\n\nNEEDS FIRST\nL1-T03 — Mark which open bugs must be fixed before launch\n\nNOTES\nVideo quality problems go to Alex, not this ticket.\n\nQA\nMove to Ready for QA when done. Olu tests on staging, then production.", "L1-T09": "OWNER: Olumurewa Olubela\nDUE: Thu Oct 15; Sun Oct 18\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nSign up, make a video, download it, change one scene, make a second video and upgrade all pass, on Thu Oct 15 and again on Sun Oct 18. Failures are filed as normal bug tickets.", "L1-T10": "OWNER: Andi Maulana\nDUE: Sat Oct 17\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nWe can count signups, first videos, scene changes, second videos and payments, each with the link the user came from. Signup asks: What will you make first?\n\nQA\nMove to Ready for QA when done. Olu tests on staging, then production.", "L1-T11": "OWNER: Mahir Galoriya\nDUE: Sun Oct 18\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nOne screen shows signups, first videos, second videos and paid users by source. A tagged link exists for LinkedIn, X, Instagram, YouTube and outreach.\n\nNEEDS FIRST\nL1-T10 — Track the key user steps", "L1-T12": "OWNER: Olumurewa Olubela\nDUE: Thu Oct 15\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\nLinkedIn, X and Instagram profiles are complete, linked from the website footer, and connected to a scheduling tool.", "L1-T13": "OWNER: Rikuo Koizumi\nDUE: Sat Oct 17\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\n7 videos are made in Sketchie, one per post in the launch calendar, and each was watched start to finish.\n\nNOTES\nNorj helps. Only show what Sketchie can make today.", "L1-T14": "OWNER: Olumurewa Olubela\nDUE: Sat Oct 17\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\n7 captions are written, checked by Rikuo, and scheduled for Oct 19 to 25.\n\nNEEDS FIRST\nL1-T12 — Set up Sketchie's social accounts\nL1-T13 — Make the 7 launch videos", "L1-T15": "OWNER: Outreach owner (named in L1-T01)\nDUE: Sun Oct 18\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\n60 people are listed with name, profile link and what they teach. Course creators and teachers first.\n\nNEEDS FIRST\nL1-T01 — Name the launch-week outreach owner", "L1-T16": "OWNER: Rikuo Koizumi\nDUE: Sun Oct 18\nEPIC: EPIC L1 — Launch Prep\n\nDONE WHEN\n18 short videos, each made from one prospect's own lesson, are ready for Day 1 and Day 2. The 3 message scripts quote the free plan exactly as L1-T02 states it.\n\nNEEDS FIRST\nL1-T02 — Final credits pricing\nL1-T15 — Build the first 60 outreach prospects\n\nNOTES\nNorj helps. Samples stay private to the person.", "L2-T01": "OWNER: Olumurewa Olubela\nDUE: Mon Oct 19\nEPIC: EPIC L2 — Launch Week\n\nDONE WHEN\nBefore the first post goes out, the full journey passes on the live site and a test signup shows on the dashboard.", "L2-T02": "OWNER: Olumurewa Olubela\nDUE: Mon Oct 19 to Sun Oct 25 (daily)\nEPIC: EPIC L2 — Launch Week\n\nDONE WHEN\nEach scheduled post went out on its day with a real Sketchie video. A link to each post is added as a comment.", "L2-T03": "OWNER: Outreach owner (named in L1-T01)\nDUE: Mon Oct 19 to Sat Oct 24 (daily)\nEPIC: EPIC L2 — Launch Week\n\nDONE WHEN\nEach day: 8 sample videos sent, 10 free invites, 5 experts asked for feedback. Replies answered within 4 hours, new signups welcomed the same day, daily count posted as a comment.\n\nNEEDS FIRST\nL1-T15 — Build the first 60 outreach prospects\nL1-T16 — Make 18 sample videos and finalize the 3 outreach messages\n\nNOTES\nSaturday is one follow-up only to people who haven't replied.", "L2-T04": "OWNER: Rikuo Koizumi\nDUE: Mon Oct 19 to Fri Oct 23 (daily)\nEPIC: EPIC L2 — Launch Week\n\nDONE WHEN\n8 new sample videos are ready each evening for the next day's outreach.\n\nNOTES\nNorj helps.", "L2-T05": "OWNER: Olumurewa Olubela\nDUE: Mon Oct 19 to Sun Oct 25 (daily)\nEPIC: EPIC L2 — Launch Week\n\nDONE WHEN\nA daily comment lists failed videos with the reason. Quality problems go to Alex.", "L2-T06": "OWNER: Mahir Galoriya\nDUE: Mon Oct 19 to Sun Oct 25 (daily)\nEPIC: EPIC L2 — Launch Week\n\nDONE WHEN\nA one-line daily comment: signups, first videos, second videos, failures.", "L2-T07": "OWNER: Rikuo Koizumi\nDUE: Fri Oct 23\nEPIC: EPIC L2 — Launch Week\n\nDONE WHEN\n5 conversations done, notes attached, each answering: was it good enough, was it easier, what's the next video, would you pay.", "L2-T08": "OWNER: Rikuo Koizumi\nDUE: Fri Oct 23\nEPIC: EPIC L2 — Launch Week\n\nDONE WHEN\nA Slack update says what we learned and names 1 or 2 changes, each as a new ticket with an owner.\n\nNOTES\nMahir joins.", "L2-T09": "OWNER: Rikuo Koizumi\nDUE: Sun Oct 25\nEPIC: EPIC L2 — Launch Week\n\nDONE WHEN\nScorecard shared before the Mon Oct 26 sync, split by audience."};
+const DAYS = []; { const s = new Date(2026, 9, 12); for (let i = 0; i < 14; i++) { const d = new Date(s); d.setDate(s.getDate() + i); DAYS.push(d); } }
+const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const dayIdx = s => DAYS.findIndex(d => iso(d) === s);
+const fmt = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }); };
+const short = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' }); };
+const firstName = k => k === 'out' ? 'Outreach owner' : DATA.people[k].split(' ')[0];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const byId = Object.fromEntries(DATA.tickets.map(t => [t.id, t]));
+const ORDER = ['rikuo','olu','mahir','andi','out'];
+
+// Filters
+const filters = document.getElementById('filters');
+let current = 'all';
+try { current = localStorage.getItem('slt-filter') || 'all'; } catch (e) {}
+[['all','Everyone'], ...ORDER.map(k => [k, firstName(k)])].forEach(([k, label]) => {
+  const b = document.createElement('button'); b.type = 'button'; b.id = 'f-' + k; b.textContent = label; b.dataset.k = k;
+  b.addEventListener('click', () => { current = k; try { localStorage.setItem('slt-filter', k); } catch (e) {} applyFilter(); });
+  filters.appendChild(b);
+});
+
+// Board
+const board = document.getElementById('board');
+const todayIso = iso(new Date());
+board.insertAdjacentHTML('beforeend', `<div></div><div class="weeks"><div>EPIC L1 · Launch Prep</div><div>EPIC L2 · Launch Week</div></div>`);
+board.insertAdjacentHTML('beforeend', `<div></div><div class="days">${DAYS.map((d,i) => `<div class="${i===7?'wk':''} ${iso(d)===todayIso?'is-today':''}">${d.toLocaleDateString('en-US',{weekday:'short'})} ${d.getDate()}${iso(d)===todayIso?'<br>today':''}</div>`).join('')}</div>`);
+const roles = { rikuo: 'Direction, content', olu: 'Socials, testing', mahir: 'Pricing, numbers', andi: 'Build', out: 'Not named yet' };
+ORDER.forEach(k => {
+  const mine = DATA.tickets.filter(t => t.owner === k);
+  const chips = [];
+  mine.forEach(t => t.dates.forEach(([a, b]) => {
+    const s = dayIdx(a), e = dayIdx(b);
+    chips.push({ t, s, e, span: e - s + 1 });
+  }));
+  chips.sort((x, y) => x.s - y.s || y.span - x.span);
+  board.insertAdjacentHTML('beforeend',
+    `<div class="who ${k==='out'?'unnamed':''}" data-owner="${k}">${firstName(k)}<small>${roles[k]}</small></div>
+     <div class="lane" data-owner="${k}">${chips.map(c => `<a class="chip ${c.t.epic}" href="#${c.t.id}" style="grid-column:${c.s+1} / span ${c.span}" title="${esc(c.t.id + ' ' + c.t.title)}"><b>${c.t.id}${c.span>1?' · daily':''}</b>${esc(c.t.short)}</a>`).join('')}</div>`);
+});
+
+// Epics
+const epicsEl = document.getElementById('epics');
+DATA.epics.forEach(ep => {
+  const list = DATA.tickets.filter(t => t.epic === ep.id);
+  const epicText = `LAUNCH EPIC | OWNER: ${DATA.people[ep.owner]}\nTICKETS: ${ep.id}-T01 … see subtasks\n\nPURPOSE\n${ep.purpose}\n\nOUTCOME\n${ep.outcome}\n\nOUT OF SCOPE\n${ep.out}\n\nEXIT TEST\n${ep.exit}`;
+  DESC['EPIC-' + ep.id] = epicText;
+  epicsEl.insertAdjacentHTML('beforeend', `
+  <section class="epic" aria-labelledby="h-${ep.id}">
+    <div class="epic-top">
+      <div class="epic-title">
+        <span class="label" style="color:var(${ep.id==='L1'?'--accent':'--l2'})">EPIC ${ep.id} · ${ep.range} · Owner ${firstName(ep.owner)} · Due ${fmt(ep.due)}</span>
+        <h2 id="h-${ep.id}">EPIC ${ep.id} — ${ep.name}</h2>
+        <span class="replaces">Rename the existing ticket “${esc(ep.replaces)}” to this.</span>
+      </div>
+      <button class="btn copy" type="button" id="copy-EPIC-${ep.id}" data-k="EPIC-${ep.id}">Copy epic text</button>
+    </div>
+    <div class="epic-grid">
+      <div><h3>Purpose</h3><p>${esc(ep.purpose)}</p></div>
+      <div><h3>Outcome</h3><p>${esc(ep.outcome)}</p></div>
+      <div><h3>Out of scope</h3><p>${esc(ep.out)}</p></div>
+      <div><h3>Exit test</h3><p>${esc(ep.exit)}</p></div>
+    </div>
+    <pre hidden id="pre-EPIC-${ep.id}">${esc(epicText)}</pre>
+    <div class="tickets">
+      ${list.map(t => {
+        const when = t.dates.map(([a,b]) => a===b ? fmt(a) : `${short(a)} to ${short(b)}, daily`).join(' and ');
+        const needs = t.needs.map(n => `<a class="tag" href="#${n}" title="${esc(byId[n].title)}">${n}</a>`).join('');
+        return `<article class="ticket ${t.epic}" id="${t.id}" data-owner="${t.owner}">
+          <span class="id">${t.id}</span>
+          <div class="body">
+            <h3>${esc(t.title)}</h3>
+            <p class="done"><strong>Done when:</strong> ${esc(t.done)}</p>
+            ${(needs || t.help || t.existing || t.qa || t.notes) ? `<div class="meta">
+              ${needs || t.help ? `<span>Needs first:</span>${needs}${t.help ? `<span class="tag">${esc(t.help)}</span>` : ''}` : ''}
+              ${t.existing ? `<span class="tag exist">Use existing: ${esc(t.existing)}</span>` : ''}
+              ${t.qa ? `<span class="tag qa">Goes through QA</span>` : ''}
+            </div>` : ''}
+            ${t.notes ? `<p class="meta">${esc(t.notes)}</p>` : ''}
+          </div>
+          <span class="owner ${t.owner==='out'?'unnamed':''}">${t.owner==='out' ? 'Not named yet' : esc(DATA.people[t.owner])}</span>
+          <span class="due">${when}</span>
+          <button class="btn copy" type="button" id="copy-${t.id}" data-k="${t.id}">Copy</button>
+          <details class="asana"><summary>Asana text</summary><pre id="pre-${t.id}">${esc(DESC[t.id])}</pre></details>
+        </article>`;
+      }).join('')}
+    </div>
+  </section>`);
+});
+
+// Existing
+document.getElementById('ex').innerHTML = DATA.existing.map(e => `<tr><td>${esc(e.name)}</td><td class="now">${esc(e.now)}</td><td>${esc(e.action)}</td></tr>`).join('');
+
+// Copy
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('button.copy'); if (!b) return;
+  const k = b.dataset.k, text = DESC[k];
+  const done = () => { const o = b.textContent; b.textContent = 'Copied'; setTimeout(() => b.textContent = o, 1400); };
+  const fallback = () => {
+    const pre = document.getElementById('pre-' + k);
+    if (pre.hidden) pre.hidden = false;
+    const d = pre.closest('details'); if (d) d.open = true;
+    const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    b.textContent = 'Selected, press Ctrl+C';
+  };
+  try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+});
+
+function applyFilter() {
+  document.querySelectorAll('#filters button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === current)));
+  document.querySelectorAll('[data-owner]').forEach(el => el.classList.toggle('hidden-by-filter', current !== 'all' && el.dataset.owner !== current));
+}
+if (!document.getElementById('f-' + current)) current = 'all';
+applyFilter();
+</script>
+
+</body>
+</html>
