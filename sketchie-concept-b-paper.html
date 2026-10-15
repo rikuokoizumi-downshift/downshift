@@ -109,6 +109,10 @@ section{padding:var(--rhythm) 0;position:relative}
 
 h1,h2,h3,h4{margin:0;font-family:var(--marker);font-weight:800;letter-spacing:0;line-height:1.08}
 h1{font-size:var(--t-h1)}
+/* their hero device: the accent phrase carries a hand-drawn sunny underline */
+.accent{position:relative;white-space:nowrap;display:inline-block}
+.accent svg{position:absolute;left:0;right:0;bottom:-.06em;width:100%;height:.22em;overflow:visible}
+@media (max-width:560px){.accent{white-space:normal}}
 h2{font-size:var(--t-h2);line-height:1.1}
 h3{font-size:var(--t-lg);font-weight:700;line-height:1.14}
 h4{font-size:var(--t-md);font-weight:700;letter-spacing:0;line-height:1.26}
@@ -149,7 +153,7 @@ html[data-theme="night"] .menupanel{border-color:var(--line)}
 
 .hero{padding-top:clamp(34px,5vw,64px)}
 .hero h1{margin:14px 0 18px}
-.hero .lede{max-width:34ch}
+.hero .lede{max-width:40ch}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .undercta{margin-top:14px;font-size:var(--t-sm);color:var(--graphite)}
 .frame{background:var(--surface);border:2px solid var(--ink);border-radius:16px;padding:12px;box-shadow:5px 6px 0 var(--ink)}
@@ -396,8 +400,8 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
     <div class="wrap g">
       <div class="c7">
         <p class="eyebrow">Whiteboard explainers</p>
-        <h1>Type it. Watch it draw. Fix one scene.</h1>
-        <p class="lede">A prompt or a document goes in. A narrated explainer draws itself, and the scene graph behind it stays editable.</p>
+        <h1>Amazing explainer videos, <span class="accent">under a minute<svg viewBox="0 0 200 20" fill="none" aria-hidden="true"><path d="M6 14 C60 7 140 7 194 11" stroke="#FFC933" stroke-width="8" stroke-linecap="round"/></svg></span></h1>
+        <p class="lede">Type a prompt or drop a document. Sketchie writes the script, draws every scene, and narrates it. For a fraction of the usual cost.</p>
         <div class="cta">
           <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
           <a class="btn ghost" href="#wedge">See scene editing</a>
@@ -563,13 +567,13 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   </section>
   <section id="how" class="ruled">
     <div class="wrap">
-      <div class="g"><div class="c8"><h2>Three moves, about a minute.</h2></div></div>
+      <div class="g"><div class="c8"><h2>Prompt in. Video out, in under a minute.</h2></div></div>
       <div class="g" style="margin-top:46px">
-        <div class="step c4"><span class="num">1</span><div class="icobox"><svg style="--sk-c1:#FFC933" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="pencil"><g class="fills" stroke="none"><g class="fill" data-region="c2"><path d="M60 18 L72 30 L64 38 L52 26 Z" fill="var(--sk-c2, #E8538F)"/></g><g class="fill" data-region="c1"><path d="M52 26 L64 38 L34 68 L22 56 Z" fill="var(--sk-c1, #FFC933)"/></g><g class="fill" data-region="paper"><path d="M22 56 L34 68 L16 74 Z" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="ink"><path d="M20 66 L16 74 L24 71 Z" fill="currentColor"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 18 L72 30 L64 38 L52 26 Z"/><path d="M52 26 L64 38 L34 68 L22 56 Z"/><path d="M22 56 L34 68 L16 74 Z"/></g></svg></div><h3>Give it a source</h3>
+        <div class="step c4"><span class="num">1</span><div class="icobox"><svg style="--sk-c1:#FFC933" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="pencil"><g class="fills" stroke="none"><g class="fill" data-region="c2"><path d="M60 18 L72 30 L64 38 L52 26 Z" fill="var(--sk-c2, #E8538F)"/></g><g class="fill" data-region="c1"><path d="M52 26 L64 38 L34 68 L22 56 Z" fill="var(--sk-c1, #FFC933)"/></g><g class="fill" data-region="paper"><path d="M22 56 L34 68 L16 74 Z" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="ink"><path d="M20 66 L16 74 L24 71 Z" fill="currentColor"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 18 L72 30 L64 38 L52 26 Z"/><path d="M52 26 L64 38 L34 68 L22 56 Z"/><path d="M22 56 L34 68 L16 74 Z"/></g></svg></div><h3>Drop anything in</h3>
           <p>A prompt, or a document you already wrote. Document mode follows your source instead of inventing a generic script.</p></div>
         <div class="step c4"><span class="num">2</span><div class="icobox"><svg style="--sk-c1:#6C5CE7" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-emphasis="sparkle"><g class="ink" fill="none" stroke="var(--sk-stroke, #FFC933)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"><path d="M48 12 V34 M48 62 V84 M12 48 H34 M62 48 H84"/><path d="M26 26 L34 34 M62 62 L70 70 M70 26 L62 34 M34 62 L26 70" stroke-width="4"/></g></svg></div><h3>Watch it draw</h3>
           <p>Each element draws on stroke by stroke, timed to the word of narration it belongs to. Nothing appears that the narration never mentions.</p></div>
-        <div class="step c4"><span class="num">3</span><div class="icobox"><svg style="--sk-c1:#E8538F" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="target"><g class="fills" stroke="none"><g class="fill" data-region="paper"><circle cx="48" cy="48" r="33" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><circle cx="48" cy="48" r="21" fill="var(--sk-c1, #FF6B5B)"/></g><g class="fill" data-region="paper"><circle cx="48" cy="48" r="10" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="ink"><circle cx="48" cy="48" r="3.5" fill="currentColor"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="48" r="33"/><circle cx="48" cy="48" r="21"/><circle cx="48" cy="48" r="10"/><circle cx="48" cy="48" r="3.5"/></g></svg></div><h3>Fix what is wrong</h3>
+        <div class="step c4"><span class="num">3</span><div class="icobox"><svg style="--sk-c1:#E8538F" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="target"><g class="fills" stroke="none"><g class="fill" data-region="paper"><circle cx="48" cy="48" r="33" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><circle cx="48" cy="48" r="21" fill="var(--sk-c1, #FF6B5B)"/></g><g class="fill" data-region="paper"><circle cx="48" cy="48" r="10" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="ink"><circle cx="48" cy="48" r="3.5" fill="currentColor"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="48" r="33"/><circle cx="48" cy="48" r="21"/><circle cx="48" cy="48" r="10"/><circle cx="48" cy="48" r="3.5"/></g></svg></div><h3>Fix what is off</h3>
           <p>Open the scene, change it, re-render that scene alone. Every edit keeps a version you can revert to.</p></div>
       </div>
     </div>
@@ -595,8 +599,8 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   <section id="rules" class="ruled dotted wide">
     <div class="wrap">
       <div class="g">
-        <div class="c7"><p class="eyebrow">The science</p><h2>Timing is not a style choice.</h2></div>
-        <p class="c5 lede" style="align-self:end">Sketchie publishes the research behind its generator, graded by evidence. The output has to satisfy these.</p>
+        <div class="c7"><p class="eyebrow">The science</p><h2>We optimized for whether they remember it tomorrow.</h2></div>
+        <p class="c5 lede" style="align-self:end">Fast and cheap only matter if the video is genuinely good. The generator enforces rules drawn from peer-reviewed research.</p>
       </div>
       <div class="g" style="margin-top:40px">
         <div class="rule c2"><b>12-30s</b><span>Scene length</span><p>One idea per scene.</p></div>
@@ -620,7 +624,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   <!-- 8. PRICING -->
   <section id="pricing" class="sunken ruled">
     <div class="wrap">
-      <div class="g"><div class="c7"><p class="eyebrow">Pricing</p><h2>Minutes are the only meter.</h2></div></div>
+      <div class="g"><div class="c7"><p class="eyebrow">Pricing</p><h2>Four plans. Start free with 2 videos.</h2></div></div>
       <div class="g" style="margin-top:34px">
         <div class="c5">
           <div class="free">
@@ -684,7 +688,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   <!-- 10. CLOSE, dotted on violet as the original does -->
   <section class="close dotted wide">
     <div class="wrap g">
-      <div class="c7"><h2>Make it once. Fix what matters.</h2><p style="margin-top:12px">Start with two free videos. Keep the scenes editable.</p></div>
+      <div class="c7"><h2>Your next explainer takes under a minute.</h2><p style="margin-top:12px">Your first 2 videos are free, up to 1 minute each, watermarked. No card required.</p></div>
       <div class="c5" style="display:flex;align-items:center;justify-content:flex-end;gap:22px">
         <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
         <svg aria-hidden="true" class="mascot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" data-mascot="inkling"><g class="fill" stroke="none"><circle cx="60" cy="58" r="42" fill="var(--sk-c1,#6C5CE7)"/><path d="M88 27 C99 37 104 52 99 68 C95 81 84 92 70 96 C90 84 97 66 93 50 C90 39 86 32 79 26 C82 25.5 85 25.6 88 27 Z" fill="var(--sk-c2,#E8538F)"/><path d="M97 62 C97 74 88 89 74 95 C86 84 92 72 92 60 C94 59 96 60 97 62 Z" fill="var(--sk-c3,#FF6B5B)"/><path d="M38 26 C43 22 51 20 57 21 C50 24 45 28 42 33 C39 31 38 29 38 26 Z" fill="#FFFFFF" opacity="0.9"/></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 16 C84 16 102 34 102 58 C102 82 84 100 60 100 C36 100 18 82 18 58 C18 35 37 16 60 16 Z"/><path d="M25 38 C21 44 19 51 19 58" stroke-width="3.5" opacity="0.7"/><path d="M96 74 C99 69 101 64 101.5 58" stroke-width="3.5" opacity="0.7"/></g><g class="face"><circle cx="47" cy="55" r="5.5" fill="currentColor"/><circle cx="73" cy="55" r="5.5" fill="currentColor"/><circle cx="48.8" cy="53" r="1.8" fill="#FFFFFF"/><circle cx="74.8" cy="53" r="1.8" fill="#FFFFFF"/><path d="M50 70 C55 75.5 65 75.5 70 70" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="38" cy="64" rx="5" ry="3" fill="var(--sk-c2,#E8538F)" opacity="0.55"/><ellipse cx="82" cy="64" rx="5" ry="3" fill="var(--sk-c2,#E8538F)" opacity="0.55"/></g></svg>
@@ -725,7 +729,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       <li><a href="https://sketchie.ai/app/login">Log in</a></li></ul></div>
     <div class="c12 fb">
       <span>Proposed revamp of sketchie.ai. Not the live site.</span>
-      <span>Palette, type, dot grid and icon artwork from the live site.</span>
+      <span>Palette, type, dot grid, icon artwork and headline copy from the live site.</span>
     </div>
   </div>
 </footer>
