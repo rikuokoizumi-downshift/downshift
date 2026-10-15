@@ -223,6 +223,52 @@ footer a{color:var(--dim);text-decoration:none;font-size:.9rem}
 footer a:hover{color:var(--chalk)}
 .fb{margin-top:30px;border-top:1px solid rgba(242,240,234,.12);padding-top:16px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
 
+/* ---------------------------------------------------------------
+   GLOW LAYER
+   One pointer-tracked bloom behind the content, plus dim hover
+   glows on text and controls. Everything here is deliberately
+   under-powered: the brightest value is 7% alpha.
+----------------------------------------------------------------*/
+.glow{
+  position:fixed;left:0;top:0;z-index:0;pointer-events:none;
+  width:52vmax;height:52vmax;margin:-26vmax 0 0 -26vmax;border-radius:50%;
+  background:radial-gradient(circle closest-side,
+    rgba(216,255,62,.07) 0%,
+    rgba(216,255,62,.035) 38%,
+    rgba(121,216,255,.018) 62%,
+    transparent 76%);
+  opacity:0;transition:opacity .8s ease;
+  will-change:transform;transform:translate3d(-100px,-100px,0);
+}
+.glow.on{opacity:1}
+
+/* text warms slightly under the pointer */
+h1,h2,h3,.lede,.slate .n,.rules b,.plan b,summary,.beat .q{
+  transition:text-shadow .45s ease,color .35s ease;
+}
+h1:hover,h2:hover,.beat .q:hover{text-shadow:0 0 26px rgba(216,255,62,.2)}
+h3:hover,.rules b:hover,.plan b:hover,.slate .n:hover{text-shadow:0 0 18px rgba(216,255,62,.18)}
+summary:hover{text-shadow:0 0 14px rgba(216,255,62,.16)}
+.lede:hover{text-shadow:0 0 22px rgba(242,240,234,.1)}
+a:not(.btn):not(.cue):not(.mark):hover{text-shadow:0 0 16px rgba(216,255,62,.3)}
+
+/* controls bloom rather than jump */
+.btn{transition:transform .12s,background-color .15s,box-shadow .4s ease}
+.btn:hover{box-shadow:0 0 28px rgba(216,255,62,.26),0 0 8px rgba(216,255,62,.16)}
+.btn.line:hover{box-shadow:0 0 24px rgba(216,255,62,.14)}
+.opt{transition:border-color .15s,background-color .15s,box-shadow .4s ease}
+.opt:hover{box-shadow:0 0 22px rgba(216,255,62,.1)}
+.cue{transition:color .25s ease,text-shadow .35s ease}
+.cue:hover{text-shadow:0 0 14px rgba(216,255,62,.35)}
+.piece video:hover,.vidbox video:hover{box-shadow:0 0 40px rgba(216,255,62,.08)}
+.piece video,.vidbox video{transition:box-shadow .5s ease}
+
+@media (prefers-reduced-motion:reduce){
+  .glow{display:none}
+  h1:hover,h2:hover,h3:hover,.beat .q:hover,.lede:hover,summary:hover,
+  .rules b:hover,.plan b:hover,.slate .n:hover{text-shadow:none}
+}
+
 .sk{stroke:var(--chalk);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .sk-a{stroke:var(--acid)}
 .sk-h{stroke:var(--hot)}
@@ -650,7 +696,40 @@ footer a:hover{color:var(--chalk)}
     bo.observe(beat);
   }
 
-  /* 5. Missing clips degrade to a readable note. */
+  /* 5. Pointer glow. The target moves with the pointer, the bloom
+     eases toward it on every animation frame, so it lags slightly
+     and never snaps. Transform only, so it stays on the compositor. */
+  if(!reduce && window.matchMedia("(pointer: fine)").matches){
+    var glow=document.createElement("div");
+    glow.className="glow";
+    glow.setAttribute("aria-hidden","true");
+    document.body.appendChild(glow);
+
+    var tx=window.innerWidth/2, ty=window.innerHeight*0.35;
+    var cx=tx, cy=ty, running=false;
+
+    function frame(){
+      // ease: move 7% of the remaining distance each frame
+      cx+=(tx-cx)*0.07;
+      cy+=(ty-cy)*0.07;
+      glow.style.transform="translate3d("+cx.toFixed(1)+"px,"+cy.toFixed(1)+"px,0)";
+      if(Math.abs(tx-cx)<0.1&&Math.abs(ty-cy)<0.1){running=false;return}
+      window.requestAnimationFrame(frame);
+    }
+    function kick(){ if(!running){running=true;window.requestAnimationFrame(frame)} }
+
+    document.addEventListener("pointermove",function(e){
+      tx=e.clientX; ty=e.clientY;
+      if(!glow.classList.contains("on")){glow.classList.add("on")}
+      kick();
+    },{passive:true});
+
+    document.addEventListener("pointerleave",function(){glow.classList.remove("on")});
+    document.addEventListener("pointerenter",function(){glow.classList.add("on")});
+    kick();
+  }
+
+  /* 6. Missing clips degrade to a readable note. */
   [].forEach.call(document.querySelectorAll("video"),function(v){
     function swap(){
       if(v.dataset.swapped){return}
