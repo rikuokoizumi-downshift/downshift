@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sketchie brand work: current build</title>
+<title>Sketchie site revamp: current build</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,6 +60,12 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
 .switch:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.switch,.switch .knob{transition:none}}
 .tabs .switch{border-radius:999px;padding:0}
+.aside{display:flex;align-items:center;gap:6px;flex-wrap:wrap;width:100%;padding-top:4px;border-top:1px solid var(--rule);margin-top:2px}
+.aside .lbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.aside button{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;
+  border:1px dashed var(--rule);border-radius:6px;background:transparent;color:var(--faint);cursor:pointer}
+.aside button:hover{border-style:solid;border-color:var(--accent);color:var(--accent)}
+.aside button.on{border-style:solid;border-color:var(--accent);color:var(--accent)}
 </style>
 <script>
 (function(){var KEY="sketchie-theme";var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}document.documentElement.setAttribute("data-theme",saved||"night");})();
@@ -68,29 +74,32 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
 <body>
 
 <div class="bar">
-  <span class="t">Sketchie brand work</span>
-  <span class="u" id="stamp">Night default · updated 2026-10-16</span>
+  <span class="t">Sketchie site revamp</span>
+  <span class="u" id="stamp">Revamping the existing site · 2026-10-16</span>
   <nav class="tabs" aria-label="Views">
-    <button type="button" data-src="sketchie-concept-c.html" class="on">Concept A: Neon</button>
-    <button type="button" data-src="sketchie-concept-b-paper.html">Concept B: Paper</button>
+    <button type="button" data-src="sketchie-concept-b-paper.html" class="on">Revamp</button>
     <button type="button" data-src="sketchie-brand-case.html">The case</button>
-    <button type="button" data-src="sketchie-sitemap-report.html">Sitemap</button>
+    <button type="button" data-src="sketchie-sitemap-report.html">Structure</button>
     <button class="switch" type="button" id="themeToggle" role="switch" aria-checked="false" aria-label="Night mode"><span class="knob"></span></button>
-    <a id="open" href="sketchie-concept-c.html">Open full</a>
+    <a id="open" href="sketchie-concept-b-paper.html">Open full</a>
+  </nav>
+  <nav class="aside" aria-label="Set aside">
+    <span class="lbl">Set aside</span>
+    <button type="button" data-src="sketchie-concept-c.html">Neon rebrand</button>
   </nav>
 </div>
 
-<iframe class="frame" id="frame" src="sketchie-concept-c.html?theme=night" title="Current Sketchie design build"></iframe>
+<iframe class="frame" id="frame" src="sketchie-concept-b-paper.html?theme=night" title="Sketchie site revamp"></iframe>
 
 <noscript>
   <div class="fallback">
-    <h1>Sketchie brand work</h1>
+    <h1>Sketchie site revamp</h1>
     <p>Open any of these directly:</p>
     <ul>
-      <li><a href="sketchie-concept-c.html">Concept A: Neon</a></li>
-      <li><a href="sketchie-concept-b-paper.html">Concept B: Paper</a></li>
-      <li><a href="sketchie-brand-case.html">The case for a brand overhaul</a></li>
-      <li><a href="sketchie-sitemap-report.html">Site map and optimisation report</a></li>
+      <li><a href="sketchie-concept-b-paper.html">The revamp</a></li>
+      <li><a href="sketchie-sitemap-report.html">Structure and site map</a></li>
+      <li><a href="sketchie-concept-c.html">Set aside: neon rebrand</a></li>
+      <li><a href="sketchie-brand-case.html">The case for revamping</a></li>
     </ul>
   </div>
 </noscript>
@@ -102,7 +111,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
   var frame=document.getElementById("frame");
   var open=document.getElementById("open");
   // only buttons that name a view are tabs; the theme switch is not one
-  var btns=[].slice.call(document.querySelectorAll(".tabs button[data-src]"));
+  var btns=[].slice.call(document.querySelectorAll("button[data-src]"));
   function withTheme(src){return src+"?theme="+theme()}
   function show(src,btn){
     if(!src){return}
