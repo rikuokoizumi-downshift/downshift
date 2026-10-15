@@ -124,6 +124,14 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
   .toc ol{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto !important;transition:none !important}}
+/* Scrollbars follow the theme. */
+html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
+::-webkit-scrollbar{width:13px;height:13px}
+::-webkit-scrollbar-track{background:var(--panel)}
+::-webkit-scrollbar-thumb{background:var(--accent);border:3px solid var(--panel);border-radius:99px;opacity:.7}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+::-webkit-scrollbar-corner{background:var(--panel)}
+.toc{scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
 </style>
 <script>
 (function(){
