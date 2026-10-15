@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchie: site map and optimisation report</title>
+<meta name="description" content="Current structure of sketchie.ai, the defects found in it, a proposed site map, and a phased plan to get there.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFBF9;
+  --panel:#FFFFFF;
+  --ink:#15161A;
+  --body:#4A4F57;
+  --faint:#8A9099;
+  --rule:#E2E2DC;
+  --accent:#0F6E5C;
+  --accent-soft:#E6F2EE;
+  --warn:#B3471F;
+  --warn-soft:#FBEDE6;
+  --good:#2E7D32;
+  --sans:"Space Grotesk",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --gutter:clamp(18px,4vw,44px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16.5px/1.62 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.page{display:grid;grid-template-columns:238px minmax(0,1fr);gap:0;max-width:1340px;margin:0 auto}
+.toc{position:sticky;top:0;height:100vh;overflow-y:auto;padding:30px 20px 30px var(--gutter);border-right:1px solid var(--rule)}
+.toc h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:0 0 14px;font-weight:400}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:s}
+.toc a{display:flex;gap:10px;padding:7px 8px;text-decoration:none;color:var(--body);font-size:.88rem;border-radius:5px}
+.toc a:hover{background:var(--accent-soft);color:var(--ink)}
+.toc a.on{background:var(--accent-soft);color:var(--accent);font-weight:500}
+.toc .n{font-family:var(--mono);font-size:.72rem;color:var(--faint)}
+.toc .meta{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:.66rem;line-height:1.8;color:var(--faint)}
+main{padding:0 var(--gutter) 90px;min-width:0}
+header.cover{padding:clamp(48px,7vw,86px) 0 34px;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1.04;letter-spacing:-.03em;margin:16px 0 18px;max-width:20ch}
+h2{font-size:clamp(1.4rem,2.5vw,1.9rem);line-height:1.15;letter-spacing:-.022em;margin:0 0 14px}
+h3{font-size:1.05rem;letter-spacing:-.01em;margin:0 0 8px}
+p{margin:0 0 14px;color:var(--body);max-width:74ch}
+a{color:var(--accent)}
+section{padding:clamp(42px,6vw,72px) 0;border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:0}
+.snum{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:10px}
+.lede{font-size:1.12rem;line-height:1.55;color:var(--ink);max-width:66ch}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* summary cards */
+.keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:26px 0 8px}
+.key{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px}
+.key b{display:block;font-family:var(--mono);font-size:1.5rem;letter-spacing:-.02em;color:var(--accent);margin-bottom:6px}
+.key span{font-size:.9rem;color:var(--body)}
+.key.bad b{color:var(--warn)}
+
+/* tree */
+.tree{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:clamp(16px,2.4vw,26px);margin:22px 0;overflow-x:auto}
+.tree ul{list-style:none;margin:0;padding:0 0 0 22px;border-left:1px solid var(--rule)}
+.tree > ul{padding-left:0;border-left:0}
+.tree li{position:relative;padding:5px 0 5px 18px;font-family:var(--mono);font-size:.82rem;line-height:1.5}
+.tree > ul > li{padding-left:0}
+.tree li::before{content:"";position:absolute;left:0;top:16px;width:12px;height:1px;background:var(--rule)}
+.tree > ul > li::before{display:none}
+.tree .u{color:var(--ink)}
+.tree .lbl{color:var(--faint);font-family:var(--sans);font-size:.82rem;margin-left:8px}
+.tree .flag{font-family:var(--sans);font-size:.72rem;padding:2px 8px;border-radius:99px;margin-left:8px;white-space:nowrap}
+.flag.add{background:var(--accent-soft);color:var(--accent)}
+.flag.fix{background:var(--warn-soft);color:var(--warn)}
+.flag.keep{background:#F0F0EC;color:var(--faint)}
+.axis{margin-top:16px;padding:14px 16px;border:1px dashed var(--rule);border-radius:8px;font-size:.9rem;color:var(--body)}
+.axis b{font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
+
+/* tables */
+.tw{overflow-x:auto;margin:20px 0}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:620px;background:var(--panel)}
+caption{text-align:left;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:0 0 10px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:400;background:#F6F6F2}
+tbody tr:last-child td{border-bottom:0}
+td code,p code,li code{font-family:var(--mono);font-size:.84em;background:#F1F1EC;padding:1px 5px;border-radius:4px}
+.sev{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.sev.high{background:var(--warn-soft);color:var(--warn)}
+.sev.med{background:#FDF4E3;color:#8A6116}
+.sev.low{background:#F0F0EC;color:var(--faint)}
+
+/* callouts */
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 8px 8px 0;margin:20px 0}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.note p{margin:0;color:var(--ink)}
+.note b{font-weight:700}
+
+/* phases */
+.phases{display:grid;gap:12px;margin-top:22px}
+.phase{display:grid;grid-template-columns:116px minmax(0,1fr);gap:18px;background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px}
+.phase .p{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.phase ul{margin:8px 0 0;padding-left:18px;color:var(--body);font-size:.94rem}
+.phase li{margin-bottom:4px}
+
+/* matrix */
+.matrix{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.quad{border:1px solid var(--rule);border-radius:10px;padding:16px;background:var(--panel)}
+.quad h4{margin:0 0 8px;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.quad.do h4{color:var(--accent)}
+.quad ul{margin:0;padding-left:18px;font-size:.9rem;color:var(--body)}
+
+ul.plain{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:9px}
+ul.plain li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;color:var(--body);max-width:74ch}
+ul.plain .b{font-family:var(--mono);font-size:.74rem;color:var(--accent);padding-top:3px}
+
+footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--faint);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:980px){
+  .page{grid-template-columns:minmax(0,1fr)}
+  .toc{position:static;height:auto;border-right:0;border-bottom:1px solid var(--rule);padding:20px var(--gutter)}
+  .toc ol{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}
+  main{padding-top:10px}
+}
+@media (max-width:760px){
+  .keys,.matrix{grid-template-columns:minmax(0,1fr)}
+  .phase{grid-template-columns:minmax(0,1fr);gap:8px}
+  .toc ol{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <nav class="toc" aria-label="Contents">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#s1"><span class="n">01</span> Summary</a></li>
+      <li><a href="#s2"><span class="n">02</span> What we checked</a></li>
+      <li><a href="#s3"><span class="n">03</span> Current structure</a></li>
+      <li><a href="#s4"><span class="n">04</span> Defects found</a></li>
+      <li><a href="#s5"><span class="n">05</span> Proposed site map</a></li>
+      <li><a href="#s6"><span class="n">06</span> URL and redirect map</a></li>
+      <li><a href="#s7"><span class="n">07</span> Localisation</a></li>
+      <li><a href="#s8"><span class="n">08</span> Priorities and phases</a></li>
+      <li><a href="#s9"><span class="n">09</span> How we would validate</a></li>
+      <li><a href="#s10"><span class="n">10</span> Open questions</a></li>
+      <li><a href="#s11"><span class="n">11</span> What we do not promise</a></li>
+    </ol>
+    <p class="meta">Checked 2026-10-15<br>sketchie.ai<br>Downshift LLC</p>
+  </nav>
+
+  <main>
+    <header class="cover">
+      <p class="eyebrow">Site map and optimisation report</p>
+      <h1>The structure of sketchie.ai, and what it costs today.</h1>
+      <p class="lede">A read of the live site as crawlers and readers encounter it, the defects that structure is currently producing, a proposed map, and a phased route to it that does not put existing rankings at risk.</p>
+    </header>
+
+    <section id="s1">
+      <span class="snum">01 / Summary</span>
+      <h2>Three findings worth acting on</h2>
+      <p>The site is well built and the content is strong. The problems are structural, and they are mostly invisible from inside the design: they show up in how the site is crawled, how locales resolve, and which pages exist at all.</p>
+
+      <div class="keys">
+        <div class="key bad"><b>404</b><span><code>sketchie.ai/sitemap.xml</code> does not resolve. The sitemap lives at <code>/sitemap-index.xml</code>, which is not the path tools try first.</span></div>
+        <div class="key bad"><b>5 pages</b><span>The audience pages under <code>/for/</code> have no translated versions and no index page. <code>/ja/for/developers/</code> returns 404.</span></div>
+        <div class="key"><b>1,113</b><span>URLs in the sitemap: 78 locale prefixes across 14 paths, plus 21 root paths.</span></div>
+      </div>
+
+      <p><b>One, discovery is leaking.</b> The conventional sitemap path 404s, and the five audience pages sit outside the hreflang cluster entirely, which makes them less likely to be chosen as canonical.</p>
+      <p><b>Two, the locale system contradicts Google's own guidance.</b> The site automatically redirects visitors by location. Google's documentation says to avoid that, because it can stop users and crawlers from seeing all versions.</p>
+      <p><b>Three, two pages a buyer looks for do not exist.</b> <code>/blog/</code> and <code>/contact/</code> both return 404.</p>
+    </section>
+
+    <section id="s2">
+      <span class="snum">02 / What we checked</span>
+      <h2>Method, and the limits of it</h2>
+      <p>Everything in section 04 was requested live on 2026-10-15 and read from the response, not inferred. Status codes were checked individually. The sitemap was parsed and counted. Hreflang annotations were read from the served HTML.</p>
+      <ul class="plain">
+        <li><span class="b">01</span><span><b>Done:</b> live status checks, sitemap parse and count, hreflang audit on the homepage, a locale page and an audience page, robots directives, and a read of the public page set.</span></li>
+        <li><span class="b">02</span><span><b>Not done yet:</b> a full crawl of all 1,113 URLs, which needs a licensed crawler. Internal link graph, orphan detection and crawl depth all depend on it.</span></li>
+        <li><span class="b">03</span><span><b>Not available:</b> analytics and Search Console. Without them, nothing here can be ranked by traffic or revenue impact, so the priorities in section 08 are based on severity and effort alone.</span></li>
+      </ul>
+      <div class="note">
+        <p><b>One number to reconcile.</b> The sitemap contains 78 locale prefixes. The footer language picker appears to offer closer to 97. One of those counts is wrong, and a full crawl settles it. We have not assumed either.</p>
+      </div>
+    </section>
+
+    <section id="s3">
+      <span class="snum">03 / Current structure</span>
+      <h2>As it exists today</h2>
+      <p>Fourteen paths are localised across every locale prefix. Seven more exist only at the root, including all five audience pages and both legal pages.</p>
+
+      <div class="tree">
+        <ul>
+          <li><span class="u">/</span><span class="lbl">Home</span></li>
+          <li><span class="u">/examples/</span><span class="lbl">Gallery of renders</span></li>
+          <li><span class="u">/pricing/</span><span class="lbl">Plans and FAQ</span></li>
+          <li><span class="u">/science/</span><span class="lbl">The published spec</span></li>
+          <li><span class="u">/education/</span><span class="lbl">Teachers and students</span></li>
+          <li><span class="u">/vs-simi/</span><span class="lbl">Competitor comparison</span></li>
+          <li><span class="u">/icons/</span><span class="lbl">The Sketchy Icon Library</span></li>
+          <li><span class="u">/api/</span><span class="lbl">Developer overview</span>
+            <ul>
+              <li><span class="u">/docs/</span><span class="lbl">Quickstart</span></li>
+              <li><span class="u">/docs/api/</span><span class="lbl">Reference</span></li>
+              <li><span class="u">/docs/voices/</span></li>
+              <li><span class="u">/docs/languages/</span></li>
+              <li><span class="u">/docs/cli/</span></li>
+              <li><span class="u">/docs/mcp/</span></li>
+            </ul>
+          </li>
+          <li><span class="u">/for/</span><span class="flag fix">no index page</span>
+            <ul>
+              <li><span class="u">/for/developers/</span><span class="flag fix">root only, no hreflang</span></li>
+              <li><span class="u">/for/founders/</span><span class="flag fix">root only</span></li>
+              <li><span class="u">/for/teachers/</span><span class="flag fix">root only</span></li>
+              <li><span class="u">/for/course-creators/</span><span class="flag fix">root only</span></li>
+              <li><span class="u">/for/support-teams/</span><span class="flag fix">root only</span></li>
+            </ul>
+          </li>
+          <li><span class="u">/terms/</span> <span class="u">/privacy/</span><span class="lbl">Legal, root only</span></li>
+          <li><span class="u">/app/</span> <span class="u">/app/login</span> <span class="u">/app/signup</span><span class="lbl">Product, outside the marketing set</span></li>
+        </ul>
+        <div class="axis">
+          <b>Locale axis</b>
+          78 prefixes multiply the 14 localised paths, which is where 1,092 of the 1,113 sitemap URLs come from. Locale is an axis across the map, not a branch within it, and should be drawn and governed that way.
+        </div>
+      </div>
+    </section>
+
+    <section id="s4">
+      <span class="snum">04 / Defects found</span>
+      <h2>What the structure is costing</h2>
+      <div class="tw">
+        <table>
+          <caption>Verified on the live site, 2026-10-15</caption>
+          <thead><tr><th>#</th><th>Finding</th><th>Why it matters</th><th>Severity</th></tr></thead>
+          <tbody>
+            <tr><td>01</td><td><code>/sitemap.xml</code> returns 404. The real file is <code>/sitemap-index.xml</code>, referencing a single <code>/sitemap-0.xml</code>.</td><td>Every tool and most humans try the conventional path first. Discovery depends on robots.txt being read correctly instead.</td><td><span class="sev high">High</span></td></tr>
+            <tr><td>02</td><td><code>/for/developers/</code> carries no <code>rel="alternate"</code> hreflang tags. Its 79 hreflang attributes sit on switcher links pointing at locale homepages.</td><td>Those pages sit outside the hreflang cluster, which Google says makes a page less likely to be chosen as canonical. A reader switching language is dropped on the homepage, losing their place.</td><td><span class="sev high">High</span></td></tr>
+            <tr><td>03</td><td>The site auto-redirects visitors by location.</td><td>Google's guidance says to avoid automatic redirection between language versions, because users and crawlers may never see all versions.</td><td><span class="sev high">High</span></td></tr>
+            <tr><td>04</td><td>No <code>/for/</code> index page, and the five audience pages exist only at the root. <code>/ja/for/developers/</code> returns 404.</td><td>A whole audience tier is unreachable in 77 of 78 locales, and there is no hub to collect them.</td><td><span class="sev high">High</span></td></tr>
+            <tr><td>05</td><td><code>/developers/</code>, the path without the <code>/for/</code> prefix, returns 404.</td><td>It is the URL a person guesses and a link-builder writes. Cheap to redirect.</td><td><span class="sev med">Medium</span></td></tr>
+            <tr><td>06</td><td><code>/blog/</code> and <code>/contact/</code> both return 404.</td><td>No editorial surface to earn search traffic, and no contact route other than an email address in body copy.</td><td><span class="sev med">Medium</span></td></tr>
+            <tr><td>07</td><td>The homepage contradicts other pages on load-bearing facts, including the plan lineup, voice count, language count and API metering.</td><td>Structure cannot fix this, but a site map proposal is the moment to assign one owner per fact.</td><td><span class="sev med">Medium</span></td></tr>
+            <tr><td>08</td><td>No <code>xhtml:link</code> alternates inside the sitemap. The namespace is declared but unused.</td><td>One of the three valid ways to deliver hreflang is set up and left empty.</td><td><span class="sev low">Low</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s5">
+      <span class="snum">05 / Proposed site map</span>
+      <h2>Where each page should sit</h2>
+      <p>The change is deliberately conservative. Existing URLs keep their paths, because they rank and they are linked. The work is adding what is missing, giving the audience tier a home, and making the locale axis behave.</p>
+
+      <div class="tree">
+        <ul>
+          <li><span class="u">/</span><span class="lbl">Home</span><span class="flag keep">keep</span></li>
+          <li><span class="u">/examples/</span><span class="lbl">Gallery</span><span class="flag keep">keep</span></li>
+          <li><span class="u">/pricing/</span><span class="flag keep">keep</span></li>
+          <li><span class="u">/science/</span><span class="lbl">The spec, the credibility asset</span><span class="flag keep">keep</span></li>
+          <li><span class="u">/for/</span><span class="lbl">Who it is for</span><span class="flag add">new hub</span>
+            <ul>
+              <li><span class="u">/for/developers/</span><span class="flag fix">add hreflang</span></li>
+              <li><span class="u">/for/founders/</span><span class="flag fix">add hreflang</span></li>
+              <li><span class="u">/for/teachers/</span><span class="lbl">absorbs /education/ or links to it</span><span class="flag fix">decide</span></li>
+              <li><span class="u">/for/course-creators/</span><span class="flag fix">add hreflang</span></li>
+              <li><span class="u">/for/support-teams/</span><span class="flag fix">add hreflang</span></li>
+            </ul>
+          </li>
+          <li><span class="u">/developers/</span><span class="lbl">Developer landing, the API overview</span><span class="flag fix">rename from /api/</span>
+            <ul>
+              <li><span class="u">/docs/</span><span class="lbl">Quickstart</span><span class="flag keep">keep</span></li>
+              <li><span class="u">/docs/api/</span> <span class="u">/docs/voices/</span> <span class="u">/docs/languages/</span><span class="flag keep">keep</span></li>
+              <li><span class="u">/docs/cli/</span> <span class="u">/docs/mcp/</span><span class="flag keep">keep</span></li>
+            </ul>
+          </li>
+          <li><span class="u">/icons/</span><span class="lbl">The Sketchy Icon Library, an acquisition asset</span><span class="flag keep">keep</span></li>
+          <li><span class="u">/compare/</span><span class="lbl">Comparison hub</span><span class="flag add">new</span>
+            <ul>
+              <li><span class="u">/compare/simi/</span><span class="lbl">from /vs-simi/, 301</span><span class="flag fix">move</span></li>
+            </ul>
+          </li>
+          <li><span class="u">/blog/</span><span class="lbl">Editorial, only if resourced</span><span class="flag add">new</span></li>
+          <li><span class="u">/contact/</span><span class="lbl">One form, one address, response expectation</span><span class="flag add">new</span></li>
+          <li><span class="u">/sitemap.xml</span><span class="lbl">Serve at the expected path</span><span class="flag fix">fix</span></li>
+          <li><span class="u">/terms/</span> <span class="u">/privacy/</span><span class="flag keep">keep</span></li>
+        </ul>
+        <div class="axis">
+          <b>Locale axis, revised</b>
+          Tier the locales by evidence of demand rather than translating everything equally. Tier 1 locales get the full page set including <code>/for/</code>. Tier 2 gets the core commercial pages. Everything else stays available but is not expanded. Every page in a tier carries reciprocal hreflang including <code>x-default</code>.
+        </div>
+      </div>
+
+      <div class="note">
+        <p><b>Two decisions we cannot make for you.</b> Whether <code>/education/</code> merges into <code>/for/teachers/</code> or stays as the deeper destination, and whether a blog is actually resourced. Proposing a blog nobody writes is worse than not having one.</p>
+      </div>
+    </section>
+
+    <section id="s6">
+      <span class="snum">06 / URL and redirect map</span>
+      <h2>Every change, and what it costs</h2>
+      <div class="tw">
+        <table>
+          <caption>Server-side 301, direct to final destination, no chains beyond three hops</caption>
+          <thead><tr><th>Change</th><th>From</th><th>To</th><th>Rationale</th></tr></thead>
+          <tbody>
+            <tr><td>Add alias</td><td><code>/developers/</code></td><td><code>/for/developers/</code> or the new developer landing</td><td>Currently 404. It is the guessed URL.</td></tr>
+            <tr><td>Add aliases</td><td><code>/founders/</code>, <code>/teachers/</code>, <code>/course-creators/</code>, <code>/support-teams/</code></td><td>Matching <code>/for/</code> page</td><td>Same reason, applied consistently.</td></tr>
+            <tr><td>Move</td><td><code>/vs-simi/</code></td><td><code>/compare/simi/</code></td><td>Makes room for a second comparison without a second orphan page. Only worth doing if a second one is planned.</td></tr>
+            <tr><td>Rename</td><td><code>/api/</code></td><td><code>/developers/</code></td><td>Matches how the audience describes itself, and gives docs a parent. Optional, and the highest risk item here.</td></tr>
+            <tr><td>Create</td><td>none</td><td><code>/for/</code>, <code>/compare/</code>, <code>/contact/</code>, <code>/blog/</code></td><td>Hubs and the two missing pages.</td></tr>
+            <tr><td>Fix</td><td><code>/sitemap.xml</code> 404</td><td>Serve the index at that path, keep the existing file as well</td><td>No redirect needed, just serve both.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note warn">
+        <p><b>If only one thing on this page gets done,</b> make it the hreflang fix on the five audience pages and serving <code>/sitemap.xml</code>. Both are cheap, neither changes a URL, and together they address the discovery leak.</p>
+      </div>
+    </section>
+
+    <section id="s7">
+      <span class="snum">07 / Localisation</span>
+      <h2>The locale axis needs governing, not expanding</h2>
+      <ul class="plain">
+        <li><span class="b">01</span><span><b>Stop automatic redirection.</b> Detect, then offer. A banner or a switcher respects the URL the visitor asked for, which is what Google's guidance recommends and what a person linking to a specific page expects.</span></li>
+        <li><span class="b">02</span><span><b>Make the switcher stay on the page.</b> Today it sends a reader on <code>/for/developers/</code> to a locale homepage. It should go to the same page in the new locale, or be hidden where no translation exists.</span></li>
+        <li><span class="b">03</span><span><b>Add reciprocal hreflang everywhere,</b> including <code>x-default</code>. Each version must list itself and all others, or the annotations are ignored.</span></li>
+        <li><span class="b">04</span><span><b>Tier the locales.</b> 78 prefixes across 14 paths is a maintenance surface, not a market strategy. Tiering needs demand data, which is in the analytics we have not seen.</span></li>
+        <li><span class="b">05</span><span><b>Either translate the <code>/for/</code> pages or exclude them deliberately.</b> The current state, where they exist in one locale only and carry no alternates, is the worst of both.</span></li>
+      </ul>
+    </section>
+
+    <section id="s8">
+      <span class="snum">08 / Priorities and phases</span>
+      <h2>Sequenced so nothing ships before its evidence</h2>
+      <div class="matrix">
+        <div class="quad do"><h4>High impact, low effort. Do first.</h4>
+          <ul><li>Serve <code>/sitemap.xml</code></li><li>hreflang on the five audience pages</li><li>Five root aliases as 301s</li><li>Add <code>/contact/</code></li></ul></div>
+        <div class="quad"><h4>High impact, higher effort</h4>
+          <ul><li>Stop the locale auto-redirect, add a switcher that holds position</li><li>Build the <code>/for/</code> hub</li><li>Single source of truth for the contested facts</li></ul></div>
+        <div class="quad"><h4>Lower impact, low effort</h4>
+          <ul><li><code>xhtml:link</code> alternates in the sitemap</li><li>Breadcrumbs on docs</li></ul></div>
+        <div class="quad"><h4>Decide before committing</h4>
+          <ul><li><code>/api/</code> to <code>/developers/</code> rename</li><li><code>/vs-simi/</code> to <code>/compare/simi/</code></li><li>Blog, only if resourced</li><li>Locale tiering, needs data</li></ul></div>
+      </div>
+
+      <div class="phases">
+        <div class="phase"><span class="p">Phase 0<br>Stop the bleeding</span>
+          <div><h3>No URL changes, no risk</h3>
+            <ul><li>Serve the sitemap at the expected path</li><li>Add hreflang alternates to the audience pages</li><li>Add the five root aliases</li><li>Fix the switcher so it stays on the page</li></ul></div></div>
+        <div class="phase"><span class="p">Phase 1<br>Structure</span>
+          <div><h3>Hubs and the missing pages</h3>
+            <ul><li><code>/for/</code> hub, <code>/contact/</code></li><li>Redirect map built and tested on staging</li><li>Pre-launch crawl diff</li></ul></div></div>
+        <div class="phase"><span class="p">Phase 2<br>Locale</span>
+          <div><h3>Governed, not expanded</h3>
+            <ul><li>Replace the auto-redirect with detect and offer</li><li>Tier locales once demand data exists</li><li>Translate or exclude the audience tier deliberately</li></ul></div></div>
+        <div class="phase"><span class="p">Phase 3<br>Content</span>
+          <div><h3>Only with owners attached</h3>
+            <ul><li>Claims matrix with one owner per contested fact</li><li>Blog, if and only if it is resourced</li><li>Second comparison page, if planned</li></ul></div></div>
+      </div>
+    </section>
+
+    <section id="s9">
+      <span class="snum">09 / How we would validate</span>
+      <h2>Before the structure ships, not after</h2>
+      <p>A proposed hierarchy is a hypothesis. Two cheap tests settle most disagreements, and both run without any visual design.</p>
+      <ul class="plain">
+        <li><span class="b">01</span><span><b>Tree test</b> the proposed structure with 30 to 50 participants, measuring task success, which wrong branch was taken, and directness. Run two label variants if the audience-page naming is contested.</span></li>
+        <li><span class="b">02</span><span><b>Open card sort</b> with about 15 participants, but only if the top level is genuinely in dispute. At 15 participants the result correlates about 0.90 with a full sample.</span></li>
+        <li><span class="b">03</span><span><b>Crawl diff</b> before and after each phase, so a structural change that orphans a page is caught before release rather than in a ranking report.</span></li>
+      </ul>
+      <p>On click depth: we will not promise a three-click rule. It is not supported by evidence, and the research that is often cited for it found no worsening of drop-off past three clicks. We optimise for information scent, hub pages and wayfinding instead.</p>
+    </section>
+
+    <section id="s10">
+      <span class="snum">10 / Open questions</span>
+      <h2>What we need before finalising</h2>
+      <div class="tw">
+        <table>
+          <caption>Each has a stated default, so a non-answer does not block the work</caption>
+          <thead><tr><th>Question</th><th>Blocks</th><th>Default if unanswered</th></tr></thead>
+          <tbody>
+            <tr><td>Analytics and Search Console access</td><td>Impact ranking, locale tiering, redirect priority</td><td>Sequence by severity and effort only, and say so</td></tr>
+            <tr><td>Which audience segment actually pays</td><td>Whether <code>/for/</code> is a hub or the main navigation</td><td>Treat developers and teachers as equal</td></tr>
+            <tr><td>Which locales matter commercially</td><td>Locale tiering</td><td>Tier by traffic once data exists, expand nothing meanwhile</td></tr>
+            <tr><td>Is a blog resourced</td><td>Whether <code>/blog/</code> is proposed at all</td><td>Leave it out</td></tr>
+            <tr><td>Who owns the locale build pipeline</td><td>Phase 2 effort estimate</td><td>Assume engineering time is required</td></tr>
+            <tr><td>Who signs off pricing and product claims</td><td>The claims matrix</td><td>Route through the person who owns the pricing page</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s11">
+      <span class="snum">11 / What we do not promise</span>
+      <h2>Stated plainly, before anyone asks</h2>
+      <p><b>We will commit to:</b> a one to one redirect map with no 404 for any URL that has clicks or inbound links, redirect chains of three hops or fewer, self-referencing canonicals, reciprocal hreflang including <code>x-default</code>, a crawl diff before each release, a monitoring window at 7, 30 and 90 days, and a rollback plan per phase.</p>
+      <p><b>We will not promise:</b> that rankings are retained, that there is no traffic dip during transition, any traffic or conversion percentage, a reindexing timeline, or a maximum click depth. Movement during a restructure is normal, and anyone promising otherwise is guessing.</p>
+      <div class="note">
+        <p><b>Redirects stay for at least a year.</b> That is Google's own guidance for a move with URL changes, and it is the single most common thing teams remove too early.</p>
+      </div>
+    </section>
+
+    <footer>
+      <span>Site map and optimisation report. Prepared for Downshift LLC.</span>
+      <span>Live checks 2026-10-15</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+/* Highlights the section you are reading. The page is complete without it. */
+(function(){
+  var links={};
+  [].forEach.call(document.querySelectorAll('.toc a'),function(a){
+    links[a.getAttribute('href').slice(1)]=a;
+  });
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var a=links[e.target.id];
+      if(a){a.classList.toggle('on',e.isIntersecting&&e.intersectionRatio>0.2)}
+    });
+  },{threshold:[0.2,0.6],rootMargin:'-10% 0px -70% 0px'});
+  [].forEach.call(document.querySelectorAll('section[id]'),function(s){io.observe(s)});
+})();
+</script>
+</body>
+</html>
