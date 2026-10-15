@@ -51,7 +51,7 @@
   --gx:clamp(14px,1.6vw,24px);
   --pad:clamp(18px,4vw,48px);
   --max:1280px;
-  --rhythm:clamp(56px,7vw,104px);
+  --rhythm:clamp(68px,7.6vw,118px);
 
   /* One scale. Seven steps, each a clear jump from the last, so a reader
      can tell rank by size alone. Replaces 21 values packed into 10.9-16.6px. */
@@ -81,6 +81,9 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--accent) v
 ::-webkit-scrollbar-thumb{background:var(--accent);border:3px solid var(--sunken);border-radius:99px}
 ::-webkit-scrollbar-corner{background:var(--sunken)}
 body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.62 var(--ui);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* pretty balances the last lines, so short orphan words stop happening */
+p,li,figcaption{text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
 
 /* ---- their dotted paper grid, 1.3px dots on a 26px pitch ---- */
 .dotted{position:relative}
@@ -254,7 +257,7 @@ html[data-theme="night"] .clip video,html[data-theme="night"] .clip .vf{border-c
   padding:16px 16px 16px 17px;background:var(--surface);height:100%}
 .request p{color:var(--text);font-size:var(--t-base)}
 .versions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gx)}
-.vcard{border:2px solid var(--line);border-radius:14px;padding:16px;background:var(--surface)}
+.vcard{border:2px solid var(--line);border-radius:14px;padding:22px;background:var(--surface)}
 .vcard.after{border-color:var(--accent);background:var(--accent-tint)}
 /* 86 units tall rendered at 86px, same 1:1 scale as the scene strip,
    so a 2.1 stroke is a 2.1 stroke in both */
@@ -264,31 +267,31 @@ html[data-theme="night"] .clip video,html[data-theme="night"] .clip .vf{border-c
 .untouched{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:var(--t-sm);color:var(--muted)}
 .untouched b{color:var(--accent-deep);font-weight:600}
 
-.step{position:relative;padding-top:26px;border-top:2px solid var(--ink)}
+.step{position:relative;padding-top:36px;border-top:2px solid var(--ink)}
 html[data-theme="night"] .step{border-top-color:var(--line)}
 .step .num{position:absolute;top:-19px;left:0;width:38px;height:38px;border-radius:50%;background:var(--sunny);
   border:2px solid var(--ink);display:grid;place-items:center;font-family:var(--marker);font-weight:800;color:#1E1E28}
-.step h3{margin:6px 0 8px}
-.step .icobox{margin:14px 0 4px}
-.step p{font-size:var(--t-base)}
+.step h3{margin:0 0 12px}
+.step .icobox{margin:8px 0 18px}
+.step p{font-size:var(--t-base);max-width:33ch;color:var(--muted)}
 
 .formats{border:2px solid var(--ink);border-radius:16px;overflow:hidden;background:var(--surface)}
 html[data-theme="night"] .formats{border-color:var(--line)}
-.fcol{padding:22px}
+.fcol{padding:28px 26px}
 .fcol+.fcol{border-left:2px solid var(--ink)}
 html[data-theme="night"] .fcol+.fcol{border-left-color:var(--line)}
-.fcol h4{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:12px}
-.chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{border:2px solid var(--ink);border-radius:99px;padding:5px 12px;font-size:var(--t-sm);font-weight:500;background:var(--bg)}
+.fcol h4{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{border:2px solid var(--ink);border-radius:99px;padding:7px 15px;font-size:var(--t-sm);font-weight:500;background:var(--bg)}
 html[data-theme="night"] .chip{border-color:var(--line)}
 
-.rule{border-top:1px solid var(--line);padding-top:16px}
+.rule{border-top:2px solid var(--line);padding-top:20px}
 .rule b{display:block;font-family:var(--marker);font-size:var(--t-num);font-weight:800;color:var(--accent-deep);line-height:1}
-.rule span{display:block;font-size:var(--t-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite);margin:8px 0 7px}
-.rule p{font-size:var(--t-sm)}
+.rule span{display:block;font-size:var(--t-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite);margin:12px 0 10px}
+.rule p{font-size:var(--t-sm);color:var(--muted);max-width:30ch}
 .beat{margin-top:28px;border:2px solid var(--ink);border-radius:16px;overflow:hidden;background:var(--surface)}
 html[data-theme="night"] .beat{border-color:var(--line)}
-.beat .b{padding:20px}
+.beat .b{padding:26px 24px}
 .beat .b+.b{border-left:2px solid var(--ink)}
 html[data-theme="night"] .beat .b+.b{border-left-color:var(--line)}
 .beat .b:nth-child(2){background:var(--accent-tint)}
@@ -305,15 +308,20 @@ html[data-theme="night"] .icobox{border-color:var(--line);box-shadow:3px 4px 0 r
 .who:hover .icobox,.step:hover .icobox{transform:translate(-1px,-2px);box-shadow:5px 6px 0 var(--ink)}
 html[data-theme="night"] .who:hover .icobox{box-shadow:5px 6px 0 rgba(155,140,255,.3)}
 .icobox.sm{width:40px;height:40px;border-radius:10px;padding:5px;box-shadow:2px 3px 0 var(--ink)}
-.whohead{display:flex;align-items:center;gap:13px;margin-bottom:12px}
+.whohead{display:flex;align-items:center;gap:13px;margin-bottom:4px}
 .whohead .tag{margin:0}
 .beat .b .icobox{margin-bottom:12px}
 @media (prefers-reduced-motion:reduce){.icobox{transition:none}}
-.who{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:18px;height:100%}
+/* five cards, one width. Row two is offset so the set stays centred
+   rather than becoming a second row of wider cards. */
+.who{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:24px 22px;height:100%;
+  display:flex;flex-direction:column}
+.who p{flex:1 1 auto}
+.who a{margin-top:18px;align-self:flex-start}
 .who .tag{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
-.who h4{margin:10px 0 7px;font-family:var(--marker);font-size:var(--t-md)}
+.who h4{margin:16px 0 10px;font-family:var(--marker);font-size:var(--t-md)}
 .who p{font-size:var(--t-sm)}
-.who a{display:inline-block;margin-top:12px;font-size:var(--t-sm);font-weight:600;text-decoration:none}
+.who a{display:inline-block;font-size:var(--t-sm);font-weight:600;text-decoration:none}
 .who a:hover{text-decoration:underline}
 
 .free{background:var(--accent-tint);border:2px solid var(--accent);border-radius:16px;padding:clamp(20px,3vw,30px)}
@@ -382,6 +390,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
 
 @media (max-width:900px){
   :root{--cols:6}
+  .who-off,[style*="grid-column:3 / span 4"],[style*="grid-column:7 / span 4"]{grid-column:span 6 !important}
   .c7,.c8,.c12,.c5,.c6,.c4,.c3{grid-column:span 6}
   .scenes{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fcol+.fcol{border-left:0;border-top:2px solid var(--ink)}
@@ -636,8 +645,8 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         <div class="c4"><div class="who"><div class="whohead"><div class="icobox"><svg style="--sk-c1:#339AF0" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="laptop"><g class="fills" stroke="none"><g class="fill" data-region="paper"><rect x="22" y="18" width="52" height="44" rx="4" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><rect x="28" y="24" width="40" height="32" rx="2" fill="var(--sk-c1, #339AF0)"/></g><g class="fill" data-region="paper"><path d="M14 62 H82 L88 74 H8 Z" fill="var(--sk-paper, #FFFFFF)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="18" width="52" height="44" rx="4"/><rect x="28" y="24" width="40" height="32" rx="2"/><path d="M14 62 H82 L88 74 H8 Z"/></g></svg></div><span class="tag">Developers</span></div><h4>Explain it from your terminal</h4><p>One call returns the video and the scene graph as JSON you can edit and re-render.</p><a href="https://sketchie.ai/for/developers/">Read more</a></div></div>
         <div class="c4"><div class="who"><div class="whohead"><div class="icobox"><svg style="--sk-c1:#FF6B5B" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="rocket"><g class="fills" stroke="none"><g class="fill" data-region="paper"><path d="M48 6 C60 16 64 32 64 48 L58 58 H38 L32 48 C32 32 36 16 48 6 Z" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c2"><circle cx="48" cy="34" r="8" fill="var(--sk-c2, #339AF0)"/></g><g class="fill" data-region="c1"><path d="M32 44 L16 62 L32 60 Z" fill="var(--sk-c1, #FF6B5B)"/><path d="M64 44 L80 62 L64 60 Z" fill="var(--sk-c1, #FF6B5B)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M48 6 C60 16 64 32 64 48 L58 58 H38 L32 48 C32 32 36 16 48 6 Z"/><circle cx="48" cy="34" r="8"/><path d="M32 44 L16 62 L32 60 Z"/><path d="M64 44 L80 62 L64 60 Z"/><path d="M42 64 C43 74 46 80 48 86 C50 80 53 74 54 64"/></g></svg></div><span class="tag">Founders</span></div><h4>Without becoming a video person</h4><p>The explanation is due now, not in three weeks.</p><a href="https://sketchie.ai/for/founders/">Read more</a></div></div>
         <div class="c4"><div class="who"><div class="whohead"><div class="icobox"><svg style="--sk-c1:#40C057" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="teacher"><g class="fills" stroke="none"><g class="fill" data-region="paper"><rect x="8" y="14" width="50" height="34" rx="4" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><circle cx="70" cy="42" r="10" fill="var(--sk-c1, #6C5CE7)"/><path d="M54 84 C54 68 61 60 70 60 C79 60 88 68 88 84 Z" fill="var(--sk-c1, #6C5CE7)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="14" width="50" height="34" rx="4"/><line x1="17" y1="25" x2="47" y2="25"/><line x1="17" y1="36" x2="39" y2="36"/><circle cx="70" cy="42" r="10"/><path d="M54 84 C54 68 61 60 70 60 C79 60 88 68 88 84 Z"/><line x1="62" y1="52" x2="50" y2="42"/></g></svg></div><span class="tag">Teachers</span></div><h4>Explained properly, every time</h4><p>The concept your class keeps getting stuck on, rewatchable on their own time.</p><a href="https://sketchie.ai/for/teachers/">Read more</a></div></div>
-        <div class="c6"><div class="who"><div class="whohead"><div class="icobox"><svg style="--sk-c1:#FFC933" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="document"><g class="fills" stroke="none"><g class="fill" data-region="paper"><path d="M24 8 H58 L76 26 V88 H24 Z" fill="var(--sk-paper, #FFFFFF)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8 H58 L76 26 V88 H24 Z"/><path d="M58 8 V26 H76"/><line x1="34" y1="42" x2="62" y2="42" stroke="var(--sk-c1, #339AF0)"/><line x1="34" y1="54" x2="62" y2="54" stroke="var(--sk-c1, #339AF0)"/><line x1="34" y1="66" x2="52" y2="66" stroke="var(--sk-c1, #339AF0)"/></g></svg></div><span class="tag">Course creators</span></div><h4>A lesson library that stays editable</h4><p>Build the visual half of a course without a motion designer, and correct it a year later.</p><a href="https://sketchie.ai/for/course-creators/">Read more</a></div></div>
-        <div class="c6"><div class="who"><div class="whohead"><div class="icobox"><svg style="--sk-c1:#E8538F" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="megaphone"><g class="fills" stroke="none"><g class="fill" data-region="c1"><path d="M14 40 H24 L64 22 V70 L24 52 H14 C11.8 52 10 50.2 10 48 V44 C10 41.8 11.8 40 14 40 Z" fill="var(--sk-c1, #FF6B5B)"/><path d="M28 54 L34 76 C34.6 78.2 33.3 80 31 80 H27 C24.8 80 23.4 78.4 23 76 L20 54" fill="var(--sk-c1, #FF6B5B)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 40 H24 L64 22 V70 L24 52 H14 C11.8 52 10 50.2 10 48 V44 C10 41.8 11.8 40 14 40 Z"/><path d="M28 54 L34 76 C34.6 78.2 33.3 80 31 80 H27 C24.8 80 23.4 78.4 23 76 L20 54"/><path d="M72 34 C76 38 78 42 78 46 C78 50 76 54 72 58"/><path d="M80 26 C86 32 89 39 89 46 C89 53 86 60 80 66"/></g></svg></div><span class="tag">Support teams</span></div><h4>The doc nobody reads, finished</h4><p>Paste the help article, get the same answer as a short narrated explainer.</p><a href="https://sketchie.ai/for/support-teams/">Read more</a></div></div>
+        <div class="c4" style="grid-column:3 / span 4"><div class="who"><div class="whohead"><div class="icobox"><svg style="--sk-c1:#FFC933" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="document"><g class="fills" stroke="none"><g class="fill" data-region="paper"><path d="M24 8 H58 L76 26 V88 H24 Z" fill="var(--sk-paper, #FFFFFF)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8 H58 L76 26 V88 H24 Z"/><path d="M58 8 V26 H76"/><line x1="34" y1="42" x2="62" y2="42" stroke="var(--sk-c1, #339AF0)"/><line x1="34" y1="54" x2="62" y2="54" stroke="var(--sk-c1, #339AF0)"/><line x1="34" y1="66" x2="52" y2="66" stroke="var(--sk-c1, #339AF0)"/></g></svg></div><span class="tag">Course creators</span></div><h4>A lesson library that stays editable</h4><p>Build the visual half of a course without a motion designer, and correct it a year later.</p><a href="https://sketchie.ai/for/course-creators/">Read more</a></div></div>
+        <div class="c4" style="grid-column:7 / span 4"><div class="who"><div class="whohead"><div class="icobox"><svg style="--sk-c1:#E8538F" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="megaphone"><g class="fills" stroke="none"><g class="fill" data-region="c1"><path d="M14 40 H24 L64 22 V70 L24 52 H14 C11.8 52 10 50.2 10 48 V44 C10 41.8 11.8 40 14 40 Z" fill="var(--sk-c1, #FF6B5B)"/><path d="M28 54 L34 76 C34.6 78.2 33.3 80 31 80 H27 C24.8 80 23.4 78.4 23 76 L20 54" fill="var(--sk-c1, #FF6B5B)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 40 H24 L64 22 V70 L24 52 H14 C11.8 52 10 50.2 10 48 V44 C10 41.8 11.8 40 14 40 Z"/><path d="M28 54 L34 76 C34.6 78.2 33.3 80 31 80 H27 C24.8 80 23.4 78.4 23 76 L20 54"/><path d="M72 34 C76 38 78 42 78 46 C78 50 76 54 72 58"/><path d="M80 26 C86 32 89 39 89 46 C89 53 86 60 80 66"/></g></svg></div><span class="tag">Support teams</span></div><h4>The doc nobody reads, finished</h4><p>Paste the help article, get the same answer as a short narrated explainer.</p><a href="https://sketchie.ai/for/support-teams/">Read more</a></div></div>
       </div>
     </div>
   </section>
@@ -659,8 +668,9 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   <section class="sunken ruled">
     <div class="wrap">
       <div class="g">
-        <div class="c5"><h2>Start with what you have.</h2></div>
-        <div class="c7">
+        <div class="c12"><h2>Start with what you have.</h2>
+          <p class="lede" style="margin-top:16px">Six input formats in, three shapes out, or drive the whole thing from code.</p></div>
+        <div class="c12" style="margin-top:34px">
           <div class="formats g" style="--cols:3;gap:0">
             <div class="fcol"><h4>Feed it</h4><div class="chips"><span class="chip">Prompt</span><span class="chip">PDF</span><span class="chip">Word</span><span class="chip">PowerPoint</span><span class="chip">TXT</span><span class="chip">Markdown</span></div></div>
             <div class="fcol"><h4>Get back</h4><div class="chips"><span class="chip">MP4</span><span class="chip">16:9</span><span class="chip">9:16</span><span class="chip">1:1</span><span class="chip">Scene graph</span></div></div>
@@ -678,12 +688,12 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         <div class="c7"><p class="eyebrow">The science</p><h2>We optimized for whether they remember it tomorrow.</h2><p class="lede" style="margin-top:16px">Fast and cheap only matter if the video is genuinely good. The generator enforces rules drawn from peer-reviewed research.</p></div>
       </div>
       <div class="g" style="margin-top:40px">
-        <div class="rule c2"><b>12-30s</b><span>Scene length</span><p>One idea per scene.</p></div>
-        <div class="rule c2"><b>3-7</b><span>Elements</span><p>Counted at the end of the scene.</p></div>
-        <div class="rule c2"><b>2-5s</b><span>Reveal spacing</span><p>Never two closer than 1.2 seconds.</p></div>
-        <div class="rule c2"><b>500ms</b><span>Word sync</span><p>Each element lands on its word.</p></div>
-        <div class="rule c2"><b>140-160</b><span>Words per minute</span><p>Spoken register, not read.</p></div>
-        <div class="rule c2"><b>3 words</b><span>Label limit</span><p>A keyword, never a sentence.</p></div>
+        <div class="rule c4"><b>12-30s</b><span>Scene length</span><p>One idea per scene.</p></div>
+        <div class="rule c4"><b>3-7</b><span>Elements</span><p>Counted at the end of the scene.</p></div>
+        <div class="rule c4"><b>2-5s</b><span>Reveal spacing</span><p>Never two closer than 1.2 seconds.</p></div>
+        <div class="rule c4"><b>500ms</b><span>Word sync</span><p>Each element lands on its word.</p></div>
+        <div class="rule c4"><b>140-160</b><span>Words per minute</span><p>Spoken register, not read.</p></div>
+        <div class="rule c4"><b>3 words</b><span>Label limit</span><p>A keyword, never a sentence.</p></div>
       </div>
       <div class="beat g" style="--cols:3;gap:0">
         <div class="b"><div class="icobox sm"><svg style="--sk-c1:#E8538F" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="target"><g class="fills" stroke="none"><g class="fill" data-region="paper"><circle cx="48" cy="48" r="33" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><circle cx="48" cy="48" r="21" fill="var(--sk-c1, #FF6B5B)"/></g><g class="fill" data-region="paper"><circle cx="48" cy="48" r="10" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="ink"><circle cx="48" cy="48" r="3.5" fill="currentColor"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="48" r="33"/><circle cx="48" cy="48" r="21"/><circle cx="48" cy="48" r="10"/><circle cx="48" cy="48" r="3.5"/></g></svg></div><h4>Question</h4><p>Every video closes by asking the viewer to produce the answer.</p></div>
