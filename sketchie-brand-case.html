@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchie: the case for a brand overhaul</title>
+<meta name="description" content="A design audit of sketchie.ai, the evidence for changing the brand, what an overhaul must deliver, and the directions explored.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFBF9; --panel:#FFFFFF; --ink:#15161A; --body:#4A4F57; --faint:#8A9099;
+  --rule:#E2E2DC; --accent:#0F6E5C; --accent-soft:#E6F2EE;
+  --warn:#B3471F; --warn-soft:#FBEDE6; --ok:#2E7D32; --ok-soft:#EAF4EB;
+  --sans:"Space Grotesk",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --gutter:clamp(18px,4vw,44px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16.5px/1.62 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.page{display:grid;grid-template-columns:238px minmax(0,1fr);max-width:1340px;margin:0 auto}
+.toc{position:sticky;top:0;height:100vh;overflow-y:auto;padding:30px 20px 30px var(--gutter);border-right:1px solid var(--rule)}
+.toc h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:0 0 14px;font-weight:400}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.toc a{display:flex;gap:10px;padding:7px 8px;text-decoration:none;color:var(--body);font-size:.88rem;border-radius:5px}
+.toc a:hover{background:var(--accent-soft);color:var(--ink)}
+.toc a.on{background:var(--accent-soft);color:var(--accent);font-weight:500}
+.toc .n{font-family:var(--mono);font-size:.72rem;color:var(--faint)}
+.toc .meta{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:.66rem;line-height:1.8;color:var(--faint)}
+main{padding:0 var(--gutter) 90px;min-width:0}
+header.cover{padding:clamp(48px,7vw,86px) 0 34px;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1.04;letter-spacing:-.03em;margin:16px 0 18px;max-width:010ch;max-width:19ch}
+h2{font-size:clamp(1.4rem,2.5vw,1.9rem);line-height:1.15;letter-spacing:-.022em;margin:0 0 14px}
+h3{font-size:1.05rem;letter-spacing:-.01em;margin:22px 0 8px}
+p{margin:0 0 14px;color:var(--body);max-width:74ch}
+a{color:var(--accent)}
+section{padding:clamp(42px,6vw,72px) 0;border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:0}
+.snum{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:10px}
+.lede{font-size:1.12rem;line-height:1.55;color:var(--ink);max-width:66ch}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+code{font-family:var(--mono);font-size:.84em;background:#F1F1EC;padding:1px 5px;border-radius:4px}
+
+.keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:26px 0 8px}
+.key{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px}
+.key b{display:block;font-family:var(--mono);font-size:1.5rem;letter-spacing:-.02em;color:var(--warn);margin-bottom:6px}
+.key span{font-size:.9rem;color:var(--body)}
+
+/* swatches */
+.sw{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;margin:20px 0}
+.swatch{border:1px solid var(--rule);border-radius:9px;overflow:hidden;background:var(--panel)}
+.swatch .chip{height:54px;display:grid;place-items:center;font-family:var(--mono);font-size:.74rem}
+.swatch .foot{padding:9px 10px;font-family:var(--mono);font-size:.66rem;color:var(--faint);line-height:1.5}
+.swatch .foot b{display:block;color:var(--ink);font-size:.72rem}
+.fail{color:var(--warn);font-weight:500}
+.pass{color:var(--ok);font-weight:500}
+
+.tw{overflow-x:auto;margin:20px 0}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:600px;background:var(--panel)}
+caption{text-align:left;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:0 0 10px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:400;background:#F6F6F2}
+td.n{font-family:var(--mono);text-align:right}
+tbody tr:last-child td{border-bottom:0}
+.tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.tag.f{background:var(--warn-soft);color:var(--warn)}
+.tag.p{background:var(--ok-soft);color:var(--ok)}
+
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 8px 8px 0;margin:20px 0}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.note p{margin:0;color:var(--ink)}
+
+.args{display:grid;gap:14px;margin-top:24px}
+.arg{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:20px 22px}
+.arg .h{display:flex;gap:12px;align-items:baseline;margin-bottom:8px}
+.arg .h .i{font-family:var(--mono);font-size:.72rem;color:var(--accent)}
+.arg h3{margin:0;font-size:1.08rem}
+.arg p{margin-bottom:0;font-size:.96rem}
+.arg .ev{margin-top:12px;padding-top:12px;border-top:1px dashed var(--rule);font-family:var(--mono);font-size:.74rem;color:var(--faint);line-height:1.7}
+.arg .ev b{color:var(--ink);font-weight:500}
+
+.dirs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+.dir{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.dir.pick{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.dir .tagline{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.dir h3{margin:0;font-size:1.02rem}
+.dir p{font-size:.9rem;margin:0}
+.dir a{font-family:var(--mono);font-size:.74rem;margin-top:auto}
+
+.phases{display:grid;gap:12px;margin-top:22px}
+.phase{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px}
+.phase .p{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.phase ul{margin:6px 0 0;padding-left:18px;color:var(--body);font-size:.94rem}
+.phase li{margin-bottom:4px}
+.phase h3{margin:0}
+
+ul.plain{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:9px}
+ul.plain li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;color:var(--body);max-width:74ch}
+ul.plain .b{font-family:var(--mono);font-size:.74rem;color:var(--accent);padding-top:3px}
+
+footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--faint);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:980px){
+  .page{grid-template-columns:minmax(0,1fr)}
+  .toc{position:static;height:auto;border-right:0;border-bottom:1px solid var(--rule);padding:20px var(--gutter)}
+  .toc ol{grid-template-columns:repeat(2,minmax(0,1fr))}
+  main{padding-top:10px}
+}
+@media (max-width:760px){
+  .keys,.dirs{grid-template-columns:minmax(0,1fr)}
+  .phase{grid-template-columns:minmax(0,1fr);gap:8px}
+  .toc ol{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <nav class="toc" aria-label="Contents">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#s1"><span class="n">01</span> The case in short</a></li>
+      <li><a href="#s2"><span class="n">02</span> What we examined</a></li>
+      <li><a href="#s3"><span class="n">03</span> The system today</a></li>
+      <li><a href="#s4"><span class="n">04</span> Why it should change</a></li>
+      <li><a href="#s5"><span class="n">05</span> The accessibility problem</a></li>
+      <li><a href="#s6"><span class="n">06</span> What to keep</a></li>
+      <li><a href="#s7"><span class="n">07</span> What an overhaul delivers</a></li>
+      <li><a href="#s8"><span class="n">08</span> Directions explored</a></li>
+      <li><a href="#s9"><span class="n">09</span> Phases</a></li>
+      <li><a href="#s10"><span class="n">10</span> Open questions</a></li>
+      <li><a href="#s11"><span class="n">11</span> What we do not promise</a></li>
+    </ol>
+    <p class="meta">Design scope only<br>Checked 2026-10-15<br>sketchie.ai</p>
+  </nav>
+
+  <main>
+    <header class="cover">
+      <p class="eyebrow">Design audit and brand case</p>
+      <h1>The product is credible. The brand is not carrying it.</h1>
+      <p class="lede">Sketchie publishes a graded research spec, concedes where a competitor wins, and ships output that genuinely draws itself. The visual identity around all of that reads as a classroom worksheet, fails accessibility on most of its palette, and never once shows the thing that makes the product different.</p>
+    </header>
+
+    <section id="s1">
+      <span class="snum">01 / The case in short</span>
+      <h2>Three reasons, none of them taste</h2>
+      <p>Brand arguments usually come down to preference, which is why they stall. These three can be checked by anyone with a browser and a contrast tool.</p>
+
+      <div class="keys">
+        <div class="key"><b>7 of 9</b><span>Palette colours fail WCAG AA for body text on the site's own background. Measured, not estimated.</span></div>
+        <div class="key"><b>0</b><span>Places where the identity expresses the editable scene graph, which is the product's entire differentiator.</span></div>
+        <div class="key"><b>$499</b><span>The top published monthly plan. The identity is pitched well below the seriousness of that price.</span></div>
+      </div>
+
+      <p><b>One, the palette is not usable.</b> Seven of nine brand colours cannot legally carry body text on the warm paper the site uses. In practice that means the palette is decorative only, which is why six accents do almost no work.</p>
+      <p><b>Two, the identity says nothing about the product.</b> Everything on the page describes an AI video tool. Nothing shows that a video is made of addressable scenes you can fix one at a time, which is the only claim competitors cannot copy this quarter.</p>
+      <p><b>Three, the register is mismatched to the buyer.</b> A marker typeface, hard offset shadows and six bright accents read as a school worksheet. The same site asks developers to buy an API and teams to pay $499 a month.</p>
+    </section>
+
+    <section id="s2">
+      <span class="snum">02 / What we examined</span>
+      <h2>Method</h2>
+      <ul class="plain">
+        <li><span class="b">01</span><span>The live stylesheet, read from the running site: design tokens, type stack, component rules, shadow and radius scales, texture and motion values.</span></li>
+        <li><span class="b">02</span><span>The public page set, including home, pricing, science, education, the API and docs, the icon library, the comparison page, and the five audience pages.</span></li>
+        <li><span class="b">03</span><span>Contrast ratios computed from the published token values against both page backgrounds, using the standard relative luminance formula.</span></li>
+        <li><span class="b">04</span><span>The rendered product output, which is the strongest visual asset the company owns and the benchmark the site should be judged against.</span></li>
+      </ul>
+      <div class="note">
+        <p><b>Scope note.</b> This report covers design only. Structural and content findings from the earlier crawl are documented separately and are not part of this recommendation.</p>
+      </div>
+    </section>
+
+    <section id="s3">
+      <span class="snum">03 / The system today</span>
+      <h2>Documented, so we are arguing about the same thing</h2>
+      <p>The current system is coherent and consistently applied. That is worth saying plainly, because the recommendation is not that it was built carelessly. It is that it was built for a different buyer than the one the product now has.</p>
+      <div class="tw">
+        <table>
+          <caption>Read from the live stylesheet, 2026-10-15</caption>
+          <thead><tr><th>Layer</th><th>Current</th><th>Reading</th></tr></thead>
+          <tbody>
+            <tr><td>Surfaces</td><td>Warm paper <code>#fbf8f3</code>, white panels, ink <code>#1e1e28</code></td><td>Works. Warm, legible, right for drawn output.</td></tr>
+            <tr><td>Primary</td><td>Violet <code>#6c5ce7</code>, deep <code>#5a4bd1</code></td><td>Strong and distinctive. The one piece of real equity.</td></tr>
+            <tr><td>Accents</td><td>Six: sunny, pink, leaf, sky, tangerine, coral</td><td>No semantic roles. Decorative only, and mostly unusable for text.</td></tr>
+            <tr><td>Headings</td><td>Shantell Sans, a marker face, at weight 800</td><td>Carries the whole personality, and sets the maturity level of the brand.</td></tr>
+            <tr><td>Body</td><td>Inter</td><td>Neutral and fine. Does no harm, adds no character.</td></tr>
+            <tr><td>Annotation</td><td>Caveat, a handwriting face</td><td>Third voice in the type system, used lightly.</td></tr>
+            <tr><td>Depth</td><td>2 to 2.5px ink borders, hard offset shadows <code>4px 5px 0</code></td><td>The signature. Also the most widely copied device of the last few years.</td></tr>
+            <tr><td>Texture</td><td>Dotted paper, 1.3px dots at 26px</td><td>Appropriate, subtle, worth keeping in some form.</td></tr>
+            <tr><td>Motion</td><td>0.12s hover lift and shadow grow</td><td>Snappy and physical. Unrelated to how the product actually animates.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s4">
+      <span class="snum">04 / Why it should change</span>
+      <h2>Five arguments, with the evidence attached</h2>
+
+      <div class="args">
+        <div class="arg">
+          <div class="h"><span class="i">01</span><h3>The identity never shows the differentiator</h3></div>
+          <p>Sketchie's defensible claim is that a video is a set of addressable scenes, so the second version costs a scene instead of a rebuild. Every competitor can claim fast generation. None of them can currently claim this. The brand expresses it nowhere: not in the mark, not in the layout system, not in any recurring device. A visitor who does not read the body copy leaves knowing only that it makes AI videos.</p>
+          <div class="ev"><b>Evidence:</b> no component in the live system represents a scene, a version, or an edit. The scene editor appears only as body copy and one product video.</div>
+        </div>
+
+        <div class="arg">
+          <div class="h"><span class="i">02</span><h3>The register undersells the buyer</h3></div>
+          <p>A marker headline face at weight 800, bright accents and sticker shadows set an expectation of a light consumer tool. The same site sells an API, an MCP server and a CLI to developers, and asks teams for $499 a month. For the education half the tone is an asset. For the technical half it reads as unserious, and the technical half is the half that integrates and renews.</p>
+          <div class="ev"><b>Evidence:</b> five of the site's audience pages address developers, founders, teachers, course creators and support teams, in a single visual register pitched at the youngest of them.</div>
+        </div>
+
+        <div class="arg">
+          <div class="h"><span class="i">03</span><h3>The palette is decorative, not functional</h3></div>
+          <p>Six accents exist. None has a defined job, and seven of the nine tokens cannot carry body text on the site's own background. The result is a system with no way to signal state, hierarchy or meaning through colour, so colour becomes noise rather than information. Section 05 has the numbers.</p>
+          <div class="ev"><b>Evidence:</b> computed contrast ratios, section 05. Violet passes at 4.59 on warm paper. Sunny fails at 1.45.</div>
+        </div>
+
+        <div class="arg">
+          <div class="h"><span class="i">04</span><h3>The signature device is now a template</h3></div>
+          <p>Inked outlines with hard offset shadows became one of the most recognisable web styles of the last few years, available as a preset in most frameworks. A device that is widely available cannot carry distinctiveness. It currently does most of the identity's work.</p>
+          <div class="ev"><b>Evidence:</b> the shadow, border and radius rules are the only consistently applied visual signature in the system.</div>
+        </div>
+
+        <div class="arg">
+          <div class="h"><span class="i">05</span><h3>The brand ignores its own best asset</h3></div>
+          <p>The product output is genuinely good: line art drawing itself, timed to narration, on a clean board. The site frames those videos in decorated containers that compete with them. An identity built outward from the output, rather than around it, would both look better and argue for the product at the same time.</p>
+          <div class="ev"><b>Evidence:</b> every video on the site sits inside a bordered, shadowed panel with its own visual personality.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="s5">
+      <span class="snum">05 / The accessibility problem</span>
+      <h2>The part that is not a matter of opinion</h2>
+      <p>Contrast ratios computed from the published tokens against the site's warm paper background. WCAG AA requires 4.5 for body text and 3.0 for large text.</p>
+
+      <div class="sw">
+        <div class="swatch"><div class="chip" style="background:#6c5ce7;color:#fff">#6c5ce7</div><div class="foot"><b>violet</b>4.59 on warm <span class="pass">pass</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#5a4bd1;color:#fff">#5a4bd1</div><div class="foot"><b>violet deep</b>5.90 <span class="pass">pass</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#40c057;color:#15161A">#40c057</div><div class="foot"><b>leaf</b>2.23 <span class="fail">fail</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#ffc933;color:#15161A">#ffc933</div><div class="foot"><b>sunny</b>1.45 <span class="fail">fail</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#339af0;color:#15161A">#339af0</div><div class="foot"><b>sky</b>2.82 <span class="fail">fail</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#ff922b;color:#15161A">#ff922b</div><div class="foot"><b>tangerine</b>2.11 <span class="fail">fail</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#e8538f;color:#fff">#e8538f</div><div class="foot"><b>pink</b>3.27 <span class="fail">fail body</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#ff6b5b;color:#15161A">#ff6b5b</div><div class="foot"><b>coral</b>2.64 <span class="fail">fail</span></div></div>
+        <div class="swatch"><div class="chip" style="background:#8a8f98;color:#fff">#8a8f98</div><div class="foot"><b>graphite</b>3.07 <span class="fail">fail body</span></div></div>
+      </div>
+
+      <div class="tw">
+        <table>
+          <caption>Contrast against warm paper #fbf8f3, computed 2026-10-15</caption>
+          <thead><tr><th>Token</th><th class="n">On white</th><th class="n">On warm</th><th>Body text AA</th><th>Large text AA</th></tr></thead>
+          <tbody>
+            <tr><td>violet <code>#6c5ce7</code></td><td class="n">4.86</td><td class="n">4.59</td><td><span class="tag p">pass</span></td><td><span class="tag p">pass</span></td></tr>
+            <tr><td>violet deep <code>#5a4bd1</code></td><td class="n">6.25</td><td class="n">5.90</td><td><span class="tag p">pass</span></td><td><span class="tag p">pass</span></td></tr>
+            <tr><td>pink <code>#e8538f</code></td><td class="n">3.46</td><td class="n">3.27</td><td><span class="tag f">fail</span></td><td><span class="tag p">pass</span></td></tr>
+            <tr><td>graphite <code>#8a8f98</code></td><td class="n">3.25</td><td class="n">3.07</td><td><span class="tag f">fail</span></td><td><span class="tag p">pass</span></td></tr>
+            <tr><td>sky <code>#339af0</code></td><td class="n">2.99</td><td class="n">2.82</td><td><span class="tag f">fail</span></td><td><span class="tag f">fail</span></td></tr>
+            <tr><td>coral <code>#ff6b5b</code></td><td class="n">2.80</td><td class="n">2.64</td><td><span class="tag f">fail</span></td><td><span class="tag f">fail</span></td></tr>
+            <tr><td>leaf <code>#40c057</code></td><td class="n">2.36</td><td class="n">2.23</td><td><span class="tag f">fail</span></td><td><span class="tag f">fail</span></td></tr>
+            <tr><td>tangerine <code>#ff922b</code></td><td class="n">2.23</td><td class="n">2.11</td><td><span class="tag f">fail</span></td><td><span class="tag f">fail</span></td></tr>
+            <tr><td>sunny <code>#ffc933</code></td><td class="n">1.54</td><td class="n">1.45</td><td><span class="tag f">fail</span></td><td><span class="tag f">fail</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note warn">
+        <p><b>Why this matters beyond compliance.</b> Sketchie sells to schools. Education buyers increasingly ask about accessibility during procurement, and a palette that cannot carry text is an awkward answer. It is also the cheapest argument to win internally, because it is arithmetic rather than taste.</p>
+      </div>
+    </section>
+
+    <section id="s6">
+      <span class="snum">06 / What to keep</span>
+      <h2>An overhaul is not a reset</h2>
+      <p>There is real equity here, and discarding it would cost more than it gains.</p>
+      <ul class="plain">
+        <li><span class="b">01</span><span><b>Violet.</b> It is the one token on every page, it passes contrast, and it is recognisable. It should survive, with a defined job rather than a decorative one.</span></li>
+        <li><span class="b">02</span><span><b>The light board.</b> Drawn dark line art needs a light surface. Whatever the palette becomes, the board stays legible behind the output.</span></li>
+        <li><span class="b">03</span><span><b>Hand-made character.</b> The product draws. The brand should feel made by a person. The question is whether that comes from a novelty typeface or from the artwork, texture and detailing instead.</span></li>
+        <li><span class="b">04</span><span><b>The honest voice.</b> Sentence case, exact numbers, limits stated out loud, a competitor comparison that concedes. That is a genuine differentiator and it is free to keep.</span></li>
+        <li><span class="b">05</span><span><b>The refusals.</b> Six minutes maximum, no talking heads, no stock footage. Design should dramatise those decisions rather than hide them.</span></li>
+      </ul>
+    </section>
+
+    <section id="s7">
+      <span class="snum">07 / What an overhaul delivers</span>
+      <h2>Objectives it can be judged against</h2>
+      <div class="tw">
+        <table>
+          <caption>Each one testable on delivery</caption>
+          <thead><tr><th>Objective</th><th>Test</th></tr></thead>
+          <tbody>
+            <tr><td>A palette with defined roles</td><td>Every colour has a stated job. One primary action colour. No more than two supporting accents. All text colours pass AA on their background.</td></tr>
+            <tr><td>A visual device for the scene model</td><td>A person who reads no body copy can still describe what makes the product different.</td></tr>
+            <tr><td>A type system credible to both buyers</td><td>Reads as a serious tool to a developer and as approachable to a teacher, without two separate identities.</td></tr>
+            <tr><td>Motion tied to the product mechanic</td><td>The site animates the way the product does: outline draws on, fill follows, nothing floats for decoration.</td></tr>
+            <tr><td>Output framed, not competed with</td><td>Video panels are the brightest, most detailed thing on the page.</td></tr>
+            <tr><td>A distinctive signature that is not a preset</td><td>The device cannot be produced by enabling a framework default.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s8">
+      <span class="snum">08 / Directions explored</span>
+      <h2>Three built, not described</h2>
+      <p>Each is a working page rather than a mood board, so the argument can be had against something real.</p>
+      <div class="dirs">
+        <div class="dir">
+          <span class="tagline">Direction A</span>
+          <h3>Two-ink press</h3>
+          <p>Risograph printing on bone stock. Overprint, misregistration, halftone fields, poster type. Warm and physical, strongest for the education half.</p>
+          <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-riso-a.html">Open direction A</a>
+        </div>
+        <div class="dir">
+          <span class="tagline">Direction B</span>
+          <h3>Night press</h3>
+          <p>The same print logic on deep blue stock with fluorescent ink. The video panel becomes the only light source. Reads more studio, more technical.</p>
+          <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-riso-b.html">Open direction B</a>
+        </div>
+        <div class="dir pick">
+          <span class="tagline">Direction C, recommended</span>
+          <h3>The page is the demo</h3>
+          <p>The page behaves like a Sketchie video: it draws itself scene by scene, a playhead tracks position, one scene re-renders on demand while the others stay put, and it ends on a retrieval beat.</p>
+          <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-concept-c.html">Open direction C</a>
+        </div>
+      </div>
+      <h3>Why C is the recommendation</h3>
+      <p>A and B are strong visual systems, but they are skins: the same argument in a new costume. C is the only one that answers objective two, because the differentiator is not described in copy, it is demonstrated by the page itself. It is also the only one that would be hard for a competitor to copy, since the behaviour depends on actually having an editable scene graph.</p>
+      <p>Its palette is the open question. Near-black with an acid accent is one expression of the idea, not the idea itself, and it can carry a warmer or more conservative treatment without losing the mechanic.</p>
+    </section>
+
+    <section id="s9">
+      <span class="snum">09 / Phases</span>
+      <h2>Sequenced so the risk stays small</h2>
+      <div class="phases">
+        <div class="phase"><span class="p">Phase 1<br>Core</span>
+          <div><h3>The system, decided</h3>
+            <ul><li>Palette with roles, all passing AA</li><li>Type pairing and scale</li><li>Component language: edges, depth, texture</li><li>The scene device</li><li>Mark and mascot decision</li></ul></div></div>
+        <div class="phase"><span class="p">Phase 2<br>Proof</span>
+          <div><h3>One page, built properly</h3>
+            <ul><li>The landing page, in the new system</li><li>Measured against the six objectives</li><li>Tested at every breakpoint and in reduced motion</li></ul></div></div>
+        <div class="phase"><span class="p">Phase 3<br>Rollout</span>
+          <div><h3>The rest of the surface</h3>
+            <ul><li>Pricing, science, education, comparison, audience pages</li><li>Docs shell, which carries different constraints</li><li>Social and preview images</li></ul></div></div>
+        <div class="phase"><span class="p">Phase 4<br>Handover</span>
+          <div><h3>So it survives us</h3>
+            <ul><li>Token file and component rules</li><li>Usage guidance, including what not to do</li><li>Accessibility checks in the build</li></ul></div></div>
+      </div>
+    </section>
+
+    <section id="s10">
+      <span class="snum">10 / Open questions</span>
+      <h2>Decisions that are yours, not ours</h2>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Question</th><th>Blocks</th><th>Default if unanswered</th></tr></thead>
+          <tbody>
+            <tr><td>Which buyer leads: developers or educators</td><td>Register, type, palette temperature</td><td>Serve both, lead with the scene mechanic that matters to each</td></tr>
+            <tr><td>How far to push</td><td>Whether C ships as built or calms down</td><td>Keep the mechanic, soften the palette</td></tr>
+            <tr><td>Does the mascot stay</td><td>Mark and illustration system</td><td>Keep it, give it one job rather than cameos</td></tr>
+            <tr><td>Who owns brand sign-off</td><td>Phase 1 completion</td><td>Treat the founder as the approver</td></tr>
+            <tr><td>Engineering time for the rollout</td><td>Phase 3 scope</td><td>Deliver tokens and let the team apply them</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s11">
+      <span class="snum">11 / What we do not promise</span>
+      <h2>Stated plainly</h2>
+      <p><b>We will commit to:</b> every text colour passing WCAG AA on its background, a palette where each colour has a stated role, a visual device that expresses the scene model, motion that honours reduced-motion settings, a working page rather than a mood board at each phase, and a token file the team can apply without us.</p>
+      <p><b>We will not promise:</b> a conversion increase, a signup lift, a traffic change, or that a new identity fixes positioning. Design can make a true claim legible. It cannot make a claim true, and it cannot substitute for the product decisions underneath it.</p>
+      <div class="note">
+        <p><b>The honest summary.</b> The accessibility failures are worth fixing whatever you decide about the brand. The rest of this report is an argument that the identity is costing credibility with the half of the audience that pays most, and that the product's one real differentiator deserves to be visible.</p>
+      </div>
+    </section>
+
+    <footer>
+      <span>Design audit and brand case. Prepared for Downshift LLC.</span>
+      <span>Live checks and contrast computed 2026-10-15</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links={};
+  [].forEach.call(document.querySelectorAll('.toc a'),function(a){links[a.getAttribute('href').slice(1)]=a});
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var a=links[e.target.id];
+      if(a){a.classList.toggle('on',e.isIntersecting&&e.intersectionRatio>0.2)}
+    });
+  },{threshold:[0.2,0.6],rootMargin:'-10% 0px -70% 0px'});
+  [].forEach.call(document.querySelectorAll('section[id]'),function(s){io.observe(s)});
+})();
+</script>
+</body>
+</html>
