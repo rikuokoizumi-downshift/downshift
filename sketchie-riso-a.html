@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchie: the explanation, printed in two inks</title>
+<meta name="description" content="Sketchie turns a prompt or document into a narrated whiteboard explainer that draws itself, and returns the MP4 with an editable scene graph.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ---------------------------------------------------------------
+   Variant A. Direction: RISOGRAPH PRESS.
+   Two spot inks on bone stock. Overprint where they cross,
+   deliberate misregistration, halftone fields, poster type.
+----------------------------------------------------------------*/
+:root{
+  --stock:#F6F1E4;        /* bone paper */
+  --stock-2:#EDE6D4;      /* second pass, slightly darker */
+  --ink-1:#E8431F;        /* riso orange red */
+  --ink-2:#1B3FD8;        /* riso blue */
+  --over:#3A1C7A;         /* where the two inks overprint */
+  --text:#1A1710;         /* near black, warm */
+  --text-2:#5A5445;
+  --display:"Archivo Black",system-ui,sans-serif;
+  --body:"Archivo",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --edge:3px solid var(--text);
+  --gutter:clamp(18px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--stock);color:var(--text);
+  font:400 17px/1.55 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+/* paper grain, sits above everything, never intercepts clicks */
+body::after{
+  content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='.22'/></svg>");
+  mix-blend-mode:multiply;
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--gutter)}
+section{padding:clamp(56px,8vw,112px) 0;position:relative}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;letter-spacing:-.02em;text-transform:uppercase}
+h1{font-size:clamp(3rem,10.5vw,8.5rem);line-height:.88}
+h2{font-size:clamp(2rem,5.4vw,4rem);line-height:.95}
+h3{font-size:1.05rem;letter-spacing:.01em}
+p{margin:0;color:var(--text-2)}
+a{color:var(--ink-2)}
+:focus-visible{outline:3px solid var(--ink-1);outline-offset:3px}
+.mono{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em}
+.lede{font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1.5;color:var(--text);max-width:46ch}
+
+/* misregistered headline: the second ink prints 3px off */
+.misreg{position:relative;display:inline-block}
+.misreg::before{
+  content:attr(data-t);position:absolute;left:3px;top:4px;z-index:-1;
+  color:var(--ink-2);mix-blend-mode:multiply;
+}
+.hl-1{color:var(--ink-1)}
+.hl-2{color:var(--ink-2)}
+
+/* halftone field */
+.halftone{
+  background-image:radial-gradient(var(--ink-1) 1.6px,transparent 1.7px);
+  background-size:9px 9px;
+}
+.halftone-2{
+  background-image:radial-gradient(var(--ink-2) 1.6px,transparent 1.7px);
+  background-size:9px 9px;
+}
+
+/* buttons: solid ink blocks, no radius */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;
+  font-size:.86rem;letter-spacing:.1em;text-transform:uppercase;padding:16px 26px;
+  text-decoration:none;border:var(--edge);background:var(--ink-1);color:var(--stock);
+  box-shadow:5px 5px 0 var(--ink-2);transition:transform .1s,box-shadow .1s;
+}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink-2);color:var(--stock)}
+.btn.alt{background:var(--stock);color:var(--text);box-shadow:5px 5px 0 var(--ink-1)}
+.btn.alt:hover{box-shadow:2px 2px 0 var(--ink-1);color:var(--text)}
+
+/* nav */
+header{position:sticky;top:0;z-index:80;background:var(--stock);border-bottom:var(--edge)}
+nav{display:flex;align-items:center;gap:20px;height:64px}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-family:var(--display);font-size:1.1rem;text-transform:uppercase;letter-spacing:-.01em}
+.navlinks{display:flex;gap:22px;margin-left:auto}
+.navlinks a{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text);text-decoration:none}
+.navlinks a:hover{color:var(--ink-1)}
+nav .btn{padding:10px 16px;font-size:.72rem;box-shadow:3px 3px 0 var(--ink-2)}
+.menu{margin-left:auto;display:none}
+.menu summary{list-style:none;cursor:pointer;font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;border:var(--edge);padding:9px 14px}
+.menu summary::-webkit-details-marker{display:none}
+.menupanel{position:absolute;left:var(--gutter);right:var(--gutter);margin-top:10px;background:var(--stock);border:var(--edge);box-shadow:6px 6px 0 var(--ink-1);display:grid}
+.menupanel a{padding:12px;text-decoration:none;color:var(--text);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;border-bottom:1px solid var(--stock-2)}
+.menupanel a:last-child{border-bottom:0}
+
+/* hero */
+.hero{padding-top:clamp(28px,4vw,56px)}
+.hero .mono{color:var(--ink-2)}
+.hero h1{margin:14px 0 0}
+.herogrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:clamp(24px,4vw,56px);align-items:end;margin-top:28px}
+.herocta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.plate{position:relative}
+.plate::before{content:"";position:absolute;inset:14px -14px -14px 14px;background:var(--ink-2);z-index:0}
+.plate video,.plate .vf{position:relative;z-index:1;width:100%;display:block;border:var(--edge);background:var(--stock-2);aspect-ratio:16/9}
+.plate .vf{display:grid;place-items:center;font-family:var(--mono);font-size:.72rem;text-align:center;padding:20px;color:var(--text-2)}
+.platecap{position:relative;z-index:1;display:flex;justify-content:space-between;gap:12px;margin-top:16px}
+
+/* ticker strip */
+.strip{border-top:var(--edge);border-bottom:var(--edge);background:var(--ink-1);color:var(--stock);overflow:hidden}
+.strip div{display:flex;gap:48px;padding:12px 0;white-space:nowrap;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+@media (prefers-reduced-motion:no-preference){
+  .strip div{animation:slide 26s linear infinite}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+}
+
+/* three column press run */
+.run{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:var(--edge);background:var(--text)}
+.run > div{background:var(--stock);padding:clamp(20px,3vw,34px)}
+.run > div + div{border-left:var(--edge)}
+.run .num{font-family:var(--display);font-size:3.2rem;line-height:1;color:var(--ink-1)}
+.run h3{margin:12px 0 10px}
+.run p{font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.chip{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;border:2px solid var(--text);padding:5px 9px}
+
+/* scene demo */
+.press{border-top:var(--edge);border-bottom:var(--edge);background:var(--stock-2)}
+.demotop{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(20px,4vw,56px);align-items:end}
+.plates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.6vw,18px);margin-top:44px}
+.sheet{
+  text-align:left;font:inherit;color:inherit;cursor:pointer;padding:14px;
+  background:var(--stock);border:var(--edge);box-shadow:5px 5px 0 var(--ink-2);
+  transition:transform .1s,box-shadow .1s;
+}
+.sheet:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink-2)}
+.sheet[aria-pressed="true"]{background:var(--ink-1);color:var(--stock);box-shadow:5px 5px 0 var(--text)}
+.sheet[aria-pressed="true"] p,.sheet[aria-pressed="true"] .mono{color:var(--stock)}
+.sheet[aria-pressed="true"] .sk{stroke:var(--stock)}
+.sheet .mono{display:block;color:var(--ink-2)}
+.sheet h3{font-size:.92rem;margin:10px 0 4px}
+.sheet p{font-size:.8rem}
+.sheet svg{display:block;width:100%;height:70px;margin:8px 0}
+.proof{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,4vw,48px);margin-top:40px}
+.order{border:var(--edge);background:var(--stock);padding:20px;box-shadow:6px 6px 0 var(--ink-1)}
+.order .mono{color:var(--ink-1)}
+.order p{color:var(--text);margin-top:10px;font-size:1rem}
+.states{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2.4vw,24px)}
+.state{border:var(--edge);background:var(--stock);padding:16px}
+.state.after{background:var(--ink-2);color:var(--stock)}
+.state.after p{color:var(--stock)}
+.state.after .sk{stroke:var(--stock)}
+.state.after .mono{color:var(--stock)}
+.state svg{display:block;width:100%;height:92px;margin:10px 0}
+.state p{font-size:.84rem}
+.untouched{margin-top:20px;border-top:var(--edge);padding-top:14px;font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text)}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2.4vw,28px);margin-top:36px}
+.facts div{border-top:var(--edge);padding-top:12px}
+.facts b{font-family:var(--display);text-transform:uppercase;font-size:.95rem;display:block;margin-bottom:6px}
+.facts p{font-size:.9rem}
+
+/* gallery */
+.rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 0 18px;margin-top:36px}
+.rail::-webkit-scrollbar{height:10px}
+.rail::-webkit-scrollbar-track{background:var(--stock-2);border:2px solid var(--text)}
+.rail::-webkit-scrollbar-thumb{background:var(--ink-1);border:2px solid var(--text)}
+.card{scroll-snap-align:start;flex:0 0 clamp(250px,33vw,380px)}
+.card video,.card .vf{width:100%;aspect-ratio:16/9;display:block;border:var(--edge);background:var(--stock);box-shadow:6px 6px 0 var(--ink-2)}
+.card .vf{display:grid;place-items:center;text-align:center;padding:18px;font-family:var(--mono);font-size:.72rem;color:var(--text-2)}
+.card h3{margin:20px 0 4px;font-size:1rem}
+.card p{font-size:.84rem}
+
+/* spec sheet */
+.specsheet{border:var(--edge);background:var(--stock);margin-top:40px}
+.specrow{display:grid;grid-template-columns:minmax(0,.4fr) minmax(0,.26fr) minmax(0,1fr);gap:0}
+.specrow + .specrow{border-top:2px solid var(--text)}
+.specrow > *{padding:16px 18px}
+.specrow > * + *{border-left:2px solid var(--text)}
+.specrow b{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em}
+.specrow .val{font-family:var(--display);font-size:1.15rem;color:var(--ink-1);text-transform:uppercase}
+.specrow p{font-size:.9rem}
+.beat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:34px;border:var(--edge)}
+.beat div{padding:20px;background:var(--stock)}
+.beat div + div{border-left:var(--edge)}
+.beat div:nth-child(2){background:var(--ink-1);color:var(--stock)}
+.beat div:nth-child(2) p{color:var(--stock)}
+.beat b{font-family:var(--display);text-transform:uppercase;display:block;margin-bottom:8px}
+.beat p{font-size:.88rem}
+
+/* pricing */
+.pricing{border-top:var(--edge);border-bottom:var(--edge);background:var(--ink-2);color:var(--stock)}
+.pricing h2,.pricing .mono{color:var(--stock)}
+.pricing p{color:rgba(246,241,228,.84)}
+.free{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);margin-top:36px;background:var(--stock);color:var(--text);border:var(--edge);padding:clamp(20px,3vw,32px);box-shadow:8px 8px 0 var(--ink-1)}
+.free p{color:var(--text-2)}
+.free ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.free li{display:flex;gap:12px;font-size:.96rem;color:var(--text)}
+.free li span{font-family:var(--mono);font-size:.74rem;color:var(--ink-1);padding-top:3px}
+.tablewrap{overflow-x:auto;margin-top:36px;background:var(--stock);border:var(--edge)}
+table{width:100%;border-collapse:collapse;color:var(--text);min-width:540px}
+caption{text-align:left;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;padding:14px 16px;color:var(--text);border-bottom:var(--edge)}
+th,td{text-align:left;padding:13px 16px;border-bottom:2px solid var(--stock-2);font-size:.95rem}
+thead th{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;border-bottom:var(--edge)}
+tbody th{font-family:var(--display);text-transform:uppercase;font-size:.9rem}
+td.n{font-family:var(--mono);text-align:right}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:24px}
+.notes p{font-size:.88rem}
+.notes b{color:var(--stock)}
+
+/* faq */
+.faq{max-width:760px;margin-top:34px;border-top:var(--edge)}
+details{border-bottom:var(--edge)}
+summary{cursor:pointer;list-style:none;padding:18px 0;font-family:var(--display);text-transform:uppercase;font-size:1rem;display:flex;gap:16px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary::before{content:attr(data-n);font-family:var(--mono);font-size:.74rem;color:var(--ink-1)}
+summary::after{content:"+";margin-left:auto;font-family:var(--mono);color:var(--ink-2)}
+details[open] summary::after{content:"-"}
+details p{padding:0 0 20px 38px;font-size:.96rem}
+
+/* close */
+.close{text-align:center;border-top:var(--edge);background:var(--ink-1);color:var(--stock)}
+.close h2{color:var(--stock);font-size:clamp(2.4rem,7.5vw,5.5rem);max-width:14ch;margin:0 auto 18px}
+.close p{color:rgba(246,241,228,.9);max-width:40ch;margin:0 auto 28px}
+.close .btn{background:var(--stock);color:var(--text);box-shadow:6px 6px 0 var(--text)}
+.close .btn:hover{box-shadow:2px 2px 0 var(--text);color:var(--text)}
+
+footer{border-top:var(--edge);padding:44px 0 36px}
+.fg{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:26px}
+footer h4{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;margin:0 0 12px;color:var(--ink-2)}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{color:var(--text);text-decoration:none;font-size:.9rem}
+footer a:hover{color:var(--ink-1)}
+.fb{margin-top:34px;border-top:2px solid var(--text);padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-2)}
+
+/* line art */
+.sk{stroke:var(--text);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.sk-1{stroke:var(--ink-1)}
+.sk-2{stroke:var(--ink-2)}
+
+@media (max-width:900px){
+  .herogrid,.demotop,.proof,.free{grid-template-columns:minmax(0,1fr)}
+  .run,.facts,.beat,.fg{grid-template-columns:minmax(0,1fr)}
+  .run > div + div,.beat div + div{border-left:0;border-top:var(--edge)}
+  .plates{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .specrow{grid-template-columns:minmax(0,1fr)}
+  .specrow > * + *{border-left:0;border-top:2px solid var(--text)}
+  .navlinks{display:none}
+  .menu{display:block}
+  .plate::before{inset:10px -10px -10px 10px}
+}
+@media (max-width:520px){
+  .states{grid-template-columns:minmax(0,1fr)}
+  .fg{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a class="mark" href="#top">
+        <svg width="26" height="26" viewBox="0 0 30 30" role="img" aria-label="Sketchie mark">
+          <rect class="sk" x="3" y="4" width="24" height="17" rx="1"/>
+          <path class="sk sk-1" d="M8 12h6M8 16h12"/>
+          <path class="sk sk-2" d="M15 21v5"/>
+        </svg>
+        Sketchie
+      </a>
+      <div class="navlinks">
+        <a href="#how">How</a><a href="#scenes">Scenes</a><a href="#work">Work</a>
+        <a href="#spec">Spec</a><a href="#pricing">Pricing</a>
+      </div>
+      <details class="menu"><summary>Menu</summary>
+        <div class="menupanel">
+          <a href="#how">How</a><a href="#scenes">Scenes</a><a href="#work">Work</a>
+          <a href="#spec">Spec</a><a href="#pricing">Pricing</a>
+        </div>
+      </details>
+      <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="mono">Whiteboard explainers, printed in two inks</p>
+      <h1><span class="misreg" data-t="One pass.">One pass.</span><br><span class="hl-1">Reprint</span> one <span class="hl-2">scene.</span></h1>
+      <div class="herogrid">
+        <div>
+          <p class="lede">A prompt or a document goes in. A narrated whiteboard explainer draws itself and comes back as an MP4, with the scene graph behind it. When one scene is wrong, you fix that scene, not the video.</p>
+          <div class="herocta">
+            <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
+            <a class="btn alt" href="#scenes">See the scene model</a>
+          </div>
+        </div>
+        <div class="plate">
+          <video src="https://sketchie.ai/videos/recursion-ours.mp4" autoplay muted loop playsinline preload="metadata" aria-label="A Sketchie explainer about recursion, drawing itself"></video>
+          <div class="platecap">
+            <span class="mono">recursion-explainer.mp4</span>
+            <span class="mono">6 scenes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip" aria-hidden="true">
+    <div>
+      <span>Scenes, not takes</span><span>Fix one scene</span><span>Edit, re-render, revert</span><span>Two free videos</span>
+      <span>Scenes, not takes</span><span>Fix one scene</span><span>Edit, re-render, revert</span><span>Two free videos</span>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <p class="mono hl-2">The press run</p>
+      <h2>Copy in. Video out. Plates kept.</h2>
+      <div class="run" style="margin-top:36px">
+        <div>
+          <span class="num">01</span>
+          <h3>Set the copy</h3>
+          <p>Write a prompt, or hand over a document you already have. Document mode follows your source instead of inventing a generic script.</p>
+          <div class="chips"><span class="chip">Prompt</span><span class="chip">PDF</span><span class="chip">Word</span><span class="chip">PowerPoint</span><span class="chip">TXT</span><span class="chip">Markdown</span></div>
+        </div>
+        <div>
+          <span class="num">02</span>
+          <h3>Run the press</h3>
+          <p>Sketchie writes the script, then draws each element stroke by stroke, timed to the word of narration it belongs to. Nothing lands on the board that the narration never mentions.</p>
+          <svg viewBox="0 0 240 64" height="64" width="100%" style="margin-top:18px" role="img" aria-label="Elements appearing one after another">
+            <path class="sk" d="M10 50h44"/>
+            <path class="sk sk-1" d="M74 50c0-14 7-24 19-24s19 10 19 24"/>
+            <circle class="sk sk-2" cx="93" cy="20" r="6"/>
+            <path class="sk" d="M134 50V26l17 12 17-12v24"/>
+            <path class="sk sk-1" d="M192 50V28M186 34l6-6 6 6"/>
+          </svg>
+        </div>
+        <div>
+          <span class="num">03</span>
+          <h3>Keep the plates</h3>
+          <p>You get the MP4 to publish and the scene graph behind it. The file is the print. The scene graph is why the second run costs almost nothing.</p>
+          <div class="chips"><span class="chip">MP4</span><span class="chip">16:9</span><span class="chip">9:16</span><span class="chip">1:1</span><span class="chip">Scene graph</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="press" id="scenes">
+    <div class="wrap">
+      <div class="demotop">
+        <div>
+          <p class="mono hl-2">Plate by plate</p>
+          <h2>Fix one scene.<br>Not the whole video.</h2>
+        </div>
+        <p class="lede">Every scene is addressable. Edit its fields, or describe the change in a sentence. Only that scene re-renders, and the rest of the run is untouched.</p>
+      </div>
+
+      <p class="mono" style="margin-top:40px">Illustration of the scene model, using an explainer about DNS. Pick a plate.</p>
+
+      <div class="plates" role="group" aria-label="Choose a scene to revise">
+        <button class="sheet" type="button" aria-pressed="false" data-scene="1">
+          <span class="mono">Plate 01</span>
+          <svg viewBox="0 0 140 70" role="img" aria-label="A browser window with a question mark">
+            <rect class="sk" x="10" y="10" width="118" height="50" rx="1"/>
+            <path class="sk" d="M10 22h118"/>
+            <path class="sk sk-1" d="M62 48c0-9 9-7 9-14a6 6 0 1 0-12 0"/>
+            <circle class="sk sk-1" cx="65" cy="53" r="1.6"/>
+          </svg>
+          <h3>You type a name</h3>
+          <p>The browser has a name, not a location.</p>
+        </button>
+        <button class="sheet" type="button" aria-pressed="true" data-scene="2">
+          <span class="mono">Plate 02</span>
+          <svg viewBox="0 0 140 70" role="img" aria-label="A lookup travelling to a resolver">
+            <rect class="sk" x="8" y="24" width="32" height="24" rx="1"/>
+            <rect class="sk" x="100" y="24" width="32" height="24" rx="1"/>
+            <path class="sk sk-1" d="M44 36h52"/>
+            <path class="sk sk-1" d="M90 30l6 6-6 6"/>
+          </svg>
+          <h3>The resolver asks</h3>
+          <p>A lookup goes out on your behalf.</p>
+        </button>
+        <button class="sheet" type="button" aria-pressed="false" data-scene="3">
+          <span class="mono">Plate 03</span>
+          <svg viewBox="0 0 140 70" role="img" aria-label="Three stacked servers answering">
+            <rect class="sk" x="40" y="8" width="60" height="14" rx="1"/>
+            <rect class="sk" x="40" y="28" width="60" height="14" rx="1"/>
+            <rect class="sk" x="40" y="48" width="60" height="14" rx="1"/>
+            <circle class="sk sk-2" cx="50" cy="15" r="2"/>
+            <circle class="sk sk-2" cx="50" cy="35" r="2"/>
+            <circle class="sk sk-2" cx="50" cy="55" r="2"/>
+          </svg>
+          <h3>An answer returns</h3>
+          <p>The name resolves to an address.</p>
+        </button>
+        <button class="sheet" type="button" aria-pressed="false" data-scene="4">
+          <span class="mono">Plate 04</span>
+          <svg viewBox="0 0 140 70" role="img" aria-label="A page loading, then the closing question">
+            <rect class="sk" x="10" y="10" width="118" height="50" rx="1"/>
+            <path class="sk" d="M10 22h118"/>
+            <path class="sk" d="M26 36h48M26 46h70"/>
+            <path class="sk sk-1" d="M92 32l6 6 12-12"/>
+          </svg>
+          <h3>The page loads</h3>
+          <p>Then the retrieval beat asks what happened.</p>
+        </button>
+      </div>
+
+      <div class="proof">
+        <div class="order">
+          <span class="mono">Change order</span>
+          <p id="reqtext">"In plate 02, name the resolver and show the request leaving the laptop first."</p>
+          <p style="margin-top:14px;font-size:.88rem;color:var(--text-2)">Set a field directly, such as the heading, the narration or a label. Or describe a bigger change in one sentence.</p>
+        </div>
+        <div>
+          <div class="states">
+            <div class="state">
+              <span class="mono">Version 1</span>
+              <svg viewBox="0 0 180 90" role="img" aria-label="The original scene, two boxes and one arrow">
+                <rect class="sk" x="12" y="32" width="42" height="28" rx="1"/>
+                <rect class="sk" x="126" y="32" width="42" height="28" rx="1"/>
+                <path class="sk" d="M58 46h64"/>
+                <path class="sk" d="M116 40l6 6-6 6"/>
+              </svg>
+              <p>Correct, but the viewer cannot tell who is asking.</p>
+            </div>
+            <div class="state after">
+              <span class="mono">Version 2</span>
+              <svg viewBox="0 0 180 90" role="img" aria-label="The revised scene, with the resolver named and the request leaving the laptop">
+                <rect class="sk" x="10" y="30" width="46" height="30" rx="1"/>
+                <path class="sk" d="M18 66h30"/>
+                <rect class="sk" x="124" y="30" width="46" height="30" rx="1"/>
+                <path class="sk" d="M62 44h54M110 38l6 6-6 6"/>
+                <path class="sk" d="M126 76h42M132 72l-6 4 6 4"/>
+              </svg>
+              <p>The laptop sends first, the resolver is named, the answer comes back on its own line.</p>
+            </div>
+          </div>
+          <p class="untouched">Plates 01, 03 and 04 were not re-rendered</p>
+        </div>
+      </div>
+
+      <div class="facts">
+        <div><b>Addressable</b><p>Every scene has an identity in the scene graph, so an edit can name the one it means.</p></div>
+        <div><b>Versioned</b><p>Each edit creates a version. Earlier ones stay, and you can revert to them.</p></div>
+        <div><b>Contained</b><p>Re-rendering one scene leaves the timing and artwork of the others exactly as they were.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <p class="mono hl-2">The work</p>
+      <h2>Real prints. No stock footage.</h2>
+      <div class="rail">
+        <article class="card">
+          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/dns.mp4" controls preload="metadata" aria-label="Explainer: how DNS finds a website"></video>
+          <h3>How DNS finds a website</h3><p>Developer onboarding.</p>
+        </article>
+        <article class="card">
+          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/water-cycle.mp4" controls preload="metadata" aria-label="Explainer: where the water goes"></video>
+          <h3>Where the water goes</h3><p>Classroom opener.</p>
+        </article>
+        <article class="card">
+          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/compound-interest.mp4" controls preload="metadata" aria-label="Explainer: why compound interest compounds"></video>
+          <h3>Why compound interest compounds</h3><p>Personal finance.</p>
+        </article>
+        <article class="card">
+          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/neural-networks.mp4" controls preload="metadata" aria-label="Explainer: inside a neural network"></video>
+          <h3>Inside a neural network</h3><p>Technical concept.</p>
+        </article>
+        <article class="card">
+          <video src="https://sketchie.ai/videos/reveal-before-after.mp4" controls preload="metadata" aria-label="One scene before and after a single edit"></video>
+          <h3>One scene, before and after</h3><p>The same video after a single edit.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="spec">
+    <div class="wrap">
+      <p class="mono hl-2">The spec sheet</p>
+      <h2>Rules, not vibes.</h2>
+      <p class="lede" style="margin-top:16px">Sketchie publishes the research behind its generator, graded by evidence. These are constraints the output has to satisfy, not promises about what a video does to a viewer.</p>
+
+      <div class="specsheet">
+        <div class="specrow"><b>Scene length</b><span class="val">12 to 30s</span><p>One idea per scene, long enough to land and short enough to hold.</p></div>
+        <div class="specrow"><b>Elements per scene</b><span class="val">3 to 7</span><p>Counted at the end of the scene, heading included.</p></div>
+        <div class="specrow"><b>Reveal spacing</b><span class="val">2 to 5s</span><p>A new element arrives on that rhythm, never two closer than 1.2 seconds.</p></div>
+        <div class="specrow"><b>Word sync</b><span class="val">500ms</span><p>Each element appears within that window of the word it belongs to.</p></div>
+        <div class="specrow"><b>Narration</b><span class="val">140 to 160 wpm</span><p>Spoken register, contractions allowed, read at a human pace.</p></div>
+        <div class="specrow"><b>Labels</b><span class="val">3 words max</span><p>A keyword, never a sentence echoing the narration.</p></div>
+      </div>
+
+      <div class="beat">
+        <div><b>Question</b><p>Every video closes by asking the viewer to produce the answer.</p></div>
+        <div><b>Pause</b><p>The video holds, so the answer is theirs before it is given.</p></div>
+        <div><b>Recap</b><p>Then one line closes the loop. The question is never replaced by a summary.</p></div>
+      </div>
+
+      <p style="margin-top:26px;max-width:62ch;font-size:.95rem">The six minute ceiling comes from engagement research across 6.9 million online learning sessions, and is a deliberate cap rather than a technical limit. Longer material becomes a chaptered series. <a href="https://sketchie.ai/science/">Read the full spec with citations</a>.</p>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <p class="mono">Pricing</p>
+      <h2>Minutes are the only meter.</h2>
+
+      <div class="free">
+        <div>
+          <h3 style="font-size:1.3rem">Two free videos first</h3>
+          <p style="margin-top:10px">The free tier is the whole product, editor included. It is how you find out whether the output is worth a plan.</p>
+          <a class="btn" style="margin-top:22px" href="https://sketchie.ai/app/signup">Get started</a>
+        </div>
+        <ul>
+          <li><span>01</span> Two videos</li>
+          <li><span>02</span> Up to one minute each</li>
+          <li><span>03</span> Watermarked</li>
+          <li><span>04</span> No card required</li>
+          <li><span>05</span> Full product access, editor included</li>
+        </ul>
+      </div>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Published monthly prices, checked October 15, 2026</caption>
+          <thead><tr><th scope="col">Plan</th><th scope="col">Monthly</th><th scope="col">Minutes</th><th scope="col">Notes</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Solo</th><td class="n">$9.99</td><td class="n">40</td><td>Scene editor, all voices, all aspect ratios</td></tr>
+            <tr><th scope="row">Plus</th><td class="n">$19.99</td><td class="n">100</td><td>API access starts here, with MCP and CLI</td></tr>
+            <tr><th scope="row">Pro</th><td class="n">$49.99</td><td class="n">300</td><td>Custom branding on every video</td></tr>
+            <tr><th scope="row">Max</th><td class="n">$99.99</td><td class="n">750</td><td>For heavier output</td></tr>
+            <tr><th scope="row">Team</th><td class="n">$499.99</td><td class="n">5,000</td><td>Priority support</td></tr>
+            <tr><th scope="row">Enterprise</th><td class="n">Contact</td><td class="n">Not specified</td><td>Custom volume and dedicated support</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="notes">
+        <p><b>No seats, no credits.</b> Rendered minutes are the only thing counted.</p>
+        <p><b>Annual billing takes 40% off.</b> The figures above are the published monthly prices.</p>
+        <p><b>Overage is opt-in and off by default.</b> With it off you stop at your ceiling.</p>
+        <p><b>Checked October 15, 2026.</b> <a href="https://sketchie.ai/pricing/" style="color:var(--stock)">Current pricing</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="mono hl-2">Questions</p>
+      <h2>The honest FAQ.</h2>
+      <div class="faq">
+        <details open><summary data-n="01">Can I edit a single scene?</summary>
+          <p>Yes. Scenes are addressable, so an edit targets one of them, that scene re-renders on its own, every edit creates a version, and you can revert to an earlier one.</p></details>
+        <details><summary data-n="02">What if the source is too long?</summary>
+          <p>Longer material becomes a chaptered series rather than one long video. Individual videos are set in 30 second increments up to six minutes, or Sketchie picks the length.</p></details>
+        <details><summary data-n="03">How does a video end?</summary>
+          <p>With a retrieval beat: a question, a pause, then a one line recap. The pause is deliberate, because producing the answer yourself is the part the research supports.</p></details>
+        <details><summary data-n="04">Can I try the editor without paying?</summary>
+          <p>Yes. Two watermarked videos, up to one minute each, no card required, and the editor is included rather than held back for paid plans.</p></details>
+        <details><summary data-n="05">Is Sketchie faster than Simi?</summary>
+          <p>No, and Sketchie says so. Simi is faster at first generation. The argument is about the time it takes to reach a video you will actually publish, revisions included.</p></details>
+        <details><summary data-n="06">Can developers drive it?</summary>
+          <p>Yes. An API that returns the video with its scene graph, an MCP server so agents can generate and edit, and a CLI. API access starts on Plus.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap">
+      <h2>Print it once. Fix one plate.</h2>
+      <p>Start with two free videos. Keep the scenes editable.</p>
+      <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div>
+        <a class="mark" href="#top" style="margin-bottom:10px">
+          <svg width="24" height="24" viewBox="0 0 30 30" role="img" aria-label="Sketchie mark">
+            <rect class="sk" x="3" y="4" width="24" height="17" rx="1"/>
+            <path class="sk sk-1" d="M8 12h6M8 16h12"/>
+            <path class="sk sk-2" d="M15 21v5"/>
+          </svg>
+          Sketchie
+        </a>
+        <p style="font-size:.88rem;max-width:32ch">Type it, and a narrated whiteboard explainer draws itself. Every scene stays editable.</p>
+        <p style="font-size:.84rem;margin-top:12px">Operated by Downshift LLC.</p>
+      </div>
+      <div><h4>Product</h4><ul>
+        <li><a href="https://sketchie.ai/examples/">Examples</a></li>
+        <li><a href="https://sketchie.ai/pricing/">Pricing</a></li>
+        <li><a href="https://sketchie.ai/icons/">Icons</a></li></ul></div>
+      <div><h4>Developers</h4><ul>
+        <li><a href="https://sketchie.ai/api/">API</a></li>
+        <li><a href="https://sketchie.ai/docs/">Docs</a></li>
+        <li><a href="https://sketchie.ai/docs/mcp/">MCP setup</a></li>
+        <li><a href="https://sketchie.ai/docs/cli/">CLI and SDK</a></li></ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="https://sketchie.ai/science/">Science</a></li>
+        <li><a href="https://sketchie.ai/education/">Education</a></li>
+        <li><a href="https://sketchie.ai/vs-simi/">Compared with Simi</a></li>
+        <li><a href="https://sketchie.ai/app/signup">Get started</a></li></ul></div>
+    </div>
+    <div class="fb">
+      <span>Variant A, risograph press. Concept only, not the live Sketchie site.</span>
+      <span>Checked October 15, 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Progressive enhancement only. Plate 02 ships selected, with its
+   change order already written into the page. */
+(function(){
+  var orders={
+    "1":'"In plate 01, show the name being typed letter by letter, and keep the window empty until it is."',
+    "2":'"In plate 02, name the resolver and show the request leaving the laptop first."',
+    "3":'"In plate 03, number the three servers so the order of the answer is obvious."',
+    "4":'"In plate 04, hold the question on screen longer before the recap lands."'
+  };
+  var sheets=document.querySelectorAll(".sheet");
+  var req=document.getElementById("reqtext");
+  sheets.forEach(function(b){
+    b.addEventListener("click",function(){
+      sheets.forEach(function(x){x.setAttribute("aria-pressed","false")});
+      b.setAttribute("aria-pressed","true");
+      var k=b.getAttribute("data-scene");
+      if(req&&orders[k]){req.textContent=orders[k]}
+    });
+  });
+  document.querySelectorAll("video").forEach(function(v){
+    function swap(){
+      if(v.dataset.swapped){return}
+      v.dataset.swapped="1";
+      var d=document.createElement("div");
+      d.className="vf";
+      d.textContent=(v.getAttribute("aria-label")||"Explainer")+" (clip unavailable right now)";
+      v.replaceWith(d);
+    }
+    v.addEventListener("error",swap,true);
+    setTimeout(function(){if(v.readyState===0&&v.networkState===3){swap()}},6000);
+  });
+})();
+</script>
+</body>
+</html>
