@@ -132,6 +132,18 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 ::-webkit-scrollbar-corner{background:var(--panel)}
 .toc{scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
+/* theme switch: a pill with a travelling knob */
+.switch{position:relative;flex:0 0 auto;width:52px;height:28px;padding:0;border-radius:999px;cursor:pointer;
+  background:var(--panel);border:1px solid var(--rule);
+  transition:background-color .25s ease,border-color .25s ease}
+.switch .knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;
+  background:var(--faint);
+  transition:transform .28s cubic-bezier(.2,.8,.3,1),background-color .25s ease}
+.switch[aria-checked="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.switch[aria-checked="true"] .knob{transform:translateX(24px);background:var(--accent)}
+.switch:hover{border-color:var(--accent)}
+.switch:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.switch,.switch .knob{transition:none}}
 </style>
 <script>
 (function(){
@@ -159,7 +171,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
       <li><a href="#s10"><span class="n">10</span> Open questions</a></li>
       <li><a href="#s11"><span class="n">11</span> What we do not promise</a></li>
     </ol>
-    <button type="button" id="themeToggle" style="margin-top:18px;width:100%;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:9px;border:1px solid var(--rule);border-radius:7px;background:var(--panel);color:var(--body);cursor:pointer" aria-pressed="false">Day</button>
+    <button class="switch" type="button" id="themeToggle" role="switch" aria-checked="false" aria-label="Night mode"><span class="knob"></span></button>
     <p class="meta">Design scope only<br>Checked 2026-10-15<br>sketchie.ai</p>
   </nav>
 
@@ -437,7 +449,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
 (function(){
   var KEY="sketchie-theme";var root=document.documentElement;
   var tbtn=document.getElementById("themeToggle");
-  function paint(){var day=root.getAttribute("data-theme")==="day";if(tbtn){tbtn.textContent=day?"Night":"Day";tbtn.setAttribute("aria-pressed",String(day))}}
+  function paint(){var day=root.getAttribute("data-theme")==="day";if(tbtn){tbtn.setAttribute("aria-checked",String(!day));tbtn.setAttribute("aria-label",day?"Night mode off":"Night mode on")}}
   function setTheme(m,broadcast){root.setAttribute("data-theme",m);try{localStorage.setItem(KEY,m)}catch(e){}paint();
     if(broadcast){try{if(window.parent!==window){window.parent.postMessage({sketchieTheme:m},"*")}}catch(e){}}}
   paint();
