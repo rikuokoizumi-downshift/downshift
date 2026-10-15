@@ -332,6 +332,13 @@ a:not(.btn):not(.cue):not(.mark):hover{text-shadow:0 0 16px rgba(var(--acidRGB),
 .opt[aria-pressed="true"]{border-color:var(--acid);box-shadow:3px 4px 0 rgba(var(--acidRGB),.3)}
 .piece video,.vidbox video{border:1px solid rgba(var(--chalkRGB),.3)}
 .canvas .vtag{border-radius:0 0 0 6px}
+/* Scrollbars are part of the page, not the browser. */
+html{scrollbar-width:thin;scrollbar-color:rgba(var(--acidRGB),.55) var(--board-2)}
+::-webkit-scrollbar{width:13px;height:13px}
+::-webkit-scrollbar-track{background:var(--board-2)}
+::-webkit-scrollbar-thumb{background:rgba(var(--acidRGB),.5);border:3px solid var(--board-2);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:rgba(var(--acidRGB),.85)}
+::-webkit-scrollbar-corner{background:var(--board-2)}
 </style>
 <script>
 (function(){
