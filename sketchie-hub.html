@@ -47,6 +47,18 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
 ::-webkit-scrollbar-track{background:var(--panel)}
 ::-webkit-scrollbar-thumb{background:var(--accent);border:3px solid var(--panel);border-radius:99px}
 ::-webkit-scrollbar-corner{background:var(--panel)}
+/* theme switch: a pill with a travelling knob */
+.switch{position:relative;flex:0 0 auto;width:52px;height:28px;padding:0;border-radius:999px;cursor:pointer;
+  background:var(--panel);border:1px solid var(--rule);
+  transition:background-color .25s ease,border-color .25s ease}
+.switch .knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;
+  background:var(--faint);
+  transition:transform .28s cubic-bezier(.2,.8,.3,1),background-color .25s ease}
+.switch[aria-checked="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.switch[aria-checked="true"] .knob{transform:translateX(24px);background:var(--accent)}
+.switch:hover{border-color:var(--accent)}
+.switch:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.switch,.switch .knob{transition:none}}
 </style>
 <script>
 (function(){var KEY="sketchie-theme";var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}document.documentElement.setAttribute("data-theme",saved||"night");})();
@@ -61,7 +73,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
     <button type="button" data-src="sketchie-concept-c.html" class="on">Concept A: Neon</button>
     <button type="button" data-src="sketchie-concept-b-paper.html">Concept B: Paper</button>
     <button type="button" data-src="sketchie-brand-case.html">The case</button>
-    <button type="button" id="themeToggle" aria-pressed="false">Day</button>
+    <button class="switch" type="button" id="themeToggle" role="switch" aria-checked="false" aria-label="Night mode"><span class="knob"></span></button>
     <a id="open" href="sketchie-concept-c.html">Open full</a>
   </nav>
 </div>
@@ -98,7 +110,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
     b.addEventListener("click",function(){show(b.getAttribute("data-src"),b)});
   });
   var tbtn=document.getElementById("themeToggle");
-  function paint(){var day=theme()==="day";tbtn.textContent=day?"Night":"Day";tbtn.setAttribute("aria-pressed",String(day))}
+  function paint(){var night=theme()==="night";tbtn.setAttribute("aria-checked",String(night));tbtn.setAttribute("aria-label",night?"Night mode on":"Night mode off")}
   function setTheme(m){
     root.setAttribute("data-theme",m);
     try{localStorage.setItem(KEY,m)}catch(e){}
