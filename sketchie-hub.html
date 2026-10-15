@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchie brand work: current build</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFBF9;--panel:#fff;--ink:#15161A;--body:#4A4F57;--faint:#8A9099;
+  --rule:#E2E2DC;--accent:#0F6E5C;--accent-soft:#E6F2EE;
+  --sans:"Space Grotesk",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+.bar{position:sticky;top:0;z-index:10;background:var(--panel);border-bottom:1px solid var(--rule);padding:12px clamp(16px,3vw,28px);display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.bar .t{font-weight:700;letter-spacing:-.02em}
+.bar .u{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.tabs{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.tabs a,.tabs button{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:8px 12px;border:1px solid var(--rule);border-radius:7px;background:var(--panel);
+  color:var(--body);text-decoration:none;cursor:pointer;
+}
+.tabs a:hover,.tabs button:hover{border-color:var(--accent);color:var(--accent)}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.frame{width:100%;height:calc(100vh - 58px);border:0;display:block;background:var(--paper)}
+.fallback{padding:clamp(20px,4vw,44px);max-width:760px}
+.fallback h1{font-size:1.5rem;letter-spacing:-.02em;margin:0 0 10px}
+.fallback p{color:var(--body);margin:0 0 14px}
+.fallback ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.fallback a{color:var(--accent)}
+@media (max-width:620px){
+  .frame{height:calc(100vh - 96px)}
+  .bar .u{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="t">Sketchie brand work</span>
+  <span class="u" id="stamp">Updated 2026-10-15</span>
+  <nav class="tabs" aria-label="Views">
+    <button type="button" data-src="sketchie-concept-c.html" class="on">Current build</button>
+    <button type="button" data-src="sketchie-brand-case.html">The case</button>
+    <button type="button" data-src="sketchie-riso-a.html">Alt A</button>
+    <button type="button" data-src="sketchie-riso-b.html">Alt B</button>
+    <a id="open" href="sketchie-concept-c.html" target="_blank" rel="noopener">Open full</a>
+  </nav>
+</div>
+
+<iframe class="frame" id="frame" src="sketchie-concept-c.html" title="Current Sketchie design build"></iframe>
+
+<noscript>
+  <div class="fallback">
+    <h1>Sketchie brand work</h1>
+    <p>Open any of these directly:</p>
+    <ul>
+      <li><a href="sketchie-concept-c.html">Current build: the page is the demo</a></li>
+      <li><a href="sketchie-brand-case.html">The case for a brand overhaul</a></li>
+      <li><a href="sketchie-riso-a.html">Alternate A: two-ink press</a></li>
+      <li><a href="sketchie-riso-b.html">Alternate B: night press</a></li>
+    </ul>
+  </div>
+</noscript>
+
+<script>
+(function(){
+  var frame=document.getElementById("frame");
+  var open=document.getElementById("open");
+  var btns=[].slice.call(document.querySelectorAll(".tabs button"));
+  function show(src,btn){
+    frame.src=src;
+    open.href=src;
+    btns.forEach(function(b){b.classList.toggle("on",b===btn)});
+    try{history.replaceState(null,"","#"+src.replace(".html",""))}catch(e){}
+  }
+  btns.forEach(function(b){
+    b.addEventListener("click",function(){show(b.getAttribute("data-src"),b)});
+  });
+  // deep link support: #sketchie-brand-case opens that view
+  var h=location.hash.replace("#","");
+  if(h){
+    var match=btns.filter(function(b){return b.getAttribute("data-src").indexOf(h)===0})[0];
+    if(match){show(match.getAttribute("data-src"),match)}
+  }
+})();
+</script>
+</body>
+</html>
