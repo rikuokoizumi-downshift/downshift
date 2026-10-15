@@ -280,7 +280,12 @@ html[data-theme="night"] .close h2,html[data-theme="night"] .close p{color:#F4F1
 html[data-theme="night"] .close.dotted{--dot:rgba(244,241,234,.2)}
 html[data-theme="night"] .close .btn{background:#F4F1EA;color:#15102A;border-color:#F4F1EA}
 .close{padding:clamp(44px,5vw,70px) 0}
-.close .mascot{width:clamp(96px,11vw,150px);height:auto;display:block;margin-left:auto}
+.close .mascot{width:clamp(92px,10vw,132px);height:auto;display:block;flex:0 0 auto;
+  color:var(--onAccent);--sk-ink:var(--onAccent);--sk-paper:var(--accent)}
+html[data-theme="night"] .close .mascot{color:#F4F1EA;--sk-ink:#F4F1EA;--sk-paper:#241C46}
+.faqart{width:clamp(104px,12vw,148px);height:auto;margin-bottom:18px}
+.faqart .sketcher{width:100%;height:auto;display:block;color:var(--ink);--sk-ink:var(--ink);--sk-paper:var(--surface)}
+html[data-theme="night"] .faqart .sketcher{color:var(--text);--sk-ink:var(--text);--sk-paper:var(--sunken)}
 
 footer{padding:50px 0 40px}
 footer h4{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin:0 0 12px}
@@ -606,7 +611,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         <div class="b"><div class="icobox sm"><svg style="--sk-c1:#FFC933" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="hourglass"><g class="fills" stroke="none"><g class="fill" data-region="c1"><path d="M40 26 H56 C56 32 52 36 48 40 C44 36 40 32 40 26 Z" fill="var(--sk-c1, #FFC933)"/><path d="M36 72 H60 C58 64 52 60 48 58 C44 60 38 64 36 72 Z" fill="var(--sk-c1, #FFC933)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M28 12 H68 V22 C68 32 56 38 52 44 V52 C56 58 68 64 68 74 V84 H28 V74 C28 64 40 58 44 52 V44 C40 38 28 32 28 22 Z"/><line x1="24" y1="12" x2="72" y2="12" stroke-width="6"/><line x1="24" y1="84" x2="72" y2="84" stroke-width="6"/></g></svg></div><h4>Pause</h4><p>The video holds, so the answer is theirs before it is given.</p></div>
         <div class="b"><div class="icobox sm"><svg style="--sk-c1:#40C057" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="check"><g class="fills" stroke="none"><g class="fill" data-region="c1"><circle cx="48" cy="48" r="35" fill="var(--sk-c1, #40C057)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="48" r="35"/><path d="M31 49 L43 61 L66 36" stroke="var(--sk-paper, #FFFFFF)" stroke-width="8"/></g></svg></div><h4>One line recap</h4><p>Then the loop closes. The question is never replaced by a summary.</p></div>
       </div>
-      <div class="g" style="margin-top:22px"><p class="c8" style="font-size:var(--t-sm)">The six minute ceiling comes from engagement research across 6.9 million learning sessions. A deliberate cap, not a technical limit. <a href="https://sketchie.ai/science/">Read the full spec with citations</a>.</p></div>
+      <div class="g" style="margin-top:22px"><p class="c8" style="font-size:var(--t-sm)">The six minute ceiling comes from research across 6.9 million learning sessions. A deliberate cap, not a technical limit. <a href="https://sketchie.ai/science/">Read the full spec with citations</a>.</p></div>
     </div>
   </section>
 
@@ -658,7 +663,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   <!-- 9. FAQ -->
   <section class="ruled">
     <div class="wrap g">
-      <div class="c4"><h2>The honest FAQ.</h2><p class="scribble" style="margin-top:14px">including the one we lose</p></div>
+      <div class="c4"><div class="faqart"><svg aria-hidden="true" class="sketcher" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 130" fill="none" data-mascot="sketcher"><g class="fill" stroke="none"><circle cx="58" cy="56" r="40" fill="var(--sk-c1,#6C5CE7)"/><path d="M84 27 C95 36 100 51 95 66 C91 79 81 89 68 93 C87 82 94 65 90 49 C87 39 83 32 76 26 C79 25.5 81.5 25.7 84 27 Z" fill="var(--sk-c2,#E8538F)"/><path d="M93 60 C93 72 85 86 71 92 C83 81 88 70 88 58 C90 57 92 58 93 60 Z" fill="var(--sk-c3,#FF6B5B)"/><path d="M37 26 C42 22 49 20 55 21 C48 24 43 28 40 33 C37 31 37 29 37 26 Z" fill="#FFFFFF" opacity="0.9"/></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M58 16 C81 16 98 33 98 56 C98 79 81 96 58 96 C35 96 18 79 18 56 C18 34 36 16 58 16 Z"/><path d="M88 78 C99 80 106 85 110 92"/></g><g class="marker"><path d="M108 84 L122 98 L114 106 L100 92 Z" fill="var(--sk-c2,#E8538F)" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/><path d="M114 106 L122 98 L132 110 L128 114 Z" fill="currentColor" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/></g><path class="drawn-line" d="M130 114 C104 120 66 121 34 117 C24 115.5 14 113 8 110" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/><g class="face"><circle cx="46" cy="53" r="5.5" fill="currentColor"/><circle cx="71" cy="53" r="5.5" fill="currentColor"/><circle cx="47.8" cy="51" r="1.8" fill="#FFFFFF"/><circle cx="72.8" cy="51" r="1.8" fill="#FFFFFF"/><path d="M40 42 C43 40 47 39.5 50 40.5" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M49 68 C54 73 63 73.5 68 69" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="37" cy="62" rx="5" ry="3" fill="var(--sk-c2,#E8538F)" opacity="0.55"/></g></svg></div><h2>The honest FAQ.</h2><p class="scribble" style="margin-top:14px">including the one we lose</p></div>
       <div class="c8">
         <details open><summary data-n="01">Can I edit a single scene?</summary>
           <p>Yes. Scenes are addressable, so an edit targets one of them, that scene re-renders alone, every edit creates a version, and you can revert.</p></details>
@@ -682,7 +687,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       <div class="c7"><h2>Make it once. Fix what matters.</h2><p style="margin-top:12px">Start with two free videos. Keep the scenes editable.</p></div>
       <div class="c5" style="display:flex;align-items:center;justify-content:flex-end;gap:22px">
         <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
-        <img class="mascot" src="https://sketchie.ai/mascot/sketchie-c-sketcher.svg" alt="" width="150" height="150" loading="lazy">
+        <svg aria-hidden="true" class="mascot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" data-mascot="inkling"><g class="fill" stroke="none"><circle cx="60" cy="58" r="42" fill="var(--sk-c1,#6C5CE7)"/><path d="M88 27 C99 37 104 52 99 68 C95 81 84 92 70 96 C90 84 97 66 93 50 C90 39 86 32 79 26 C82 25.5 85 25.6 88 27 Z" fill="var(--sk-c2,#E8538F)"/><path d="M97 62 C97 74 88 89 74 95 C86 84 92 72 92 60 C94 59 96 60 97 62 Z" fill="var(--sk-c3,#FF6B5B)"/><path d="M38 26 C43 22 51 20 57 21 C50 24 45 28 42 33 C39 31 38 29 38 26 Z" fill="#FFFFFF" opacity="0.9"/></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 16 C84 16 102 34 102 58 C102 82 84 100 60 100 C36 100 18 82 18 58 C18 35 37 16 60 16 Z"/><path d="M25 38 C21 44 19 51 19 58" stroke-width="3.5" opacity="0.7"/><path d="M96 74 C99 69 101 64 101.5 58" stroke-width="3.5" opacity="0.7"/></g><g class="face"><circle cx="47" cy="55" r="5.5" fill="currentColor"/><circle cx="73" cy="55" r="5.5" fill="currentColor"/><circle cx="48.8" cy="53" r="1.8" fill="#FFFFFF"/><circle cx="74.8" cy="53" r="1.8" fill="#FFFFFF"/><path d="M50 70 C55 75.5 65 75.5 70 70" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="38" cy="64" rx="5" ry="3" fill="var(--sk-c2,#E8538F)" opacity="0.55"/><ellipse cx="82" cy="64" rx="5" ry="3" fill="var(--sk-c2,#E8538F)" opacity="0.55"/></g></svg>
       </div>
     </div>
   </section>
