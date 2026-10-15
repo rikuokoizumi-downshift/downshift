@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sketchie: the case for a brand overhaul</title>
-<meta name="description" content="A design audit of sketchie.ai, the evidence for changing the brand, what an overhaul must deliver, and the directions explored.">
+<title>Sketchie: the case for revamping the site</title>
+<meta name="description" content="A design audit of sketchie.ai: the measured case for revamping the existing site, what the revamp keeps, what it changes, and how it is sequenced.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -160,133 +160,156 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
     <h4>Contents</h4>
     <ol>
       <li><a href="#s1"><span class="n">01</span> The case in short</a></li>
-      <li><a href="#s2"><span class="n">02</span> What we examined</a></li>
-      <li><a href="#s3"><span class="n">03</span> The system today</a></li>
-      <li><a href="#s4"><span class="n">04</span> Why it should change</a></li>
+      <li><a href="#s2"><span class="n">02</span> What we measured</a></li>
+      <li><a href="#s3"><span class="n">03</span> The brand today</a></li>
+      <li><a href="#s4"><span class="n">04</span> Why the site needs revamping</a></li>
       <li><a href="#s5"><span class="n">05</span> The accessibility problem</a></li>
-      <li><a href="#s6"><span class="n">06</span> What to keep</a></li>
-      <li><a href="#s7"><span class="n">07</span> What an overhaul delivers</a></li>
-      <li><a href="#s8"><span class="n">08</span> Directions explored</a></li>
+      <li><a href="#s6"><span class="n">06</span> What the revamp keeps</a></li>
+      <li><a href="#s7"><span class="n">07</span> What the revamp changes</a></li>
+      <li><a href="#s8"><span class="n">08</span> The revamp, built</a></li>
       <li><a href="#s9"><span class="n">09</span> Phases</a></li>
       <li><a href="#s10"><span class="n">10</span> Open questions</a></li>
       <li><a href="#s11"><span class="n">11</span> What we do not promise</a></li>
     </ol>
     <button class="switch" type="button" id="themeToggle" role="switch" aria-checked="false" aria-label="Night mode"><span class="knob"></span></button>
-    <p class="meta">Design scope only<br>Checked 2026-10-15<br>sketchie.ai</p>
+    <p class="meta">Design scope only<br>Measured 2026-10-16<br>sketchie.ai</p>
   </nav>
 
   <main>
     <header class="cover">
-      <p class="eyebrow">Design audit and brand case</p>
-      <h1>The product is credible. The brand is not carrying it.</h1>
-      <p class="lede">Sketchie publishes a graded research spec, concedes where a competitor wins, and ships output that genuinely draws itself. The visual identity around all of that reads as a classroom worksheet, fails accessibility on most of its palette, and never once shows the thing that makes the product different.</p>
+      <p class="eyebrow">Design audit and revamp proposal</p>
+      <h1>The brand is sound. The page it is wearing is not organised.</h1>
+      <p class="lede">Sketchie does not need a new identity. The violet, the warm board, the dotted paper and the honest voice are all working. What is not working is the thing underneath them: the page renders twenty-one text sizes, its top heading sits four pixels from its section headings, three of its headings rank below its own body copy, and the five audiences it sells to are never routed anywhere above the footer. That is a revamp, not a rebrand.</p>
     </header>
 
     <section id="s1">
       <span class="snum">01 / The case in short</span>
-      <h2>Three reasons, none of them taste</h2>
-      <p>Brand arguments usually come down to preference, which is why they stall. These three can be checked by anyone with a browser and a contrast tool.</p>
+      <h2>Three reasons to revamp, none of them taste</h2>
+      <p>Design arguments usually come down to preference, which is why they stall. These three were taken off the running site at a 1440px desktop width on 2026-10-16, and anyone can repeat them in a browser console.</p>
 
       <div class="keys">
-        <div class="key"><b>7 of 9</b><span>Palette colours fail WCAG AA for body text on the site's own background. Measured, not estimated.</span></div>
-        <div class="key"><b>1 of 16</b><span>Pages carrying any visual of the scene model: a single homepage demo. It appears nowhere in the identity system itself.</span></div>
-        <div class="key"><b>$499.99</b><span>The top published monthly plan, Team. The identity is pitched well below the seriousness of that price.</span></div>
+        <div class="key bad"><b>21</b><span>Distinct font sizes rendering visible text on the homepage. Twelve of them sit between 11 and 17px, in half-pixel steps.</span></div>
+        <div class="key bad"><b>4px</b><span>The gap between the page’s <code>h1</code> at 48px and its seven <code>h2</code>s at 44px. Both are weight 800 in the same face.</span></div>
+        <div class="key bad"><b>7 of 9</b><span>Palette colours that cannot carry body text on the site’s own background. Arithmetic, not opinion.</span></div>
       </div>
 
-      <p><b>One, the palette is not usable.</b> Seven of nine brand colours cannot legally carry body text on the warm paper the site uses. In practice that means the palette is decorative only, which is why six accents do almost no work.</p>
-      <p><b>Two, the differentiator is a section, not an identity.</b> The homepage carries one demo of the scene list with a re-render row, and that is the only visual expression of it anywhere. No recurring device, no mark, nothing in the system that says a video is made of addressable scenes.</p>
-      <p><b>Three, the register is mismatched to the buyer.</b> A marker typeface, hard offset shadows and six bright accents read as a school worksheet. The same site asks developers to buy an API and teams to pay $499 a month.</p>
+      <p><b>One, the type scale cannot signal rank.</b> Twenty-one sizes is not a hierarchy, it is a list. Half a pixel is not a step a reader can perceive, so size stops carrying meaning and the page flattens. The headline and the section headings are four pixels apart, and <code>h4</code> renders at 15.5px while four of the six paragraph sizes are larger than that — a heading ranking below the text it introduces.</p>
+      <p><b>Two, the order asks for a decision before it earns one.</b> Six content bands run between the hero and the close. None of them is an audience band. Sketchie names five buyers — developers, founders, teachers, course creators, support teams — gives each a page, and then routes to them only from the footer, after pricing and the FAQ.</p>
+      <p><b>Three, colour carries no information.</b> Six accents exist with no assigned jobs, and seven of nine tokens fail contrast for body text. A palette that cannot be used for text or state is decoration, which is why the page leans entirely on size and weight it does not have to spare.</p>
+
+      <div class="note">
+        <p><b>What this is not.</b> This is not a case for a new identity. Section 06 lists what the revamp keeps, and it is most of the brand.</p>
+      </div>
     </section>
 
     <section id="s2">
-      <span class="snum">02 / What we examined</span>
-      <h2>Method</h2>
+      <span class="snum">02 / What we measured</span>
+      <h2>Method, and where judgement starts</h2>
       <ul class="plain">
-        <li><span class="b">01</span><span>The live stylesheet, read from the running site: design tokens, type stack, component rules, shadow and radius scales, texture and motion values.</span></li>
-        <li><span class="b">02</span><span>The public page set, including home, pricing, science, education, the API and docs, the icon library, the comparison page, and the five audience pages.</span></li>
-        <li><span class="b">03</span><span>Contrast ratios computed from the published token values against both page backgrounds, using the standard relative luminance formula.</span></li>
-        <li><span class="b">04</span><span>The rendered product output, which is the strongest visual asset the company owns and the benchmark the site should be judged against.</span></li>
+        <li><span class="b">01</span><span>Computed styles read off the running homepage at 1440px: every element that owns a text node, with its rendered font size, weight and family. This is what a reader actually receives, which a stylesheet alone does not tell you.</span></li>
+        <li><span class="b">02</span><span>The live stylesheet: design tokens, type stack, component rules, shadow and radius scales, texture and motion values.</span></li>
+        <li><span class="b">03</span><span>The public page set, including home, pricing, science, education, the API, docs, the comparison page and the five audience pages.</span></li>
+        <li><span class="b">04</span><span>Contrast ratios computed from the published token values against both page backgrounds, using the standard relative luminance formula.</span></li>
+        <li><span class="b">05</span><span>The section order of the homepage, taken from its heading sequence rather than from a screenshot.</span></li>
       </ul>
+
       <h3>The type facts, measured</h3>
-      <p>Read from the running site with the browser font API, not from the stylesheet alone, because a declared font and a loaded font are different things.</p>
+      <p>Read from the running site with the browser font API, not from the stylesheet alone, because a declared font and a loaded font are different things. Re-checked 2026-10-16: the homepage renders two families, and no third.</p>
       <div class="tw">
         <table>
-          <caption>Font status on the live site, 2026-10-15</caption>
+          <caption>Font status on the live site, re-checked 2026-10-16</caption>
           <thead><tr><th>Family</th><th>Declared as</th><th>Actually loaded</th><th>Used for</th></tr></thead>
           <tbody>
-            <tr><td>Shantell Sans Variable</td><td><code>--marker</code></td><td>Yes, weight range 300 to 800</td><td>Headings at 800, sub-headings at 700, the wordmark. 131 elements on the homepage.</td></tr>
-            <tr><td>Inter Variable</td><td><code>--ui</code></td><td>Yes, weight range 100 to 900</td><td>Body, controls, labels. 675 elements on the homepage.</td></tr>
-            <tr><td>Caveat</td><td><code>--annotation</code></td><td><b>No</b></td><td>Nothing. Zero elements on every page we checked, so the browser never requests the file.</td></tr>
+            <tr><td>Shantell Sans Variable</td><td><code>--marker</code></td><td>Yes, weight range 300 to 800</td><td>Every heading. 74 elements own text in it on the homepage.</td></tr>
+            <tr><td>Inter Variable</td><td><code>--ui</code></td><td>Yes, weight range 100 to 900</td><td>Body, controls, labels. 166 elements own text in it.</td></tr>
+            <tr><td>Caveat</td><td><code>--annotation</code></td><td><b>No</b></td><td>Nothing. No element renders in it, so the browser never requests the file.</td></tr>
           </tbody>
         </table>
       </div>
-      <p>One correction worth recording: an earlier internal note of ours claimed the site requests a Shantell weight it does not load, producing synthetic bold. That is not true today. The variable font covers 300 to 800 and the 800 weight resolves correctly.</p>
+      <p>One correction worth recording: an earlier internal note of ours claimed the site requests a Shantell weight it does not load, producing synthetic bold. That is not true. The variable font covers 300 to 800 and the 800 weight resolves correctly.</p>
+
+      <h3>The scale, measured</h3>
+      <div class="tw">
+        <table>
+          <caption>Rendered text sizes, homepage at 1440px, 2026-10-16</caption>
+          <thead><tr><th>Reading</th><th class="n">Value</th><th>What it means for a reader</th></tr></thead>
+          <tbody>
+            <tr><td>Distinct sizes rendering text</td><td class="n">21</td><td>11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 17, 18, 19, 20, 21, 24, 42, 44, 48, 50</td></tr>
+            <tr><td>Sizes inside 11 to 17px</td><td class="n">12</td><td>Mostly half a pixel apart. No reader can rank them, so the distinctions do no work.</td></tr>
+            <tr><td><code>h1</code> and <code>h2</code></td><td class="n">48 / 44</td><td>Four pixels apart, both weight 800. The page has no clearly dominant headline.</td></tr>
+            <tr><td><code>h3</code> and <code>h4</code></td><td class="n">21 / 15.5</td><td><code>h4</code> falls below four of the six paragraph sizes in use.</td></tr>
+            <tr><td>Paragraph sizes in use</td><td class="n">6</td><td>13, 14.5, 17, 18, 19 and 20. Body copy itself is not one thing.</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>Measured against judged</h3>
-      <p><b>Measured:</b> every token value, computed styles on live pages, contrast ratios from the published hex values, font loading status, which elements use which family, and the page inventory.</p>
-      <p><b>Judged:</b> that the register mismatches part of the audience, that the shadow device now reads as a theme rather than a brand, and that accessibility matters commercially in education. These are a designer's read, labelled as such wherever they appear, and we have not dressed them up as data.</p>
+      <p><b>Measured:</b> the rendered size, weight and family of every text element, the token values, contrast ratios computed from the published hex values, font loading status, the homepage heading sequence, and the page inventory.</p>
+      <p><b>Judged:</b> that a marker face carrying every heading sets the maturity level of the brand, that the offset-shadow device now reads as a theme rather than a signature, and that accessibility matters commercially in education. These are a designer&rsquo;s read, labelled as such wherever they appear.</p>
       <p><b>Not known:</b> which audience segment produces the most revenue, and how any of this affects conversion. That needs analytics we have not been given, and no claim in this report depends on it.</p>
       <div class="note">
-        <p><b>Scope note.</b> This report covers design only. Structural and content findings from the earlier crawl are documented separately and are not part of this recommendation.</p>
+        <p><b>Scope note.</b> This report covers design only. Crawl and indexing findings live in the structure report and are not part of this recommendation.</p>
       </div>
     </section>
 
     <section id="s3">
-      <span class="snum">03 / The system today</span>
-      <h2>Documented, so we are arguing about the same thing</h2>
-      <p>The current system is coherent and consistently applied. That is worth saying plainly, because the recommendation is not that it was built carelessly. It is that it was built for a different buyer than the one the product now has.</p>
+      <span class="snum">03 / The brand today</span>
+      <h2>What it already gives us, layer by layer</h2>
+      <p>The system is coherent and consistently applied, and most of it is worth keeping. Saying so is the point of this section: the recommendation is not that it was built carelessly, it is that the page has outgrown the order it was built in.</p>
       <div class="tw">
         <table>
-          <caption>Read from the live stylesheet, 2026-10-15</caption>
-          <thead><tr><th>Layer</th><th>Current</th><th>Reading</th></tr></thead>
+          <caption>Read from the live stylesheet. The third column is the revamp position.</caption>
+          <thead><tr><th>Layer</th><th>Current</th><th>Revamp position</th></tr></thead>
           <tbody>
-            <tr><td>Surfaces</td><td>Warm paper <code>#fbf8f3</code>, white panels, ink <code>#1e1e28</code></td><td>Works. Warm, legible, right for drawn output.</td></tr>
-            <tr><td>Primary</td><td>Violet <code>#6c5ce7</code>, deep <code>#5a4bd1</code></td><td>Strong and distinctive. The one piece of real equity.</td></tr>
-            <tr><td>Accents</td><td>Six: sunny, pink, leaf, sky, tangerine, coral</td><td>No semantic roles. Decorative only, and mostly unusable for text.</td></tr>
-            <tr><td>Headings</td><td>Shantell Sans, a marker face, at weight 800</td><td>Carries the whole personality, and sets the maturity level of the brand.</td></tr>
-            <tr><td>Body</td><td>Inter</td><td>Neutral and fine. Does no harm, adds no character.</td></tr>
-            <tr><td>Annotation</td><td>Caveat, declared as <code>--annotation</code></td><td>Declared but unused. No element on the pages we inspected uses it, and the browser never loads the file. A token paying no rent.</td></tr>
-            <tr><td>Depth</td><td>2 to 2.5px ink borders, hard offset shadows <code>4px 5px 0</code></td><td>The signature. Also the most widely copied device of the last few years.</td></tr>
-            <tr><td>Texture</td><td>Dotted paper, 1.3px dots at 26px</td><td>Appropriate, subtle, worth keeping in some form.</td></tr>
-            <tr><td>Motion</td><td>0.12s hover lift and shadow grow</td><td>Snappy and physical. Unrelated to how the product actually animates.</td></tr>
+            <tr><td>Surfaces</td><td>Warm paper <code>#fbf8f3</code>, white panels, ink <code>#1e1e28</code></td><td><span class="tag p">keep</span> Warm, legible, right for drawn output.</td></tr>
+            <tr><td>Primary</td><td>Violet <code>#6c5ce7</code>, deep <code>#5a4bd1</code></td><td><span class="tag p">keep</span> The one piece of real equity, and it passes contrast.</td></tr>
+            <tr><td>Accents</td><td>Six: sunny, pink, leaf, sky, tangerine, coral</td><td><span class="tag f">assign roles</span> Keep two with stated jobs. Retire the rest from text.</td></tr>
+            <tr><td>Type scale</td><td>21 rendered sizes, 12 inside 11 to 17px</td><td><span class="tag f">rebuild</span> Seven steps, each a perceivable jump.</td></tr>
+            <tr><td>Headings</td><td>Shantell Sans at 800, <code>h1</code> 48 and <code>h2</code> 44</td><td><span class="tag f">re-rank</span> The levels need separating. Whether the face itself changes is a decision in section 10.</td></tr>
+            <tr><td>Body</td><td>Inter, in six sizes</td><td><span class="tag p">keep the face</span> One size for body, one for captions.</td></tr>
+            <tr><td>Annotation</td><td>Caveat, declared as <code>--annotation</code></td><td><span class="tag f">remove or use</span> Declared, never rendered. A token paying no rent.</td></tr>
+            <tr><td>Depth</td><td>2 to 2.5px ink borders, hard offset shadows <code>4px 5px 0</code></td><td><span class="tag p">keep</span> It is the signature, and the revamp keeps it.</td></tr>
+            <tr><td>Texture</td><td>Dotted paper, 1.3px dots at 26px</td><td><span class="tag p">keep</span> Appropriate and subtle. The revamp uses it more deliberately, in fewer places.</td></tr>
+            <tr><td>Motion</td><td>0.12s hover lift and shadow grow</td><td><span class="tag p">keep</span> Snappy and physical. Nothing to fix.</td></tr>
+            <tr><td>Order</td><td>Six content bands, none of them an audience band</td><td><span class="tag f">reorder</span> Section 07 has the sequence.</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
     <section id="s4">
-      <span class="snum">04 / Why it should change</span>
+      <span class="snum">04 / Why the site needs revamping</span>
       <h2>Five arguments, with the evidence attached</h2>
 
       <div class="args">
         <div class="arg">
-          <div class="h"><span class="i">01</span><h3>The identity never shows the differentiator</h3></div>
-          <p>Sketchie's defensible claim is that a video is a set of addressable scenes, so the second version costs a scene instead of a rebuild. The homepage does show this once, as a demo block with a scene list and a re-render row. That is where it stops. It is not in the mark, not in the layout system, and not in any device that repeats across pages, so a visitor who skims leaves knowing only that it makes AI videos.</p>
-          <div class="ev"><b>Evidence:</b> one demo block on the homepage renders a scene list and a re-render row. No other page in the set carries a scene, version or edit component, and nothing in the type, colour or shape system refers to it.</div>
+          <div class="h"><span class="i">01</span><h3>The type scale cannot signal rank</h3></div>
+          <p>Hierarchy is how a reader decides what to read. It is carried by size, weight and space, and on this page size has been spent without being spent on anything. Twenty-one sizes render text. Twelve of them crowd into the 11 to 17px band, mostly half a pixel apart, which is below the threshold at which a difference reads as a difference. The levels that should be far apart are close instead: the single <code>h1</code> is 48px and the seven <code>h2</code>s are 44px, both weight 800 in the same face, so the page has a headline only in the markup. Below that, <code>h4</code> renders at 15.5px while paragraphs run up to 20px, which inverts the relationship entirely.</p>
+          <div class="ev"><b>Evidence:</b> computed styles, homepage at 1440px, 2026-10-16. 21 distinct sizes; 12 in the 11 to 17px band; <code>h1</code> 48 / <code>h2</code> 44 / <code>h3</code> 21 / <code>h4</code> 15.5; six paragraph sizes at 13, 14.5, 17, 18, 19 and 20.</div>
         </div>
 
         <div class="arg">
-          <div class="h"><span class="i">02</span><h3>The register undersells the buyer</h3></div>
-          <p>A marker headline face at weight 800, bright accents and sticker shadows set an expectation of a light consumer tool. The site addresses five audiences in that one register: developers, founders, teachers, course creators and support teams. For teachers and course creators the tone is an asset. For the developer and founder pages, which open on "You shipped it. Now explain it, from your terminal." and sell an API, an MCP server and a CLI, the register works against the copy.</p>
-          <div class="ev"><b>Evidence:</b> five audience pages under <code>/for/</code>, each with its own headline and job to be done, all rendered in one visual register. Which segment produces the most revenue is not something we can see from outside, so this is an argument about fit, not about revenue.</div>
+          <div class="h"><span class="i">02</span><h3>The page never routes the five audiences</h3></div>
+          <p>Sketchie names five buyers and writes a dedicated page for each: developers, founders, teachers, course creators and support teams. The homepage never offers that choice. Six content bands run between the hero and the close, and none of them is an audience band, so the only route to a page written for the visitor is a footer link reached after pricing and the FAQ. A reader who needs to see themselves to keep reading has nowhere to look.</p>
+          <div class="ev"><b>Evidence:</b> homepage heading sequence, 2026-10-16. In order: &ldquo;Prompt in. Video out&rdquo;, &ldquo;Fix one scene. Not the whole video.&rdquo;, &ldquo;Built different where it counts.&rdquo;, &ldquo;We optimized for whether they remember it tomorrow.&rdquo;, &ldquo;Four plans. Start free with 2 videos.&rdquo;, &ldquo;The honest FAQ.&rdquo;, then the close. The five segments appear under a footer heading reading &ldquo;Who it&rsquo;s for&rdquo;.</div>
         </div>
 
         <div class="arg">
-          <div class="h"><span class="i">03</span><h3>The palette is decorative, not functional</h3></div>
-          <p>Six accents exist. None has a defined job, and seven of the nine tokens cannot carry body text on the site's own background. The result is a system with no way to signal state, hierarchy or meaning through colour, so colour becomes noise rather than information. Section 05 has the numbers.</p>
+          <div class="h"><span class="i">03</span><h3>Colour carries no information</h3></div>
+          <p>Six accents exist. None has a defined job, and seven of the nine tokens cannot carry body text on the site&rsquo;s own background. The consequence is practical rather than aesthetic: with colour unavailable for state, rank or meaning, the page has only size and weight left to work with, and section 04.01 shows those are already exhausted. Fixing the palette gives the hierarchy a second channel.</p>
           <div class="ev"><b>Evidence:</b> computed contrast ratios, section 05. Violet passes at 4.59 on warm paper. Sunny fails at 1.45.</div>
         </div>
 
         <div class="arg">
-          <div class="h"><span class="i">04</span><h3>The signature device is now a template</h3></div>
-          <p>Inked outlines with hard offset shadows are a widely used web style, and in our judgement common enough now that they read as a theme rather than as a specific brand. We cannot measure how widespread it is, so treat this one as a designer's read rather than a measurement. What is measurable is that the device does most of the identity's work here.</p>
-          <div class="ev"><b>Evidence:</b> the shadow, border and radius rules are the only consistently applied visual signature in the system.</div>
+          <div class="h"><span class="i">04</span><h3>The differentiator appears once and never returns</h3></div>
+          <p>Sketchie&rsquo;s defensible claim is that a video is a set of addressable scenes, so the second version costs a scene instead of a rebuild. The homepage does show this, once, as a demo block with a scene list and a re-render row. It is the strongest thing on the page and it is placed where a skimming reader meets it after the mechanics, then never again. This is a placement problem, not an identity problem: the asset exists and is good, it is simply used once.</p>
+          <div class="ev"><b>Evidence:</b> one demo block on the homepage renders a scene list and a re-render row. No other page in the set carries a scene, version or edit component.</div>
         </div>
 
         <div class="arg">
-          <div class="h"><span class="i">05</span><h3>The brand ignores its own best asset</h3></div>
-          <p>The product output is genuinely good: line art drawing itself, timed to narration, on a clean board. The site frames those videos in decorated containers that compete with them. An identity built outward from the output, rather than around it, would both look better and argue for the product at the same time.</p>
-          <div class="ev"><b>Evidence:</b> every video on the site sits inside a bordered, shadowed panel with its own visual personality.</div>
+          <div class="h"><span class="i">05</span><h3>The system has drifted from its own definition</h3></div>
+          <p>A third typeface, Caveat, is declared as <code>--annotation</code> and rendered by nothing, so the browser never requests the file. Six accents are defined with no assigned roles. Body copy runs at six sizes. None of these is a catastrophe on its own, and together they are the ordinary drift any site accumulates while shipping quickly. They are also exactly what a revamp is for: the definitions and the rendered page have come apart, and bringing them back together is cheaper than it looks.</p>
+          <div class="ev"><b>Evidence:</b> <code>--annotation</code> declared in the live stylesheet; no element renders in Caveat on any page checked; six accent tokens with no semantic role; six paragraph sizes in use.</div>
         </div>
       </div>
     </section>
@@ -327,87 +350,103 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
       </div>
 
       <div class="note warn">
-        <p><b>Why this matters beyond compliance.</b> Sketchie markets directly to teachers and schools. If accessibility is ever asked about, a palette that cannot carry body text is an awkward answer. We have not measured how often that question comes up in education buying, so treat that part as judgement. The ratios themselves are arithmetic, which is what makes this the easiest argument to settle internally.</p>
+        <p><b>Why this belongs in a revamp.</b> None of these ratios requires a new identity to fix. Violet and deep violet already pass, so the action colour is settled; the work is assigning roles to the rest and keeping them away from text. Sketchie also markets directly to teachers and schools, and if accessibility is ever asked about, a palette that cannot carry body text is an awkward answer. How often that question comes up in education buying is not something we have measured, so treat that part as judgement. The ratios are arithmetic, which is what makes this the easiest argument to settle internally.</p>
       </div>
     </section>
 
     <section id="s6">
-      <span class="snum">06 / What to keep</span>
-      <h2>An overhaul is not a reset</h2>
-      <p>There is real equity here, and discarding it would cost more than it gains.</p>
+      <span class="snum">06 / What the revamp keeps</span>
+      <h2>Most of the brand, deliberately</h2>
+      <p>This matters more than the list of changes. A revamp that quietly becomes a rebrand costs the equity it was supposed to protect, so here is what does not move.</p>
       <ul class="plain">
-        <li><span class="b">01</span><span><b>Violet.</b> It is the one token on every page, it passes contrast, and it is recognisable. It should survive, with a defined job rather than a decorative one.</span></li>
-        <li><span class="b">02</span><span><b>The light board.</b> Drawn dark line art needs a light surface. Whatever the palette becomes, the board stays legible behind the output.</span></li>
-        <li><span class="b">03</span><span><b>Hand-made character.</b> The product draws. The brand should feel made by a person. The question is whether that comes from a novelty typeface or from the artwork, texture and detailing instead.</span></li>
-        <li><span class="b">04</span><span><b>The honest voice.</b> Sentence case, exact numbers, limits stated out loud, a competitor comparison that concedes. That is a genuine differentiator and it is free to keep.</span></li>
-        <li><span class="b">05</span><span><b>The refusals.</b> Six minutes maximum, no talking heads, no stock footage. Design should dramatise those decisions rather than hide them.</span></li>
+        <li><span class="b">01</span><span><b>Violet, and the deep violet with it.</b> On every page, passes contrast, recognisable. It stays, and it gains a defined job instead of a decorative one.</span></li>
+        <li><span class="b">02</span><span><b>The warm board.</b> <code>#fbf8f3</code> paper, white panels, <code>#1e1e28</code> ink. Drawn dark line art needs a light surface, and this is the right one.</span></li>
+        <li><span class="b">03</span><span><b>The dotted paper.</b> 1.3px dots at 26px. Kept exactly, and used in fewer, more deliberate places so it reads as a surface rather than a wallpaper.</span></li>
+        <li><span class="b">04</span><span><b>The inked edge and the offset shadow.</b> 2px borders, <code>4px 5px 0</code> shadows. This is the signature and the revamp keeps it rather than replacing it.</span></li>
+        <li><span class="b">05</span><span><b>Inter for body.</b> Already the right choice. It simply stops being asked to work at six sizes.</span></li>
+        <li><span class="b">06</span><span><b>The honest voice.</b> Sentence case, exact numbers, limits stated out loud, a competitor comparison that concedes. A genuine differentiator, and free to keep.</span></li>
+        <li><span class="b">07</span><span><b>The refusals.</b> Six minutes maximum, no talking heads, no stock footage. The revamp gives them a band of their own rather than hiding them.</span></li>
+        <li><span class="b">08</span><span><b>The motion feel.</b> 0.12s hover lift, shadow grow. Physical and snappy. Untouched.</span></li>
       </ul>
     </section>
 
     <section id="s7">
-      <span class="snum">07 / What an overhaul delivers</span>
-      <h2>Objectives it can be judged against</h2>
+      <span class="snum">07 / What the revamp changes</span>
+      <h2>Four changes, each testable on delivery</h2>
       <div class="tw">
         <table>
-          <caption>Each one testable on delivery</caption>
-          <thead><tr><th>Objective</th><th>Test</th></tr></thead>
+          <caption>Each one checkable without a designer in the room</caption>
+          <thead><tr><th>Change</th><th>Test</th></tr></thead>
           <tbody>
-            <tr><td>A palette with defined roles</td><td>Every colour has a stated job. One primary action colour. No more than two supporting accents. All text colours pass AA on their background.</td></tr>
-            <tr><td>A visual device for the scene model</td><td>A person who reads no body copy can still describe what makes the product different.</td></tr>
-            <tr><td>A type system credible to both buyers</td><td>Reads as a serious tool to a developer and as approachable to a teacher, without two separate identities.</td></tr>
-            <tr><td>Motion tied to the product mechanic</td><td>The site animates the way the product does: outline draws on, fill follows, nothing floats for decoration.</td></tr>
-            <tr><td>Output framed, not competed with</td><td>Video panels are the brightest, most detailed thing on the page.</td></tr>
-            <tr><td>A distinctive signature that is not a preset</td><td>The device cannot be produced by enabling a framework default.</td></tr>
+            <tr><td>One type scale, seven steps</td><td>Count the distinct rendered sizes. Seven, not twenty-one. Every adjacent pair differs by enough to be seen. No heading renders smaller than body copy.</td></tr>
+            <tr><td>Heading levels that separate</td><td>The single <code>h1</code> is clearly dominant. Section headings read as one rank below it, not four pixels below it.</td></tr>
+            <tr><td>A palette with roles</td><td>Every colour has a stated job. One action colour, at most two supporting accents, and every text colour passes AA on its background.</td></tr>
+            <tr><td>An order that routes before it asks</td><td>A visitor meets the proof and the demo, then finds their own segment, then the mechanics, then the price. Not the other way round.</td></tr>
           </tbody>
         </table>
       </div>
+
+      <h3>The order, before and after</h3>
+      <div class="tw">
+        <table>
+          <caption>Homepage band sequence</caption>
+          <thead><tr><th class="n">#</th><th>Live today</th><th>Revamped</th></tr></thead>
+          <tbody>
+            <tr><td class="n">1</td><td>Hero</td><td>Hero</td></tr>
+            <tr><td class="n">2</td><td>Prompt in, video out</td><td>Proof rail: the real output and the figures</td></tr>
+            <tr><td class="n">3</td><td>Fix one scene, not the whole video</td><td><b>Fix one scene</b>, moved up and made editable in place</td></tr>
+            <tr><td class="n">4</td><td>Built different where it counts</td><td><b>Who it is for</b>, five segments, routed</td></tr>
+            <tr><td class="n">5</td><td>Remembered tomorrow</td><td>How it works, three moves</td></tr>
+            <tr><td class="n">6</td><td>Four plans</td><td>Formats in and out</td></tr>
+            <tr><td class="n">7</td><td>The honest FAQ</td><td>The rules, including the refusals</td></tr>
+            <tr><td class="n">8</td><td>Close</td><td>Pricing</td></tr>
+            <tr><td class="n">9</td><td>&mdash;</td><td>The honest FAQ</td></tr>
+            <tr><td class="n">10</td><td>&mdash;</td><td>Close</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The reasoning behind the move: the scene demo is the strongest asset on the page, so it earns the position right after the proof rather than third. The audience band follows it, because a reader who has just seen what the product does is the reader most likely to want the page written for them. Mechanics, formats and rules then answer the questions that visit raises, and pricing comes after all of it rather than before the FAQ.</p>
     </section>
 
     <section id="s8">
-      <span class="snum">08 / Directions explored</span>
-      <h2>Three built, not described</h2>
-      <p>Each is a working page rather than a mood board, so the argument can be had against something real.</p>
+      <span class="snum">08 / The revamp, built</span>
+      <h2>One page, built rather than described</h2>
+      <p>The argument above is only worth as much as the thing it produces, so the revamp exists as a working page in the brand&rsquo;s own colours, not as a mood board.</p>
       <div class="dirs">
-        <div class="dir">
-          <span class="tagline">Direction A</span>
-          <h3>Two-ink press</h3>
-          <p>Risograph printing on bone stock. Overprint, misregistration, halftone fields, poster type. Warm and physical, strongest for the education half.</p>
-          <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-riso-a.html">Open direction A</a>
-        </div>
-        <div class="dir">
-          <span class="tagline">Direction B</span>
-          <h3>Night press</h3>
-          <p>The same print logic on deep blue stock with fluorescent ink. The video panel becomes the only light source. Reads more studio, more technical.</p>
-          <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-riso-b.html">Open direction B</a>
-        </div>
         <div class="dir pick">
-          <span class="tagline">Direction C, recommended</span>
-          <h3>The page is the demo</h3>
-          <p>The page behaves like a Sketchie video: it draws itself scene by scene, a playhead tracks position, one scene re-renders on demand while the others stay put, and it ends on a retrieval beat.</p>
-          <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-concept-c.html">Open direction C</a>
+          <span class="tagline">The revamp</span>
+          <h3>The existing site, reorganised</h3>
+          <p>Their violet, their warm board, their dotted paper, their inked edge and offset shadow, their voice. One type scale of seven steps instead of twenty-one sizes. The scene demo moved up and made editable in place. The five audiences routed in a band of their own. Pricing after the mechanics, not before the FAQ.</p>
+          <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-concept-b-paper.html">Open the revamp</a>
+        </div>
+        <div class="dir">
+          <span class="tagline">Set aside</span>
+          <h3>The neon rebrand</h3>
+          <p>An earlier exploration that replaced the identity outright and made the page behave like a Sketchie video. Kept for reference because the page-as-demo mechanic in it is still a good idea, but it is not what is being proposed here.</p>
+          <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-concept-c.html">Open it anyway</a>
         </div>
       </div>
-      <h3>Why C is the recommendation</h3>
-      <p>A and B are strong visual systems, but they are skins: the same argument in a new costume. C is the only one that answers objective two, because the differentiator is not described in copy, it is demonstrated by the page itself. It is also the only one that would be hard for a competitor to copy, since the behaviour depends on actually having an editable scene graph.</p>
-      <p>Its palette is the open question. Near-black with an acid accent is one expression of the idea, not the idea itself, and it can carry a warmer or more conservative treatment without losing the mechanic.</p>
+      <h3>Why a revamp rather than a rebrand</h3>
+      <p>Three reasons, in order of weight. The equity is real and is concentrated in things that are cheap to keep: a violet that passes contrast, a warm board that suits drawn output, and a voice that concedes to a competitor in public. Second, none of the five problems in section 04 is caused by the identity &mdash; they are caused by the scale, the order and the roles, all of which can be fixed without touching a single brand asset. Third, a rebrand carries a cost this does not: every page, every social image, every doc shell and every piece of collateral has to follow, and the argument for paying that is not in the measurements.</p>
+      <p>One honest flag. The revamp page uses a different display face from the live site, and that is the one change in it that goes beyond reorganising. The hierarchy problems in section 04 can be fixed with Shantell Sans kept in place, and we can rebuild the page that way on request. Section 10 carries it as a decision rather than a recommendation.</p>
     </section>
 
     <section id="s9">
       <span class="snum">09 / Phases</span>
-      <h2>Sequenced so the risk stays small</h2>
+      <h2>Sequenced so nothing ships on a guess</h2>
       <div class="phases">
-        <div class="phase"><span class="p">Phase 1<br>Core</span>
-          <div><h3>The system, decided</h3>
-            <ul><li>Palette with roles, all passing AA</li><li>Type pairing and scale</li><li>Component language: edges, depth, texture</li><li>The scene device</li><li>Mark and mascot decision</li></ul></div></div>
+        <div class="phase"><span class="p">Phase 1<br>Tokens</span>
+          <div><h3>The scale and the roles, decided</h3>
+            <ul><li>Seven-step type scale, written as tokens</li><li>Every accent given a stated job, or retired from text</li><li>Every text colour checked against its background</li><li>The Caveat token either used or removed</li></ul></div></div>
         <div class="phase"><span class="p">Phase 2<br>Proof</span>
-          <div><h3>One page, built properly</h3>
-            <ul><li>The landing page, in the new system</li><li>Measured against the six objectives</li><li>Tested at every breakpoint and in reduced motion</li></ul></div></div>
+          <div><h3>The homepage, in the new order</h3>
+            <ul><li>The band sequence in section 07</li><li>Measured against the four tests</li><li>Checked at every breakpoint and in reduced motion</li></ul></div></div>
         <div class="phase"><span class="p">Phase 3<br>Rollout</span>
           <div><h3>The rest of the surface</h3>
-            <ul><li>Pricing, science, education, comparison, audience pages</li><li>Docs shell, which carries different constraints</li><li>Social and preview images</li></ul></div></div>
+            <ul><li>Pricing, science, education, comparison</li><li>The five audience pages, which gain the most from a routed band</li><li>The docs shell, which carries different constraints</li></ul></div></div>
         <div class="phase"><span class="p">Phase 4<br>Handover</span>
           <div><h3>So it survives us</h3>
-            <ul><li>Token file and component rules</li><li>Usage guidance, including what not to do</li><li>Accessibility checks in the build</li></ul></div></div>
+            <ul><li>Token file and component rules</li><li>Usage guidance, including what not to do</li><li>A contrast check in the build, so this does not drift back</li></ul></div></div>
       </div>
     </section>
 
@@ -418,10 +457,10 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
         <table>
           <thead><tr><th>Question</th><th>Blocks</th><th>Default if unanswered</th></tr></thead>
           <tbody>
-            <tr><td>Which buyer leads: developers or educators</td><td>Register, type, palette temperature</td><td>Serve both, lead with the scene mechanic that matters to each</td></tr>
-            <tr><td>How far to push</td><td>Whether C ships as built or calms down</td><td>Keep the mechanic, soften the palette</td></tr>
-            <tr><td>Does the mascot stay</td><td>Mark and illustration system</td><td>Keep it, give it one job rather than cameos</td></tr>
-            <tr><td>Who owns brand sign-off</td><td>Phase 1 completion</td><td>Treat the founder as the approver</td></tr>
+            <tr><td>Does the display face stay Shantell Sans</td><td>Phase 1, and how the revamp page is finished</td><td>Keep it, and fix the hierarchy around it</td></tr>
+            <tr><td>Which two accents keep a job</td><td>Phase 1 palette roles</td><td>Violet for action, one warm accent for emphasis, the rest retired from text</td></tr>
+            <tr><td>Does the audience band get five cards or a chooser</td><td>Phase 2 homepage build</td><td>Five cards, each linking to its existing page</td></tr>
+            <tr><td>Who owns design sign-off</td><td>Phase 1 completion</td><td>Treat the founder as the approver</td></tr>
             <tr><td>Engineering time for the rollout</td><td>Phase 3 scope</td><td>Deliver tokens and let the team apply them</td></tr>
           </tbody>
         </table>
@@ -431,16 +470,16 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
     <section id="s11">
       <span class="snum">11 / What we do not promise</span>
       <h2>Stated plainly</h2>
-      <p><b>We will commit to:</b> every text colour passing WCAG AA on its background, a palette where each colour has a stated role, a visual device that expresses the scene model, motion that honours reduced-motion settings, a working page rather than a mood board at each phase, and a token file the team can apply without us.</p>
-      <p><b>We will not promise:</b> a conversion increase, a signup lift, a traffic change, or that a new identity fixes positioning. Design can make a true claim legible. It cannot make a claim true, and it cannot substitute for the product decisions underneath it.</p>
+      <p><b>We will commit to:</b> a type scale of seven steps with no heading smaller than body copy, every text colour passing WCAG AA on its background, every colour carrying a stated role, the band order in section 07, motion that honours reduced-motion settings, a working page rather than a mood board at each phase, and a token file the team can apply without us.</p>
+      <p><b>We will not promise:</b> a conversion increase, a signup lift, a traffic change, or that reorganising a page fixes positioning. Design can make a true claim legible. It cannot make a claim true, and it cannot substitute for the product decisions underneath it.</p>
       <div class="note">
-        <p><b>The honest summary.</b> The accessibility failures are worth fixing whatever you decide about the brand. The rest of this report is an argument that the identity is costing credibility with the half of the audience that pays most, and that the product's one real differentiator deserves to be visible.</p>
+        <p><b>The honest summary.</b> Two of the findings here are worth fixing whatever you decide about everything else: the contrast failures, and a heading level that renders smaller than the paragraphs beneath it. The rest of this report argues that the brand is not the problem, the order and the scale are, and that both can be fixed without spending the equity.</p>
       </div>
     </section>
 
     <footer>
-      <span>Design audit and brand case. Prepared for Downshift LLC.</span>
-      <span>Live checks and contrast computed 2026-10-15</span>
+      <span>Design audit and revamp proposal. Prepared for Downshift LLC.</span>
+      <span>Computed styles and contrast measured 2026-10-16</span>
     </footer>
   </main>
 </div>
