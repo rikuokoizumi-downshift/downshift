@@ -288,8 +288,17 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
 }
 @media (max-width:560px){
   :root{--cols:4}
+  /* the header carries four controls; at phone width they need the room */
+  nav{gap:10px}
+  .mark{font-size:var(--t-base);gap:7px}
+  .menu summary{padding:7px 11px}
+  .btn.sm{padding:8px 12px}
   .c2,.c3,.c4,.c5,.c6,.c7,.c8,.c12{grid-column:span 4}
   .scenes,.versions{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:430px){
+  /* the mark svg carries the name from here down */
+  .markname{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important;scroll-behavior:auto !important}
@@ -331,7 +340,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
           <path class="sk" d="M12 18.4c2.2 1.8 5.8 1.8 8 0"/>
           <path class="sk sk-p" d="M16 23v4.5"/>
         </svg>
-        Sketchie
+        <span class="markname">Sketchie</span>
       </a>
       <div class="navlinks">
         <a href="#wedge">Scene editing</a>
