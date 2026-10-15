@@ -197,6 +197,48 @@ footer a{color:var(--dim);text-decoration:none;font-size:.9rem}
 footer a:hover{color:var(--cream)}
 .fb{margin-top:32px;border-top:1px solid rgba(244,237,223,.2);padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:rgba(244,237,223,.5)}
 
+/* ---------------------------------------------------------------
+   PRESS CONDITION
+   On dark stock the inks are the light passes. Drift varies per
+   element, solid fields carry a dot screen pulled back toward the
+   stock colour, density falls off across the sheet, and the grain
+   is blotchy rather than evenly spread.
+----------------------------------------------------------------*/
+
+/* a solid ink field: dot screen plus density falloff */
+.field{position:relative;isolation:isolate}
+.field::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background-image:radial-gradient(circle,rgba(20,33,91,.3) var(--dot,1.15px),transparent calc(var(--dot,1.15px) + .2px));
+  background-size:var(--screen,6px) var(--screen,6px);
+  mix-blend-mode:multiply;
+  -webkit-mask-image:linear-gradient(var(--sweep,120deg),#000 6%,rgba(0,0,0,.4) 55%,rgba(0,0,0,.85) 100%);
+  mask-image:linear-gradient(var(--sweep,120deg),#000 6%,rgba(0,0,0,.4) 55%,rgba(0,0,0,.85) 100%);
+}
+.field > *{position:relative;z-index:2}
+.freebox{--dot:1.3px;--screen:7px;--sweep:105deg}
+.pane.now{--dot:1px;--screen:5px;--sweep:150deg}
+.beat div:nth-child(2){--dot:1.1px;--screen:6px;--sweep:80deg}
+
+/* second pass drift. Light inks separating at a hard edge, with a
+   different offset on each element because the feed is never exact. */
+.hero h1 em{text-shadow:3px 4px 0 rgba(121,216,255,.4)}
+.close h2 em{text-shadow:2px 3px 0 rgba(121,216,255,.35)}
+.row:nth-of-type(odd) .rn{text-shadow:2px 2px 0 rgba(255,77,141,.35)}
+.row:nth-of-type(even) .rn{text-shadow:1.5px 2.5px 0 rgba(121,216,255,.3)}
+.spec:nth-child(odd) b{text-shadow:2px 2px 0 rgba(121,216,255,.3)}
+.spec:nth-child(even) b{text-shadow:2.5px 1.5px 0 rgba(244,237,223,.22)}
+
+/* blotchy second grain pass, light inks lifting off the stock */
+body::before{
+  content:"";position:fixed;inset:0;z-index:89;pointer-events:none;opacity:.55;
+  background-image:
+    radial-gradient(65% 50% at 15% 10%,rgba(255,77,141,.1),transparent 64%),
+    radial-gradient(55% 45% at 85% 68%,rgba(121,216,255,.09),transparent 66%),
+    radial-gradient(40% 38% at 55% 38%,rgba(244,237,223,.05),transparent 72%);
+  mix-blend-mode:screen;
+}
+
 /* line art, cream on blue */
 .sk{stroke:var(--cream);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .sk-f{stroke:var(--flo)}
@@ -371,7 +413,7 @@ footer a:hover{color:var(--cream)}
                 </svg>
                 <p>Correct, but the viewer cannot tell who is asking.</p>
               </div>
-              <div class="pane now">
+              <div class="pane now field">
                 <span class="mono">Version 2</span>
                 <svg viewBox="0 0 180 90" role="img" aria-label="The revised scene, with the resolver named and the request leaving the laptop">
                   <rect class="sk" x="10" y="30" width="46" height="30" rx="2"/>
@@ -450,7 +492,7 @@ footer a:hover{color:var(--cream)}
         <p class="mono">05 / Pricing</p>
         <h2 style="margin-top:14px">Minutes are the only meter.</h2>
 
-        <div class="freebox">
+        <div class="freebox field">
           <div>
             <h3>Two free videos first</h3>
             <p style="margin-top:10px">The free tier is the whole product, editor included. It is how you find out whether the output is worth a plan.</p>
