@@ -841,15 +841,12 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
     root.setAttribute("data-theme",m);
     try{localStorage.setItem(KEY,m)}catch(e){}
     paint();
-    if(broadcast){try{if(window.parent!==window){window.parent.postMessage({sketchieTheme:m},"*")}}catch(e){}}
+    /* independent: the page does not tell the hub what theme it is in */
   }
   paint();
   if(tbtn){tbtn.addEventListener("click",function(){
     setTheme(root.getAttribute("data-theme")==="night"?"day":"night",true);
   })}
-  window.addEventListener("message",function(e){
-    if(e.data&&e.data.sketchieTheme){setTheme(e.data.sketchieTheme,false)}
-  });
 
   var edits={
     "1":['"In scene 01, show the name being typed letter by letter, and keep the window empty until it is."','scenes 02, 03 and 04'],
