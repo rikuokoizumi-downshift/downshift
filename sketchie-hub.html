@@ -68,7 +68,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
 .aside button.on{border-style:solid;border-color:var(--accent);color:var(--accent)}
 </style>
 <script>
-(function(){var KEY="sketchie-theme";var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}document.documentElement.setAttribute("data-theme",saved||"day");})();
+(function(){var KEY="sketchie-hub-theme";var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}document.documentElement.setAttribute("data-theme",saved||"day");})();
 </script>
 </head>
 <body>
@@ -89,7 +89,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
   </nav>
 </div>
 
-<iframe class="frame" id="frame" src="sketchie-concept-b-paper.html?theme=day" title="Sketchie site revamp"></iframe>
+<iframe class="frame" id="frame" src="sketchie-concept-b-paper.html" title="Sketchie site revamp"></iframe>
 
 <noscript>
   <div class="fallback">
@@ -106,13 +106,14 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
 
 <script>
 (function(){
-  var KEY="sketchie-theme";var root=document.documentElement;
+  /* the hub chrome owns its own theme and does not touch the page it frames */
+  var KEY="sketchie-hub-theme";var root=document.documentElement;
   function theme(){return root.getAttribute("data-theme")||"day"}
   var frame=document.getElementById("frame");
   var open=document.getElementById("open");
   // only buttons that name a view are tabs; the theme switch is not one
   var btns=[].slice.call(document.querySelectorAll("button[data-src]"));
-  function withTheme(src){return src+"?theme="+theme()}
+  function withTheme(src){return src}
   function show(src,btn){
     if(!src){return}
     frame.src=withTheme(src);
@@ -129,18 +130,10 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
     root.setAttribute("data-theme",m);
     try{localStorage.setItem(KEY,m)}catch(e){}
     paint();
-    var cur=frame.getAttribute("src").split("?")[0];
-    frame.src=withTheme(cur);open.href=withTheme(cur);
+
   }
   paint();
   tbtn.addEventListener("click",function(){setTheme(theme()==="day"?"night":"day")});
-  window.addEventListener("message",function(e){
-    if(e.data&&e.data.sketchieTheme&&e.data.sketchieTheme!==theme()){
-      root.setAttribute("data-theme",e.data.sketchieTheme);
-      try{localStorage.setItem(KEY,e.data.sketchieTheme)}catch(err){}
-      paint();
-    }
-  });
 
   // deep link support: #sketchie-brand-case opens that view
   var h=location.hash.replace("#","");
