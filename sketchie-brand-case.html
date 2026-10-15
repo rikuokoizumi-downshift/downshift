@@ -67,6 +67,23 @@ code{font-family:var(--mono);font-size:.84em;background:var(--code);padding:1px 
 .fail{color:var(--warn);font-weight:500}
 .pass{color:var(--ok);font-weight:500}
 
+/* sitemap figure */
+.dfig{margin:26px 0 0}
+.dfig svg{display:block;width:100%;height:auto;color:var(--ink)}
+.dfig figcaption{margin-top:14px;font-size:.92rem;color:var(--body);max-width:70ch}
+.dbox{fill:none;stroke:currentColor;stroke-width:1.6}
+.dbox.dead{stroke-dasharray:5 4;opacity:.5}
+.dbox.new{stroke:var(--accent);stroke-width:2.2;fill:var(--accent-soft)}
+.dedge{fill:none;stroke:currentColor;stroke-width:1.5;opacity:.55;stroke-linecap:round;stroke-linejoin:round}
+.dedge.dash{stroke-dasharray:4 4}
+.dedge.on{stroke:var(--accent);opacity:1}
+.drule{stroke:currentColor;opacity:.18;stroke-width:1;stroke-dasharray:3 5}
+.dh{font-family:var(--mono);font-size:11px;letter-spacing:.14em;fill:var(--faint)}
+.dn{font-family:var(--sans);font-size:12.5px;font-weight:500;fill:currentColor}
+.dn-on{fill:var(--accent)}
+.dsub{font-family:var(--sans);font-size:10.5px;fill:var(--faint)}
+.dl2{font-family:var(--sans);font-size:11px;fill:var(--faint)}
+@media (max-width:720px){.dfig svg{min-width:640px}.dfig{overflow-x:auto}}
 .tw{overflow-x:auto;margin:20px 0}
 table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:600px;background:var(--panel)}
 caption{text-align:left;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:0 0 10px}
@@ -407,6 +424,28 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
           </tbody>
         </table>
       </div>
+
+      <h3>What changes on each part of the site</h3>
+      <p>The homepage is where the order changes. Everywhere else inherits the scale and the colour roles and keeps its structure.</p>
+      <div class="tw">
+        <table>
+          <caption>Page inventory checked 2026-10-16. Status codes are live responses.</caption>
+          <thead><tr><th>Group</th><th>Pages</th><th>What the revamp changes</th></tr></thead>
+          <tbody>
+            <tr><td>Home</td><td><code>/</code></td><td>Band order, a routing band for the five audiences, the nine-step scale, colour roles, the icon artwork.</td></tr>
+            <tr><td>Audience</td><td>The five <code>/for/</code> pages</td><td>Scale and colour roles. They also gain a parent: <code>/for/</code> currently returns <span class="tag f">403</span>, so the set has no index.</td></tr>
+            <tr><td>Product</td><td><code>/pricing/</code>, <code>/api/</code>, <code>/docs/</code>, <code>/icons/</code></td><td>Scale and colour roles only. No structural change.</td></tr>
+            <tr><td>Learn</td><td><code>/science/</code>, <code>/education/</code>, <code>/vs-simi/</code></td><td>Scale and colour roles only. No structural change.</td></tr>
+            <tr><td>Absent</td><td><code>/blog/</code>, <code>/contact/</code></td><td>Both return <span class="tag f">404</span> today. A contact route is worth adding. A blog is a content decision, not a design one, and we are not proposing it here.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The routing problem, drawn</h3>
+      <figure class="dfig">
+        <svg viewBox="0 0 880 292" role="img" aria-label="Two site maps side by side. Today the five audience pages hang off the footer and their parent returns 403. In the proposal the homepage routes into a new audience hub that carries the same five pages."><text class="dh" x="18" y="26">TODAY</text><rect class="dbox" x="18" y="52" width="150" height="34" rx="6"/><text class="dn" x="29" y="73">Home</text><rect class="dbox" x="18" y="197" width="150" height="34" rx="6"/><text class="dn" x="29" y="218">Footer</text><path class="dedge" d="M93 86V197"/><path class="dedge" d="M89 187l4 4 4-4"/><rect class="dbox dead" x="214" y="52" width="168" height="34" rx="6"/><text class="dn" x="225" y="68">/for/</text><text class="dsub" x="225" y="81">returns 403, no index</text><rect class="dbox" x="214" y="92" width="168" height="26" rx="6"/><text class="dn" x="225" y="109">/for/developers/</text><path class="dedge dash" d="M168 214H191V105H208"/><path class="dedge dash" d="M204 101l4 4-4 4"/><rect class="dbox" x="214" y="127" width="168" height="26" rx="6"/><text class="dn" x="225" y="144">/for/founders/</text><path class="dedge dash" d="M168 214H191V140H208"/><path class="dedge dash" d="M204 136l4 4-4 4"/><rect class="dbox" x="214" y="162" width="168" height="26" rx="6"/><text class="dn" x="225" y="179">/for/teachers/</text><path class="dedge dash" d="M168 214H191V175H208"/><path class="dedge dash" d="M204 171l4 4-4 4"/><rect class="dbox" x="214" y="197" width="168" height="26" rx="6"/><text class="dn" x="225" y="214">/for/course-creators/</text><path class="dedge dash" d="M168 214H191V210H208"/><path class="dedge dash" d="M204 206l4 4-4 4"/><rect class="dbox" x="214" y="232" width="168" height="26" rx="6"/><text class="dn" x="225" y="249">/for/support-teams/</text><path class="dedge dash" d="M168 214H191V245H208"/><path class="dedge dash" d="M204 241l4 4-4 4"/><text class="dl2" x="178" y="253">footer links only</text><path class="drule" d="M446 14V282"/><text class="dh" x="492" y="26">PROPOSED</text><rect class="dbox" x="492" y="52" width="150" height="34" rx="6"/><text class="dn" x="503" y="73">Home</text><rect class="dbox new" x="492" y="162" width="150" height="34" rx="6"/><text class="dn dn-on" x="503" y="178">Who it is for</text><text class="dsub" x="503" y="191">a band on the page</text><path class="dedge on" d="M567 86V162"/><path class="dedge on" d="M563 152l4 4 4-4"/><rect class="dbox" x="688" y="92" width="168" height="26" rx="6"/><text class="dn" x="699" y="109">/for/developers/</text><path class="dedge on" d="M642 179H665V105H682"/><path class="dedge on" d="M678 101l4 4-4 4"/><rect class="dbox" x="688" y="127" width="168" height="26" rx="6"/><text class="dn" x="699" y="144">/for/founders/</text><path class="dedge on" d="M642 179H665V140H682"/><path class="dedge on" d="M678 136l4 4-4 4"/><rect class="dbox" x="688" y="162" width="168" height="26" rx="6"/><text class="dn" x="699" y="179">/for/teachers/</text><path class="dedge on" d="M642 179H665V175H682"/><path class="dedge on" d="M678 171l4 4-4 4"/><rect class="dbox" x="688" y="197" width="168" height="26" rx="6"/><text class="dn" x="699" y="214">/for/course-creators/</text><path class="dedge on" d="M642 179H665V210H682"/><path class="dedge on" d="M678 206l4 4-4 4"/><rect class="dbox" x="688" y="232" width="168" height="26" rx="6"/><text class="dn" x="699" y="249">/for/support-teams/</text><path class="dedge on" d="M642 179H665V245H682"/><path class="dedge on" d="M678 241l4 4-4 4"/></svg>
+        <figcaption>The five audience pages already exist and already rank. Today the only route to them is the footer, and their parent <code>/for/</code> returns 403, so nothing links them together. The revamp adds the band, not the pages.</figcaption>
+      </figure>
       <p>The reasoning behind the move: the scene demo is the strongest asset on the page, so it earns the position right after the proof rather than third. The audience band follows it, because a reader who has just seen what the product does is the reader most likely to want the page written for them. Mechanics, formats and rules then answer the questions that visit raises, and pricing comes after all of it rather than before the FAQ.</p>
     </section>
 
