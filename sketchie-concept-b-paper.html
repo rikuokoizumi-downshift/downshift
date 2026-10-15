@@ -29,6 +29,7 @@
   --pink:#E8538F;
   --sunny:#FFC933;
   --dot:#E4E0D8;        /* their dot grid colour */
+  --dotb:#E4E0D8;       /* the dot on a player title card, which stays paper in both themes */
 
   /* roles, which the original palette never assigned */
   --bg:var(--warm);
@@ -156,6 +157,65 @@ html[data-theme="night"] .menupanel{border-color:var(--line)}
 .hero .lede{max-width:40ch}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .undercta{margin-top:14px;font-size:var(--t-sm);color:var(--graphite)}
+
+/* ---- player ---------------------------------------------------------
+   The native control bar was the only unstyled browser chrome left on the
+   page, and these clips open on a blank whiteboard, so an unplayed clip
+   was a white rectangle. Each one now rests as a drawn title card and
+   carries controls built in the same ink language as the icon set. */
+.player{margin:0;display:flex;flex-direction:column;height:100%}
+.player .screen{position:relative;background:var(--surface);border:2px solid var(--ink);border-radius:16px;
+  padding:10px;box-shadow:5px 6px 0 var(--ink)}
+html[data-theme="night"] .player .screen{border-color:var(--line);box-shadow:5px 6px 0 rgba(155,140,255,.26)}
+.player video{width:100%;display:block;border-radius:9px;aspect-ratio:16/9;object-fit:cover;
+  background:var(--paper);border:1px solid var(--line)}
+
+/* the resting state: a board with the title on it, not a blank frame */
+.player .pad{position:absolute;inset:10px;border:0;padding:0;cursor:pointer;background:transparent;border-radius:9px}
+.player.playing .pad{display:none}
+.player .board{position:absolute;inset:0;border-radius:9px;border:1px solid var(--line);
+  background-color:var(--paper);
+  background-image:radial-gradient(circle,var(--dotb) 1.3px,transparent 1.3px);
+  background-size:26px 26px;
+  display:grid;grid-template-rows:1fr auto 1fr;place-items:center;padding:16px;overflow:hidden}
+.player .ttl{grid-row:2;font-family:var(--marker);font-weight:800;color:#1E1E28;
+  font-size:var(--t-md);line-height:1.18;text-align:center;max-width:22ch}
+.player .disc{grid-row:3;align-self:center;width:58px;height:58px;border-radius:50%;background:var(--violet);
+  border:2px solid #1E1E28;box-shadow:3px 4px 0 #1E1E28;display:grid;place-items:center;margin-top:12px;
+  transition:transform .14s ease,box-shadow .14s ease}
+.player .disc svg{width:22px;height:22px;margin-left:3px;display:block}
+.player .pad:hover .disc{transform:translate(-1px,-2px);box-shadow:5px 6px 0 #1E1E28}
+.player .pad:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px}
+
+/* control row, drawn the way the icons are drawn */
+.player .ctl{display:flex;align-items:center;gap:11px;padding:12px 2px 0}
+.player .ctl button{flex:0 0 auto;width:34px;height:34px;padding:0;border:2px solid var(--ink);border-radius:9px;
+  background:var(--bg);color:var(--ink);cursor:pointer;display:grid;place-items:center;
+  box-shadow:2px 3px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
+html[data-theme="night"] .player .ctl button{border-color:var(--line);color:var(--text);box-shadow:2px 3px 0 rgba(155,140,255,.24)}
+.player .ctl button:hover{transform:translate(-1px,-1px);box-shadow:3px 4px 0 var(--ink)}
+.player .ctl button:focus-visible{outline:3px solid var(--accent-deep);outline-offset:2px}
+.player .ctl svg{width:16px;height:16px;display:block}
+
+.player .track{position:relative;flex:1 1 auto;height:22px;cursor:pointer;touch-action:none}
+.player .track .ink{position:absolute;left:0;right:0;top:9px;height:4px;border-radius:99px;background:var(--line)}
+.player .track .done{position:absolute;left:0;top:9px;height:4px;width:0;border-radius:99px;background:var(--accent)}
+.player .track .knob{position:absolute;top:3px;left:0;width:16px;height:16px;margin-left:-8px;border-radius:50%;
+  background:var(--sunny);border:2px solid var(--ink);box-shadow:1px 2px 0 var(--ink)}
+html[data-theme="night"] .player .track .knob{border-color:var(--line);box-shadow:1px 2px 0 rgba(0,0,0,.5)}
+.player .track:focus-visible{outline:3px solid var(--accent-deep);outline-offset:2px;border-radius:8px}
+.player .time{flex:0 0 auto;font-family:var(--ui);font-size:var(--t-xs);font-weight:600;letter-spacing:.05em;
+  color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* the hero clip loops on its own and needs no play affordance */
+.player.ambient .pad{display:none}
+
+/* captions line up across the rail even when a title wraps */
+.player figcaption{margin-top:14px;display:flex;flex-direction:column;gap:3px}
+.player figcaption h4{margin:0}
+.player figcaption p{font-size:var(--t-sm);color:var(--muted);margin:0}
+@media (prefers-reduced-motion:reduce){.player .disc,.player .ctl button{transition:none}}
+
 .frame{background:var(--surface);border:2px solid var(--ink);border-radius:16px;padding:12px;box-shadow:5px 6px 0 var(--ink)}
 html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 .frame video,.frame .vf{width:100%;display:block;border-radius:9px;aspect-ratio:16/9;background:var(--warm2);border:1px solid var(--line)}
@@ -165,8 +225,15 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 .stat b{display:block;font-family:var(--marker);font-size:var(--t-stat);font-weight:800;letter-spacing:-.02em}
 .stat span{display:block;font-size:var(--t-sm);color:var(--muted);margin-top:3px}
 
-.rail{display:flex;gap:var(--gx);overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 18px;margin-top:26px}
-.clip{scroll-snap-align:start;flex:0 0 clamp(248px,27vw,330px)}
+/* the clips were 248px thumbnails packed tight against each other */
+.rail{display:flex;align-items:stretch;gap:clamp(20px,2.4vw,34px);overflow-x:auto;
+  scroll-snap-type:x mandatory;scroll-padding-left:var(--pad);padding:6px 0 22px;margin-top:34px;
+  scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.rail::-webkit-scrollbar{height:10px}
+.rail::-webkit-scrollbar-track{background:transparent}
+.rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+.rail::-webkit-scrollbar-thumb:hover{background:var(--graphite)}
+.clip{scroll-snap-align:start;flex:0 0 clamp(296px,32vw,412px);display:flex}
 .clip video,.clip .vf{width:100%;aspect-ratio:16/9;border-radius:12px;border:2px solid var(--ink);display:block;background:var(--surface)}
 html[data-theme="night"] .clip video,html[data-theme="night"] .clip .vf{border-color:var(--line)}
 .clip .vf{display:grid;place-items:center;text-align:center;padding:16px;font-size:var(--t-sm);color:var(--graphite)}
@@ -179,16 +246,19 @@ html[data-theme="night"] .clip video,html[data-theme="night"] .clip .vf{border-c
 .scene:hover{border-color:var(--accent)}
 .scene[aria-pressed="true"]{border-color:var(--accent);box-shadow:3px 4px 0 var(--accent);transform:translate(-1px,-2px)}
 .scene .n{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
-.scene svg{display:block;width:100%;height:66px;margin:10px 0 8px}
+.scene svg{display:block;width:100%;height:64px;margin:12px 0 10px}
 .scene h4{font-size:var(--t-base);letter-spacing:0}
 .scene p{font-size:var(--t-sm);margin-top:4px}
-.editrow{margin-top:26px}
-.request{border-left:3px solid var(--accent);padding:4px 0 4px 18px}
+.editrow{margin-top:26px;align-items:stretch}
+.request{border:2px solid var(--line);border-left:3px solid var(--accent);border-radius:14px;
+  padding:16px 16px 16px 17px;background:var(--surface);height:100%}
 .request p{color:var(--text);font-size:var(--t-base)}
 .versions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gx)}
 .vcard{border:2px solid var(--line);border-radius:14px;padding:16px;background:var(--surface)}
 .vcard.after{border-color:var(--accent);background:var(--accent-tint)}
-.vcard svg{display:block;width:100%;height:92px;margin:10px 0 8px}
+/* 86 units tall rendered at 86px, same 1:1 scale as the scene strip,
+   so a 2.1 stroke is a 2.1 stroke in both */
+.vcard svg{display:block;width:100%;height:86px;margin:12px 0 10px}
 .vcard p{font-size:var(--t-sm)}
 .vtag{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-deep)}
 .untouched{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:var(--t-sm);color:var(--muted)}
@@ -301,6 +371,9 @@ footer a:hover{color:var(--text)}
 .sk{stroke:var(--text);fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
 .sk-a{stroke:var(--accent)}
 .sk-p{stroke:var(--pink)}
+.sk-dim{opacity:.34}
+.dl{font-family:var(--ui);font-size:11px;font-weight:600;fill:var(--muted);letter-spacing:.02em}
+.dl-p{fill:var(--pink)}
 
 h1,h2,h3,h4,summary,.stat b,.rule b{transition:text-shadow .4s ease,color .3s ease}
 h1:hover,h2:hover{text-shadow:0 0 24px rgba(108,92,231,.18)}
@@ -430,31 +503,65 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
     <div class="wrap">
       <div class="g">
         <div class="c7">
-          
           <h2>Watch one before you read anything else.</h2>
+          <p class="lede" style="margin-top:16px">Nineteen finished explainers are published. These came out of the same pipeline you would be using.</p>
         </div>
-        <p class="c5 lede" style="align-self:end">Nineteen finished explainers are published. These came out of the same pipeline you would be using.</p>
       </div>
       <div class="rail">
         <article class="clip">
-          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/dns.mp4" controls preload="metadata" aria-label="Explainer: how DNS finds a website"></video>
-          <h4>How DNS finds a website</h4><p>Developer onboarding.</p>
+          <figure class="player" data-player>
+            <div class="screen">
+              <video src="https://private-intel.pages.dev/shared/sketchie/gallery/dns.mp4" preload="none" playsinline controls aria-label="Explainer: how DNS finds a website"></video>
+              <button class="pad" type="button" aria-label="Play: How DNS finds a website">
+                <span class="board"><span class="ttl">How DNS finds a website</span><span class="disc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5 L18.5 12 L8 18.5 Z" fill="#FFFFFF" stroke="#1E1E28" stroke-width="2.4" stroke-linejoin="round"/></svg></span></span>
+              </button>
+            </div>
+            <figcaption><h4>How DNS finds a website</h4><p>Developer onboarding.</p></figcaption>
+          </figure>
         </article>
         <article class="clip">
-          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/water-cycle.mp4" controls preload="metadata" aria-label="Explainer: where the water goes"></video>
-          <h4>Where the water goes</h4><p>Classroom opener.</p>
+          <figure class="player" data-player>
+            <div class="screen">
+              <video src="https://private-intel.pages.dev/shared/sketchie/gallery/water-cycle.mp4" preload="none" playsinline controls aria-label="Explainer: where the water goes"></video>
+              <button class="pad" type="button" aria-label="Play: Where the water goes">
+                <span class="board"><span class="ttl">Where the water goes</span><span class="disc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5 L18.5 12 L8 18.5 Z" fill="#FFFFFF" stroke="#1E1E28" stroke-width="2.4" stroke-linejoin="round"/></svg></span></span>
+              </button>
+            </div>
+            <figcaption><h4>Where the water goes</h4><p>Classroom opener.</p></figcaption>
+          </figure>
         </article>
         <article class="clip">
-          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/compound-interest.mp4" controls preload="metadata" aria-label="Explainer: why compound interest compounds"></video>
-          <h4>Why compound interest compounds</h4><p>Personal finance.</p>
+          <figure class="player" data-player>
+            <div class="screen">
+              <video src="https://private-intel.pages.dev/shared/sketchie/gallery/compound-interest.mp4" preload="none" playsinline controls aria-label="Explainer: why compound interest compounds"></video>
+              <button class="pad" type="button" aria-label="Play: Why compound interest compounds">
+                <span class="board"><span class="ttl">Why compound interest compounds</span><span class="disc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5 L18.5 12 L8 18.5 Z" fill="#FFFFFF" stroke="#1E1E28" stroke-width="2.4" stroke-linejoin="round"/></svg></span></span>
+              </button>
+            </div>
+            <figcaption><h4>Why compound interest compounds</h4><p>Personal finance.</p></figcaption>
+          </figure>
         </article>
         <article class="clip">
-          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/photosynthesis.mp4" controls preload="metadata" aria-label="Explainer: how photosynthesis works"></video>
-          <h4>How photosynthesis works</h4><p>Secondary science.</p>
+          <figure class="player" data-player>
+            <div class="screen">
+              <video src="https://private-intel.pages.dev/shared/sketchie/gallery/photosynthesis.mp4" preload="none" playsinline controls aria-label="Explainer: how photosynthesis works"></video>
+              <button class="pad" type="button" aria-label="Play: How photosynthesis works">
+                <span class="board"><span class="ttl">How photosynthesis works</span><span class="disc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5 L18.5 12 L8 18.5 Z" fill="#FFFFFF" stroke="#1E1E28" stroke-width="2.4" stroke-linejoin="round"/></svg></span></span>
+              </button>
+            </div>
+            <figcaption><h4>How photosynthesis works</h4><p>Secondary science.</p></figcaption>
+          </figure>
         </article>
         <article class="clip">
-          <video src="https://sketchie.ai/videos/reveal-before-after.mp4" controls preload="metadata" aria-label="One scene before and after a single edit"></video>
-          <h4>One scene, before and after</h4><p>The same video, one edit later.</p>
+          <figure class="player" data-player>
+            <div class="screen">
+              <video src="https://sketchie.ai/videos/reveal-before-after.mp4" preload="none" playsinline controls aria-label="One scene before and after a single edit"></video>
+              <button class="pad" type="button" aria-label="Play: One scene, before and after">
+                <span class="board"><span class="ttl">One scene, before and after</span><span class="disc"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5 L18.5 12 L8 18.5 Z" fill="#FFFFFF" stroke="#1E1E28" stroke-width="2.4" stroke-linejoin="round"/></svg></span></span>
+              </button>
+            </div>
+            <figcaption><h4>One scene, before and after</h4><p>The same video, one edit later.</p></figcaption>
+          </figure>
         </article>
       </div>
     </div>
@@ -465,50 +572,30 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
     <div class="wrap">
       <div class="g">
         <div class="c7">
-          
           <h2>Fix one scene. Not the whole video.</h2>
+          <p class="lede" style="margin-top:16px">Every scene is addressable. Edit its fields, or describe the change in a sentence, and only that scene re-renders.</p>
         </div>
-        <p class="c5 lede" style="align-self:end">Every scene is addressable. Edit its fields, or describe the change in a sentence, and only that scene re-renders.</p>
       </div>
 
       <div class="scenes" role="group" aria-label="Choose a scene to revise">
         <button class="scene" type="button" aria-pressed="false" data-scene="1">
           <span class="n">Scene 01</span>
-          <svg viewBox="0 0 140 66" role="img" aria-label="A browser window with a question mark">
-            <rect class="sk" x="8" y="8" width="118" height="48" rx="4"/>
-            <path class="sk" d="M8 20h118"/>
-            <path class="sk sk-a" d="M60 44c0-9 9-7 9-14a6 6 0 1 0-12 0"/>
-            <circle class="sk sk-a" cx="63" cy="49" r="1.5"/>
-          </svg>
+          <svg viewBox="0 0 148 64" role="img" aria-label="Step one of four in the lookup, highlighted"><path class="sk sk-dim" d="M30 32H39"/><path class="sk sk-dim" d="M34 28l4 4-4 4"/><path class="sk sk-dim" d="M70 32H79"/><path class="sk sk-dim" d="M74 28l4 4-4 4"/><path class="sk sk-dim" d="M110 32H119"/><path class="sk sk-dim" d="M114 28l4 4-4 4"/><rect class="sk sk-a" x="2" y="22" width="26" height="20" rx="5" fill="var(--accent-tint)"/><rect class="sk sk-dim" x="42" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="82" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="122" y="22" width="26" height="20" rx="5"/><circle class="sk sk-a" cx="15" cy="13" r="3" fill="var(--accent)"/></svg>
           <h4>You type a name</h4><p>The browser has a name, not a location.</p>
         </button>
         <button class="scene" type="button" aria-pressed="true" data-scene="2">
           <span class="n">Scene 02</span>
-          <svg viewBox="0 0 140 66" role="img" aria-label="A lookup travelling to a resolver">
-            <rect class="sk" x="8" y="22" width="34" height="24" rx="4"/>
-            <rect class="sk" x="98" y="22" width="34" height="24" rx="4"/>
-            <path class="sk sk-a" d="M46 34h48M88 28l6 6-6 6"/>
-          </svg>
+          <svg viewBox="0 0 148 64" role="img" aria-label="Step two of four in the lookup, highlighted"><path class="sk sk-a" d="M30 32H39"/><path class="sk sk-a" d="M34 28l4 4-4 4"/><path class="sk sk-dim" d="M70 32H79"/><path class="sk sk-dim" d="M74 28l4 4-4 4"/><path class="sk sk-dim" d="M110 32H119"/><path class="sk sk-dim" d="M114 28l4 4-4 4"/><rect class="sk sk-dim" x="2" y="22" width="26" height="20" rx="5"/><rect class="sk sk-a" x="42" y="22" width="26" height="20" rx="5" fill="var(--accent-tint)"/><rect class="sk sk-dim" x="82" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="122" y="22" width="26" height="20" rx="5"/><circle class="sk sk-a" cx="55" cy="13" r="3" fill="var(--accent)"/></svg>
           <h4>The resolver asks</h4><p>A lookup goes out on your behalf.</p>
         </button>
         <button class="scene" type="button" aria-pressed="false" data-scene="3">
           <span class="n">Scene 03</span>
-          <svg viewBox="0 0 140 66" role="img" aria-label="Three stacked servers answering">
-            <rect class="sk" x="42" y="6" width="58" height="14" rx="3"/>
-            <rect class="sk" x="42" y="26" width="58" height="14" rx="3"/>
-            <rect class="sk" x="42" y="46" width="58" height="14" rx="3"/>
-            <circle class="sk sk-p" cx="52" cy="13" r="2"/><circle class="sk sk-p" cx="52" cy="33" r="2"/><circle class="sk sk-p" cx="52" cy="53" r="2"/>
-          </svg>
+          <svg viewBox="0 0 148 64" role="img" aria-label="Step three of four in the lookup, highlighted"><path class="sk sk-dim" d="M30 32H39"/><path class="sk sk-dim" d="M34 28l4 4-4 4"/><path class="sk sk-a" d="M70 32H79"/><path class="sk sk-a" d="M74 28l4 4-4 4"/><path class="sk sk-dim" d="M110 32H119"/><path class="sk sk-dim" d="M114 28l4 4-4 4"/><rect class="sk sk-dim" x="2" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="42" y="22" width="26" height="20" rx="5"/><rect class="sk sk-a" x="82" y="22" width="26" height="20" rx="5" fill="var(--accent-tint)"/><rect class="sk sk-dim" x="122" y="22" width="26" height="20" rx="5"/><circle class="sk sk-a" cx="95" cy="13" r="3" fill="var(--accent)"/></svg>
           <h4>An answer returns</h4><p>The name resolves to an address.</p>
         </button>
         <button class="scene" type="button" aria-pressed="false" data-scene="4">
           <span class="n">Scene 04</span>
-          <svg viewBox="0 0 140 66" role="img" aria-label="A page loading, then the closing question">
-            <rect class="sk" x="8" y="8" width="118" height="48" rx="4"/>
-            <path class="sk" d="M8 20h118"/>
-            <path class="sk" d="M24 32h44M24 42h64"/>
-            <path class="sk sk-a" d="M88 30l6 6 11-11"/>
-          </svg>
+          <svg viewBox="0 0 148 64" role="img" aria-label="Step four of four in the lookup, highlighted"><path class="sk sk-dim" d="M30 32H39"/><path class="sk sk-dim" d="M34 28l4 4-4 4"/><path class="sk sk-dim" d="M70 32H79"/><path class="sk sk-dim" d="M74 28l4 4-4 4"/><path class="sk sk-a" d="M110 32H119"/><path class="sk sk-a" d="M114 28l4 4-4 4"/><rect class="sk sk-dim" x="2" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="42" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="82" y="22" width="26" height="20" rx="5"/><rect class="sk sk-a" x="122" y="22" width="26" height="20" rx="5" fill="var(--accent-tint)"/><circle class="sk sk-a" cx="135" cy="13" r="3" fill="var(--accent)"/></svg>
           <h4>The page loads</h4><p>Then the retrieval beat asks what happened.</p>
         </button>
       </div>
@@ -525,22 +612,12 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
           <div class="versions">
             <div class="vcard">
               <span class="vtag">Version 1</span>
-              <svg viewBox="0 0 180 90" role="img" aria-label="The original scene, two boxes and one arrow">
-                <rect class="sk" x="12" y="32" width="42" height="28" rx="4"/>
-                <rect class="sk" x="126" y="32" width="42" height="28" rx="4"/>
-                <path class="sk" d="M58 46h64M116 40l6 6-6 6"/>
-              </svg>
+              <svg viewBox="0 0 148 86" role="img" aria-label="The original scene: one unlabelled box points at another"><path class="sk " d="M51 42H96"/><path class="sk " d="M91 38l4 4-4 4"/><text class="dl" x="74" y="36" text-anchor="middle">asks</text><rect class="sk" x="10" y="30" width="38" height="24" rx="5"/><rect class="sk" x="100" y="30" width="38" height="24" rx="5"/></svg>
               <p>Correct, but the viewer cannot tell who is asking.</p>
             </div>
             <div class="vcard after">
               <span class="vtag">Version 2, re-rendered</span>
-              <svg viewBox="0 0 180 90" role="img" aria-label="The revised scene, resolver named, request leaving the laptop">
-                <rect class="sk" x="10" y="30" width="46" height="30" rx="4"/>
-                <path class="sk" d="M18 66h30"/>
-                <rect class="sk" x="124" y="30" width="46" height="30" rx="4"/>
-                <path class="sk sk-a" d="M62 44h54M110 38l6 6-6 6"/>
-                <path class="sk sk-p" d="M126 76h42M132 72l-6 4 6 4"/>
-              </svg>
+              <svg viewBox="0 0 148 86" role="img" aria-label="The revised scene: a named laptop asks a named resolver, and the answer returns on its own line"><path class="sk sk-a" d="M51 42H96"/><path class="sk sk-a" d="M91 38l4 4-4 4"/><text class="dl" x="74" y="36" text-anchor="middle">asks</text><rect class="sk" x="10" y="30" width="38" height="24" rx="5"/><rect class="sk" x="100" y="30" width="38" height="24" rx="5"/><text class="dl" x="29" y="23" text-anchor="middle">laptop</text><text class="dl" x="119" y="23" text-anchor="middle">resolver</text><path class="sk sk-p" d="M96 60H51"/><path class="sk sk-p" d="M56 56l-4 4 4 4"/><text class="dl dl-p" x="74" y="73" text-anchor="middle">answers</text></svg>
               <p>The laptop sends first, the resolver is named, the answer returns on its own line.</p>
             </div>
           </div>
@@ -553,8 +630,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   <section id="who" class="sunken ruled">
     <div class="wrap">
       <div class="g">
-        <div class="c7"><p class="eyebrow">Who it is for</p><h2>Five jobs, one mechanic.</h2></div>
-        <p class="c5 lede" style="align-self:end">These pages exist today, buried in the footer. They belong on the way in.</p>
+        <div class="c7"><p class="eyebrow">Who it is for</p><h2>Five jobs, one mechanic.</h2><p class="lede" style="margin-top:16px">These pages exist today, buried in the footer. They belong on the way in.</p></div>
       </div>
       <div class="g" style="margin-top:34px">
         <div class="c4"><div class="who"><div class="whohead"><div class="icobox"><svg style="--sk-c1:#339AF0" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="laptop"><g class="fills" stroke="none"><g class="fill" data-region="paper"><rect x="22" y="18" width="52" height="44" rx="4" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><rect x="28" y="24" width="40" height="32" rx="2" fill="var(--sk-c1, #339AF0)"/></g><g class="fill" data-region="paper"><path d="M14 62 H82 L88 74 H8 Z" fill="var(--sk-paper, #FFFFFF)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="18" width="52" height="44" rx="4"/><rect x="28" y="24" width="40" height="32" rx="2"/><path d="M14 62 H82 L88 74 H8 Z"/></g></svg></div><span class="tag">Developers</span></div><h4>Explain it from your terminal</h4><p>One call returns the video and the scene graph as JSON you can edit and re-render.</p><a href="https://sketchie.ai/for/developers/">Read more</a></div></div>
@@ -599,8 +675,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   <section id="rules" class="ruled dotted wide">
     <div class="wrap">
       <div class="g">
-        <div class="c7"><p class="eyebrow">The science</p><h2>We optimized for whether they remember it tomorrow.</h2></div>
-        <p class="c5 lede" style="align-self:end">Fast and cheap only matter if the video is genuinely good. The generator enforces rules drawn from peer-reviewed research.</p>
+        <div class="c7"><p class="eyebrow">The science</p><h2>We optimized for whether they remember it tomorrow.</h2><p class="lede" style="margin-top:16px">Fast and cheap only matter if the video is genuinely good. The generator enforces rules drawn from peer-reviewed research.</p></div>
       </div>
       <div class="g" style="margin-top:40px">
         <div class="rule c2"><b>12-30s</b><span>Scene length</span><p>One idea per scene.</p></div>
@@ -788,6 +863,104 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
     setTimeout(function(){if(v.readyState===0&&v.networkState===3){swap()}},6000);
   });
 })();
+
+/* ---- players -------------------------------------------------------
+   Progressive enhancement: the markup ships with native controls, so a
+   no-script reader still gets a working video. If this runs, the native
+   bar is removed and replaced with controls drawn in the page's own ink. */
+(function(){
+  var players = [].slice.call(document.querySelectorAll('[data-player]'));
+  if(!players.length) return;
+  var ICON = {
+    play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5 L18.5 12 L8 18.5 Z" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>',
+    pause:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5v13M15 5.5v13" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg>',
+    on:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h4L13 5.5v13L8 14.5H4z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16.5 9.5a4 4 0 0 1 0 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
+    off:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h4L13 5.5v13L8 14.5H4z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16.5 9.5l4 5M20.5 9.5l-4 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>'
+  };
+  function clock(t){
+    if(!isFinite(t)||t<0) t=0;
+    var m=Math.floor(t/60), sec=Math.floor(t%60);
+    return m+':'+(sec<10?'0':'')+sec;
+  }
+  players.forEach(function(fig){
+    var v = fig.querySelector('video'); if(!v) return;
+    v.removeAttribute('controls');
+    var pad = fig.querySelector('.pad');
+    var ambient = fig.classList.contains('ambient');
+
+    var ctl = document.createElement('div');
+    ctl.className = 'ctl';
+    var pp = document.createElement('button');
+    pp.type='button'; pp.className='pp'; pp.innerHTML=ICON.play; pp.setAttribute('aria-label','Play');
+    var track = document.createElement('div');
+    track.className='track'; track.tabIndex=0;
+    track.setAttribute('role','slider');
+    track.setAttribute('aria-label','Seek');
+    track.setAttribute('aria-valuemin','0');
+    track.setAttribute('aria-valuemax','100');
+    track.setAttribute('aria-valuenow','0');
+    track.innerHTML='<span class="ink"></span><span class="done"></span><span class="knob"></span>';
+    var time = document.createElement('span');
+    time.className='time'; time.textContent='0:00';
+    var mute = document.createElement('button');
+    mute.type='button'; mute.className='mute';
+    mute.innerHTML = v.muted ? ICON.off : ICON.on;
+    mute.setAttribute('aria-label', v.muted ? 'Unmute' : 'Mute');
+    ctl.appendChild(pp); ctl.appendChild(track); ctl.appendChild(time); ctl.appendChild(mute);
+    (fig.querySelector('.screen')||fig).insertAdjacentElement('afterend', ctl);
+
+    var done = track.querySelector('.done'), knob = track.querySelector('.knob');
+    function paint(){
+      var d = v.duration, pct = (isFinite(d) && d>0) ? (v.currentTime/d)*100 : 0;
+      done.style.width = pct+'%'; knob.style.left = pct+'%';
+      track.setAttribute('aria-valuenow', Math.round(pct));
+      time.textContent = clock(v.currentTime) + (isFinite(d)&&d>0 ? ' / '+clock(d) : '');
+    }
+    function setPlaying(on){
+      fig.classList.toggle('playing', on);
+      pp.innerHTML = on ? ICON.pause : ICON.play;
+      pp.setAttribute('aria-label', on ? 'Pause' : 'Play');
+    }
+    function start(){
+      players.forEach(function(o){ if(o!==fig){ var ov=o.querySelector('video'); if(ov&&!ov.paused&&!o.classList.contains('ambient')) ov.pause(); } });
+      var r = v.play(); if(r&&r.catch) r.catch(function(){});
+    }
+    if(pad) pad.addEventListener('click', start);
+    pp.addEventListener('click', function(){ v.paused ? start() : v.pause(); });
+    mute.addEventListener('click', function(){
+      v.muted = !v.muted;
+      mute.innerHTML = v.muted ? ICON.off : ICON.on;
+      mute.setAttribute('aria-label', v.muted ? 'Unmute' : 'Mute');
+    });
+    v.addEventListener('play', function(){ setPlaying(true); });
+    v.addEventListener('pause', function(){ setPlaying(false); });
+    v.addEventListener('ended', function(){ setPlaying(false); fig.classList.remove('playing'); });
+    v.addEventListener('timeupdate', paint);
+    v.addEventListener('loadedmetadata', paint);
+    v.addEventListener('durationchange', paint);
+
+    function seekTo(clientX){
+      var r = track.getBoundingClientRect();
+      var pct = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+      if(isFinite(v.duration) && v.duration>0){ v.currentTime = pct * v.duration; paint(); }
+    }
+    var dragging=false;
+    track.addEventListener('pointerdown', function(e){ dragging=true; track.setPointerCapture(e.pointerId); seekTo(e.clientX); });
+    track.addEventListener('pointermove', function(e){ if(dragging) seekTo(e.clientX); });
+    track.addEventListener('pointerup', function(){ dragging=false; });
+    track.addEventListener('keydown', function(e){
+      if(!isFinite(v.duration)||v.duration<=0) return;
+      var step = v.duration/20;
+      if(e.key==='ArrowRight'){ v.currentTime=Math.min(v.duration, v.currentTime+step); e.preventDefault(); }
+      else if(e.key==='ArrowLeft'){ v.currentTime=Math.max(0, v.currentTime-step); e.preventDefault(); }
+      else if(e.key===' '||e.key==='Enter'){ v.paused?start():v.pause(); e.preventDefault(); }
+      paint();
+    });
+    if(ambient) setPlaying(!v.paused);
+    paint();
+  });
+})();
+
 </script>
 </body>
 </html>
