@@ -169,12 +169,12 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
 
       <div class="keys">
         <div class="key"><b>7 of 9</b><span>Palette colours fail WCAG AA for body text on the site's own background. Measured, not estimated.</span></div>
-        <div class="key"><b>0</b><span>Places where the identity expresses the editable scene graph, which is the product's entire differentiator.</span></div>
-        <div class="key"><b>$499</b><span>The top published monthly plan. The identity is pitched well below the seriousness of that price.</span></div>
+        <div class="key"><b>1 of 16</b><span>Pages carrying any visual of the scene model: a single homepage demo. It appears nowhere in the identity system itself.</span></div>
+        <div class="key"><b>$499.99</b><span>The top published monthly plan, Team. The identity is pitched well below the seriousness of that price.</span></div>
       </div>
 
       <p><b>One, the palette is not usable.</b> Seven of nine brand colours cannot legally carry body text on the warm paper the site uses. In practice that means the palette is decorative only, which is why six accents do almost no work.</p>
-      <p><b>Two, the identity says nothing about the product.</b> Everything on the page describes an AI video tool. Nothing shows that a video is made of addressable scenes you can fix one at a time, which is the only claim competitors cannot copy this quarter.</p>
+      <p><b>Two, the differentiator is a section, not an identity.</b> The homepage carries one demo of the scene list with a re-render row, and that is the only visual expression of it anywhere. No recurring device, no mark, nothing in the system that says a video is made of addressable scenes.</p>
       <p><b>Three, the register is mismatched to the buyer.</b> A marker typeface, hard offset shadows and six bright accents read as a school worksheet. The same site asks developers to buy an API and teams to pay $499 a month.</p>
     </section>
 
@@ -187,6 +187,25 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
         <li><span class="b">03</span><span>Contrast ratios computed from the published token values against both page backgrounds, using the standard relative luminance formula.</span></li>
         <li><span class="b">04</span><span>The rendered product output, which is the strongest visual asset the company owns and the benchmark the site should be judged against.</span></li>
       </ul>
+      <h3>The type facts, measured</h3>
+      <p>Read from the running site with the browser font API, not from the stylesheet alone, because a declared font and a loaded font are different things.</p>
+      <div class="tw">
+        <table>
+          <caption>Font status on the live site, 2026-10-15</caption>
+          <thead><tr><th>Family</th><th>Declared as</th><th>Actually loaded</th><th>Used for</th></tr></thead>
+          <tbody>
+            <tr><td>Shantell Sans Variable</td><td><code>--marker</code></td><td>Yes, weight range 300 to 800</td><td>Headings at 800, sub-headings at 700, the wordmark. 131 elements on the homepage.</td></tr>
+            <tr><td>Inter Variable</td><td><code>--ui</code></td><td>Yes, weight range 100 to 900</td><td>Body, controls, labels. 675 elements on the homepage.</td></tr>
+            <tr><td>Caveat</td><td><code>--annotation</code></td><td><b>No</b></td><td>Nothing. Zero elements on every page we checked, so the browser never requests the file.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>One correction worth recording: an earlier internal note of ours claimed the site requests a Shantell weight it does not load, producing synthetic bold. That is not true today. The variable font covers 300 to 800 and the 800 weight resolves correctly.</p>
+
+      <h3>Measured against judged</h3>
+      <p><b>Measured:</b> every token value, computed styles on live pages, contrast ratios from the published hex values, font loading status, which elements use which family, and the page inventory.</p>
+      <p><b>Judged:</b> that the register mismatches part of the audience, that the shadow device now reads as a theme rather than a brand, and that accessibility matters commercially in education. These are a designer's read, labelled as such wherever they appear, and we have not dressed them up as data.</p>
+      <p><b>Not known:</b> which audience segment produces the most revenue, and how any of this affects conversion. That needs analytics we have not been given, and no claim in this report depends on it.</p>
       <div class="note">
         <p><b>Scope note.</b> This report covers design only. Structural and content findings from the earlier crawl are documented separately and are not part of this recommendation.</p>
       </div>
@@ -206,7 +225,7 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
             <tr><td>Accents</td><td>Six: sunny, pink, leaf, sky, tangerine, coral</td><td>No semantic roles. Decorative only, and mostly unusable for text.</td></tr>
             <tr><td>Headings</td><td>Shantell Sans, a marker face, at weight 800</td><td>Carries the whole personality, and sets the maturity level of the brand.</td></tr>
             <tr><td>Body</td><td>Inter</td><td>Neutral and fine. Does no harm, adds no character.</td></tr>
-            <tr><td>Annotation</td><td>Caveat, a handwriting face</td><td>Third voice in the type system, used lightly.</td></tr>
+            <tr><td>Annotation</td><td>Caveat, declared as <code>--annotation</code></td><td>Declared but unused. No element on the pages we inspected uses it, and the browser never loads the file. A token paying no rent.</td></tr>
             <tr><td>Depth</td><td>2 to 2.5px ink borders, hard offset shadows <code>4px 5px 0</code></td><td>The signature. Also the most widely copied device of the last few years.</td></tr>
             <tr><td>Texture</td><td>Dotted paper, 1.3px dots at 26px</td><td>Appropriate, subtle, worth keeping in some form.</td></tr>
             <tr><td>Motion</td><td>0.12s hover lift and shadow grow</td><td>Snappy and physical. Unrelated to how the product actually animates.</td></tr>
@@ -222,14 +241,14 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
       <div class="args">
         <div class="arg">
           <div class="h"><span class="i">01</span><h3>The identity never shows the differentiator</h3></div>
-          <p>Sketchie's defensible claim is that a video is a set of addressable scenes, so the second version costs a scene instead of a rebuild. Every competitor can claim fast generation. None of them can currently claim this. The brand expresses it nowhere: not in the mark, not in the layout system, not in any recurring device. A visitor who does not read the body copy leaves knowing only that it makes AI videos.</p>
-          <div class="ev"><b>Evidence:</b> no component in the live system represents a scene, a version, or an edit. The scene editor appears only as body copy and one product video.</div>
+          <p>Sketchie's defensible claim is that a video is a set of addressable scenes, so the second version costs a scene instead of a rebuild. The homepage does show this once, as a demo block with a scene list and a re-render row. That is where it stops. It is not in the mark, not in the layout system, and not in any device that repeats across pages, so a visitor who skims leaves knowing only that it makes AI videos.</p>
+          <div class="ev"><b>Evidence:</b> one demo block on the homepage renders a scene list and a re-render row. No other page in the set carries a scene, version or edit component, and nothing in the type, colour or shape system refers to it.</div>
         </div>
 
         <div class="arg">
           <div class="h"><span class="i">02</span><h3>The register undersells the buyer</h3></div>
-          <p>A marker headline face at weight 800, bright accents and sticker shadows set an expectation of a light consumer tool. The same site sells an API, an MCP server and a CLI to developers, and asks teams for $499 a month. For the education half the tone is an asset. For the technical half it reads as unserious, and the technical half is the half that integrates and renews.</p>
-          <div class="ev"><b>Evidence:</b> five of the site's audience pages address developers, founders, teachers, course creators and support teams, in a single visual register pitched at the youngest of them.</div>
+          <p>A marker headline face at weight 800, bright accents and sticker shadows set an expectation of a light consumer tool. The site addresses five audiences in that one register: developers, founders, teachers, course creators and support teams. For teachers and course creators the tone is an asset. For the developer and founder pages, which open on "You shipped it. Now explain it, from your terminal." and sell an API, an MCP server and a CLI, the register works against the copy.</p>
+          <div class="ev"><b>Evidence:</b> five audience pages under <code>/for/</code>, each with its own headline and job to be done, all rendered in one visual register. Which segment produces the most revenue is not something we can see from outside, so this is an argument about fit, not about revenue.</div>
         </div>
 
         <div class="arg">
@@ -240,7 +259,7 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
 
         <div class="arg">
           <div class="h"><span class="i">04</span><h3>The signature device is now a template</h3></div>
-          <p>Inked outlines with hard offset shadows became one of the most recognisable web styles of the last few years, available as a preset in most frameworks. A device that is widely available cannot carry distinctiveness. It currently does most of the identity's work.</p>
+          <p>Inked outlines with hard offset shadows are a widely used web style, and in our judgement common enough now that they read as a theme rather than as a specific brand. We cannot measure how widespread it is, so treat this one as a designer's read rather than a measurement. What is measurable is that the device does most of the identity's work here.</p>
           <div class="ev"><b>Evidence:</b> the shadow, border and radius rules are the only consistently applied visual signature in the system.</div>
         </div>
 
@@ -288,7 +307,7 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
       </div>
 
       <div class="note warn">
-        <p><b>Why this matters beyond compliance.</b> Sketchie sells to schools. Education buyers increasingly ask about accessibility during procurement, and a palette that cannot carry text is an awkward answer. It is also the cheapest argument to win internally, because it is arithmetic rather than taste.</p>
+        <p><b>Why this matters beyond compliance.</b> Sketchie markets directly to teachers and schools. If accessibility is ever asked about, a palette that cannot carry body text is an awkward answer. We have not measured how often that question comes up in education buying, so treat that part as judgement. The ratios themselves are arithmetic, which is what makes this the easiest argument to settle internally.</p>
       </div>
     </section>
 
