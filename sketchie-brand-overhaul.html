@@ -221,7 +221,8 @@ nav .btn{padding:10px 16px;font-size:.92rem}
 .freetier ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
 .freetier li{display:flex;gap:11px;font-size:.96rem;color:var(--ink)}
 .freetier li span{color:var(--teal);font-family:var(--technical-font);font-size:.8rem;padding-top:2px}
-table{width:100%;border-collapse:collapse;margin-top:40px;font-size:.98rem}
+.tablewrap{margin-top:40px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.98rem;min-width:520px}
 caption{text-align:left;font-family:var(--technical-font);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mono);padding-bottom:12px}
 th,td{text-align:left;padding:15px 14px;border-bottom:1px solid var(--rule)}
 thead th{font-family:var(--technical-font);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mono);font-weight:400}
@@ -680,6 +681,7 @@ footer a:hover{color:var(--ink)}
         </ul>
       </div>
 
+      <div class="tablewrap">
       <table>
         <caption>Published monthly prices, checked October 15, 2026</caption>
         <thead>
@@ -694,6 +696,7 @@ footer a:hover{color:var(--ink)}
           <tr><th scope="row">Enterprise</th><td class="num">Contact</td><td class="num">Not specified</td><td>Custom volume and dedicated support</td></tr>
         </tbody>
       </table>
+      </div>
 
       <div class="pricenotes">
         <p><b style="color:var(--ink);font-weight:500">Minutes are the only meter.</b> No seats, no credits, no minimum.</p>
