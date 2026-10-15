@@ -11,20 +11,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#FBFBF9;
-  --panel:#FFFFFF;
-  --ink:#15161A;
-  --body:#4A4F57;
-  --faint:#8A9099;
-  --rule:#E2E2DC;
-  --accent:#0F6E5C;
-  --accent-soft:#E6F2EE;
-  --warn:#B3471F;
-  --warn-soft:#FBEDE6;
-  --good:#2E7D32;
+  /* Night is the default, matching the brand direction. */
+  --paper:#0B0B0D; --panel:#131317; --ink:#F2F0EA; --body:rgba(242,240,234,.72); --faint:rgba(242,240,234,.44);
+  --rule:rgba(242,240,234,.14); --accent:#D8FF3E; --accent-soft:rgba(216,255,62,.12);
+  --warn:#FF8A5B; --warn-soft:rgba(255,138,91,.14); --ok:#8CE39B; --ok-soft:rgba(140,227,155,.14);
+  --head:rgba(242,240,234,.05); --code:rgba(242,240,234,.07);
+  --chip:rgba(242,240,234,.08); --chip-ink:rgba(242,240,234,.72); --mid:#FFD479; --mid-soft:rgba(255,212,121,.14);
   --sans:"Space Grotesk",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,monospace;
   --gutter:clamp(18px,4vw,44px);
+}
+html[data-theme="day"]{
+  --paper:#FBFBF9; --panel:#FFFFFF; --ink:#15161A; --body:#4A4F57; --faint:#8A9099;
+  --rule:#E2E2DC; --accent:#0F6E5C; --accent-soft:#E6F2EE;
+  --warn:#B3471F; --warn-soft:#FBEDE6; --ok:#2E7D32; --ok-soft:#EAF4EB;
+  --head:#F6F6F2; --code:#F1F1EC;
+  --chip:#F0F0EC; --chip-ink:#5A6068; --mid:#8A6116; --mid-soft:#FDF4E3;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -72,7 +74,7 @@ section:last-of-type{border-bottom:0}
 .tree .flag{font-family:var(--sans);font-size:.72rem;padding:2px 8px;border-radius:99px;margin-left:8px;white-space:nowrap}
 .flag.add{background:var(--accent-soft);color:var(--accent)}
 .flag.fix{background:var(--warn-soft);color:var(--warn)}
-.flag.keep{background:#F0F0EC;color:var(--faint)}
+.flag.keep{background:var(--chip);color:var(--chip-ink)}
 .axis{margin-top:16px;padding:14px 16px;border:1px dashed var(--rule);border-radius:8px;font-size:.9rem;color:var(--body)}
 .axis b{font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px}
 
@@ -81,13 +83,13 @@ section:last-of-type{border-bottom:0}
 table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:620px;background:var(--panel)}
 caption{text-align:left;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:0 0 10px}
 th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
-thead th{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:400;background:#F6F6F2}
+thead th{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:400;background:var(--head)}
 tbody tr:last-child td{border-bottom:0}
-td code,p code,li code{font-family:var(--mono);font-size:.84em;background:#F1F1EC;padding:1px 5px;border-radius:4px}
+td code,p code,li code{font-family:var(--mono);font-size:.84em;background:var(--code);padding:1px 5px;border-radius:4px}
 .sev{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;white-space:nowrap}
 .sev.high{background:var(--warn-soft);color:var(--warn)}
-.sev.med{background:#FDF4E3;color:#8A6116}
-.sev.low{background:#F0F0EC;color:var(--faint)}
+.sev.med{background:var(--mid-soft);color:var(--mid)}
+.sev.low{background:var(--chip);color:var(--chip-ink)}
 
 /* callouts */
 .note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:16px 18px;border-radius:0 8px 8px 0;margin:20px 0}
@@ -127,7 +129,29 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
   .toc ol{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto !important;transition:none !important}}
+html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
+::-webkit-scrollbar{width:13px;height:13px}
+::-webkit-scrollbar-track{background:var(--panel)}
+::-webkit-scrollbar-thumb{background:var(--accent);border:3px solid var(--panel);border-radius:99px}
+::-webkit-scrollbar-corner{background:var(--panel)}
+.toc{scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
+.switch{position:relative;flex:0 0 auto;width:52px;height:28px;padding:0;border-radius:999px;cursor:pointer;margin-top:18px;
+  background:var(--panel);border:1px solid var(--rule);transition:background-color .25s ease,border-color .25s ease}
+.switch .knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--faint);
+  transition:transform .28s cubic-bezier(.2,.8,.3,1),background-color .25s ease}
+.switch[aria-checked="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.switch[aria-checked="true"] .knob{transform:translateX(24px);background:var(--accent)}
+.switch:hover{border-color:var(--accent)}
+.switch:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.switch,.switch .knob{transition:none}}
 </style>
+<script>
+(function(){
+  var KEY="sketchie-theme";var q=new URLSearchParams(location.search).get("theme");
+  var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}
+  document.documentElement.setAttribute("data-theme",q||saved||"night");
+})();
+</script>
 </head>
 <body>
 
@@ -148,6 +172,7 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
       <li><a href="#s10"><span class="n">10</span> Open questions</a></li>
       <li><a href="#s11"><span class="n">11</span> What we do not promise</a></li>
     </ol>
+    <button class="switch" type="button" id="themeToggle" role="switch" aria-checked="false" aria-label="Night mode"><span class="knob"></span></button>
     <p class="meta">Checked 2026-10-15<br>sketchie.ai<br>Downshift LLC</p>
   </nav>
 
@@ -416,6 +441,15 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
 <script>
 /* Highlights the section you are reading. The page is complete without it. */
 (function(){
+  var KEY="sketchie-theme";var root=document.documentElement;
+  var tbtn=document.getElementById("themeToggle");
+  function paint(){var night=root.getAttribute("data-theme")==="night";
+    if(tbtn){tbtn.setAttribute("aria-checked",String(night));tbtn.setAttribute("aria-label",night?"Night mode on":"Night mode off")}}
+  function setTheme(m,broadcast){root.setAttribute("data-theme",m);try{localStorage.setItem(KEY,m)}catch(e){}paint();
+    if(broadcast){try{if(window.parent!==window){window.parent.postMessage({sketchieTheme:m},"*")}}catch(e){}}}
+  paint();
+  if(tbtn){tbtn.addEventListener("click",function(){setTheme(root.getAttribute("data-theme")==="night"?"day":"night",true)})}
+  window.addEventListener("message",function(e){if(e.data&&e.data.sketchieTheme){setTheme(e.data.sketchieTheme,false)}});
   var links={};
   [].forEach.call(document.querySelectorAll('.toc a'),function(a){
     links[a.getAttribute('href').slice(1)]=a;
