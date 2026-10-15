@@ -183,7 +183,7 @@ html[data-theme="night"] .player .screen{border-color:var(--line);box-shadow:5px
   display:grid;grid-template-rows:1fr auto 1fr;place-items:center;padding:16px;overflow:hidden}
 .player .ttl{grid-row:2;font-family:var(--marker);font-weight:800;color:#1E1E28;
   font-size:var(--t-md);line-height:1.18;text-align:center;max-width:22ch}
-.player .disc{grid-row:3;align-self:center;width:58px;height:58px;border-radius:50%;background:var(--violet);
+.player .disc{grid-row:3;align-self:center;width:58px;height:58px;border-radius:50%;background:var(--disc,var(--violet));
   border:2px solid #1E1E28;box-shadow:3px 4px 0 #1E1E28;display:grid;place-items:center;margin-top:12px;
   transition:transform .14s ease,box-shadow .14s ease}
 .player .disc svg{width:22px;height:22px;margin-left:3px;display:block}
@@ -192,6 +192,10 @@ html[data-theme="night"] .player .screen{border-color:var(--line);box-shadow:5px
 
 /* control row, drawn the way the icons are drawn */
 .player .ctl{display:flex;align-items:center;gap:11px;padding:12px 2px 0}
+/* a resting card is a board and a caption; the controls belong to the
+   clip you are actually watching. focus-within keeps it keyboard reachable. */
+.clip .player .ctl{display:none}
+.clip .player.playing .ctl,.clip .player:focus-within .ctl{display:flex}
 .player .ctl button{flex:0 0 auto;width:34px;height:34px;padding:0;border:2px solid var(--ink);border-radius:9px;
   background:var(--bg);color:var(--ink);cursor:pointer;display:grid;place-items:center;
   box-shadow:2px 3px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
@@ -238,6 +242,10 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 .rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
 .rail::-webkit-scrollbar-thumb:hover{background:var(--graphite)}
 .clip{scroll-snap-align:start;flex:0 0 clamp(296px,32vw,412px);display:flex;min-width:0}
+/* an entry point, so the eye has somewhere to land first */
+.clip.lead{flex:0 0 clamp(320px,44vw,566px)}
+.clip.lead .disc{width:68px;height:68px}
+.clip.lead .ttl{font-size:var(--t-lg);max-width:20ch}
 .clip > .player{flex:1 1 auto;width:100%;min-width:0}
 .clip video,.clip .vf{width:100%;aspect-ratio:16/9;border-radius:12px;border:2px solid var(--ink);display:block;background:var(--surface)}
 html[data-theme="night"] .clip video,html[data-theme="night"] .clip .vf{border-color:var(--line)}
@@ -531,7 +539,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         </div>
       </div>
       <div class="rail">
-        <article class="clip">
+        <article class="clip lead" style="--disc:#6C5CE7">
           <figure class="player" data-player>
             <div class="screen">
               <video src="https://private-intel.pages.dev/shared/sketchie/gallery/dns.mp4" preload="none" playsinline controls aria-label="Explainer: how DNS finds a website"></video>
@@ -542,7 +550,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
             <figcaption><p class="note">Developer onboarding.</p></figcaption>
           </figure>
         </article>
-        <article class="clip">
+        <article class="clip" style="--disc:#339AF0">
           <figure class="player" data-player>
             <div class="screen">
               <video src="https://private-intel.pages.dev/shared/sketchie/gallery/water-cycle.mp4" preload="none" playsinline controls aria-label="Explainer: where the water goes"></video>
@@ -553,7 +561,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
             <figcaption><p class="note">Classroom opener.</p></figcaption>
           </figure>
         </article>
-        <article class="clip">
+        <article class="clip" style="--disc:#40C057">
           <figure class="player" data-player>
             <div class="screen">
               <video src="https://private-intel.pages.dev/shared/sketchie/gallery/compound-interest.mp4" preload="none" playsinline controls aria-label="Explainer: why compound interest compounds"></video>
@@ -564,7 +572,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
             <figcaption><p class="note">Personal finance.</p></figcaption>
           </figure>
         </article>
-        <article class="clip">
+        <article class="clip" style="--disc:#FFC933">
           <figure class="player" data-player>
             <div class="screen">
               <video src="https://private-intel.pages.dev/shared/sketchie/gallery/photosynthesis.mp4" preload="none" playsinline controls aria-label="Explainer: how photosynthesis works"></video>
@@ -575,7 +583,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
             <figcaption><p class="note">Secondary science.</p></figcaption>
           </figure>
         </article>
-        <article class="clip">
+        <article class="clip" style="--disc:#E8538F">
           <figure class="player" data-player>
             <div class="screen">
               <video src="https://sketchie.ai/videos/reveal-before-after.mp4" preload="none" playsinline controls aria-label="One scene before and after a single edit"></video>
