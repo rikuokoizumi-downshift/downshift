@@ -64,7 +64,7 @@
   --t-stat:1.75rem;         /* 28   - figures in the proof rail */
   --t-lede:var(--t-lg);     /* the lede is a step, not a free value */
   --t-h2:clamp(1.95rem,3.4vw,2.9rem);
-  --t-h1:clamp(2.6rem,5.4vw,4.6rem);
+  --t-h1:clamp(2.05rem,5.4vw,4.6rem);
   --t-num:clamp(1.5rem,2.6vw,2.1rem);
 }
 html[data-theme="night"]{
@@ -397,7 +397,8 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
 
 @media (max-width:900px){
   :root{--cols:6}
-  .who-off,[style*="grid-column:3 / span 4"],[style*="grid-column:7 / span 4"]{grid-column:span 6 !important}
+  /* the centring offsets only make sense on the twelve column grid */
+  [style*="grid-column:3"],[style*="grid-column:7"]{grid-column:span 6 !important}
   .c7,.c8,.c12,.c5,.c6,.c4,.c3{grid-column:span 6}
   .scenes{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fcol+.fcol{border-left:0;border-top:2px solid var(--ink)}
@@ -409,6 +410,11 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
 }
 @media (max-width:560px){
   :root{--cols:4}
+  /* three 111px columns of chips is unreadable; stack them */
+  .formats{grid-template-columns:minmax(0,1fr) !important}
+  .fcol+.fcol{border-left:0;border-top:2px solid var(--ink)}
+  html[data-theme="night"] .fcol+.fcol{border-top-color:var(--line)}
+  [style*="grid-column:3"],[style*="grid-column:7"]{grid-column:span 4 !important}
   /* the header carries four controls; at phone width they need the room */
   nav{gap:10px}
   .mark{font-size:var(--t-base);gap:7px}
