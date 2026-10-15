@@ -30,7 +30,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--s
   color:var(--body);text-decoration:none;cursor:pointer;
 }
 .tabs a:hover,.tabs button:hover{border-color:var(--accent);color:var(--accent)}
-.tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:var(--paper);font-weight:500}
 .frame{width:100%;height:calc(100vh - 58px);border:0;display:block;background:var(--paper)}
 .fallback{padding:clamp(20px,4vw,44px);max-width:760px}
 .fallback h1{font-size:1.5rem;letter-spacing:-.02em;margin:0 0 10px}
@@ -41,6 +41,12 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--s
   .frame{height:calc(100vh - 96px)}
   .bar .u{display:none}
 }
+/* Hub chrome scrollbars. */
+html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
+::-webkit-scrollbar{width:13px;height:13px}
+::-webkit-scrollbar-track{background:var(--panel)}
+::-webkit-scrollbar-thumb{background:var(--accent);border:3px solid var(--panel);border-radius:99px}
+::-webkit-scrollbar-corner{background:var(--panel)}
 </style>
 <script>
 (function(){var KEY="sketchie-theme";var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}document.documentElement.setAttribute("data-theme",saved||"night");})();
