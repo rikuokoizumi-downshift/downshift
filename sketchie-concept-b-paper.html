@@ -8,13 +8,13 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 /* ---------------------------------------------------------------
    CONCEPT B: the revamped original.
-   Sketchie's own palette, typefaces and dotted paper grid, read
-   from the live stylesheet. Nothing invented. What changes is the
-   order of the argument and the discipline of the layout.
+   Sketchie's own palette and dotted paper grid, read from the live
+   stylesheet. The marker display face is replaced with Bricolage
+   Grotesque, which keeps character without the Comic Sans read.
 ----------------------------------------------------------------*/
 :root{
   /* their tokens, verbatim */
@@ -42,9 +42,9 @@
   --accent-tint:var(--violet-tint);
   --onAccent:#FFFFFF;
 
-  --marker:"Shantell Sans","Comic Sans MS",cursive;
+  --marker:"Bricolage Grotesque",system-ui,sans-serif;
   --ui:"Inter",-apple-system,system-ui,sans-serif;
-  --note:"Caveat",cursive;
+  --note:"Inter",system-ui,sans-serif;
 
   --cols:12;
   --gx:clamp(14px,1.6vw,24px);
@@ -93,7 +93,7 @@ section{padding:var(--rhythm) 0;position:relative}
 .sunken{background:var(--sunken)}
 .ruled{border-top:1px solid var(--line)}
 
-h1,h2,h3,h4{margin:0;font-family:var(--marker);font-weight:800;letter-spacing:-.015em;line-height:1.02}
+h1,h2,h3,h4{margin:0;font-family:var(--marker);font-weight:800;letter-spacing:-.028em;line-height:1.03}
 h1{font-size:clamp(2.6rem,5.4vw,4.6rem)}
 h2{font-size:clamp(1.9rem,3.4vw,2.9rem);line-height:1.06}
 h3{font-size:1.15rem;font-weight:700;line-height:1.25}
@@ -102,7 +102,7 @@ p{margin:0;color:var(--muted)}
 a{color:var(--accent-deep)}
 .lede{font-size:clamp(1.05rem,1.5vw,1.26rem);line-height:1.52;color:var(--text)}
 .eyebrow{font-family:var(--ui);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep)}
-.scribble{font-family:var(--note);font-size:1.3rem;color:var(--graphite);transform:rotate(-1.1deg);display:inline-block}
+.scribble{font-family:var(--note);font-style:italic;font-size:.95rem;color:var(--graphite);display:inline-block}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 
 .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--ui);font-weight:600;font-size:.98rem;
@@ -661,7 +661,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       <li><a href="https://sketchie.ai/app/login">Log in</a></li></ul></div>
     <div class="c12 fb">
       <span>Concept B, revamped original. Not the live Sketchie site.</span>
-      <span>Palette, type and dot grid read from the live site, 2026-10-15</span>
+      <span>Palette and dot grid from the live site. Display type changed by request, 2026-10-16</span>
     </div>
   </div>
 </footer>
