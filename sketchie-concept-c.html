@@ -315,6 +315,18 @@ html{scrollbar-width:thin;scrollbar-color:rgba(var(--acidRGB),.55) var(--board-2
 ::-webkit-scrollbar-thumb{background:rgba(var(--acidRGB),.5);border:3px solid var(--board-2);border-radius:99px}
 ::-webkit-scrollbar-thumb:hover{background:rgba(var(--acidRGB),.85)}
 ::-webkit-scrollbar-corner{background:var(--board-2)}
+/* theme switch: a pill with a travelling knob */
+.switch{position:relative;flex:0 0 auto;width:52px;height:28px;padding:0;border-radius:999px;cursor:pointer;
+  background:rgba(var(--chalkRGB),.09);border:1px solid rgba(var(--chalkRGB),.28);
+  transition:background-color .25s ease,border-color .25s ease}
+.switch .knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;
+  background:var(--chalk);
+  transition:transform .28s cubic-bezier(.2,.8,.3,1),background-color .25s ease}
+.switch[aria-checked="true"]{background:rgba(var(--acidRGB),.22);border-color:var(--acid)}
+.switch[aria-checked="true"] .knob{transform:translateX(24px);background:var(--acid)}
+.switch:hover{border-color:var(--acid)}
+.switch:focus-visible{outline:3px solid var(--acid);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.switch,.switch .knob{transition:none}}
 </style>
 <script>
 (function(){
@@ -362,7 +374,7 @@ html{scrollbar-width:thin;scrollbar-color:rgba(var(--acidRGB),.55) var(--board-2
           <a href="#s5">Rules</a><a href="#s6">Pricing</a><a href="#s7">Questions</a>
         </div>
       </details>
-      <button class="btn line" type="button" id="themeToggle" aria-pressed="false">Day</button>
+      <button class="switch" type="button" id="themeToggle" role="switch" aria-checked="false" aria-label="Night mode"><span class="knob"></span></button>
       <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
     </nav>
   </div>
@@ -727,7 +739,7 @@ html{scrollbar-width:thin;scrollbar-color:rgba(var(--acidRGB),.55) var(--board-2
   var tbtn=document.getElementById("themeToggle");
   function paintToggle(){
     var day=root.getAttribute("data-theme")==="day";
-    if(tbtn){tbtn.textContent=day?"Night":"Day";tbtn.setAttribute("aria-pressed",String(day))}
+    if(tbtn){tbtn.setAttribute("aria-checked",String(!day));tbtn.setAttribute("aria-label",day?"Night mode off":"Night mode on")}
   }
   function setTheme(m,broadcast){
     root.setAttribute("data-theme",m);
