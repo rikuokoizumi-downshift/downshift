@@ -59,9 +59,9 @@
   --t-base:1.0625rem;       /* 17   - body copy */
   --t-md:1.1875rem;         /* 19   - card titles, summaries */
   --t-lg:1.4375rem;         /* 23   - sub-section headings */
-  --t-mark:1.3rem;          /* 21   - the wordmark */
-  --t-stat:1.6rem;          /* 26   - figures in the proof rail */
-  --t-lede:clamp(1.12rem,1.5vw,1.3rem);
+  --t-mark:var(--t-md);     /* the wordmark sits on a step too */
+  --t-stat:1.75rem;         /* 28   - figures in the proof rail */
+  --t-lede:var(--t-lg);     /* the lede is a step, not a free value */
   --t-h2:clamp(1.95rem,3.4vw,2.9rem);
   --t-h1:clamp(2.6rem,5.4vw,4.6rem);
   --t-num:clamp(1.5rem,2.6vw,2.1rem);
