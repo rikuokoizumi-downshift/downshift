@@ -531,10 +531,9 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
   var tbtn=document.getElementById("themeToggle");
   function paint(){var day=root.getAttribute("data-theme")==="day";if(tbtn){tbtn.setAttribute("aria-checked",String(!day));tbtn.setAttribute("aria-label",day?"Night mode off":"Night mode on")}}
   function setTheme(m,broadcast){root.setAttribute("data-theme",m);try{localStorage.setItem(KEY,m)}catch(e){}paint();
-    if(broadcast){try{if(window.parent!==window){window.parent.postMessage({sketchieTheme:m},"*")}}catch(e){}}}
+    /* independent: the page does not tell the hub what theme it is in */}
   paint();
   if(tbtn){tbtn.addEventListener("click",function(){setTheme(root.getAttribute("data-theme")==="day"?"night":"day",true)})}
-  window.addEventListener("message",function(e){if(e.data&&e.data.sketchieTheme){setTheme(e.data.sketchieTheme,false)}});
   var links={};
   [].forEach.call(document.querySelectorAll('.toc a'),function(a){links[a.getAttribute('href').slice(1)]=a});
   if(!('IntersectionObserver' in window))return;
