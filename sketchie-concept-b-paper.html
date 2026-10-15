@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sketchie: concept B, revamped original</title>
+<title>Sketchie: the revamped site</title>
 <meta name="description" content="Sketchie turns a prompt or document into a narrated whiteboard explainer that draws itself, and returns the MP4 with an editable scene graph.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 /* ---------------------------------------------------------------
-   CONCEPT B: the revamped original.
+   THE REVAMP: the existing site, reorganised. Their colours, type and grid; a better order.
    Sketchie's own palette and dotted paper grid, read from the live
    stylesheet. The marker display face is replaced with Bricolage
    Grotesque, which keeps character without the Comic Sans read.
@@ -51,6 +51,20 @@
   --pad:clamp(18px,4vw,48px);
   --max:1280px;
   --rhythm:clamp(56px,7vw,104px);
+
+  /* One scale. Seven steps, each a clear jump from the last, so a reader
+     can tell rank by size alone. Replaces 21 values packed into 10.9-16.6px. */
+  --t-xs:.72rem;            /* 11.5 - tracked uppercase labels only */
+  --t-sm:.875rem;           /* 14   - captions, card body, meta */
+  --t-base:1.0625rem;       /* 17   - body copy */
+  --t-md:1.1875rem;         /* 19   - card titles, summaries */
+  --t-lg:1.4375rem;         /* 23   - sub-section headings */
+  --t-mark:1.3rem;          /* 21   - the wordmark */
+  --t-stat:1.6rem;          /* 26   - figures in the proof rail */
+  --t-lede:clamp(1.12rem,1.5vw,1.3rem);
+  --t-h2:clamp(1.95rem,3.4vw,2.9rem);
+  --t-h1:clamp(2.6rem,5.4vw,4.6rem);
+  --t-num:clamp(1.5rem,2.6vw,2.1rem);
 }
 html[data-theme="night"]{
   --bg:#151121; --surface:#1D1830; --sunken:#120F1C;
@@ -94,18 +108,18 @@ section{padding:var(--rhythm) 0;position:relative}
 .ruled{border-top:1px solid var(--line)}
 
 h1,h2,h3,h4{margin:0;font-family:var(--marker);font-weight:800;letter-spacing:-.028em;line-height:1.03}
-h1{font-size:clamp(2.6rem,5.4vw,4.6rem)}
-h2{font-size:clamp(1.9rem,3.4vw,2.9rem);line-height:1.06}
-h3{font-size:1.15rem;font-weight:700;line-height:1.25}
-h4{font-size:1rem;font-weight:700}
+h1{font-size:var(--t-h1)}
+h2{font-size:var(--t-h2);line-height:1.06}
+h3{font-size:var(--t-lg);font-weight:700;line-height:1.14}
+h4{font-size:var(--t-md);font-weight:700;letter-spacing:-.012em;line-height:1.2}
 p{margin:0;color:var(--muted)}
 a{color:var(--accent-deep)}
-.lede{font-size:clamp(1.05rem,1.5vw,1.26rem);line-height:1.52;color:var(--text)}
-.eyebrow{font-family:var(--ui);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep)}
-.scribble{font-family:var(--note);font-style:italic;font-size:.95rem;color:var(--graphite);display:inline-block}
+.lede{font-size:var(--t-lede);line-height:1.46;color:var(--text);max-width:52ch}
+.eyebrow{font-family:var(--ui);font-size:var(--t-xs);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep)}
+.scribble{font-family:var(--note);font-style:italic;font-size:var(--t-base);color:var(--graphite);display:inline-block}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 
-.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--ui);font-weight:600;font-size:.98rem;
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--ui);font-weight:600;font-size:var(--t-base);
   padding:13px 22px;border-radius:12px;border:2px solid var(--ink);text-decoration:none;cursor:pointer;
   background:var(--accent);color:var(--onAccent);box-shadow:3px 4px 0 var(--ink);
   transition:transform .12s ease,box-shadow .12s ease,background-color .2s ease}
@@ -114,17 +128,17 @@ html[data-theme="night"] .btn{border-color:var(--accent);box-shadow:3px 4px 0 rg
 html[data-theme="night"] .btn:hover{box-shadow:5px 6px 0 rgba(155,140,255,.3),0 0 20px rgba(155,140,255,.25)}
 .btn:active{transform:translate(1px,2px);box-shadow:1px 2px 0 var(--ink)}
 .btn.ghost{background:var(--surface);color:var(--text)}
-.btn.sm{padding:9px 15px;font-size:.86rem;border-radius:10px;box-shadow:2px 3px 0 var(--ink)}
+.btn.sm{padding:9px 15px;font-size:var(--t-sm);border-radius:10px;box-shadow:2px 3px 0 var(--ink)}
 
 header{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 92%,transparent);
   backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 nav{display:flex;align-items:center;gap:20px;height:70px}
-.mark{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-family:var(--marker);font-weight:800;font-size:1.22rem}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-family:var(--marker);font-weight:800;font-size:var(--t-mark)}
 .navlinks{display:flex;gap:22px;margin-left:auto}
-.navlinks a{color:var(--muted);text-decoration:none;font-size:.95rem;font-weight:500}
+.navlinks a{color:var(--muted);text-decoration:none;font-size:var(--t-base);font-weight:500}
 .navlinks a:hover{color:var(--text)}
 .menu{margin-left:auto;display:none}
-.menu summary{list-style:none;cursor:pointer;font-size:.9rem;font-weight:600;border:2px solid var(--ink);border-radius:10px;padding:8px 14px}
+.menu summary{list-style:none;cursor:pointer;font-size:var(--t-sm);font-weight:600;border:2px solid var(--ink);border-radius:10px;padding:8px 14px}
 html[data-theme="night"] .menu summary{border-color:var(--line)}
 .menu summary::-webkit-details-marker{display:none}
 .menupanel{position:absolute;left:var(--pad);right:var(--pad);margin-top:10px;background:var(--surface);
@@ -137,43 +151,43 @@ html[data-theme="night"] .menupanel{border-color:var(--line)}
 .hero h1{margin:14px 0 18px}
 .hero .lede{max-width:34ch}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
-.undercta{margin-top:14px;font-size:.9rem;color:var(--graphite)}
+.undercta{margin-top:14px;font-size:var(--t-sm);color:var(--graphite)}
 .frame{background:var(--surface);border:2px solid var(--ink);border-radius:16px;padding:12px;box-shadow:5px 6px 0 var(--ink)}
 html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 .frame video,.frame .vf{width:100%;display:block;border-radius:9px;aspect-ratio:16/9;background:var(--warm2);border:1px solid var(--line)}
-.frame .vf{display:grid;place-items:center;text-align:center;padding:20px;color:var(--graphite);font-size:.88rem}
-.framebar{display:flex;justify-content:space-between;gap:10px;padding:2px 4px 10px;font-size:.78rem;color:var(--graphite)}
+.frame .vf{display:grid;place-items:center;text-align:center;padding:20px;color:var(--graphite);font-size:var(--t-sm)}
+.framebar{display:flex;justify-content:space-between;gap:10px;padding:2px 4px 10px;font-size:var(--t-xs);color:var(--graphite)}
 .stats{margin-top:clamp(28px,4vw,52px);border-top:1px solid var(--line);padding-top:20px}
-.stat b{display:block;font-family:var(--marker);font-size:1.45rem;font-weight:800;letter-spacing:-.02em}
-.stat span{display:block;font-size:.87rem;color:var(--muted);margin-top:3px}
+.stat b{display:block;font-family:var(--marker);font-size:var(--t-stat);font-weight:800;letter-spacing:-.02em}
+.stat span{display:block;font-size:var(--t-sm);color:var(--muted);margin-top:3px}
 
 .rail{display:flex;gap:var(--gx);overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 18px;margin-top:26px}
 .clip{scroll-snap-align:start;flex:0 0 clamp(248px,27vw,330px)}
 .clip video,.clip .vf{width:100%;aspect-ratio:16/9;border-radius:12px;border:2px solid var(--ink);display:block;background:var(--surface)}
 html[data-theme="night"] .clip video,html[data-theme="night"] .clip .vf{border-color:var(--line)}
-.clip .vf{display:grid;place-items:center;text-align:center;padding:16px;font-size:.84rem;color:var(--graphite)}
+.clip .vf{display:grid;place-items:center;text-align:center;padding:16px;font-size:var(--t-sm);color:var(--graphite)}
 .clip h4{margin:12px 0 2px}
-.clip p{font-size:.86rem}
+.clip p{font-size:var(--t-sm)}
 
 .scenes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gx);margin-top:30px}
 .scene{text-align:left;font:inherit;color:inherit;cursor:pointer;background:var(--surface);
   border:2px solid var(--line);border-radius:14px;padding:14px;transition:border-color .2s,box-shadow .2s,transform .12s}
 .scene:hover{border-color:var(--accent)}
 .scene[aria-pressed="true"]{border-color:var(--accent);box-shadow:3px 4px 0 var(--accent);transform:translate(-1px,-2px)}
-.scene .n{font-family:var(--ui);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
+.scene .n{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
 .scene svg{display:block;width:100%;height:66px;margin:10px 0 8px}
-.scene h4{font-size:.95rem}
-.scene p{font-size:.82rem;margin-top:4px}
+.scene h4{font-size:var(--t-base);letter-spacing:-.008em}
+.scene p{font-size:var(--t-sm);margin-top:4px}
 .editrow{margin-top:26px}
 .request{border-left:3px solid var(--accent);padding:4px 0 4px 18px}
-.request p{color:var(--text);font-size:1.02rem}
+.request p{color:var(--text);font-size:var(--t-base)}
 .versions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gx)}
 .vcard{border:2px solid var(--line);border-radius:14px;padding:16px;background:var(--surface)}
 .vcard.after{border-color:var(--accent);background:var(--accent-tint)}
 .vcard svg{display:block;width:100%;height:92px;margin:10px 0 8px}
-.vcard p{font-size:.86rem}
-.vtag{font-family:var(--ui);font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-deep)}
-.untouched{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+.vcard p{font-size:var(--t-sm)}
+.vtag{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-deep)}
+.untouched{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:var(--t-sm);color:var(--muted)}
 .untouched b{color:var(--accent-deep);font-weight:600}
 
 .step{position:relative;padding-top:26px;border-top:2px solid var(--ink)}
@@ -181,22 +195,22 @@ html[data-theme="night"] .step{border-top-color:var(--line)}
 .step .num{position:absolute;top:-19px;left:0;width:38px;height:38px;border-radius:50%;background:var(--sunny);
   border:2px solid var(--ink);display:grid;place-items:center;font-family:var(--marker);font-weight:800;color:#1E1E28}
 .step h3{margin:6px 0 8px}
-.step p{font-size:.95rem}
+.step p{font-size:var(--t-base)}
 
 .formats{border:2px solid var(--ink);border-radius:16px;overflow:hidden;background:var(--surface)}
 html[data-theme="night"] .formats{border-color:var(--line)}
 .fcol{padding:22px}
 .fcol+.fcol{border-left:2px solid var(--ink)}
 html[data-theme="night"] .fcol+.fcol{border-left-color:var(--line)}
-.fcol h4{font-family:var(--ui);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:12px}
+.fcol h4{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{border:2px solid var(--ink);border-radius:99px;padding:5px 12px;font-size:.84rem;font-weight:500;background:var(--bg)}
+.chip{border:2px solid var(--ink);border-radius:99px;padding:5px 12px;font-size:var(--t-sm);font-weight:500;background:var(--bg)}
 html[data-theme="night"] .chip{border-color:var(--line)}
 
 .rule{border-top:1px solid var(--line);padding-top:16px}
-.rule b{display:block;font-family:var(--marker);font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:800;color:var(--accent-deep);line-height:1}
-.rule span{display:block;font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite);margin:8px 0 7px}
-.rule p{font-size:.88rem}
+.rule b{display:block;font-family:var(--marker);font-size:var(--t-num);font-weight:800;color:var(--accent-deep);line-height:1}
+.rule span{display:block;font-size:var(--t-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite);margin:8px 0 7px}
+.rule p{font-size:var(--t-sm)}
 .beat{margin-top:28px;border:2px solid var(--ink);border-radius:16px;overflow:hidden;background:var(--surface)}
 html[data-theme="night"] .beat{border-color:var(--line)}
 .beat .b{padding:20px}
@@ -204,38 +218,38 @@ html[data-theme="night"] .beat{border-color:var(--line)}
 html[data-theme="night"] .beat .b+.b{border-left-color:var(--line)}
 .beat .b:nth-child(2){background:var(--accent-tint)}
 .beat h4{margin-bottom:6px}
-.beat p{font-size:.89rem}
+.beat p{font-size:var(--t-sm)}
 
 .who{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:18px;height:100%}
-.who .tag{font-family:var(--ui);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
-.who h4{margin:10px 0 7px;font-family:var(--marker);font-size:1.02rem}
-.who p{font-size:.88rem}
-.who a{display:inline-block;margin-top:12px;font-size:.86rem;font-weight:600;text-decoration:none}
+.who .tag{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
+.who h4{margin:10px 0 7px;font-family:var(--marker);font-size:var(--t-md)}
+.who p{font-size:var(--t-sm)}
+.who a{display:inline-block;margin-top:12px;font-size:var(--t-sm);font-weight:600;text-decoration:none}
 .who a:hover{text-decoration:underline}
 
 .free{background:var(--accent-tint);border:2px solid var(--accent);border-radius:16px;padding:clamp(20px,3vw,30px)}
 .free ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
-.free li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:11px;font-size:.95rem;color:var(--text)}
-.free li i{font-style:normal;color:var(--accent-deep);font-weight:700;font-size:.78rem;padding-top:3px}
+.free li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:11px;font-size:var(--t-base);color:var(--text)}
+.free li i{font-style:normal;color:var(--accent-deep);font-weight:700;font-size:var(--t-xs);padding-top:3px}
 .tw{overflow-x:auto;margin-top:4px}
-.ptable{width:100%;border-collapse:collapse;font-size:.95rem;min-width:520px}
-.ptable caption{text-align:left;font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite);padding-bottom:12px}
+.ptable{width:100%;border-collapse:collapse;font-size:var(--t-base);min-width:520px}
+.ptable caption{text-align:left;font-size:var(--t-xs);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite);padding-bottom:12px}
 .ptable th,.ptable td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line)}
-.ptable thead th{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite)}
-.ptable tbody th{font-family:var(--marker);font-weight:800;font-size:1rem}
+.ptable thead th{font-size:var(--t-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite)}
+.ptable tbody th{font-family:var(--marker);font-weight:800;font-size:var(--t-md)}
 .ptable td.n{text-align:right;font-variant-numeric:tabular-nums}
 .pnotes{margin-top:18px}
-.pnotes p{font-size:.88rem}
+.pnotes p{font-size:var(--t-sm)}
 .pnotes b{color:var(--text);font-weight:600}
 
 details{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;font-size:1.04rem;display:flex;gap:16px;align-items:baseline}
+summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;font-size:var(--t-md);display:flex;gap:16px;align-items:baseline}
 summary:hover{color:var(--accent-deep)}
 summary::-webkit-details-marker{display:none}
-summary::before{content:attr(data-n);font-size:.74rem;font-weight:700;color:var(--accent-deep);letter-spacing:.08em}
+summary::before{content:attr(data-n);font-size:var(--t-xs);font-weight:700;color:var(--accent-deep);letter-spacing:.08em}
 summary::after{content:"+";margin-left:auto;color:var(--graphite)}
 details[open] summary::after{content:"-"}
-details p{padding:0 0 20px 36px;font-size:.96rem}
+details p{padding:0 0 20px 36px;font-size:var(--t-base)}
 
 .close{background:var(--accent);color:var(--onAccent);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
 html[data-theme="night"] .close{border-color:var(--line)}
@@ -246,11 +260,11 @@ html[data-theme="night"] .close{border-color:var(--line)}
 .close.dotted{--dot:rgba(255,255,255,.4)}
 
 footer{padding:50px 0 40px}
-footer h4{font-family:var(--ui);font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin:0 0 12px}
+footer h4{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);margin:0 0 12px}
 footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-footer a{color:var(--muted);text-decoration:none;font-size:.92rem}
+footer a{color:var(--muted);text-decoration:none;font-size:var(--t-sm)}
 footer a:hover{color:var(--text)}
-.fb{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--graphite)}
+.fb{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:var(--t-sm);color:var(--graphite)}
 
 .sk{stroke:var(--text);fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
 .sk-a{stroke:var(--accent)}
@@ -495,7 +509,22 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   </section>
 
   <!-- 4. HOW IT WORKS -->
-  <section id="how" class="sunken ruled">
+  <section id="who" class="sunken ruled">
+    <div class="wrap">
+      <div class="g">
+        <div class="c7"><p class="eyebrow">Who it is for</p><h2>Five jobs, one mechanic.</h2></div>
+        <p class="c5 lede" style="align-self:end">These pages exist today, buried in the footer. They belong on the way in.</p>
+      </div>
+      <div class="g" style="margin-top:34px">
+        <div class="c4"><div class="who"><span class="tag">Developers</span><h4>Explain it from your terminal</h4><p>One call returns the video and the scene graph as JSON you can edit and re-render.</p><a href="https://sketchie.ai/for/developers/">Read more</a></div></div>
+        <div class="c4"><div class="who"><span class="tag">Founders</span><h4>Without becoming a video person</h4><p>The explanation is due now, not in three weeks.</p><a href="https://sketchie.ai/for/founders/">Read more</a></div></div>
+        <div class="c4"><div class="who"><span class="tag">Teachers</span><h4>Explained properly, every time</h4><p>The concept your class keeps getting stuck on, rewatchable on their own time.</p><a href="https://sketchie.ai/for/teachers/">Read more</a></div></div>
+        <div class="c6"><div class="who"><span class="tag">Course creators</span><h4>A lesson library that stays editable</h4><p>Build the visual half of a course without a motion designer, and correct it a year later.</p><a href="https://sketchie.ai/for/course-creators/">Read more</a></div></div>
+        <div class="c6"><div class="who"><span class="tag">Support teams</span><h4>The doc nobody reads, finished</h4><p>Paste the help article, get the same answer as a short narrated explainer.</p><a href="https://sketchie.ai/for/support-teams/">Read more</a></div></div>
+      </div>
+    </div>
+  </section>
+  <section id="how" class="ruled">
     <div class="wrap">
       <div class="g"><div class="c8"><p class="eyebrow">How it works</p><h2>Three moves, about a minute.</h2></div></div>
       <div class="g" style="margin-top:46px">
@@ -510,7 +539,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   </section>
 
   <!-- 5. FORMATS -->
-  <section class="ruled">
+  <section class="sunken ruled">
     <div class="wrap">
       <div class="g">
         <div class="c5"><p class="eyebrow">In and out</p><h2>Start with what you have.</h2></div>
@@ -526,7 +555,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   </section>
 
   <!-- 6. THE RULES -->
-  <section id="rules" class="sunken ruled dotted wide">
+  <section id="rules" class="ruled dotted wide">
     <div class="wrap">
       <div class="g">
         <div class="c7"><p class="eyebrow">The science</p><h2>Timing is not a style choice.</h2></div>
@@ -545,26 +574,11 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         <div class="b"><h4>Pause</h4><p>The video holds, so the answer is theirs before it is given.</p></div>
         <div class="b"><h4>One line recap</h4><p>Then the loop closes. The question is never replaced by a summary.</p></div>
       </div>
-      <div class="g" style="margin-top:22px"><p class="c8" style="font-size:.93rem">The six minute ceiling comes from engagement research across 6.9 million online learning sessions, a deliberate cap rather than a technical limit. <a href="https://sketchie.ai/science/">Read the full spec with citations</a>.</p></div>
+      <div class="g" style="margin-top:22px"><p class="c8" style="font-size:var(--t-sm)">The six minute ceiling comes from engagement research across 6.9 million online learning sessions, a deliberate cap rather than a technical limit. <a href="https://sketchie.ai/science/">Read the full spec with citations</a>.</p></div>
     </div>
   </section>
 
   <!-- 7. AUDIENCES, surfaced from the buried /for/ pages -->
-  <section id="who" class="ruled">
-    <div class="wrap">
-      <div class="g">
-        <div class="c7"><p class="eyebrow">Who it is for</p><h2>Five jobs, one mechanic.</h2></div>
-        <p class="c5 lede" style="align-self:end">These pages exist today, buried in the footer. They belong on the way in.</p>
-      </div>
-      <div class="g" style="margin-top:34px">
-        <div class="c4"><div class="who"><span class="tag">Developers</span><h4>Explain it from your terminal</h4><p>One call returns the video and the scene graph as JSON you can edit and re-render.</p><a href="https://sketchie.ai/for/developers/">Read more</a></div></div>
-        <div class="c4"><div class="who"><span class="tag">Founders</span><h4>Without becoming a video person</h4><p>The explanation is due now, not in three weeks.</p><a href="https://sketchie.ai/for/founders/">Read more</a></div></div>
-        <div class="c4"><div class="who"><span class="tag">Teachers</span><h4>Explained properly, every time</h4><p>The concept your class keeps getting stuck on, rewatchable on their own time.</p><a href="https://sketchie.ai/for/teachers/">Read more</a></div></div>
-        <div class="c6"><div class="who"><span class="tag">Course creators</span><h4>A lesson library that stays editable</h4><p>Build the visual half of a course without a motion designer, and correct it a year later.</p><a href="https://sketchie.ai/for/course-creators/">Read more</a></div></div>
-        <div class="c6"><div class="who"><span class="tag">Support teams</span><h4>The doc nobody reads, finished</h4><p>Paste the help article, get the same answer as a short narrated explainer.</p><a href="https://sketchie.ai/for/support-teams/">Read more</a></div></div>
-      </div>
-    </div>
-  </section>
 
   <!-- 8. PRICING -->
   <section id="pricing" class="sunken ruled">
@@ -573,7 +587,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       <div class="g" style="margin-top:34px">
         <div class="c5">
           <div class="free">
-            <h3 style="font-family:var(--marker);font-size:1.3rem">Start with two free videos</h3>
+            <h3 style="font-family:var(--marker);font-size:var(--t-md)">Start with two free videos</h3>
             <p style="margin:10px 0 16px">The free tier is the whole product, editor included.</p>
             <ul>
               <li><i>01</i> Two videos</li>
@@ -653,8 +667,8 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         </svg>
         Sketchie
       </a>
-      <p style="font-size:.9rem;max-width:30ch">Type it, and a narrated whiteboard explainer draws itself. Every scene stays editable.</p>
-      <p style="font-size:.85rem;margin-top:10px">Operated by Downshift LLC.</p>
+      <p style="font-size:var(--t-sm);max-width:30ch">Type it, and a narrated whiteboard explainer draws itself. Every scene stays editable.</p>
+      <p style="font-size:var(--t-sm);margin-top:10px">Operated by Downshift LLC.</p>
     </div>
     <div class="c2"><h4>Product</h4><ul>
       <li><a href="https://sketchie.ai/examples/">Examples</a></li>
@@ -672,7 +686,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       <li><a href="https://sketchie.ai/app/signup">Get started</a></li>
       <li><a href="https://sketchie.ai/app/login">Log in</a></li></ul></div>
     <div class="c12 fb">
-      <span>Concept B, revamped original. Not the live Sketchie site.</span>
+      <span>Proposed revamp of sketchie.ai. Not the live site.</span>
       <span>Palette and dot grid from the live site. Display type changed by request, 2026-10-16</span>
     </div>
   </div>
