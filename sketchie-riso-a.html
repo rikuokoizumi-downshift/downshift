@@ -250,11 +250,18 @@ footer a:hover{color:var(--ink-1)}
   .specrow > * + *{border-left:0;border-top:2px solid var(--text)}
   .navlinks{display:none}
   .menu{display:block}
-  .plate::before{inset:10px -10px -10px 10px}
+  /* keep the offset ink block inside the page on narrow screens */
+  .plate::before{inset:8px 0 -8px 8px}
 }
 @media (max-width:520px){
   .states{grid-template-columns:minmax(0,1fr)}
   .fg{grid-template-columns:minmax(0,1fr)}
+  /* nav has to stay on one line at 360 */
+  nav{gap:10px}
+  .mark{font-size:.92rem;gap:7px}
+  .mark svg{width:22px;height:22px}
+  nav .btn{padding:9px 11px;font-size:.62rem;box-shadow:3px 3px 0 var(--ink-2)}
+  .menu summary{padding:8px 10px;font-size:.64rem}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
