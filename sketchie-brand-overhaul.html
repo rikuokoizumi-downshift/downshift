@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchie: make the explanation, keep the edit</title>
+<meta name="description" content="Sketchie turns a prompt or document into a narrated whiteboard explainer that draws itself, and returns the MP4 with an editable scene graph. Fix one scene without making the whole video again.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ---------------------------------------------------------------
+   Sketchie: The Living Canvas. Palette: Studio Paper.
+   Tokens are locked. Structure comes from rules and alignment,
+   not from outlined cards or offset shadows.
+----------------------------------------------------------------*/
+:root{
+  --canvas:#F7F7F2;
+  --board:#FFFFFF;
+  --ink:#192B33;
+  --teal:#006B60;
+  --teal-hover:#00564E;
+  --mist:#E3F2ED;
+  --amber:#C7822D;
+  --rule:#DCE3DE;
+  --muted:#506168;
+  --mono:#344B52;
+
+  --heading-font:"DM Sans",system-ui,sans-serif;
+  --body-font:"DM Sans",system-ui,sans-serif;
+  --technical-font:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --content:1180px;
+  --reading:720px;
+  --gutter:32px;
+  --space:clamp(64px,9vw,136px);
+  --r-panel:12px;
+  --r-control:8px;
+  --raised:0 10px 32px rgba(25,43,51,.055);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--canvas);
+  color:var(--ink);
+  font:400 17px/1.6 var(--body-font);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.wrap{max-width:var(--content);margin:0 auto;padding:0 var(--gutter)}
+.reading{max-width:var(--reading)}
+section{padding:var(--space) 0;position:relative}
+h1,h2,h3,h4{font-family:var(--heading-font);margin:0;font-weight:700;letter-spacing:-.045em}
+h1{font-size:clamp(2.75rem,5.7vw,5.25rem);line-height:1.04}
+h2{font-size:clamp(2rem,3.5vw,3rem);line-height:1.08}
+h3{font-size:1.2rem;line-height:1.2;letter-spacing:-.02em}
+h4{font-size:1rem;letter-spacing:-.01em}
+p{margin:0;color:var(--muted)}
+a{color:var(--teal)}
+a:hover{color:var(--teal-hover)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:4px}
+hr{border:0;border-top:1px solid var(--rule);margin:0}
+.lede{font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.6;color:var(--muted)}
+
+/* technical annotation */
+.tech{
+  font-family:var(--technical-font);font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mono);
+}
+.kicker{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.kicker::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;font-family:var(--body-font);
+  font-weight:500;font-size:1rem;line-height:1;padding:14px 22px;border-radius:var(--r-control);
+  text-decoration:none;border:1px solid transparent;cursor:pointer;
+  transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn.primary{background:var(--teal);color:#fff}
+.btn.primary:hover{background:var(--teal-hover);color:#fff}
+.btn.quiet{background:transparent;color:var(--ink);border-color:var(--rule)}
+.btn.quiet:hover{border-color:var(--ink);color:var(--ink)}
+
+/* nav */
+header{
+  position:sticky;top:0;z-index:50;background:rgba(247,247,242,.88);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);
+}
+nav{display:flex;align-items:center;gap:26px;height:68px}
+.wordmark{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700;letter-spacing:-.03em;font-size:1.12rem}
+.navlinks{display:flex;gap:24px;margin-left:auto;align-items:center}
+.navlinks a{color:var(--muted);text-decoration:none;font-size:.95rem}
+.navlinks a:hover{color:var(--ink)}
+nav .btn{padding:10px 16px;font-size:.92rem}
+.menu{display:none;margin-left:auto}
+.menu summary{list-style:none;cursor:pointer;font-size:.95rem;color:var(--ink);padding:9px 14px;border:1px solid var(--rule);border-radius:var(--r-control)}
+.menu summary::-webkit-details-marker{display:none}
+.menu[open] .menupanel{display:grid}
+.menupanel{display:none;position:absolute;left:var(--gutter);right:var(--gutter);margin-top:12px;background:var(--board);border:1px solid var(--rule);border-radius:var(--r-panel);padding:14px;gap:4px;box-shadow:var(--raised)}
+.menupanel a{padding:10px 8px;text-decoration:none;color:var(--ink);border-radius:6px}
+.menupanel a:hover{background:var(--mist)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(32px,5vw,72px);align-items:center;padding-top:clamp(48px,6vw,88px)}
+.hero h1{margin-bottom:22px}
+.hero .lede{max-width:46ch}
+.herocta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.heronote{margin-top:18px;font-size:.9rem;color:var(--mono)}
+.board{
+  background:var(--board);border:1px solid var(--rule);border-radius:var(--r-panel);
+  box-shadow:var(--raised);padding:14px;
+}
+.board video,.board .vfallback{width:100%;display:block;border-radius:8px;background:var(--canvas);aspect-ratio:16/9}
+.board .vfallback{display:grid;place-items:center;text-align:center;padding:24px;color:var(--mono);font-family:var(--technical-font);font-size:.78rem;line-height:1.7}
+.boardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 4px 12px}
+
+/* scene strip, shared */
+.strip{display:flex;align-items:stretch;gap:0;margin-top:14px}
+.stripitem{flex:1;min-width:0;padding:10px 8px;border-top:2px solid var(--rule);position:relative}
+.stripitem .tech{display:block;font-size:.66rem}
+.stripitem b{display:block;font-weight:500;font-size:.84rem;color:var(--ink);margin-top:3px;letter-spacing:-.01em}
+.stripitem.on{border-top-color:var(--teal)}
+.stripitem.on b{color:var(--teal)}
+
+/* flow section */
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,40px);margin-top:46px;align-items:start}
+.flowstep{position:relative;padding-top:26px;border-top:1px solid var(--rule)}
+.flowstep h3{margin:10px 0 8px}
+.flowstep p{font-size:.95rem}
+.flowstep .dot{position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--teal)}
+.taglist{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.tag{font-family:var(--technical-font);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mono);background:var(--mist);border-radius:999px;padding:5px 11px}
+
+/* scene editing demo */
+.demo{background:var(--board);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.demohead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:clamp(24px,4vw,60px);align-items:end}
+.scenemap{margin-top:52px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,2vw,22px)}
+.scene{
+  text-align:left;background:var(--canvas);border:1px solid var(--rule);border-radius:var(--r-panel);
+  padding:16px 16px 18px;cursor:pointer;font:inherit;color:inherit;position:relative;
+  transition:border-color .18s ease,background-color .18s ease;
+}
+.scene:hover{border-color:var(--teal)}
+.scene[aria-pressed="true"]{border-color:var(--teal);background:var(--mist)}
+.scene .sart{display:block;width:100%;height:84px;margin:12px 0 10px}
+.scene h4{font-size:.98rem;letter-spacing:-.01em}
+.scene p{font-size:.84rem;margin-top:6px}
+.scene .edge{position:absolute;top:50%;right:calc(-1 * clamp(12px,2vw,22px));width:clamp(12px,2vw,22px);height:1px;background:var(--rule)}
+.scene:last-child .edge{display:none}
+.scene[aria-pressed="true"] .badge{background:var(--teal);color:#fff;border-color:var(--teal)}
+.badge{display:inline-block;font-family:var(--technical-font);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);border-radius:999px;padding:3px 9px;color:var(--mono);background:var(--board)}
+
+.revise{margin-top:40px;display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:clamp(24px,4vw,54px);align-items:start}
+.request{border-left:2px solid var(--amber);padding:4px 0 4px 18px}
+.request p{color:var(--ink);font-size:1rem}
+.request .tech{display:block;margin-bottom:8px;color:var(--amber)}
+.versions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.5vw,28px)}
+.vpanel{border:1px solid var(--rule);border-radius:var(--r-panel);padding:16px;background:var(--canvas)}
+.vpanel.new{background:var(--mist);border-color:var(--teal)}
+.vpanel .sart{display:block;width:100%;height:96px;margin:12px 0 8px}
+.vrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.untouched{margin-top:26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.9rem;color:var(--mono)}
+.untouched .tech{color:var(--teal)}
+.demofoot{margin-top:34px;padding-top:22px;border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,40px)}
+.demofoot p{font-size:.92rem}
+.demofoot b{display:block;color:var(--ink);font-weight:500;margin-bottom:5px}
+
+/* gallery */
+.rail{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 20px;margin-top:40px}
+.rail::-webkit-scrollbar{height:8px}
+.rail::-webkit-scrollbar-track{background:var(--rule);border-radius:999px}
+.rail::-webkit-scrollbar-thumb{background:var(--mono);border-radius:999px}
+.clip{scroll-snap-align:start;flex:0 0 clamp(260px,34vw,400px)}
+.clip video,.clip .vfallback{width:100%;aspect-ratio:16/9;border-radius:var(--r-panel);border:1px solid var(--rule);background:var(--board);display:block}
+.clip .vfallback{display:grid;place-items:center;text-align:center;padding:18px;font-family:var(--technical-font);font-size:.74rem;color:var(--mono)}
+.clip h3{margin:14px 0 4px;font-size:1.02rem}
+.clip p{font-size:.86rem}
+
+/* research timeline */
+.timeline{margin-top:52px;border:1px solid var(--rule);border-radius:var(--r-panel);background:var(--board);padding:clamp(20px,3vw,34px);overflow-x:auto}
+.tlinner{min-width:680px}
+.tlband{position:relative;height:58px;border-radius:var(--r-control);background:var(--mist);display:flex;align-items:center;padding:0 14px;gap:0}
+.tlband .lab{font-family:var(--technical-font);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--teal)}
+.tlreveals{position:relative;height:42px;margin-top:10px}
+.tlreveals span{position:absolute;top:0;width:1px;height:26px;background:var(--ink)}
+.tlreveals span::after{content:"";position:absolute;left:-3px;top:-3px;width:7px;height:7px;border-radius:50%;background:var(--ink)}
+.tlreveals em{position:absolute;bottom:0;font-family:var(--technical-font);font-style:normal;font-size:.66rem;color:var(--mono)}
+.tlnarr{height:34px;margin-top:6px;border-top:1px solid var(--rule);display:flex;align-items:center;gap:4px;padding-top:12px}
+.tlnarr i{display:block;width:3px;border-radius:2px;background:var(--rule)}
+.tlbeat{margin-top:16px;border-top:1px solid var(--rule);padding-top:16px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.tlbeat div{border-left:2px solid var(--amber);padding-left:14px}
+.tlbeat b{display:block;font-weight:500;color:var(--ink);font-size:.95rem}
+.tlbeat p{font-size:.85rem;margin-top:4px}
+.specs{margin-top:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--r-panel);overflow:hidden}
+.specs div{background:var(--canvas);padding:16px 18px}
+.specs .tech{display:block;margin-bottom:6px}
+.specs b{font-weight:500;font-size:1.02rem;letter-spacing:-.02em}
+
+/* output model */
+.schema{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(26px,4vw,64px);margin-top:46px;align-items:start}
+.pipe{display:grid;gap:12px}
+.pipe .node{border:1px solid var(--rule);border-radius:var(--r-panel);padding:16px 18px;background:var(--board)}
+.pipe .node.out{background:var(--mist);border-color:var(--teal)}
+.pipe .node b{font-weight:500;letter-spacing:-.01em}
+.pipe .node p{font-size:.88rem;margin-top:4px}
+.pipe .arrow{justify-self:start;margin-left:20px;width:1px;height:18px;background:var(--rule);position:relative}
+.pipe .arrow::after{content:"";position:absolute;left:-3px;bottom:0;width:7px;height:7px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);transform:rotate(45deg)}
+.surfaces{display:grid;gap:18px}
+.surface{border-top:1px solid var(--rule);padding-top:16px}
+.surface h3{margin-bottom:6px}
+.surface p{font-size:.93rem}
+.graphsketch{font-family:var(--technical-font);font-size:.8rem;line-height:1.9;color:var(--mono);background:var(--canvas);border:1px solid var(--rule);border-radius:var(--r-panel);padding:18px;margin-top:18px;white-space:pre;overflow-x:auto}
+
+/* pricing */
+.pricing{background:var(--board);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.freetier{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:center;margin-top:40px;padding:clamp(22px,3vw,34px);background:var(--mist);border-radius:var(--r-panel)}
+.freetier ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+.freetier li{display:flex;gap:11px;font-size:.96rem;color:var(--ink)}
+.freetier li span{color:var(--teal);font-family:var(--technical-font);font-size:.8rem;padding-top:2px}
+table{width:100%;border-collapse:collapse;margin-top:40px;font-size:.98rem}
+caption{text-align:left;font-family:var(--technical-font);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mono);padding-bottom:12px}
+th,td{text-align:left;padding:15px 14px;border-bottom:1px solid var(--rule)}
+thead th{font-family:var(--technical-font);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mono);font-weight:400}
+tbody th{font-weight:500}
+td.num{text-align:right;font-family:var(--technical-font);font-size:.92rem}
+tbody tr:hover{background:var(--canvas)}
+.pricenotes{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.pricenotes p{font-size:.9rem}
+
+/* faq */
+.faq{max-width:var(--reading);margin-top:40px}
+details{border-bottom:1px solid var(--rule)}
+summary{cursor:pointer;list-style:none;padding:20px 0;font-size:1.05rem;font-weight:500;display:flex;gap:18px;align-items:baseline;letter-spacing:-.02em}
+summary::-webkit-details-marker{display:none}
+summary::before{content:attr(data-n);font-family:var(--technical-font);font-size:.72rem;color:var(--teal);flex:0 0 auto}
+summary::after{content:"+";margin-left:auto;color:var(--mono);font-family:var(--technical-font)}
+details[open] summary::after{content:"-"}
+details p{padding:0 0 20px 40px;font-size:.98rem}
+
+/* closing */
+.closing{text-align:center}
+.closing h2{max-width:16ch;margin:0 auto 18px;font-size:clamp(2.2rem,4.4vw,3.6rem)}
+.closing p{margin:0 auto 30px;max-width:44ch}
+.closing .mascot{display:block;margin:0 auto 26px}
+
+/* footer */
+footer{border-top:1px solid var(--rule);padding:56px 0 46px;font-size:.92rem}
+.footgrid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:30px}
+footer h4{font-family:var(--technical-font);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mono);font-weight:400;margin-bottom:14px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--ink)}
+.footbase{margin-top:40px;padding-top:22px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--mono);font-size:.85rem}
+
+/* drawn line art */
+.sk{stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sk-t{stroke:var(--teal)}
+.sk-a{stroke:var(--amber)}
+.sk-f{fill:var(--mist);stroke:none}
+.sk-fa{fill:var(--amber);stroke:none}
+
+/* draw-on motion */
+@media (prefers-reduced-motion:no-preference){
+  .draw path,.draw circle,.draw rect,.draw line,.draw polyline{
+    stroke-dasharray:var(--len,260);stroke-dashoffset:var(--len,260);
+    animation:draw .45s ease forwards;
+  }
+  .draw.run path,.draw.run circle,.draw.run rect,.draw.run line,.draw.run polyline{animation-play-state:running}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+  .reveal.in{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* responsive */
+@media (max-width:900px){
+  :root{--gutter:20px}
+  .hero,.demohead,.revise,.schema,.freetier{grid-template-columns:minmax(0,1fr)}
+  .flow,.demofoot,.tlbeat{grid-template-columns:minmax(0,1fr)}
+  .scenemap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .scene .edge{display:none}
+  .footgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .navlinks{display:none}
+  .menu{display:block}
+  nav{gap:14px}
+}
+@media (max-width:480px){
+  body{font-size:16px}
+  .versions{grid-template-columns:minmax(0,1fr)}
+  .footgrid{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a class="wordmark" href="#top">
+        <svg width="26" height="26" viewBox="0 0 32 32" role="img" aria-label="Sketchie mark">
+          <rect class="sk" x="4.5" y="5.5" width="23" height="18" rx="4"/>
+          <circle class="sk" cx="13" cy="13.5" r="1.7"/>
+          <circle class="sk" cx="20" cy="13.5" r="1.7"/>
+          <path class="sk" d="M12.5 18.2c2.2 1.9 4.8 1.9 7 0"/>
+          <path class="sk sk-t" d="M16 23.5v4.2"/>
+        </svg>
+        Sketchie
+      </a>
+      <div class="navlinks">
+        <a href="#examples">Examples</a>
+        <a href="#scenes">How it works</a>
+        <a href="#research">Science</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://sketchie.ai/docs/">Docs</a>
+      </div>
+      <details class="menu">
+        <summary aria-label="Open menu">Menu</summary>
+        <div class="menupanel">
+          <a href="#examples">Examples</a>
+          <a href="#scenes">How it works</a>
+          <a href="#research">Science</a>
+          <a href="#pricing">Pricing</a>
+          <a href="https://sketchie.ai/docs/">Docs</a>
+        </div>
+      </details>
+      <a class="btn primary" href="https://sketchie.ai/app/signup">Get Started</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 1. HERO -->
+  <section>
+    <div class="wrap hero">
+      <div>
+        <p class="tech kicker">Whiteboard explainers</p>
+        <h1>Make the explanation. Keep the edit.</h1>
+        <p class="lede">Turn a prompt or document into a whiteboard explainer that draws itself. Get the MP4 and an editable scene graph. Fix one scene without making the whole video again.</p>
+        <div class="herocta">
+          <a class="btn primary" href="https://sketchie.ai/app/signup">Get Started</a>
+          <a class="btn quiet" href="#scenes">See how scenes work</a>
+        </div>
+        <p class="heronote">Scenes, not takes.</p>
+      </div>
+      <div>
+        <div class="board">
+          <div class="boardhead">
+            <span class="tech">recursion-explainer.mp4</span>
+            <span class="tech">6 scenes</span>
+          </div>
+          <video src="https://sketchie.ai/videos/recursion-ours.mp4" autoplay muted loop playsinline preload="metadata" aria-label="A Sketchie explainer about recursion, drawing itself"></video>
+          <div class="strip" aria-hidden="true">
+            <div class="stripitem"><span class="tech">01</span><b>The dolls</b></div>
+            <div class="stripitem on"><span class="tech">02</span><b>Base case</b></div>
+            <div class="stripitem"><span class="tech">03</span><b>Never ends</b></div>
+            <div class="stripitem"><span class="tech">04</span><b>Countdown</b></div>
+          </div>
+        </div>
+        <p class="heronote">Every video arrives as scenes you can open, change and re-render one at a time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. INPUTS AND OUTPUTS -->
+  <section>
+    <div class="wrap">
+      <p class="tech kicker">Inputs and outputs</p>
+      <h2>Start with what you have.</h2>
+      <div class="flow">
+        <div class="flowstep">
+          <span class="dot" aria-hidden="true"></span>
+          <h3>Source material</h3>
+          <p>A written prompt, or a document you already wrote. Document mode follows your source instead of inventing a generic script.</p>
+          <div class="taglist">
+            <span class="tag">Prompt</span><span class="tag">PDF</span><span class="tag">Word</span>
+            <span class="tag">PowerPoint</span><span class="tag">TXT</span><span class="tag">Markdown</span>
+          </div>
+        </div>
+        <div class="flowstep">
+          <span class="dot" aria-hidden="true"></span>
+          <h3>Narrated drawing</h3>
+          <p>Sketchie writes the script, then draws every element stroke by stroke, timed to the word of narration it belongs to. Nothing appears on screen that the narration never mentions.</p>
+          <svg class="sart draw" width="100%" height="76" viewBox="0 0 260 76" role="img" aria-label="Line art of an element drawing on in sequence">
+            <path class="sk" d="M12 58h52" style="--len:60"/>
+            <path class="sk" d="M86 58c0-16 8-28 22-28s22 12 22 28" style="--len:110"/>
+            <circle class="sk sk-t" cx="108" cy="22" r="7" style="--len:50"/>
+            <path class="sk" d="M154 58V30l20 14 20-14v28" style="--len:120"/>
+            <path class="sk sk-a" d="M214 58V34" style="--len:30"/>
+            <path class="sk sk-a" d="M208 40l6-6 6 6" style="--len:24"/>
+          </svg>
+        </div>
+        <div class="flowstep">
+          <span class="dot" aria-hidden="true"></span>
+          <h3>Video and editable scenes</h3>
+          <p>An MP4 in the shape you need, and the scene graph behind it. The file is the deliverable. The scene graph is what makes version two cheap.</p>
+          <div class="taglist">
+            <span class="tag">MP4</span><span class="tag">16:9</span><span class="tag">9:16</span>
+            <span class="tag">1:1</span><span class="tag">Scene graph</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SCENE EDITING -->
+  <section class="demo" id="scenes">
+    <div class="wrap">
+      <div class="demohead">
+        <div>
+          <p class="tech kicker">The scene model</p>
+          <h2>Fix one scene. Not the whole video.</h2>
+        </div>
+        <p class="lede">A Sketchie video is a sequence of addressable scenes. Change the one that is wrong, by editing its fields or describing the change in plain language, and only that scene re-renders.</p>
+      </div>
+
+      <p class="tech" style="margin-top:46px">Illustration of the scene model, using an explainer about DNS</p>
+
+      <div class="scenemap" role="group" aria-label="Choose a scene to revise">
+        <button class="scene" type="button" aria-pressed="false" data-scene="1">
+          <span class="badge">Scene 01</span>
+          <svg class="sart" viewBox="0 0 150 84" role="img" aria-label="A browser window with a question mark">
+            <rect class="sk" x="14" y="14" width="122" height="58" rx="5"/>
+            <path class="sk" d="M14 28h122"/>
+            <circle class="sk" cx="24" cy="21" r="2"/>
+            <path class="sk sk-t" d="M66 56c0-10 10-8 10-16a7 7 0 1 0-14 0"/>
+            <circle class="sk-fa" cx="69" cy="62" r="2"/>
+          </svg>
+          <h4>You type an address</h4>
+          <p>The browser has a name, not a location.</p>
+          <span class="edge" aria-hidden="true"></span>
+        </button>
+        <button class="scene" type="button" aria-pressed="true" data-scene="2">
+          <span class="badge">Scene 02</span>
+          <svg class="sart" viewBox="0 0 150 84" role="img" aria-label="A lookup request travelling to a resolver">
+            <rect class="sk" x="10" y="30" width="34" height="26" rx="4"/>
+            <rect class="sk" x="106" y="30" width="34" height="26" rx="4"/>
+            <path class="sk sk-t" d="M48 43h54"/>
+            <path class="sk sk-t" d="M96 37l6 6-6 6"/>
+            <path class="sk" d="M123 36v14M116 43h14"/>
+          </svg>
+          <h4>The resolver asks around</h4>
+          <p>A lookup goes out on your behalf.</p>
+          <span class="edge" aria-hidden="true"></span>
+        </button>
+        <button class="scene" type="button" aria-pressed="false" data-scene="3">
+          <span class="badge">Scene 03</span>
+          <svg class="sart" viewBox="0 0 150 84" role="img" aria-label="Three stacked servers answering">
+            <rect class="sk" x="42" y="12" width="66" height="16" rx="3"/>
+            <rect class="sk" x="42" y="34" width="66" height="16" rx="3"/>
+            <rect class="sk" x="42" y="56" width="66" height="16" rx="3"/>
+            <circle class="sk sk-t" cx="52" cy="20" r="2.4"/>
+            <circle class="sk sk-t" cx="52" cy="42" r="2.4"/>
+            <circle class="sk sk-t" cx="52" cy="64" r="2.4"/>
+          </svg>
+          <h4>An answer comes back</h4>
+          <p>The name resolves to an address.</p>
+          <span class="edge" aria-hidden="true"></span>
+        </button>
+        <button class="scene" type="button" aria-pressed="false" data-scene="4">
+          <span class="badge">Scene 04</span>
+          <svg class="sart" viewBox="0 0 150 84" role="img" aria-label="A page loading successfully">
+            <rect class="sk" x="14" y="14" width="122" height="58" rx="5"/>
+            <path class="sk" d="M14 28h122"/>
+            <path class="sk" d="M32 44h52M32 54h78"/>
+            <path class="sk sk-t" d="M100 40l7 7 13-14"/>
+          </svg>
+          <h4>The page loads</h4>
+          <p>The retrieval beat asks what the resolver did.</p>
+          <span class="edge" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="revise">
+        <div class="request">
+          <span class="tech">Plain language edit</span>
+          <p id="reqtext">"In scene 02, name the resolver and show the request leaving the laptop first."</p>
+          <p style="margin-top:14px;font-size:.9rem">Edits can set fields directly, such as the heading, the narration or a label, or describe a larger change in a sentence.</p>
+        </div>
+        <div>
+          <div class="versions">
+            <div class="vpanel">
+              <div class="vrow"><span class="badge">Version 1</span><span class="tech">original</span></div>
+              <svg class="sart" viewBox="0 0 180 96" role="img" aria-label="The original scene, before the edit">
+                <rect class="sk" x="12" y="36" width="40" height="28" rx="4"/>
+                <rect class="sk" x="128" y="36" width="40" height="28" rx="4"/>
+                <path class="sk" d="M58 50h64"/>
+                <path class="sk" d="M116 44l6 6-6 6"/>
+              </svg>
+              <p style="font-size:.86rem">Two boxes and an arrow. Correct, but the viewer cannot tell who is asking.</p>
+            </div>
+            <div class="vpanel new">
+              <div class="vrow"><span class="badge">Version 2</span><span class="tech">re-rendered</span></div>
+              <svg class="sart" viewBox="0 0 180 96" role="img" aria-label="The revised scene, with the resolver labelled and the request leaving the laptop">
+                <rect class="sk" x="10" y="34" width="46" height="30" rx="4"/>
+                <path class="sk" d="M18 70h30"/>
+                <rect class="sk" x="124" y="34" width="46" height="30" rx="4"/>
+                <path class="sk sk-t" d="M62 48h56"/>
+                <path class="sk sk-t" d="M112 42l6 6-6 6"/>
+                <path class="sk sk-a" d="M126 78h42"/>
+                <path class="sk sk-a" d="M132 74l-6 4 6 4"/>
+              </svg>
+              <p style="font-size:.86rem">The laptop sends first, the resolver is named, and the answer returns on its own line.</p>
+            </div>
+          </div>
+          <div class="untouched">
+            <span class="tech">Unchanged</span>
+            <span>Scenes 01, 03 and 04 were not re-rendered. Their timing, narration and artwork are untouched.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="demofoot">
+        <p><b>Addressable</b>Every scene has an identity in the scene graph, so an edit can name the one it means.</p>
+        <p><b>Versioned</b>Each edit creates a version. Earlier versions stay available, and you can revert to one.</p>
+        <p><b>Contained</b>Re-rendering one scene leaves the rest of the video exactly as it was.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. EXAMPLES -->
+  <section id="examples">
+    <div class="wrap">
+      <p class="tech kicker">Output</p>
+      <h2>Actual explanations. No stock footage.</h2>
+      <p class="lede reading" style="margin-top:16px">Real renders from the product, at the lengths they came out at.</p>
+      <div class="rail">
+        <article class="clip">
+          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/dns.mp4" controls preload="metadata" aria-label="Explainer: how DNS finds a website"></video>
+          <h3>How DNS finds a website</h3>
+          <p>Developer onboarding.</p>
+        </article>
+        <article class="clip">
+          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/water-cycle.mp4" controls preload="metadata" aria-label="Explainer: where the water goes"></video>
+          <h3>Where the water goes</h3>
+          <p>Classroom opener.</p>
+        </article>
+        <article class="clip">
+          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/compound-interest.mp4" controls preload="metadata" aria-label="Explainer: why compound interest compounds"></video>
+          <h3>Why compound interest compounds</h3>
+          <p>Personal finance.</p>
+        </article>
+        <article class="clip">
+          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/photosynthesis.mp4" controls preload="metadata" aria-label="Explainer: how photosynthesis works"></video>
+          <h3>How photosynthesis works</h3>
+          <p>Secondary science.</p>
+        </article>
+        <article class="clip">
+          <video src="https://private-intel.pages.dev/shared/sketchie/gallery/neural-networks.mp4" controls preload="metadata" aria-label="Explainer: inside a neural network"></video>
+          <h3>Inside a neural network</h3>
+          <p>Technical concept.</p>
+        </article>
+        <article class="clip">
+          <video src="https://sketchie.ai/videos/reveal-before-after.mp4" controls preload="metadata" aria-label="A scene before and after one edit"></video>
+          <h3>One scene, before and after</h3>
+          <p>The same video after a single edit.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. RESEARCH RULES -->
+  <section id="research" style="background:var(--board);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
+    <div class="wrap">
+      <p class="tech kicker">The rules in the generator</p>
+      <h2>Drawn to be followed.</h2>
+      <p class="lede reading" style="margin-top:16px">Sketchie publishes the research it built the generator on, graded by evidence, including the parts it could not verify. The numbers below are design rules the output has to satisfy, not claims about what a video will do to a viewer.</p>
+
+      <div class="timeline">
+        <div class="tlinner">
+          <p class="tech" style="margin-bottom:12px">Anatomy of one scene, illustrative</p>
+          <div class="tlband">
+            <span class="lab">Scene duration: 12 to 30 seconds, one idea</span>
+          </div>
+          <div class="tlreveals" aria-hidden="true">
+            <span style="left:3%"></span><em style="left:3%">reveal</em>
+            <span style="left:21%"></span><em style="left:21%">2 to 5s</em>
+            <span style="left:40%"></span><em style="left:40%">2 to 5s</em>
+            <span style="left:58%"></span><em style="left:58%">never closer than 1.2s</em>
+            <span style="left:84%"></span><em style="left:84%">3 to 7 elements</em>
+          </div>
+          <div class="tlnarr" aria-hidden="true">
+            <i style="height:8px"></i><i style="height:16px"></i><i style="height:11px"></i><i style="height:20px"></i>
+            <i style="height:9px"></i><i style="height:15px"></i><i style="height:22px"></i><i style="height:12px"></i>
+            <i style="height:7px"></i><i style="height:18px"></i><i style="height:10px"></i><i style="height:14px"></i>
+            <i style="height:19px"></i><i style="height:8px"></i><i style="height:13px"></i><i style="height:21px"></i>
+            <i style="height:9px"></i><i style="height:16px"></i><i style="height:11px"></i><i style="height:17px"></i>
+            <span class="tech" style="margin-left:14px">Narration 140 to 160 words per minute, each reveal within 500ms of its word</span>
+          </div>
+          <div class="tlbeat">
+            <div><b>Question</b><p>The retrieval beat opens by asking the viewer to produce the answer.</p></div>
+            <div><b>Pause</b><p>The video holds, so the answer is theirs before it is given.</p></div>
+            <div><b>One line recap</b><p>Then a single line closes the loop. Never a summary in place of the question.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="specs">
+        <div><span class="tech">Scene length</span><b>12 to 30 seconds</b></div>
+        <div><span class="tech">Elements per scene</span><b>3 to 7</b></div>
+        <div><span class="tech">Reveal spacing</span><b>2 to 5 seconds</b></div>
+        <div><span class="tech">Minimum gap</span><b>1.2 seconds</b></div>
+        <div><span class="tech">Word sync</span><b>Within 500ms</b></div>
+        <div><span class="tech">Labels</span><b>Three words or fewer</b></div>
+      </div>
+
+      <p class="reading" style="margin-top:28px;font-size:.95rem">The six minute ceiling comes from engagement research across 6.9 million online learning sessions, which informed a deliberate cap rather than a technical limit. Longer material becomes a chaptered series. Progressive drawing and ending on a question are supported by research into the explanation format itself. <a href="https://sketchie.ai/science/">Read the full spec, with citations and grades</a>.</p>
+    </div>
+  </section>
+
+  <!-- 6. OUTPUT MODEL -->
+  <section>
+    <div class="wrap">
+      <p class="tech kicker">For systems</p>
+      <h2>Video for people. Scenes for systems.</h2>
+      <div class="schema">
+        <div>
+          <div class="pipe">
+            <div class="node"><b>Prompt or document</b><p>What you already have, in the formats listed above.</p></div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node"><b>Explainer</b><p>Script, scenes, narration and word level timing.</p></div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node out"><b>MP4 and scene graph</b><p>The video to publish, and the structure behind it to edit.</p></div>
+          </div>
+          <div class="graphsketch" aria-label="Illustrative shape of a scene graph">scene graph, illustrative shape
+  scenes[]
+    heading
+    narration
+    elements[]
+      type, position, revealWord
+  versions[]</div>
+        </div>
+        <div class="surfaces">
+          <div class="surface">
+            <h3>API</h3>
+            <p>Generate and edit explainers from your own code, and get the scene graph back with the video. API access starts on Plus. <a href="https://sketchie.ai/api/">API overview</a>.</p>
+          </div>
+          <div class="surface">
+            <h3>MCP server</h3>
+            <p>Give an agent the same abilities, so it can generate an explainer and revise a scene as part of a longer task. <a href="https://sketchie.ai/docs/mcp/">MCP setup</a>.</p>
+          </div>
+          <div class="surface">
+            <h3>CLI</h3>
+            <p>Drive the same flow from a terminal, next to the rest of your release work. <a href="https://sketchie.ai/docs/cli/">CLI and SDK</a>.</p>
+          </div>
+          <div class="surface">
+            <h3>Documentation</h3>
+            <p>Endpoints, voices, languages and the scene graph, written out in full. <a href="https://sketchie.ai/docs/">Read the docs</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <p class="tech kicker">Pricing</p>
+      <h2>Simple, honest pricing.</h2>
+
+      <div class="freetier">
+        <div>
+          <h3 style="font-size:1.4rem;margin-bottom:10px">Start with two free videos</h3>
+          <p>The free tier is the whole product, including the scene editor. It is how you find out whether the output is worth a plan.</p>
+          <a class="btn primary" style="margin-top:22px" href="https://sketchie.ai/app/signup">Get Started</a>
+        </div>
+        <ul>
+          <li><span>01</span> Two videos</li>
+          <li><span>02</span> Up to one minute each</li>
+          <li><span>03</span> Watermarked</li>
+          <li><span>04</span> No card required</li>
+          <li><span>05</span> Full product access, editor included</li>
+        </ul>
+      </div>
+
+      <table>
+        <caption>Published monthly prices, checked October 15, 2026</caption>
+        <thead>
+          <tr><th scope="col">Plan</th><th scope="col">Monthly price</th><th scope="col">Included minutes</th><th scope="col">Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Solo</th><td class="num">$9.99</td><td class="num">40</td><td>Scene editor, all voices, all aspect ratios</td></tr>
+          <tr><th scope="row">Plus</th><td class="num">$19.99</td><td class="num">100</td><td>API access starts here, with MCP and CLI</td></tr>
+          <tr><th scope="row">Pro</th><td class="num">$49.99</td><td class="num">300</td><td>Custom branding on every video</td></tr>
+          <tr><th scope="row">Max</th><td class="num">$99.99</td><td class="num">750</td><td>For heavier output</td></tr>
+          <tr><th scope="row">Team</th><td class="num">$499.99</td><td class="num">5,000</td><td>Priority support</td></tr>
+          <tr><th scope="row">Enterprise</th><td class="num">Contact</td><td class="num">Not specified</td><td>Custom volume and dedicated support</td></tr>
+        </tbody>
+      </table>
+
+      <div class="pricenotes">
+        <p><b style="color:var(--ink);font-weight:500">Minutes are the only meter.</b> No seats, no credits, no minimum.</p>
+        <p><b style="color:var(--ink);font-weight:500">Annual billing takes 40% off.</b> The monthly figures above are the published ones.</p>
+        <p><b style="color:var(--ink);font-weight:500">Overage is opt-in and off by default.</b> With it off you stop at your ceiling instead of being charged past it.</p>
+        <p><b style="color:var(--ink);font-weight:500">Checked October 15, 2026.</b> <a href="https://sketchie.ai/pricing/">Current pricing</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FAQ -->
+  <section>
+    <div class="wrap">
+      <p class="tech kicker">Questions</p>
+      <h2>The honest FAQ.</h2>
+      <div class="faq">
+        <details open>
+          <summary data-n="01">Can I edit a single scene?</summary>
+          <p>Yes. That is the point of the scene graph. Scenes are addressable, so an edit targets one of them, that scene re-renders on its own, every edit creates a version, and you can revert to an earlier one.</p>
+        </details>
+        <details>
+          <summary data-n="02">What happens when the source is too long?</summary>
+          <p>Longer material becomes a chaptered series rather than one long video. Individual videos are set in 30 second increments up to six minutes, or you can let Sketchie choose the length.</p>
+        </details>
+        <details>
+          <summary data-n="03">What happens at the end of a video?</summary>
+          <p>Every video ends with a retrieval beat: a question, a pause, then a one line recap. The pause is deliberate, because producing the answer yourself is what the research supports.</p>
+        </details>
+        <details>
+          <summary data-n="04">Can I try the editor without paying?</summary>
+          <p>Yes. The free tier gives you two watermarked videos, up to one minute each, with no card required, and it includes the editor rather than holding it back for paid plans.</p>
+        </details>
+        <details>
+          <summary data-n="05">Is Sketchie faster than Simi?</summary>
+          <p>No, and Sketchie says so. Simi is faster at first generation. The argument is about the time it takes to reach a video you will actually publish, revisions included, which is where editable scenes change the arithmetic.</p>
+        </details>
+        <details>
+          <summary data-n="06">Can developers use it?</summary>
+          <p>Yes. There is an API that returns the video with its scene graph, an MCP server so agents can generate and edit, and a CLI. API access starts on Plus.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CLOSING -->
+  <section class="closing">
+    <div class="wrap">
+      <svg class="mascot" width="52" height="52" viewBox="0 0 32 32" role="img" aria-label="The Sketchie mark, marking the closing question">
+        <rect class="sk" x="4.5" y="5.5" width="23" height="18" rx="4"/>
+        <circle class="sk" cx="13" cy="13.5" r="1.7"/>
+        <circle class="sk" cx="20" cy="13.5" r="1.7"/>
+        <path class="sk" d="M12.5 18.2c2.2 1.9 4.8 1.9 7 0"/>
+        <path class="sk sk-a" d="M16 23.5v4.2"/>
+      </svg>
+      <h2>Make it once. Fix what matters.</h2>
+      <p>Start with two free videos. Keep the scenes editable.</p>
+      <a class="btn primary" href="https://sketchie.ai/app/signup">Get Started</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footgrid">
+      <div>
+        <a class="wordmark" href="#top" style="margin-bottom:12px">
+          <svg width="24" height="24" viewBox="0 0 32 32" role="img" aria-label="Sketchie mark">
+            <rect class="sk" x="4.5" y="5.5" width="23" height="18" rx="4"/>
+            <circle class="sk" cx="13" cy="13.5" r="1.7"/>
+            <circle class="sk" cx="20" cy="13.5" r="1.7"/>
+            <path class="sk" d="M12.5 18.2c2.2 1.9 4.8 1.9 7 0"/>
+            <path class="sk sk-t" d="M16 23.5v4.2"/>
+          </svg>
+          Sketchie
+        </a>
+        <p style="font-size:.9rem;max-width:34ch">Type it, and a narrated whiteboard explainer draws itself. Every scene stays editable.</p>
+        <p style="font-size:.85rem;margin-top:14px">Operated by Downshift LLC.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="https://sketchie.ai/examples/">Examples</a></li>
+          <li><a href="https://sketchie.ai/pricing/">Pricing</a></li>
+          <li><a href="https://sketchie.ai/icons/">Icons</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Developers</h4>
+        <ul>
+          <li><a href="https://sketchie.ai/api/">API</a></li>
+          <li><a href="https://sketchie.ai/docs/">Docs</a></li>
+          <li><a href="https://sketchie.ai/docs/mcp/">MCP setup</a></li>
+          <li><a href="https://sketchie.ai/docs/cli/">CLI and SDK</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="https://sketchie.ai/science/">Science</a></li>
+          <li><a href="https://sketchie.ai/education/">Education</a></li>
+          <li><a href="https://sketchie.ai/vs-simi/">Compared with Simi</a></li>
+          <li><a href="https://sketchie.ai/app/signup">Get Started</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footbase">
+      <span>Concept redesign. Not the live Sketchie site.</span>
+      <span>Pricing and product details checked October 15, 2026.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Progressive enhancement only. Every section is readable and usable
+   with this script absent: the demo ships with scene 02 pre-selected
+   and its revision already written into the page. */
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* 1. Scene selection in the editing demo. Each scene carries its own
+     plain language request, so choosing one updates the illustration text. */
+  var requests = {
+    "1": '"In scene 01, show the address being typed letter by letter, and keep the window empty until it is."',
+    "2": '"In scene 02, name the resolver and show the request leaving the laptop first."',
+    "3": '"In scene 03, number the three servers so the order of the answer is obvious."',
+    "4": '"In scene 04, hold the question on screen longer before the recap appears."'
+  };
+  var scenes = document.querySelectorAll(".scene");
+  var reqtext = document.getElementById("reqtext");
+  scenes.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      scenes.forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+      btn.setAttribute("aria-pressed", "true");
+      var key = btn.getAttribute("data-scene");
+      if (reqtext && requests[key]) { reqtext.textContent = requests[key]; }
+    });
+  });
+
+  /* 2. Draw the line art on when it enters the viewport, once.
+     Motion is skipped entirely when reduced motion is requested. */
+  if (!reduce && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll(".flowstep, .scene, .vpanel, .specs div, .clip").forEach(function (el) {
+      el.classList.add("reveal");
+      io.observe(el);
+    });
+  }
+
+  /* 3. If a video cannot load, replace it with a readable note rather
+     than leaving an empty frame. */
+  document.querySelectorAll("video").forEach(function (v) {
+    function swap() {
+      if (v.dataset.swapped) { return; }
+      v.dataset.swapped = "1";
+      var d = document.createElement("div");
+      d.className = "vfallback";
+      d.textContent = (v.getAttribute("aria-label") || "Explainer") + " (clip unavailable right now)";
+      v.replaceWith(d);
+    }
+    v.addEventListener("error", swap, true);
+    setTimeout(function () {
+      if (v.readyState === 0 && v.networkState === 3) { swap(); }
+    }, 6000);
+  });
+})();
+</script>
+</body>
+</html>
