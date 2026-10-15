@@ -59,6 +59,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
 .switch:hover{border-color:var(--accent)}
 .switch:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.switch,.switch .knob{transition:none}}
+.tabs .switch{border-radius:999px;padding:0}
 </style>
 <script>
 (function(){var KEY="sketchie-theme";var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}document.documentElement.setAttribute("data-theme",saved||"night");})();
@@ -98,9 +99,11 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
   function theme(){return root.getAttribute("data-theme")||"night"}
   var frame=document.getElementById("frame");
   var open=document.getElementById("open");
-  var btns=[].slice.call(document.querySelectorAll(".tabs button"));
+  // only buttons that name a view are tabs; the theme switch is not one
+  var btns=[].slice.call(document.querySelectorAll(".tabs button[data-src]"));
   function withTheme(src){return src+"?theme="+theme()}
   function show(src,btn){
+    if(!src){return}
     frame.src=withTheme(src);
     open.href=withTheme(src);
     btns.forEach(function(b){b.classList.toggle("on",b===btn)});
