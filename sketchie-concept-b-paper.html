@@ -246,30 +246,10 @@ footer a:hover{color:var(--chalk)}
 .fb{margin-top:30px;border-top:1px solid rgba(var(--chalkRGB),.12);padding-top:16px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
 
 /* ---------------------------------------------------------------
-   GLOW LAYER
-   One pointer-tracked bloom behind the content, plus dim hover
-   glows on text and controls. Everything here is deliberately
-   under-powered: the brightest value is 7% alpha.
+   HOVER GLOW
+   Dim glows on text and controls only. Deliberately under-powered:
+   nothing here goes above 30% alpha, most sit near 20%.
 ----------------------------------------------------------------*/
-.glow{
-  position:fixed;left:0;top:0;z-index:0;pointer-events:none;
-  width:88vmax;height:88vmax;margin:-44vmax 0 0 -44vmax;border-radius:50%;
-  /* many stops, each one quieter, so the falloff reads as light
-     rather than as a disc with an edge */
-  background:radial-gradient(circle closest-side,
-    rgba(var(--acidRGB),.045) 0%,
-    rgba(var(--acidRGB),.038) 12%,
-    rgba(var(--acidRGB),.030) 24%,
-    rgba(var(--acidRGB),.022) 36%,
-    rgba(var(--acidRGB),.015) 48%,
-    rgba(var(--skyRGB),.010) 60%,
-    rgba(var(--skyRGB),.006) 72%,
-    rgba(var(--skyRGB),.003) 84%,
-    rgba(var(--skyRGB),.001) 93%,
-    transparent 100%);
-  opacity:0;
-  will-change:transform,opacity;transform:translate3d(-100px,-100px,0);
-}
 
 /* text warms slightly under the pointer */
 h1,h2,h3,.lede,.slate .n,.rules b,.plan b,summary,.beat .q{
@@ -293,7 +273,6 @@ a:not(.btn):not(.cue):not(.mark):hover{text-shadow:0 0 16px rgba(var(--acidRGB),
 .piece video,.vidbox video{transition:box-shadow .5s ease}
 
 @media (prefers-reduced-motion:reduce){
-  .glow{display:none}
   h1:hover,h2:hover,h3:hover,.beat .q:hover,.lede:hover,summary:hover,
   .rules b:hover,.plan b:hover,.slate .n:hover{text-shadow:none}
 }
@@ -774,48 +753,7 @@ html{scrollbar-width:thin;scrollbar-color:rgba(var(--acidRGB),.55) var(--board-2
     if(e.data&&e.data.sketchieTheme){setTheme(e.data.sketchieTheme,false)}
   });
 
-  /* 5. Pointer glow. The target moves with the pointer, the bloom
-     eases toward it on every animation frame, so it lags slightly
-     and never snaps. Transform only, so it stays on the compositor. */
-  if(!reduce && window.matchMedia("(pointer: fine)").matches){
-    var glow=document.createElement("div");
-    glow.className="glow";
-    glow.setAttribute("aria-hidden","true");
-    document.body.appendChild(glow);
-
-    var tx=window.innerWidth/2, ty=window.innerHeight*0.35;
-    var cx=tx, cy=ty, running=false, op=0, live=false;
-
-    function frame(){
-      // follow: close 18% of the gap each frame, so it trails without lagging
-      cx+=(tx-cx)*0.18;
-      cy+=(ty-cy)*0.18;
-      var gap=Math.abs(tx-cx)+Math.abs(ty-cy);
-
-      // settle: dimmer while travelling, eases up once the pointer rests
-      var target=live?(gap>1.5?0.68:1):0;
-      op+=(target-op)*0.055;
-
-      glow.style.transform="translate3d("+cx.toFixed(1)+"px,"+cy.toFixed(1)+"px,0)";
-      glow.style.opacity=op.toFixed(3);
-
-      if(gap<0.1&&Math.abs(target-op)<0.004){running=false;return}
-      window.requestAnimationFrame(frame);
-    }
-    function kick(){ if(!running){running=true;window.requestAnimationFrame(frame)} }
-
-    document.addEventListener("pointermove",function(e){
-      tx=e.clientX; ty=e.clientY;
-      live=true;
-      kick();
-    },{passive:true});
-
-    document.addEventListener("pointerleave",function(){live=false;kick()});
-    document.addEventListener("pointerenter",function(){live=true;kick()});
-    kick();
-  }
-
-  /* 6. Missing clips degrade to a readable note. */
+  /* 5. Missing clips degrade to a readable note. */
   [].forEach.call(document.querySelectorAll("video"),function(v){
     function swap(){
       if(v.dataset.swapped){return}
