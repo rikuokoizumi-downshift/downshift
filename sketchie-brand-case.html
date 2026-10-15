@@ -11,12 +11,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#FBFBF9; --panel:#FFFFFF; --ink:#15161A; --body:#4A4F57; --faint:#8A9099;
-  --rule:#E2E2DC; --accent:#0F6E5C; --accent-soft:#E6F2EE;
-  --warn:#B3471F; --warn-soft:#FBEDE6; --ok:#2E7D32; --ok-soft:#EAF4EB;
+  /* Night is the default, matching the brand direction. */
+  --paper:#0B0B0D; --panel:#131317; --ink:#F2F0EA; --body:rgba(242,240,234,.72); --faint:rgba(242,240,234,.44);
+  --rule:rgba(242,240,234,.14); --accent:#D8FF3E; --accent-soft:rgba(216,255,62,.12);
+  --warn:#FF8A5B; --warn-soft:rgba(255,138,91,.14); --ok:#8CE39B; --ok-soft:rgba(140,227,155,.14);
+  --head:rgba(242,240,234,.05); --code:rgba(242,240,234,.07);
   --sans:"Space Grotesk",system-ui,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,monospace;
   --gutter:clamp(18px,4vw,44px);
+}
+html[data-theme="day"]{
+  --paper:#FBFBF9; --panel:#FFFFFF; --ink:#15161A; --body:#4A4F57; --faint:#8A9099;
+  --rule:#E2E2DC; --accent:#0F6E5C; --accent-soft:#E6F2EE;
+  --warn:#B3471F; --warn-soft:#FBEDE6; --ok:#2E7D32; --ok-soft:#EAF4EB;
+  --head:#F6F6F2; --code:#F1F1EC;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -43,7 +51,7 @@ section:last-of-type{border-bottom:0}
 .snum{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:10px}
 .lede{font-size:1.12rem;line-height:1.55;color:var(--ink);max-width:66ch}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-code{font-family:var(--mono);font-size:.84em;background:#F1F1EC;padding:1px 5px;border-radius:4px}
+code{font-family:var(--mono);font-size:.84em;background:var(--code);padding:1px 5px;border-radius:4px}
 
 .keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:26px 0 8px}
 .key{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px}
@@ -63,7 +71,7 @@ code{font-family:var(--mono);font-size:.84em;background:#F1F1EC;padding:1px 5px;
 table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:600px;background:var(--panel)}
 caption{text-align:left;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:0 0 10px}
 th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
-thead th{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:400;background:#F6F6F2}
+thead th{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:400;background:var(--head)}
 td.n{font-family:var(--mono);text-align:right}
 tbody tr:last-child td{border-bottom:0}
 .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;white-space:nowrap}
@@ -117,6 +125,13 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
 }
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto !important;transition:none !important}}
 </style>
+<script>
+(function(){
+  var KEY="sketchie-theme";var q=new URLSearchParams(location.search).get("theme");
+  var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}
+  document.documentElement.setAttribute("data-theme",q||saved||"night");
+})();
+</script>
 </head>
 <body>
 
@@ -136,6 +151,7 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
       <li><a href="#s10"><span class="n">10</span> Open questions</a></li>
       <li><a href="#s11"><span class="n">11</span> What we do not promise</a></li>
     </ol>
+    <button type="button" id="themeToggle" style="margin-top:18px;width:100%;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:9px;border:1px solid var(--rule);border-radius:7px;background:var(--panel);color:var(--body);cursor:pointer" aria-pressed="false">Day</button>
     <p class="meta">Design scope only<br>Checked 2026-10-15<br>sketchie.ai</p>
   </nav>
 
@@ -392,6 +408,14 @@ footer{padding:30px 0 10px;font-family:var(--mono);font-size:.7rem;letter-spacin
 
 <script>
 (function(){
+  var KEY="sketchie-theme";var root=document.documentElement;
+  var tbtn=document.getElementById("themeToggle");
+  function paint(){var day=root.getAttribute("data-theme")==="day";if(tbtn){tbtn.textContent=day?"Night":"Day";tbtn.setAttribute("aria-pressed",String(day))}}
+  function setTheme(m,broadcast){root.setAttribute("data-theme",m);try{localStorage.setItem(KEY,m)}catch(e){}paint();
+    if(broadcast){try{if(window.parent!==window){window.parent.postMessage({sketchieTheme:m},"*")}}catch(e){}}}
+  paint();
+  if(tbtn){tbtn.addEventListener("click",function(){setTheme(root.getAttribute("data-theme")==="day"?"night":"day",true)})}
+  window.addEventListener("message",function(e){if(e.data&&e.data.sketchieTheme){setTheme(e.data.sketchieTheme,false)}});
   var links={};
   [].forEach.call(document.querySelectorAll('.toc a'),function(a){links[a.getAttribute('href').slice(1)]=a});
   if(!('IntersectionObserver' in window))return;
