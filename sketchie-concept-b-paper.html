@@ -280,6 +280,18 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important;scroll-behavior:auto !important}
 }
+/* theme switch: a pill with a travelling knob */
+.switch{position:relative;flex:0 0 auto;width:52px;height:28px;padding:0;border-radius:999px;cursor:pointer;
+  background:var(--surface);border:1px solid var(--line);
+  transition:background-color .25s ease,border-color .25s ease}
+.switch .knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;
+  background:var(--graphite);
+  transition:transform .28s cubic-bezier(.2,.8,.3,1),background-color .25s ease}
+.switch[aria-checked="true"]{background:var(--accent-tint);border-color:var(--accent)}
+.switch[aria-checked="true"] .knob{transform:translateX(24px);background:var(--accent)}
+.switch:hover{border-color:var(--accent)}
+.switch:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.switch,.switch .knob{transition:none}}
 </style>
 <script>
 (function(){
@@ -320,7 +332,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
           <a href="#rules">The science</a><a href="#who">Who it is for</a><a href="#pricing">Pricing</a>
         </div>
       </details>
-      <button class="btn ghost sm" type="button" id="themeToggle" aria-pressed="false">Night</button>
+      <button class="switch" type="button" id="themeToggle" role="switch" aria-checked="false" aria-label="Night mode"><span class="knob"></span></button>
       <a class="btn sm" href="https://sketchie.ai/app/signup">Get started</a>
     </nav>
   </div>
@@ -673,7 +685,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   var tbtn=document.getElementById("themeToggle");
   function paint(){
     var night=root.getAttribute("data-theme")==="night";
-    if(tbtn){tbtn.textContent=night?"Day":"Night";tbtn.setAttribute("aria-pressed",String(night))}
+    if(tbtn){tbtn.setAttribute("aria-checked",String(night));tbtn.setAttribute("aria-label",night?"Night mode on":"Night mode off")}
   }
   function setTheme(m,broadcast){
     root.setAttribute("data-theme",m);
