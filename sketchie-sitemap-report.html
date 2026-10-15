@@ -446,10 +446,9 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
   function paint(){var night=root.getAttribute("data-theme")==="night";
     if(tbtn){tbtn.setAttribute("aria-checked",String(night));tbtn.setAttribute("aria-label",night?"Night mode on":"Night mode off")}}
   function setTheme(m,broadcast){root.setAttribute("data-theme",m);try{localStorage.setItem(KEY,m)}catch(e){}paint();
-    if(broadcast){try{if(window.parent!==window){window.parent.postMessage({sketchieTheme:m},"*")}}catch(e){}}}
+    /* independent: the page does not tell the hub what theme it is in */}
   paint();
   if(tbtn){tbtn.addEventListener("click",function(){setTheme(root.getAttribute("data-theme")==="night"?"day":"night",true)})}
-  window.addEventListener("message",function(e){if(e.data&&e.data.sketchieTheme){setTheme(e.data.sketchieTheme,false)}});
   var links={};
   [].forEach.call(document.querySelectorAll('.toc a'),function(a){
     links[a.getAttribute('href').slice(1)]=a;
