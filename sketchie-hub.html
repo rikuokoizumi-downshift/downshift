@@ -10,9 +10,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
+  --paper:#0B0B0D;--panel:#131317;--ink:#F2F0EA;--body:rgba(242,240,234,.72);--faint:rgba(242,240,234,.44);
+  --rule:rgba(242,240,234,.14);--accent:#D8FF3E;--accent-soft:rgba(216,255,62,.12);
+  --sans:"Space Grotesk",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
+}
+html[data-theme="day"]{
   --paper:#FBFBF9;--panel:#fff;--ink:#15161A;--body:#4A4F57;--faint:#8A9099;
   --rule:#E2E2DC;--accent:#0F6E5C;--accent-soft:#E6F2EE;
-  --sans:"Space Grotesk",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
@@ -38,22 +42,25 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--s
   .bar .u{display:none}
 }
 </style>
+<script>
+(function(){var KEY="sketchie-theme";var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}document.documentElement.setAttribute("data-theme",saved||"night");})();
+</script>
 </head>
 <body>
 
 <div class="bar">
   <span class="t">Sketchie brand work</span>
-  <span class="u" id="stamp">Updated 2026-10-15</span>
+  <span class="u" id="stamp">Night default · updated 2026-10-15</span>
   <nav class="tabs" aria-label="Views">
     <button type="button" data-src="sketchie-concept-c.html" class="on">Night</button>
-    <button type="button" data-src="sketchie-c-daylight.html">Daylight</button>
     <button type="button" data-src="sketchie-c-signal.html">Signal</button>
     <button type="button" data-src="sketchie-brand-case.html">The case</button>
-    <a id="open" href="sketchie-concept-c.html" target="_blank" rel="noopener">Open full</a>
+    <button type="button" id="themeToggle" aria-pressed="false">Day</button>
+    <a id="open" href="sketchie-concept-c.html">Open full</a>
   </nav>
 </div>
 
-<iframe class="frame" id="frame" src="sketchie-concept-c.html" title="Current Sketchie design build"></iframe>
+<iframe class="frame" id="frame" src="sketchie-concept-c.html?theme=night" title="Current Sketchie design build"></iframe>
 
 <noscript>
   <div class="fallback">
@@ -61,7 +68,6 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--s
     <p>Open any of these directly:</p>
     <ul>
       <li><a href="sketchie-concept-c.html">Night: the page is the demo</a></li>
-      <li><a href="sketchie-c-daylight.html">Daylight: the same page on a lit board</a></li>
       <li><a href="sketchie-c-signal.html">Signal: blue and amber</a></li>
       <li><a href="sketchie-brand-case.html">The case for a brand overhaul</a></li>
     </ul>
@@ -70,18 +76,40 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--s
 
 <script>
 (function(){
+  var KEY="sketchie-theme";var root=document.documentElement;
+  function theme(){return root.getAttribute("data-theme")||"night"}
   var frame=document.getElementById("frame");
   var open=document.getElementById("open");
   var btns=[].slice.call(document.querySelectorAll(".tabs button"));
+  function withTheme(src){return src+"?theme="+theme()}
   function show(src,btn){
-    frame.src=src;
-    open.href=src;
+    frame.src=withTheme(src);
+    open.href=withTheme(src);
     btns.forEach(function(b){b.classList.toggle("on",b===btn)});
     try{history.replaceState(null,"","#"+src.replace(".html",""))}catch(e){}
   }
   btns.forEach(function(b){
     b.addEventListener("click",function(){show(b.getAttribute("data-src"),b)});
   });
+  var tbtn=document.getElementById("themeToggle");
+  function paint(){var day=theme()==="day";tbtn.textContent=day?"Night":"Day";tbtn.setAttribute("aria-pressed",String(day))}
+  function setTheme(m){
+    root.setAttribute("data-theme",m);
+    try{localStorage.setItem(KEY,m)}catch(e){}
+    paint();
+    var cur=frame.getAttribute("src").split("?")[0];
+    frame.src=withTheme(cur);open.href=withTheme(cur);
+  }
+  paint();
+  tbtn.addEventListener("click",function(){setTheme(theme()==="day"?"night":"day")});
+  window.addEventListener("message",function(e){
+    if(e.data&&e.data.sketchieTheme&&e.data.sketchieTheme!==theme()){
+      root.setAttribute("data-theme",e.data.sketchieTheme);
+      try{localStorage.setItem(KEY,e.data.sketchieTheme)}catch(err){}
+      paint();
+    }
+  });
+
   // deep link support: #sketchie-brand-case opens that view
   var h=location.hash.replace("#","");
   if(h){
