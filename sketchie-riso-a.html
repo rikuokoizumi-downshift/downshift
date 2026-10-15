@@ -236,6 +236,63 @@ footer a{color:var(--text);text-decoration:none;font-size:.9rem}
 footer a:hover{color:var(--ink-1)}
 .fb{margin-top:34px;border-top:2px solid var(--text);padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-2)}
 
+/* ---------------------------------------------------------------
+   PRESS CONDITION
+   Rebuilt rather than simulated: each ink is its own pass, the
+   second pass lands a little off, overlaps blend optically through
+   multiply, solid fields carry a dot screen, and density falls off
+   across the sheet the way a drum runs heavier in one corner.
+----------------------------------------------------------------*/
+
+/* second pass drift. Every element that uses it sets its own
+   offset, because a hand-fed sheet never drifts the same twice. */
+.misreg::before{left:var(--dx,3px);top:var(--dy,4px)}
+h2 .misreg{--dx:2px;--dy:3px}
+.hero .misreg{--dx:4px;--dy:5px}
+
+/* dot screen plus density falloff, laid over a solid ink field */
+.field{position:relative;isolation:isolate}
+.field::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background-image:radial-gradient(circle,rgba(26,23,16,.22) var(--dot,1.1px),transparent calc(var(--dot,1.1px) + .2px));
+  background-size:var(--screen,6px) var(--screen,6px);
+  mix-blend-mode:multiply;
+  -webkit-mask-image:linear-gradient(var(--sweep,115deg),#000 8%,rgba(0,0,0,.45) 52%,rgba(0,0,0,.82) 100%);
+  mask-image:linear-gradient(var(--sweep,115deg),#000 8%,rgba(0,0,0,.45) 52%,rgba(0,0,0,.82) 100%);
+}
+.field > *{position:relative;z-index:2}
+.strip{--dot:1px;--screen:5px;--sweep:100deg}
+.pricing{--dot:1.25px;--screen:7px;--sweep:140deg}
+.close{--dot:1.15px;--screen:6px;--sweep:75deg}
+
+/* a selected plate prints solid, so it carries its own screen */
+.sheet[aria-pressed="true"]{
+  background-image:radial-gradient(circle,rgba(26,23,16,.2) 1.1px,transparent 1.3px);
+  background-size:5px 5px;background-color:var(--ink-1);
+}
+
+/* ink halos: the second pass separating at a high contrast edge.
+   Offsets differ per item on purpose. */
+.run > div:nth-child(1) .num{text-shadow:2px 2px 0 rgba(27,63,216,.55)}
+.run > div:nth-child(2) .num{text-shadow:3px 2px 0 rgba(27,63,216,.45)}
+.run > div:nth-child(3) .num{text-shadow:2px 3px 0 rgba(27,63,216,.5)}
+.specrow:nth-child(odd) .val{text-shadow:2px 2px 0 rgba(27,63,216,.38)}
+.specrow:nth-child(even) .val{text-shadow:1.5px 2.5px 0 rgba(27,63,216,.3)}
+
+/* ink sits on the paper rather than replacing it */
+.strip,.close,.pricing,.state.after{mix-blend-mode:multiply}
+
+/* uneven grain: a second, blotchier pass so the texture is not
+   evenly distributed across the frame */
+body::before{
+  content:"";position:fixed;inset:0;z-index:89;pointer-events:none;opacity:.5;
+  background-image:
+    radial-gradient(70% 55% at 12% 8%,rgba(232,67,31,.07),transparent 62%),
+    radial-gradient(60% 50% at 88% 72%,rgba(27,63,216,.08),transparent 66%),
+    radial-gradient(45% 40% at 60% 30%,rgba(26,23,16,.05),transparent 70%);
+  mix-blend-mode:multiply;
+}
+
 /* line art */
 .sk{stroke:var(--text);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .sk-1{stroke:var(--ink-1)}
@@ -321,7 +378,7 @@ footer a:hover{color:var(--ink-1)}
     </div>
   </section>
 
-  <div class="strip" aria-hidden="true">
+  <div class="strip field" aria-hidden="true">
     <div>
       <span>Scenes, not takes</span><span>Fix one scene</span><span>Edit, re-render, revert</span><span>Two free videos</span>
       <span>Scenes, not takes</span><span>Fix one scene</span><span>Edit, re-render, revert</span><span>Two free videos</span>
@@ -518,7 +575,7 @@ footer a:hover{color:var(--ink-1)}
     </div>
   </section>
 
-  <section class="pricing" id="pricing">
+  <section class="pricing field" id="pricing">
     <div class="wrap">
       <p class="mono">Pricing</p>
       <h2>Minutes are the only meter.</h2>
@@ -583,7 +640,7 @@ footer a:hover{color:var(--ink-1)}
     </div>
   </section>
 
-  <section class="close">
+  <section class="close field">
     <div class="wrap">
       <h2>Print it once. Fix one plate.</h2>
       <p>Start with two free videos. Keep the scenes editable.</p>
