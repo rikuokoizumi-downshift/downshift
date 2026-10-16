@@ -1056,6 +1056,14 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       if(p < 1) raf = requestAnimationFrame(step); else raf = null;
     }
     raf = requestAnimationFrame(step);
+    /* A throttled tab, or any environment that is not issuing animation
+       frames, would otherwise leave the tween stranded part way. Land on
+       the target regardless once the duration has passed. */
+    clearTimeout(centre._settle);
+    centre._settle = setTimeout(function(){
+      if(raf){ cancelAnimationFrame(raf); raf = null; }
+      if(Math.abs(track.scrollLeft - to) > 1) track.scrollLeft = to;
+    }, dur + 90);
   }
   function render(){
     clips.forEach(function(c, n){
