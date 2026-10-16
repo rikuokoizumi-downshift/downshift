@@ -610,3 +610,18 @@ html[data-theme="night"] .pcard:hover{box-shadow:5px 6px 0 rgba(155,140,255,.3)}
   .pgrid > :first-child{grid-column:auto}
   .pgrid > :first-child h3{font-size:var(--t-lg)}
 }
+
+/* ---- audience page ---------------------------------------------------- */
+.bigico{width:min(240px,100%);margin-left:auto;aspect-ratio:1;display:block}
+.bigico svg{width:100%;height:100%}
+@media (max-width:900px){.bigico{width:150px;margin:0}}
+.xrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gx);margin-top:28px}
+.xcard{display:flex;align-items:center;gap:12px;padding:16px 18px;text-decoration:none;
+  background:var(--surface);border:2px solid var(--line);border-radius:14px;color:var(--text);
+  font-family:var(--marker);font-weight:800;font-size:var(--t-base);
+  transition:border-color .16s ease,transform .16s ease,box-shadow .16s ease}
+.xcard:hover{border-color:var(--accent);transform:translate(-1px,-2px);box-shadow:4px 5px 0 var(--accent)}
+html[data-theme="night"] .xcard:hover{box-shadow:4px 5px 0 rgba(155,140,255,.3)}
+.icobox.sm{width:40px;height:40px;border-radius:10px;padding:5px;box-shadow:2px 3px 0 var(--ink)}
+@media (max-width:900px){.xrow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.xrow{grid-template-columns:minmax(0,1fr)}}
