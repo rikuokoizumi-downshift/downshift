@@ -634,3 +634,21 @@ html[data-theme="night"] .xcard:hover{box-shadow:4px 5px 0 rgba(155,140,255,.3)}
   background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22460%22%20height%3D%22260%22%20viewBox%3D%220%200%20460%20260%22%3E%3Ctext%20x%3D%2240%22%20y%3D%22150%22%20transform%3D%22rotate(-24%2040%20150)%22%20font-family%3D%22Inter%2C%20Segoe%20UI%2C%20system-ui%2C%20sans-serif%22%20font-size%3D%2226%22%20font-weight%3D%22600%22%20letter-spacing%3D%226%22%20fill%3D%22%231E1E28%22%3EPROPOSED%20REVAMP%3C%2Ftext%3E%3C%2Fsvg%3E");
   background-repeat:repeat;opacity:.032;mix-blend-mode:multiply}
 html[data-theme="night"] #plans::after{opacity:.045;filter:invert(1);mix-blend-mode:screen}
+
+/* ---- science page ------------------------------------------------------ */
+.grade{display:inline-block;font-family:var(--ui);font-size:var(--t-xs);font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:99px;white-space:nowrap}
+.g-ok{background:rgba(64,192,87,.16);color:#2B7A3D}
+.g-heur{background:rgba(255,201,51,.22);color:#8A6116}
+.g-der{background:rgba(51,154,240,.16);color:#1C6FB0}
+.g-prod{background:rgba(138,143,152,.18);color:#5A6068}
+html[data-theme="night"] .g-ok{background:rgba(140,227,155,.16);color:#8CE39B}
+html[data-theme="night"] .g-heur{background:rgba(255,212,121,.16);color:#FFD479}
+html[data-theme="night"] .g-der{background:rgba(120,190,255,.16);color:#8FC6FF}
+html[data-theme="night"] .g-prod{background:rgba(244,241,234,.12);color:rgba(244,241,234,.74)}
+.gradecard{display:flex;flex-direction:column;gap:10px;align-items:flex-start;
+  border-top:2px solid var(--line);padding-top:18px}
+.gradecard b{font-family:var(--marker);font-size:var(--t-md);margin-top:auto}
+.ptable.spec th[scope="row"]{font-family:var(--ui);font-weight:600;font-size:var(--t-sm);white-space:nowrap}
+.ptable.spec td{font-size:var(--t-sm);font-weight:300;color:var(--body)}
+.ptable.spec{min-width:680px}
