@@ -582,3 +582,31 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   opacity:.032;mix-blend-mode:multiply}
 html[data-theme="night"] #pricing::after{opacity:.045;filter:invert(1);mix-blend-mode:screen}
 @media print{#pricing::after{opacity:.07}}
+
+/* ---- audience hub (/for/) -------------------------------------------
+   Their five audience pages exist and rank; the parent returns 403, so
+   nothing links them together. This is the index that is missing. */
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gx);margin-top:8px}
+.pgrid > :first-child{grid-column:1 / -1}
+.pcard{display:flex;flex-direction:column;background:var(--surface);border:2px solid var(--line);
+  border-radius:16px;padding:26px 24px;transition:border-color .16s ease,transform .16s ease,box-shadow .16s ease}
+.pcard:hover{border-color:var(--accent);transform:translate(-1px,-2px);box-shadow:5px 6px 0 var(--accent)}
+html[data-theme="night"] .pcard:hover{box-shadow:5px 6px 0 rgba(155,140,255,.3)}
+.pcard-head{display:flex;align-items:center;gap:13px;margin-bottom:16px}
+.pcard-head .tag{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--accent-deep)}
+.pcard h3{font-size:var(--t-lg);letter-spacing:0;margin:0 0 10px}
+.pgrid > :first-child h3{font-size:var(--t-stat);max-width:24ch}
+.plist{list-style:none;margin:16px 0 0;padding:16px 0 0;border-top:1px solid var(--line);
+  display:grid;gap:8px;flex:1 1 auto}
+.plist li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:10px;align-items:baseline;
+  font-size:var(--t-sm);font-weight:300;color:var(--body)}
+.plist i{font-style:normal;color:var(--accent);font-size:var(--t-base)}
+.pcard-go{display:inline-block;margin-top:18px;align-self:flex-start;font-size:var(--t-sm);
+  font-weight:600;text-decoration:none;color:var(--accent-deep)}
+.pcard-go:hover{text-decoration:underline}
+@media (max-width:900px){
+  .pgrid{grid-template-columns:minmax(0,1fr)}
+  .pgrid > :first-child{grid-column:auto}
+  .pgrid > :first-child h3{font-size:var(--t-lg)}
+}
