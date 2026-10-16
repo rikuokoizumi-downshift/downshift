@@ -261,9 +261,11 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
    and would otherwise overflow the page by that amount. */
 :root{--sbw:0px}
 .carousel{position:relative;margin-top:34px;padding:10px 0 4px;
-  width:calc(100vw - var(--sbw));
-  margin-left:calc(50% - ((100vw - var(--sbw)) / 2));
-  margin-right:calc(50% - ((100vw - var(--sbw)) / 2))}
+  /* one inch of bleed past the paragraph column, never past the window */
+  --band:min(calc(100vw - var(--sbw)), calc(var(--max) - (2 * var(--pad)) + 192px));
+  width:var(--band);
+  margin-left:calc(50% - (var(--band) / 2));
+  margin-right:calc(50% - (var(--band) / 2))}
 .ctrack{display:flex;align-items:center;gap:clamp(18px,2.2vw,30px);
   overflow-x:auto;scroll-behavior:auto;scrollbar-width:none;
   /* half a viewport of padding each side, so the first and last card
@@ -273,8 +275,8 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
   -webkit-overflow-scrolling:touch}
 .ctrack::-webkit-scrollbar{display:none}
 /* the row dissolves before the window edge rather than being cut off */
-.ctrack{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 11%,#000 89%,transparent 100%);
-  mask-image:linear-gradient(to right,transparent 0,#000 11%,#000 89%,transparent 100%)}
+.ctrack{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%)}
 .clip{transition:transform .52s cubic-bezier(.22,.8,.26,1),opacity .42s ease;
   transform:scale(.84);opacity:.6;transform-origin:center center}
 .clip.is-active{transform:scale(1.06);opacity:1;z-index:2}
@@ -296,8 +298,8 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
   transition:transform .14s ease,box-shadow .14s ease,opacity .25s ease}
 html[data-theme="night"] .carrow{border-color:var(--line);color:var(--text);box-shadow:3px 4px 0 rgba(155,140,255,.28)}
 .carrow svg{width:22px;height:22px}
-.carrow.prev{left:max(14px,calc(50% - 610px))}
-.carrow.next{right:max(14px,calc(50% - 610px))}
+.carrow.prev{left:6px}
+.carrow.next{right:6px}
 .carrow:hover{transform:translateY(-50%) translate(-1px,-2px);box-shadow:5px 6px 0 var(--ink)}
 .carrow:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px}
 .carrow[hidden]{display:none}
