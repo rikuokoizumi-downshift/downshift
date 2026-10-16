@@ -176,6 +176,7 @@ html[data-theme="night"] .player .screen{border-color:var(--line);box-shadow:5px
 /* the resting state: a board with the title on it, not a blank frame */
 .player .pad{position:absolute;inset:10px;border:0;padding:0;cursor:pointer;background:transparent;border-radius:9px}
 .player.playing .pad{display:none}
+.clip.is-playing .pad{display:none}
 .player .board{position:absolute;inset:0;border-radius:9px;border:1px solid var(--line);
   background-color:var(--paper);
   background-image:radial-gradient(circle,var(--dotb) 1.3px,transparent 1.3px);
@@ -234,20 +235,31 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 .stat span{display:block;font-size:var(--t-sm);color:var(--muted);margin-top:3px}
 
 /* carousel, see .carousel below */
-.carousel{position:relative;margin-top:34px;padding:6px 0 4px}
+/* breaks out of the text column so the row uses the full width */
+.carousel{position:relative;margin-top:34px;padding:10px 0 4px;
+  width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
 .ctrack{display:flex;align-items:center;gap:clamp(18px,2.2vw,30px);
   overflow-x:auto;scroll-behavior:auto;scrollbar-width:none;
   /* half a viewport of padding each side, so the first and last card
      can still reach the middle */
-  padding:4px calc(50% - (clamp(296px,32vw,412px) / 2));
+  padding:14px calc(50% - (clamp(296px,32vw,412px) / 2));
   -webkit-overflow-scrolling:touch}
 .ctrack::-webkit-scrollbar{display:none}
 .clip{transition:transform .52s cubic-bezier(.22,.8,.26,1),opacity .42s ease;
-  transform:scale(.88);opacity:.48;transform-origin:center center}
-.clip.is-active{transform:scale(1);opacity:1}
-/* only the centred card offers play */
-.clip:not(.is-active) .pad{display:none}
+  transform:scale(.84);opacity:.6;transform-origin:center center}
+.clip.is-active{transform:scale(1.06);opacity:1;z-index:2}
+/* watching it grows the card again so the drawing is actually readable */
+.clip.is-active.is-playing{transform:scale(1.16);z-index:3}
+
+/* the title stays on every card. Only the centred one offers play. */
+.clip:not(.is-active) .disc{display:none}
+.clip:not(.is-active) .ttl{opacity:.66}
+.clip:not(.is-active) .pad{cursor:pointer}
 .clip:not(.is-active) .player .screen{cursor:pointer}
+/* the centred title reads as a heading, not a caption */
+.clip.is-active .ttl{font-size:var(--t-lg);max-width:19ch}
+.clip.is-active.is-playing .board{opacity:0;pointer-events:none}
+.clip .board{transition:opacity .3s ease}
 .carrow{position:absolute;top:calc(50% - 34px);transform:translateY(-50%);z-index:3;
   width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);background:var(--surface);
   color:var(--ink);cursor:pointer;display:grid;place-items:center;box-shadow:3px 4px 0 var(--ink);
@@ -958,11 +970,21 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
     track.innerHTML='<span class="ink"></span><span class="done"></span><span class="knob"></span>';
     var time = document.createElement('span');
     time.className='time'; time.textContent='0:00';
+    var full = document.createElement('button');
+    full.type='button'; full.className='full';
+    full.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 15v5h-5M20 9V4h-5M4 15v5h5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    full.setAttribute('aria-label','Full screen');
+    full.addEventListener('click', function(){
+      var el = v;
+      if(document.fullscreenElement){ document.exitFullscreen(); return; }
+      if(el.requestFullscreen) el.requestFullscreen();
+      else if(el.webkitEnterFullscreen) el.webkitEnterFullscreen();
+    });
     var mute = document.createElement('button');
     mute.type='button'; mute.className='mute';
     mute.innerHTML = v.muted ? ICON.off : ICON.on;
     mute.setAttribute('aria-label', v.muted ? 'Unmute' : 'Mute');
-    ctl.appendChild(pp); ctl.appendChild(track); ctl.appendChild(time); ctl.appendChild(mute);
+    ctl.appendChild(pp); ctl.appendChild(track); ctl.appendChild(time); ctl.appendChild(mute); ctl.appendChild(full);
     (fig.querySelector('.screen')||fig).insertAdjacentElement('afterend', ctl);
 
     var done = track.querySelector('.done'), knob = track.querySelector('.knob');
@@ -988,9 +1010,10 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       mute.innerHTML = v.muted ? ICON.off : ICON.on;
       mute.setAttribute('aria-label', v.muted ? 'Unmute' : 'Mute');
     });
-    v.addEventListener('play', function(){ setPlaying(true); });
-    v.addEventListener('pause', function(){ setPlaying(false); });
-    v.addEventListener('ended', function(){ setPlaying(false); fig.classList.remove('playing'); });
+    var card = fig.closest('.clip');
+    v.addEventListener('play', function(){ setPlaying(true); if(card) card.classList.add('is-playing'); });
+    v.addEventListener('pause', function(){ setPlaying(false); if(card) card.classList.remove('is-playing'); });
+    v.addEventListener('ended', function(){ setPlaying(false); fig.classList.remove('playing'); if(card) card.classList.remove('is-playing'); });
     v.addEventListener('timeupdate', paint);
     v.addEventListener('loadedmetadata', paint);
     v.addEventListener('durationchange', paint);
@@ -1035,7 +1058,10 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   function pauseOthers(keep){
     clips.forEach(function(c){
       var v = c.querySelector('video');
-      if(v && c !== keep && !v.paused) v.pause();
+      if(c !== keep){
+        if(v && !v.paused) v.pause();
+        c.classList.remove('is-playing');
+      }
     });
   }
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
