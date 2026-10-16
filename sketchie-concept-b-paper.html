@@ -233,14 +233,28 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 .stat b{display:block;font-family:var(--marker);font-size:var(--t-stat);font-weight:800;letter-spacing:-.02em}
 .stat span{display:block;font-size:var(--t-sm);color:var(--muted);margin-top:3px}
 
-/* the clips were 248px thumbnails packed tight against each other */
-.rail{display:flex;align-items:stretch;gap:clamp(20px,2.4vw,34px);overflow-x:auto;
-  scroll-snap-type:x mandatory;scroll-padding-left:var(--pad);padding:6px 0 22px;margin-top:34px;
-  scrollbar-width:thin;scrollbar-color:var(--line) transparent}
-.rail::-webkit-scrollbar{height:10px}
-.rail::-webkit-scrollbar-track{background:transparent}
-.rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
-.rail::-webkit-scrollbar-thumb:hover{background:var(--graphite)}
+/* carousel, see .carousel below */
+.carousel{position:relative;margin-top:34px;overflow:hidden;padding:6px 0 4px}
+.ctrack{display:flex;align-items:center;gap:clamp(18px,2.2vw,30px);
+  transition:transform .52s cubic-bezier(.22,.8,.26,1);will-change:transform}
+.clip{transition:transform .52s cubic-bezier(.22,.8,.26,1),opacity .42s ease;
+  transform:scale(.88);opacity:.48;transform-origin:center center}
+.clip.is-active{transform:scale(1);opacity:1}
+/* only the centred card offers play */
+.clip:not(.is-active) .pad{display:none}
+.clip:not(.is-active) .player .screen{cursor:pointer}
+.carrow{position:absolute;top:calc(50% - 34px);transform:translateY(-50%);z-index:3;
+  width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);background:var(--surface);
+  color:var(--ink);cursor:pointer;display:grid;place-items:center;box-shadow:3px 4px 0 var(--ink);
+  transition:transform .14s ease,box-shadow .14s ease,opacity .25s ease}
+html[data-theme="night"] .carrow{border-color:var(--line);color:var(--text);box-shadow:3px 4px 0 rgba(155,140,255,.28)}
+.carrow svg{width:22px;height:22px}
+.carrow.prev{left:4px}
+.carrow.next{right:4px}
+.carrow:hover{transform:translateY(-50%) translate(-1px,-2px);box-shadow:5px 6px 0 var(--ink)}
+.carrow:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px}
+.carrow[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){.ctrack,.clip,.carrow{transition:none}}
 .clip{scroll-snap-align:start;flex:0 0 clamp(296px,32vw,412px);display:flex;min-width:0}
 /* an entry point, so the eye has somewhere to land first */
 .clip.lead{flex:0 0 clamp(320px,44vw,566px)}
@@ -538,8 +552,9 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
           <p class="lede" style="margin-top:16px">Nineteen finished explainers are published. These came out of the same pipeline you would be using.</p>
         </div>
       </div>
-      <div class="rail">
-        <article class="clip lead" style="--disc:#6C5CE7">
+      <div class="carousel" data-carousel>
+        <div class="ctrack">
+        <article class="clip" style="--disc:#6C5CE7">
           <figure class="player" data-player>
             <div class="screen">
               <video src="https://private-intel.pages.dev/shared/sketchie/gallery/dns.mp4" preload="none" playsinline controls aria-label="Explainer: how DNS finds a website"></video>
@@ -594,6 +609,13 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
             <figcaption><p class="note">The same video, one edit later.</p></figcaption>
           </figure>
         </article>
+        </div>
+        <button class="carrow prev" type="button" aria-label="Previous explainer" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="carrow next" type="button" aria-label="Next explainer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -991,6 +1013,73 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
     if(ambient) setPlaying(!v.paused);
     paint();
   });
+})();
+
+
+/* ---- explainer carousel ------------------------------------------
+   One card is active and centred. Side cards sit back and are not
+   playable until they are brought to the centre. */
+(function(){
+  var box = document.querySelector('[data-carousel]');
+  if(!box) return;
+  var track = box.querySelector('.ctrack');
+  var clips = [].slice.call(track.querySelectorAll('.clip'));
+  var prev = box.querySelector('.carrow.prev');
+  var next = box.querySelector('.carrow.next');
+  if(!clips.length) return;
+  var i = 0;
+
+  function pauseAll(except){
+    clips.forEach(function(c){
+      var v = c.querySelector('video');
+      if(v && c !== except && !v.paused) v.pause();
+    });
+  }
+  function layout(){
+    var card = clips[i];
+    var centre = box.clientWidth / 2;
+    var target = card.offsetLeft + card.offsetWidth / 2;
+    track.style.transform = 'translateX(' + Math.round(centre - target) + 'px)';
+  }
+  function render(){
+    clips.forEach(function(c, n){
+      var on = n === i;
+      c.classList.toggle('is-active', on);
+      c.setAttribute('aria-hidden', on ? 'false' : 'true');
+      // side cards must not be reachable by tab
+      [].forEach.call(c.querySelectorAll('button,a,video,[tabindex]'), function(el){
+        if(on){ el.removeAttribute('tabindex'); }
+        else { el.setAttribute('tabindex','-1'); }
+      });
+    });
+    prev.hidden = i === 0;
+    next.hidden = i === clips.length - 1;
+    layout();
+  }
+  function go(n){
+    n = Math.max(0, Math.min(clips.length - 1, n));
+    if(n === i) return;
+    i = n;
+    pauseAll(clips[i]);
+    render();
+  }
+  prev.addEventListener('click', function(){ go(i - 1); });
+  next.addEventListener('click', function(){ go(i + 1); });
+  clips.forEach(function(c, n){
+    c.addEventListener('click', function(e){
+      if(n === i) return;                  // the centred card handles its own clicks
+      e.preventDefault(); e.stopPropagation();
+      go(n);
+    }, true);
+  });
+  box.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ go(i + 1); e.preventDefault(); }
+    else if(e.key === 'ArrowLeft'){ go(i - 1); e.preventDefault(); }
+  });
+  var t;
+  window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(layout, 120); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  render();
 })();
 
 </script>
