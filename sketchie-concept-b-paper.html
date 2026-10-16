@@ -8,7 +8,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 /* ---------------------------------------------------------------
    THE REVAMP: the existing site, reorganised. Their colours, their Shantell Sans, their grid; a better order.
@@ -331,27 +331,51 @@ html[data-theme="night"] .clip video,html[data-theme="night"] .clip .vf{border-c
 .clip h4{margin:12px 0 2px}
 .clip p{font-size:var(--t-sm)}
 
-.scenes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gx);margin-top:30px}
-.scene{text-align:left;font:inherit;color:inherit;cursor:pointer;background:var(--surface);
-  border:2px solid var(--line);border-radius:14px;padding:14px;transition:border-color .2s,box-shadow .2s,transform .12s}
-.scene:hover{border-color:var(--accent)}
-.scene[aria-pressed="true"]{border-color:var(--accent);box-shadow:3px 4px 0 var(--accent);transform:translate(-1px,-2px)}
-.scene .n{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
-.scene svg{display:block;width:100%;height:64px;margin:12px 0 10px}
-.scene h4{font-size:var(--t-base);letter-spacing:0}
-.scene p{font-size:var(--t-sm);margin-top:4px}
-.editrow{margin-top:26px;align-items:stretch}
-.request{border:2px solid var(--line);border-left:3px solid var(--accent);border-radius:14px;
-  padding:16px 16px 16px 17px;background:var(--surface);height:100%}
-.request p{color:var(--text);font-size:var(--t-base)}
-.versions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gx)}
-.vcard{border:2px solid var(--line);border-radius:14px;padding:22px;background:var(--surface)}
-.vcard.after{border-color:var(--accent);background:var(--accent-tint)}
-/* 86 units tall rendered at 86px, same 1:1 scale as the scene strip,
-   so a 2.1 stroke is a 2.1 stroke in both */
-.vcard svg{display:block;width:100%;height:86px;margin:12px 0 10px}
-.vcard p{font-size:var(--t-sm)}
-.vtag{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-deep)}
+/* ---- fix one scene -------------------------------------------------
+   A filmstrip for the scenes, then a left to right before / ask / after. */
+.striplabel{font-family:var(--ui);font-weight:300;font-size:var(--t-sm);color:var(--muted);margin:30px 0 14px}
+.filmstrip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gx)}
+.filmstrip li{display:flex}
+.scene{flex:1 1 auto;text-align:left;font:inherit;color:inherit;cursor:pointer;background:transparent;
+  border:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.fboard{position:relative;display:block;aspect-ratio:16/10;border:2px solid var(--line);border-radius:12px;
+  background-color:var(--paper);background-image:radial-gradient(circle,var(--dotb) 1.3px,transparent 1.3px);
+  background-size:22px 22px;display:grid;place-items:center;
+  transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease}
+.fnum{font-family:var(--marker);font-weight:800;font-size:var(--t-stat);color:var(--graphite)}
+.ftitle{font-family:var(--marker);font-weight:800;font-size:var(--t-base);letter-spacing:0;color:var(--text)}
+.fdesc{font-family:var(--ui);font-weight:300;font-size:var(--t-sm);color:var(--muted);margin-top:-6px}
+.scene:hover .fboard{border-color:var(--accent)}
+.scene[aria-pressed="true"] .fboard{border-color:var(--accent);background-color:var(--accent-tint);
+  box-shadow:4px 5px 0 var(--accent);transform:translate(-1px,-2px)}
+.scene[aria-pressed="true"] .fnum{color:var(--accent-deep)}
+.scene:focus-visible .fboard{outline:3px solid var(--accent-deep);outline-offset:3px}
+
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:14px;margin-top:34px}
+.fstep{margin:0;border:2px solid var(--line);border-radius:14px;padding:20px;background:var(--surface);
+  display:flex;flex-direction:column;gap:10px}
+.fstep.ask{border-color:var(--ink);box-shadow:4px 5px 0 var(--ink)}
+html[data-theme="night"] .fstep.ask{border-color:var(--line);box-shadow:4px 5px 0 rgba(155,140,255,.26)}
+.fstep.done{border-color:var(--accent);background:var(--accent-tint)}
+.fcap{display:flex;align-items:center;gap:9px;font-family:var(--ui);font-size:var(--t-xs);font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
+.fico{width:26px;height:26px;flex:0 0 auto;display:block}
+.fico .ski{width:100%;height:100%}
+.fart{margin:2px 0}
+.fart svg{display:block;width:100%;height:76px}
+.askline{font-family:var(--marker);font-weight:800;font-size:var(--t-md);line-height:1.22;color:var(--text);margin:0}
+.farrow{display:grid;place-items:center;color:var(--graphite)}
+.farrow svg{width:30px;height:22px}
+.soft{font-family:var(--ui);font-weight:300;font-size:var(--t-sm);line-height:1.6;color:var(--muted);margin:0}
+.untouched{margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.untouched b{font-weight:600;color:var(--accent-deep)}
+@media (max-width:900px){
+  .filmstrip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow{grid-template-columns:minmax(0,1fr);gap:12px}
+  .farrow{transform:rotate(90deg);height:30px}
+}
+@media (max-width:560px){.filmstrip{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){.fboard{transition:none}}
 .untouched{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:var(--t-sm);color:var(--muted)}
 .untouched b{color:var(--accent-deep);font-weight:600}
 
@@ -486,7 +510,6 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   /* the centring offsets only make sense on the twelve column grid */
   [style*="grid-column:3"],[style*="grid-column:7"]{grid-column:span 6 !important}
   .c7,.c8,.c12,.c5,.c6,.c4,.c3{grid-column:span 6}
-  .scenes{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fcol+.fcol{border-left:0;border-top:2px solid var(--ink)}
   html[data-theme="night"] .fcol+.fcol{border-top-color:var(--line)}
   .beat .b+.b{border-left:0;border-top:2px solid var(--ink)}
@@ -507,7 +530,6 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   .menu summary{padding:7px 11px}
   .btn.sm{padding:8px 12px}
   .c2,.c3,.c4,.c5,.c6,.c7,.c8,.c12{grid-column:span 4}
-  .scenes,.versions{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:430px){
   /* the mark svg carries the name from here down */
@@ -692,52 +714,63 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         </div>
       </div>
 
-      <div class="scenes" role="group" aria-label="Choose a scene to revise">
-        <button class="scene" type="button" aria-pressed="false" data-scene="1">
-          <span class="n">Scene 01</span>
-          <svg viewBox="0 0 148 64" role="img" aria-label="Step one of four in the lookup, highlighted"><path class="sk sk-dim" d="M30 32H39"/><path class="sk sk-dim" d="M34 28l4 4-4 4"/><path class="sk sk-dim" d="M70 32H79"/><path class="sk sk-dim" d="M74 28l4 4-4 4"/><path class="sk sk-dim" d="M110 32H119"/><path class="sk sk-dim" d="M114 28l4 4-4 4"/><rect class="sk sk-a" x="2" y="22" width="26" height="20" rx="5" fill="var(--accent-tint)"/><rect class="sk sk-dim" x="42" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="82" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="122" y="22" width="26" height="20" rx="5"/><circle class="sk sk-a" cx="15" cy="13" r="3" fill="var(--accent)"/></svg>
-          <h4>You type a name</h4><p>The browser has a name, not a location.</p>
-        </button>
-        <button class="scene" type="button" aria-pressed="true" data-scene="2">
-          <span class="n">Scene 02</span>
-          <svg viewBox="0 0 148 64" role="img" aria-label="Step two of four in the lookup, highlighted"><path class="sk sk-a" d="M30 32H39"/><path class="sk sk-a" d="M34 28l4 4-4 4"/><path class="sk sk-dim" d="M70 32H79"/><path class="sk sk-dim" d="M74 28l4 4-4 4"/><path class="sk sk-dim" d="M110 32H119"/><path class="sk sk-dim" d="M114 28l4 4-4 4"/><rect class="sk sk-dim" x="2" y="22" width="26" height="20" rx="5"/><rect class="sk sk-a" x="42" y="22" width="26" height="20" rx="5" fill="var(--accent-tint)"/><rect class="sk sk-dim" x="82" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="122" y="22" width="26" height="20" rx="5"/><circle class="sk sk-a" cx="55" cy="13" r="3" fill="var(--accent)"/></svg>
-          <h4>The resolver asks</h4><p>A lookup goes out on your behalf.</p>
-        </button>
-        <button class="scene" type="button" aria-pressed="false" data-scene="3">
-          <span class="n">Scene 03</span>
-          <svg viewBox="0 0 148 64" role="img" aria-label="Step three of four in the lookup, highlighted"><path class="sk sk-dim" d="M30 32H39"/><path class="sk sk-dim" d="M34 28l4 4-4 4"/><path class="sk sk-a" d="M70 32H79"/><path class="sk sk-a" d="M74 28l4 4-4 4"/><path class="sk sk-dim" d="M110 32H119"/><path class="sk sk-dim" d="M114 28l4 4-4 4"/><rect class="sk sk-dim" x="2" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="42" y="22" width="26" height="20" rx="5"/><rect class="sk sk-a" x="82" y="22" width="26" height="20" rx="5" fill="var(--accent-tint)"/><rect class="sk sk-dim" x="122" y="22" width="26" height="20" rx="5"/><circle class="sk sk-a" cx="95" cy="13" r="3" fill="var(--accent)"/></svg>
-          <h4>An answer returns</h4><p>The name resolves to an address.</p>
-        </button>
-        <button class="scene" type="button" aria-pressed="false" data-scene="4">
-          <span class="n">Scene 04</span>
-          <svg viewBox="0 0 148 64" role="img" aria-label="Step four of four in the lookup, highlighted"><path class="sk sk-dim" d="M30 32H39"/><path class="sk sk-dim" d="M34 28l4 4-4 4"/><path class="sk sk-dim" d="M70 32H79"/><path class="sk sk-dim" d="M74 28l4 4-4 4"/><path class="sk sk-a" d="M110 32H119"/><path class="sk sk-a" d="M114 28l4 4-4 4"/><rect class="sk sk-dim" x="2" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="42" y="22" width="26" height="20" rx="5"/><rect class="sk sk-dim" x="82" y="22" width="26" height="20" rx="5"/><rect class="sk sk-a" x="122" y="22" width="26" height="20" rx="5" fill="var(--accent-tint)"/><circle class="sk sk-a" cx="135" cy="13" r="3" fill="var(--accent)"/></svg>
-          <h4>The page loads</h4><p>Then the retrieval beat asks what happened.</p>
-        </button>
+      <p class="striplabel">One video, four scenes. Pick the one to revise.</p>
+      <ol class="filmstrip" role="group" aria-label="The four scenes of this video">
+        <li>
+          <button class="scene" type="button" aria-pressed="false" data-scene="1">
+            <span class="fboard"><span class="fnum">01</span></span>
+            <span class="ftitle">You type a name</span>
+            <span class="fdesc">The browser has a name, not a location.</span>
+          </button>
+        </li>
+        <li>
+          <button class="scene" type="button" aria-pressed="true" data-scene="2">
+            <span class="fboard"><span class="fnum">02</span></span>
+            <span class="ftitle">The resolver asks</span>
+            <span class="fdesc">A lookup goes out on your behalf.</span>
+          </button>
+        </li>
+        <li>
+          <button class="scene" type="button" aria-pressed="false" data-scene="3">
+            <span class="fboard"><span class="fnum">03</span></span>
+            <span class="ftitle">An answer returns</span>
+            <span class="fdesc">The name resolves to an address.</span>
+          </button>
+        </li>
+        <li>
+          <button class="scene" type="button" aria-pressed="false" data-scene="4">
+            <span class="fboard"><span class="fnum">04</span></span>
+            <span class="ftitle">The page loads</span>
+            <span class="fdesc">Then the retrieval beat asks what happened.</span>
+          </button>
+        </li>
+      </ol>
+
+      <div class="flow">
+        <figure class="fstep">
+          <figcaption class="fcap">Before</figcaption>
+          <div class="fart"><svg viewBox="0 0 148 76" role="img" aria-label="The original scene: one unlabelled box points at another"><path class="sk" d="M51 40H96"/><path class="sk" d="M91 36l4 4-4 4"/><text class="dl" x="74" y="33" text-anchor="middle">asks</text><rect class="sk" x="10" y="28" width="38" height="24" rx="5"/><rect class="sk" x="100" y="28" width="38" height="24" rx="5"/></svg></div>
+          <p class="soft">Correct, but the viewer cannot tell who is asking.</p>
+        </figure>
+
+        <div class="farrow" aria-hidden="true"><svg viewBox="0 0 32 24" aria-hidden="true"><path d="M4 12h22M20 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <figure class="fstep ask">
+          <figcaption class="fcap"><span class="fico"><svg style="--sk-c1:#FFC933" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="pencil"><g class="fills" stroke="none"><g class="fill" data-region="c2"><path d="M60 18 L72 30 L64 38 L52 26 Z" fill="var(--sk-c2, #E8538F)"/></g><g class="fill" data-region="c1"><path d="M52 26 L64 38 L34 68 L22 56 Z" fill="var(--sk-c1, #FFC933)"/></g><g class="fill" data-region="paper"><path d="M22 56 L34 68 L16 74 Z" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="ink"><path d="M20 66 L16 74 L24 71 Z" fill="currentColor"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 18 L72 30 L64 38 L52 26 Z"/><path d="M52 26 L64 38 L34 68 L22 56 Z"/><path d="M22 56 L34 68 L16 74 Z"/></g></svg></span>What you asked for</figcaption>
+          <p id="reqtext" class="askline">"In scene 02, name the resolver and show the request leaving the laptop first."</p>
+          <p class="soft">Plain language. No timeline, no keyframes.</p>
+        </figure>
+
+        <div class="farrow" aria-hidden="true"><svg viewBox="0 0 32 24" aria-hidden="true"><path d="M4 12h22M20 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <figure class="fstep done">
+          <figcaption class="fcap"><span class="fico"><svg style="--sk-c1:#40C057" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="check"><g class="fills" stroke="none"><g class="fill" data-region="c1"><circle cx="48" cy="48" r="35" fill="var(--sk-c1, #40C057)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="48" r="35"/><path d="M31 49 L43 61 L66 36" stroke="var(--sk-paper, #FFFFFF)" stroke-width="8"/></g></svg></span>After, re-rendered</figcaption>
+          <div class="fart"><svg viewBox="0 0 148 76" role="img" aria-label="The revised scene: a named laptop asks a named resolver, and the answer returns on its own line"><path class="sk sk-a" d="M51 36H96"/><path class="sk sk-a" d="M91 32l4 4-4 4"/><text class="dl" x="74" y="29" text-anchor="middle">asks</text><rect class="sk" x="10" y="24" width="38" height="24" rx="5"/><rect class="sk" x="100" y="24" width="38" height="24" rx="5"/><text class="dl" x="29" y="17" text-anchor="middle">laptop</text><text class="dl" x="119" y="17" text-anchor="middle">resolver</text><path class="sk sk-p" d="M96 56H51"/><path class="sk sk-p" d="M56 52l-4 4 4 4"/><text class="dl dl-p" x="74" y="70" text-anchor="middle">answers</text></svg></div>
+          <p class="soft">The laptop sends first, the resolver is named, the answer returns on its own line.</p>
+        </figure>
       </div>
 
-      <div class="g editrow">
-        <div class="c4">
-          <div class="request">
-            <p class="eyebrow" style="margin-bottom:8px">Plain language edit</p>
-            <p id="reqtext">"In scene 02, name the resolver and show the request leaving the laptop first."</p>
-          </div>
-          <p class="untouched">Untouched: <b id="kept">scenes 01, 03 and 04</b>. Their timing, narration and artwork do not change.</p>
-        </div>
-        <div class="c8">
-          <div class="versions">
-            <div class="vcard">
-              <span class="vtag">Version 1</span>
-              <svg viewBox="0 0 148 86" role="img" aria-label="The original scene: one unlabelled box points at another"><path class="sk " d="M51 42H96"/><path class="sk " d="M91 38l4 4-4 4"/><text class="dl" x="74" y="36" text-anchor="middle">asks</text><rect class="sk" x="10" y="30" width="38" height="24" rx="5"/><rect class="sk" x="100" y="30" width="38" height="24" rx="5"/></svg>
-              <p>Correct, but the viewer cannot tell who is asking.</p>
-            </div>
-            <div class="vcard after">
-              <span class="vtag">Version 2, re-rendered</span>
-              <svg viewBox="0 0 148 86" role="img" aria-label="The revised scene: a named laptop asks a named resolver, and the answer returns on its own line"><path class="sk sk-a" d="M51 42H96"/><path class="sk sk-a" d="M91 38l4 4-4 4"/><text class="dl" x="74" y="36" text-anchor="middle">asks</text><rect class="sk" x="10" y="30" width="38" height="24" rx="5"/><rect class="sk" x="100" y="30" width="38" height="24" rx="5"/><text class="dl" x="29" y="23" text-anchor="middle">laptop</text><text class="dl" x="119" y="23" text-anchor="middle">resolver</text><path class="sk sk-p" d="M96 60H51"/><path class="sk sk-p" d="M56 56l-4 4 4 4"/><text class="dl dl-p" x="74" y="73" text-anchor="middle">answers</text></svg>
-              <p>The laptop sends first, the resolver is named, the answer returns on its own line.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <p class="untouched soft">Only that scene re-renders. <b id="kept">Scenes 01, 03 and 04</b> keep their timing, narration and artwork.</p>
     </div>
   </section>
 
