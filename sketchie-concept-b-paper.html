@@ -257,6 +257,9 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
   max-width:100%;
   -webkit-overflow-scrolling:touch}
 .ctrack::-webkit-scrollbar{display:none}
+/* the row dissolves before the window edge rather than being cut off */
+.ctrack{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 11%,#000 89%,transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 11%,#000 89%,transparent 100%)}
 .clip{transition:transform .52s cubic-bezier(.22,.8,.26,1),opacity .42s ease;
   transform:scale(.84);opacity:.6;transform-origin:center center}
 .clip.is-active{transform:scale(1.06);opacity:1;z-index:2}
@@ -278,11 +281,37 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
   transition:transform .14s ease,box-shadow .14s ease,opacity .25s ease}
 html[data-theme="night"] .carrow{border-color:var(--line);color:var(--text);box-shadow:3px 4px 0 rgba(155,140,255,.28)}
 .carrow svg{width:22px;height:22px}
-.carrow.prev{left:4px}
-.carrow.next{right:4px}
+.carrow.prev{left:max(14px,calc(50% - 610px))}
+.carrow.next{right:max(14px,calc(50% - 610px))}
 .carrow:hover{transform:translateY(-50%) translate(-1px,-2px);box-shadow:5px 6px 0 var(--ink)}
 .carrow:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px}
 .carrow[hidden]{display:none}
+
+/* ---- dedicated player ---- */
+.lbox{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:clamp(14px,4vw,48px)}
+.lbox[hidden]{display:none}
+.lbox-scrim{position:absolute;inset:0;background:rgba(18,16,28,.74);backdrop-filter:blur(3px);
+  animation:lbFade .22s ease both}
+.lbox-panel{position:relative;width:min(1060px,100%);animation:lbRise .28s cubic-bezier(.2,.8,.3,1) both}
+.lbox-bar{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.lbox-title{margin:0;flex:1 1 auto;color:#F4F1EA;font-family:var(--marker);font-size:var(--t-lg);font-weight:800}
+.lbox-x{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:2px solid #F4F1EA;background:transparent;
+  color:#F4F1EA;cursor:pointer;display:grid;place-items:center;transition:transform .14s ease,background-color .14s ease}
+.lbox-x svg{width:20px;height:20px}
+.lbox-x:hover{background:rgba(244,241,234,.14);transform:scale(1.05)}
+.lbox-x:focus-visible{outline:3px solid var(--sunny);outline-offset:3px}
+.lbox-player .screen{box-shadow:0 24px 70px rgba(0,0,0,.45)}
+.lbox-player video{aspect-ratio:16/9;width:100%}
+.lbox-player figcaption{margin-top:12px}
+.lbox-player .note{color:rgba(244,241,234,.78)}
+.lbox-player .ctl button{border-color:#F4F1EA;color:#F4F1EA;background:transparent;box-shadow:none}
+.lbox-player .ctl button:hover{background:rgba(244,241,234,.14);transform:none;box-shadow:none}
+.lbox-player .time{color:rgba(244,241,234,.8)}
+.lbox-player .track .ink{background:rgba(244,241,234,.28)}
+body.lb-open{overflow:hidden}
+@keyframes lbFade{from{opacity:0}to{opacity:1}}
+@keyframes lbRise{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.lbox-scrim,.lbox-panel{animation:none}.lbox-x{transition:none}}
 @media (prefers-reduced-motion:reduce){.clip,.carrow{transition:none}}
 .clip{flex:0 0 clamp(296px,32vw,412px);display:flex;min-width:0}
 
@@ -1015,7 +1044,8 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       players.forEach(function(o){ if(o!==fig){ var ov=o.querySelector('video'); if(ov&&!ov.paused&&!o.classList.contains('ambient')) ov.pause(); } });
       var r = v.play(); if(r&&r.catch) r.catch(function(){});
     }
-    if(pad) pad.addEventListener('click', start);
+    // a card in the carousel opens the dedicated player instead
+    if(pad && !fig.closest('.clip')) pad.addEventListener('click', start);
     pp.addEventListener('click', function(){ v.paused ? start() : v.pause(); });
     mute.addEventListener('click', function(){
       v.muted = !v.muted;
@@ -1052,6 +1082,55 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   });
 })();
 
+
+/* ---- dedicated player ---------------------------------------------
+   Opened from a carousel card. Dimmed page behind, close by button,
+   Escape, or a click on the backdrop. Focus returns to the card. */
+(function(){
+  var lb = document.getElementById('lbox');
+  if(!lb) return;
+  var fig = lb.querySelector('.lbox-player');
+  var v = fig.querySelector('video');
+  var titleEl = document.getElementById('lboxTitle');
+  var noteEl = document.getElementById('lboxNote');
+  var opener = null;
+
+  function close(){
+    if(lb.hidden) return;
+    try{ v.pause(); }catch(e){}
+    v.removeAttribute('src'); v.load();
+    lb.hidden = true;
+    document.body.classList.remove('lb-open');
+    if(opener && opener.focus) opener.focus();
+    opener = null;
+  }
+  function open(src, title, note, from){
+    opener = from || null;
+    titleEl.textContent = title || '';
+    noteEl.textContent = note || '';
+    v.src = src;
+    lb.hidden = false;
+    document.body.classList.add('lb-open');
+    var p = v.play(); if(p && p.catch) p.catch(function(){});
+    var x = lb.querySelector('.lbox-x'); if(x) x.focus();
+  }
+  window.sketchieOpenPlayer = open;
+
+  [].forEach.call(lb.querySelectorAll('[data-lbclose]'), function(el){
+    el.addEventListener('click', close);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !lb.hidden) close();
+    if(e.key === 'Tab' && !lb.hidden){
+      // keep focus inside the dialog
+      var f = lb.querySelectorAll('button, video, [tabindex]:not([tabindex="-1"])');
+      if(!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+      else if(!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+    }
+  });
+})();
 
 /* ---- explainer carousel ------------------------------------------
    The centred card is the active one and the only one that offers play.
@@ -1129,6 +1208,21 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
     clearTimeout(go._t);
     go._t = setTimeout(function(){ lock = false; }, 600);
   }
+  // the centred card opens the dedicated player
+  clips.forEach(function(c){
+    var pad = c.querySelector('.pad');
+    if(!pad) return;
+    pad.addEventListener('click', function(e){
+      if(!c.classList.contains('is-active')) return;   // side cards just centre
+      e.preventDefault(); e.stopPropagation();
+      var v = c.querySelector('video');
+      var t = c.querySelector('.ttl'), n = c.querySelector('figcaption .note');
+      if(window.sketchieOpenPlayer && v){
+        window.sketchieOpenPlayer(v.getAttribute('src'), t ? t.textContent.trim() : '',
+          n ? n.textContent.trim() : '', pad);
+      }
+    });
+  });
   prev.addEventListener('click', function(){ go(i - 1); });
   next.addEventListener('click', function(){ go(i + 1); });
   clips.forEach(function(c, n){
@@ -1167,5 +1261,21 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
 })();
 
 </script>
+<!-- dedicated player, opened from the carousel -->
+<div class="lbox" id="lbox" hidden>
+  <div class="lbox-scrim" data-lbclose></div>
+  <div class="lbox-panel" role="dialog" aria-modal="true" aria-labelledby="lboxTitle">
+    <div class="lbox-bar">
+      <h3 id="lboxTitle" class="lbox-title"></h3>
+      <button class="lbox-x" type="button" data-lbclose aria-label="Close player">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <figure class="player lbox-player" data-player>
+      <div class="screen"><video playsinline preload="metadata" controls></video></div>
+      <figcaption><p class="note" id="lboxNote"></p></figcaption>
+    </figure>
+  </div>
+</div>
 </body>
 </html>
