@@ -652,3 +652,5 @@ html[data-theme="night"] .g-prod{background:rgba(244,241,234,.12);color:rgba(244
 .ptable.spec th[scope="row"]{font-family:var(--ui);font-weight:600;font-size:var(--t-sm);white-space:nowrap}
 .ptable.spec td{font-size:var(--t-sm);font-weight:300;color:var(--body)}
 .ptable.spec{min-width:680px}
+/* the important half of a section header, in the hero's violet */
+.hl{color:var(--accent)}

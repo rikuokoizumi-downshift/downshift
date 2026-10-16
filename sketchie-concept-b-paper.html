@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="sketchie-site.css?v=mvb2en05">
+<link rel="stylesheet" href="sketchie-site.css?v=mvb3b292">
 <script>
 (function(){
   var KEY="sketchie-theme";
@@ -163,7 +163,7 @@
     <div class="wrap">
       <div class="g">
         <div class="c7">
-          <h2><span class="sent">Fix one scene.</span> <span class="sent">Not the whole video.</span></h2>
+          <h2><span class="sent">Fix one scene.</span> <span class="sent hl">Not the whole video.</span></h2>
           <p class="lede" style="margin-top:16px">Every scene is addressable. Edit its fields, or describe the change in a sentence, and only that scene re-renders.</p>
         </div>
       </div>
@@ -203,8 +203,8 @@
       <div class="flow">
         <figure class="fstep">
           <figcaption class="fcap">Before</figcaption>
-          <div class="fart"><svg viewBox="0 0 148 76" role="img" aria-label="The original scene: one unlabelled box points at another"><path class="sk" d="M51 40H96"/><path class="sk" d="M91 36l4 4-4 4"/><text class="dl" x="74" y="33" text-anchor="middle">asks</text><rect class="sk" x="10" y="28" width="38" height="24" rx="5"/><rect class="sk" x="100" y="28" width="38" height="24" rx="5"/></svg></div>
-          <p class="soft">Correct, but the viewer cannot tell who is asking.</p>
+          <div class="fart" id="artBefore"><svg viewBox="0 0 148 76" role="img" aria-label="The original scene: one unlabelled box points at another"><path class="sk" d="M51 40H96"/><path class="sk" d="M91 36l4 4-4 4"/><text class="dl" x="74" y="33" text-anchor="middle">asks</text><rect class="sk" x="10" y="28" width="38" height="24" rx="5"/><rect class="sk" x="100" y="28" width="38" height="24" rx="5"/></svg></div>
+          <p class="soft" id="capBefore">Correct, but the viewer cannot tell who is asking.</p>
         </figure>
 
         <div class="farrow" aria-hidden="true"><svg viewBox="0 0 32 24" aria-hidden="true"><path d="M4 12h22M20 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -219,8 +219,8 @@
 
         <figure class="fstep done">
           <figcaption class="fcap"><span class="fico"><svg style="--sk-c1:#40C057" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="check"><g class="fills" stroke="none"><g class="fill" data-region="c1"><circle cx="48" cy="48" r="35" fill="var(--sk-c1, #40C057)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="48" r="35"/><path d="M31 49 L43 61 L66 36" stroke="var(--sk-paper, #FFFFFF)" stroke-width="8"/></g></svg></span>After, re-rendered</figcaption>
-          <div class="fart"><svg viewBox="0 0 148 76" role="img" aria-label="The revised scene: a named laptop asks a named resolver, and the answer returns on its own line"><path class="sk sk-a" d="M51 36H96"/><path class="sk sk-a" d="M91 32l4 4-4 4"/><text class="dl" x="74" y="29" text-anchor="middle">asks</text><rect class="sk" x="10" y="24" width="38" height="24" rx="5"/><rect class="sk" x="100" y="24" width="38" height="24" rx="5"/><text class="dl" x="29" y="17" text-anchor="middle">laptop</text><text class="dl" x="119" y="17" text-anchor="middle">resolver</text><path class="sk sk-p" d="M96 56H51"/><path class="sk sk-p" d="M56 52l-4 4 4 4"/><text class="dl dl-p" x="74" y="70" text-anchor="middle">answers</text></svg></div>
-          <p class="soft">The laptop sends first, the resolver is named, the answer returns on its own line.</p>
+          <div class="fart" id="artAfter"><svg viewBox="0 0 148 76" role="img" aria-label="The revised scene: a named laptop asks a named resolver, and the answer returns on its own line"><path class="sk sk-a" d="M51 36H96"/><path class="sk sk-a" d="M91 32l4 4-4 4"/><text class="dl" x="74" y="29" text-anchor="middle">asks</text><rect class="sk" x="10" y="24" width="38" height="24" rx="5"/><rect class="sk" x="100" y="24" width="38" height="24" rx="5"/><text class="dl" x="29" y="17" text-anchor="middle">laptop</text><text class="dl" x="119" y="17" text-anchor="middle">resolver</text><path class="sk sk-p" d="M96 56H51"/><path class="sk sk-p" d="M56 52l-4 4 4 4"/><text class="dl dl-p" x="74" y="70" text-anchor="middle">answers</text></svg></div>
+          <p class="soft" id="capAfter">The laptop sends first, the resolver is named, and the answer returns on its own line.</p>
         </figure>
       </div>
 
@@ -500,17 +500,34 @@
     "3":['"In scene 03, number the three servers so the order of the answer is obvious."','Scenes 01, 02 and 04'],
     "4":['"In scene 04, hold the question on screen longer before the recap lands."','Scenes 01, 02 and 03']
   };
+  /* the drawings belong to the scene, so they move with it */
+  var art={
+    "1":{b:"<svg viewBox=\"0 0 148 76\" role=\"img\" aria-label=\"A window with the whole name already in it\"><rect class=\"sk \" x=\"26\" y=\"22\" width=\"96\" height=\"38\" rx=\"5\"/><path class=\"sk\" d=\"M26 31h96\"/><text class=\"dl \" x=\"74\" y=\"46\" text-anchor=\"middle\">sketchie.ai</text></svg>",bc:"The whole name is simply there. Nothing shows it being entered.",a:"<svg viewBox=\"0 0 148 76\" role=\"img\" aria-label=\"The name arriving letter by letter while the window stays empty\"><rect class=\"sk \" x=\"26\" y=\"22\" width=\"96\" height=\"38\" rx=\"5\"/><path class=\"sk\" d=\"M26 31h96\"/><text class=\"dl dl-a\" x=\"66\" y=\"46\" text-anchor=\"middle\">sketch</text><path class=\"sk sk-a\" d=\"M94 38v12\"/><text class=\"dl dl-a\" x=\"74\" y=\"70\" text-anchor=\"middle\">typed, letter by letter</text></svg>",ac:"Letters land one at a time, and the window below stays empty until the name is finished."},
+    "2":{b:"<svg viewBox=\"0 0 148 76\" role=\"img\" aria-label=\"Two unlabelled boxes, one pointing at the other\"><path class=\"sk \" d=\"M51 40H91\"/><path class=\"sk \" d=\"M86 36l4 4-4 4\"/><text class=\"dl \" x=\"74\" y=\"33\" text-anchor=\"middle\">asks</text><rect class=\"sk \" x=\"10\" y=\"28\" width=\"38\" height=\"24\" rx=\"5\"/><rect class=\"sk \" x=\"100\" y=\"28\" width=\"38\" height=\"24\" rx=\"5\"/></svg>",bc:"Correct, but the viewer cannot tell who is asking.",a:"<svg viewBox=\"0 0 148 76\" role=\"img\" aria-label=\"A named laptop asks a named resolver, and the answer returns on its own line\"><path class=\"sk sk-a\" d=\"M51 36H91\"/><path class=\"sk sk-a\" d=\"M86 32l4 4-4 4\"/><text class=\"dl \" x=\"74\" y=\"29\" text-anchor=\"middle\">asks</text><rect class=\"sk \" x=\"10\" y=\"24\" width=\"38\" height=\"24\" rx=\"5\"/><rect class=\"sk \" x=\"100\" y=\"24\" width=\"38\" height=\"24\" rx=\"5\"/><text class=\"dl \" x=\"29\" y=\"17\" text-anchor=\"middle\">laptop</text><text class=\"dl \" x=\"119\" y=\"17\" text-anchor=\"middle\">resolver</text><path class=\"sk sk-p\" d=\"M96 56H51\"/><path class=\"sk sk-p\" d=\"M56 52l-4 4 4 4\"/><text class=\"dl dl-p\" x=\"74\" y=\"70\" text-anchor=\"middle\">answers</text></svg>",ac:"The laptop sends first, the resolver is named, and the answer returns on its own line."},
+    "3":{b:"<svg viewBox=\"0 0 148 76\" role=\"img\" aria-label=\"Three identical servers with no order\"><rect class=\"sk \" x=\"46\" y=\"14\" width=\"56\" height=\"14\" rx=\"5\"/><rect class=\"sk \" x=\"46\" y=\"32\" width=\"56\" height=\"14\" rx=\"5\"/><rect class=\"sk \" x=\"46\" y=\"50\" width=\"56\" height=\"14\" rx=\"5\"/></svg>",bc:"Three servers, no order. The route the answer took is guesswork.",a:"<svg viewBox=\"0 0 148 76\" role=\"img\" aria-label=\"Three numbered servers showing the order the answer travelled\"><rect class=\"sk \" x=\"46\" y=\"14\" width=\"56\" height=\"14\" rx=\"5\"/><rect class=\"sk \" x=\"46\" y=\"32\" width=\"56\" height=\"14\" rx=\"5\"/><rect class=\"sk \" x=\"46\" y=\"50\" width=\"56\" height=\"14\" rx=\"5\"/><text class=\"dl dl-a\" x=\"36\" y=\"25\" text-anchor=\"middle\">1</text><text class=\"dl dl-a\" x=\"36\" y=\"43\" text-anchor=\"middle\">2</text><text class=\"dl dl-a\" x=\"36\" y=\"61\" text-anchor=\"middle\">3</text><path class=\"sk sk-a\" d=\"M110 21h14v36h-14\"/><path class=\"sk sk-a\" d=\"M115 53l-5 4 5 4\"/></svg>",ac:"Numbered in the order they answer, so the path is readable at a glance."},
+    "4":{b:"<svg viewBox=\"0 0 148 76\" role=\"img\" aria-label=\"A question followed immediately by the recap\"><rect class=\"sk \" x=\"10\" y=\"28\" width=\"52\" height=\"24\" rx=\"5\"/><text class=\"dl \" x=\"36\" y=\"43\" text-anchor=\"middle\">question</text><path class=\"sk \" d=\"M65 40H91\"/><path class=\"sk \" d=\"M86 36l4 4-4 4\"/><rect class=\"sk \" x=\"96\" y=\"28\" width=\"42\" height=\"24\" rx=\"5\"/><text class=\"dl \" x=\"117\" y=\"43\" text-anchor=\"middle\">recap</text></svg>",bc:"The recap lands immediately. There is no room to answer it yourself.",a:"<svg viewBox=\"0 0 148 76\" role=\"img\" aria-label=\"A question, a held pause, then the recap\"><rect class=\"sk \" x=\"6\" y=\"28\" width=\"44\" height=\"24\" rx=\"5\"/><text class=\"dl \" x=\"28\" y=\"43\" text-anchor=\"middle\">question</text><path class=\"sk sk-a\" d=\"M53 40H67\"/><path class=\"sk sk-a\" d=\"M62 36l4 4-4 4\"/><path class=\"sk sk-a\" d=\"M74 30v20\"/><path class=\"sk sk-a\" d=\"M82 30v20\"/><text class=\"dl dl-a\" x=\"78\" y=\"70\" text-anchor=\"middle\">held</text><path class=\"sk sk-a\" d=\"M86 40H99\"/><path class=\"sk sk-a\" d=\"M94 36l4 4-4 4\"/><rect class=\"sk \" x=\"104\" y=\"28\" width=\"38\" height=\"24\" rx=\"5\"/><text class=\"dl \" x=\"123\" y=\"43\" text-anchor=\"middle\">recap</text></svg>",ac:"The question holds for a beat and a half, so the answer is theirs before the recap arrives."}
+  };
   var scenes=document.querySelectorAll(".scene");
   var req=document.getElementById("reqtext");
   var kept=document.getElementById("kept");
+  var artB=document.getElementById("artBefore"), artA=document.getElementById("artAfter");
+  var capB=document.getElementById("capBefore"), capA=document.getElementById("capAfter");
+  function show(n){
+    var e=edits[n], g=art[n];
+    if(e){ if(req){req.textContent=e[0]} if(kept){kept.textContent=e[1]} }
+    if(g){
+      if(artB){artB.innerHTML=g.b} if(capB){capB.textContent=g.bc}
+      if(artA){artA.innerHTML=g.a} if(capA){capA.textContent=g.ac}
+    }
+  }
   scenes.forEach(function(b){
     b.addEventListener("click",function(){
       scenes.forEach(function(x){x.setAttribute("aria-pressed","false")});
       b.setAttribute("aria-pressed","true");
-      var e=edits[b.getAttribute("data-scene")];
-      if(e){ if(req){req.textContent=e[0]} if(kept){kept.textContent=e[1]} }
+      show(b.getAttribute("data-scene"));
     });
   });
+  show("2");
 
   document.querySelectorAll("video").forEach(function(v){
     function swap(){
