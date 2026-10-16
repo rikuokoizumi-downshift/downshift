@@ -10,13 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#0B0B0D;--panel:#131317;--ink:#F2F0EA;--body:rgba(242,240,234,.72);--faint:rgba(242,240,234,.56);
-  --rule:rgba(242,240,234,.14);--accent:#D8FF3E;--accent-soft:rgba(216,255,62,.12);
+  /* night, carried on the Sketchie violet rather than the retired acid green */
+  --paper:#151121;--panel:#1D1830;--ink:#F4F1EA;--body:rgba(244,241,234,.74);--faint:rgba(244,241,234,.58);
+  --rule:rgba(244,241,234,.16);--accent:#9B8CFF;--accent-soft:rgba(155,140,255,.16);
   --sans:"Space Grotesk",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
 }
 html[data-theme="day"]{
-  --paper:#FBFBF9;--panel:#fff;--ink:#15161A;--body:#4A4F57;--faint:#5F656D;
-  --rule:#E2E2DC;--accent:#0F6E5C;--accent-soft:#E6F2EE;
+  /* their warm paper, their ink, their violet */
+  --paper:#FBF8F3;--panel:#FFFFFF;--ink:#1E1E28;--body:#4A4F57;--faint:#5F656D;
+  --rule:#E6E1D8;--accent:#6C5CE7;--accent-soft:#F3F0FF;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
@@ -60,12 +62,6 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
 .switch:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.switch,.switch .knob{transition:none}}
 .tabs .switch{border-radius:999px;padding:0}
-.aside{display:flex;align-items:center;gap:6px;flex-wrap:wrap;width:100%;padding-top:4px;border-top:1px solid var(--rule);margin-top:2px}
-.aside .lbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
-.aside button{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;
-  border:1px dashed var(--rule);border-radius:6px;background:transparent;color:var(--faint);cursor:pointer}
-.aside button:hover{border-style:solid;border-color:var(--accent);color:var(--accent)}
-.aside button.on{border-style:solid;border-color:var(--accent);color:var(--accent)}
 </style>
 <script>
 (function(){var KEY="sketchie-hub-theme";var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}document.documentElement.setAttribute("data-theme",saved||"day");})();
@@ -83,10 +79,6 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
     <button class="switch" type="button" id="themeToggle" role="switch" aria-checked="false" aria-label="Night mode"><span class="knob"></span></button>
     <a id="open" href="sketchie-concept-b-paper.html">Open full</a>
   </nav>
-  <nav class="aside" aria-label="Set aside">
-    <span class="lbl">Set aside</span>
-    <button type="button" data-src="sketchie-concept-c.html">Neon rebrand</button>
-  </nav>
 </div>
 
 <iframe class="frame" id="frame" title="Sketchie site revamp"></iframe>
@@ -98,7 +90,6 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
     <ul>
       <li><a href="sketchie-concept-b-paper.html">The revamp</a></li>
       <li><a href="sketchie-sitemap-report.html">Structure and site map</a></li>
-      <li><a href="sketchie-concept-c.html">Set aside: neon rebrand</a></li>
       <li><a href="sketchie-brand-case.html">The case for revamping</a></li>
     </ul>
   </div>
