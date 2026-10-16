@@ -577,6 +577,16 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
 .switch:hover{border-color:var(--accent)}
 .switch:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.switch,.switch .knob{transition:none}}
+/* ---- watermark -----------------------------------------------------
+   Light enough to read straight through, present enough that a
+   screenshot of this mock is never mistaken for sketchie.ai. */
+body::after{
+  content:"";position:fixed;inset:0;z-index:60;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22460%22%20height%3D%22260%22%20viewBox%3D%220%200%20460%20260%22%3E%3Ctext%20x%3D%2240%22%20y%3D%22150%22%20transform%3D%22rotate(-24%2040%20150)%22%20font-family%3D%22Inter%2C%20Segoe%20UI%2C%20system-ui%2C%20sans-serif%22%20font-size%3D%2226%22%20font-weight%3D%22600%22%20letter-spacing%3D%226%22%20fill%3D%22%231E1E28%22%3EPROPOSED%20REVAMP%3C%2Ftext%3E%3C%2Fsvg%3E");
+  background-repeat:repeat;background-position:0 0;
+  opacity:.05;mix-blend-mode:multiply}
+html[data-theme="night"] body::after{opacity:.07;filter:invert(1);mix-blend-mode:screen}
+@media print{body::after{opacity:.1}}
 </style>
 <script>
 (function(){
