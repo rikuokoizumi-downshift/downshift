@@ -236,7 +236,7 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 /* carousel, see .carousel below */
 .carousel{position:relative;margin-top:34px;padding:6px 0 4px}
 .ctrack{display:flex;align-items:center;gap:clamp(18px,2.2vw,30px);
-  overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;
+  overflow-x:auto;scroll-behavior:auto;scrollbar-width:none;
   /* half a viewport of padding each side, so the first and last card
      can still reach the middle */
   padding:4px calc(50% - (clamp(296px,32vw,412px) / 2));
@@ -259,7 +259,7 @@ html[data-theme="night"] .carrow{border-color:var(--line);color:var(--text);box-
 .carrow:hover{transform:translateY(-50%) translate(-1px,-2px);box-shadow:5px 6px 0 var(--ink)}
 .carrow:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px}
 .carrow[hidden]{display:none}
-@media (prefers-reduced-motion:reduce){.ctrack{scroll-behavior:auto}.clip,.carrow{transition:none}}
+@media (prefers-reduced-motion:reduce){.clip,.carrow{transition:none}}
 .clip{flex:0 0 clamp(296px,32vw,412px);display:flex;min-width:0}
 
 .clip > .player{flex:1 1 auto;width:100%;min-width:0}
@@ -1038,17 +1038,24 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       if(v && c !== keep && !v.paused) v.pause();
     });
   }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var raf;
   function centre(n, smooth){
     var card = clips[n];
-    var left = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
-    if(smooth === false){
-      var prevBehavior = track.style.scrollBehavior;
-      track.style.scrollBehavior = 'auto';
-      track.scrollLeft = left;
-      track.style.scrollBehavior = prevBehavior;
-    } else {
-      track.scrollLeft = left;
+    var to = Math.max(0, Math.min(track.scrollWidth - track.clientWidth,
+      card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2));
+    if(raf) cancelAnimationFrame(raf);
+    if(smooth === false || reduce){ track.scrollLeft = to; return; }
+    var from = track.scrollLeft, t0 = null, dur = 420;
+    if(Math.abs(to - from) < 1) return;
+    function step(ts){
+      if(t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      var e = p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3) / 2;   // easeInOutCubic
+      track.scrollLeft = from + (to - from) * e;
+      if(p < 1) raf = requestAnimationFrame(step); else raf = null;
     }
+    raf = requestAnimationFrame(step);
   }
   function render(){
     clips.forEach(function(c, n){
