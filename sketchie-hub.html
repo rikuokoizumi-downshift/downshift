@@ -89,7 +89,7 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
   </nav>
 </div>
 
-<iframe class="frame" id="frame" src="sketchie-concept-b-paper.html" title="Sketchie site revamp"></iframe>
+<iframe class="frame" id="frame" title="Sketchie site revamp"></iframe>
 
 <noscript>
   <div class="fallback">
@@ -113,7 +113,10 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
   var open=document.getElementById("open");
   // only buttons that name a view are tabs; the theme switch is not one
   var btns=[].slice.call(document.querySelectorAll("button[data-src]"));
-  function withTheme(src){return src}
+  // the framed page is republished constantly; without a changing query the
+  // browser keeps serving its cached copy however often the hub is refreshed
+  var stamp = Date.now();
+  function withTheme(src){return src + (src.indexOf('?') < 0 ? '?' : '&') + 'v=' + stamp}
   function show(src,btn){
     if(!src){return}
     frame.src=withTheme(src);
@@ -132,6 +135,10 @@ html{scrollbar-width:thin;scrollbar-color:var(--accent) var(--panel)}
     paint();
 
   }
+  // first load goes through the same stamping as every tab switch
+  frame.src=withTheme("sketchie-concept-b-paper.html");
+  open.href=withTheme("sketchie-concept-b-paper.html");
+
   paint();
   tbtn.addEventListener("click",function(){setTheme(theme()==="day"?"night":"day")});
 
