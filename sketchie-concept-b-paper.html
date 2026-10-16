@@ -921,6 +921,22 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   </div>
 </footer>
 
+<!-- dedicated player, opened from the carousel -->
+<div class="lbox" id="lbox" hidden>
+  <div class="lbox-scrim" data-lbclose></div>
+  <div class="lbox-panel" role="dialog" aria-modal="true" aria-labelledby="lboxTitle">
+    <div class="lbox-bar">
+      <h3 id="lboxTitle" class="lbox-title"></h3>
+      <button class="lbox-x" type="button" data-lbclose aria-label="Close player">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <figure class="player lbox-player" data-player>
+      <div class="screen"><video playsinline preload="metadata" controls></video></div>
+      <figcaption><p class="note" id="lboxNote"></p></figcaption>
+    </figure>
+  </div>
+</div>
 <script>
 (function(){
   var KEY="sketchie-theme";
@@ -1261,21 +1277,5 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
 })();
 
 </script>
-<!-- dedicated player, opened from the carousel -->
-<div class="lbox" id="lbox" hidden>
-  <div class="lbox-scrim" data-lbclose></div>
-  <div class="lbox-panel" role="dialog" aria-modal="true" aria-labelledby="lboxTitle">
-    <div class="lbox-bar">
-      <h3 id="lboxTitle" class="lbox-title"></h3>
-      <button class="lbox-x" type="button" data-lbclose aria-label="Close player">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <figure class="player lbox-player" data-player>
-      <div class="screen"><video playsinline preload="metadata" controls></video></div>
-      <figcaption><p class="note" id="lboxNote"></p></figcaption>
-    </figure>
-  </div>
-</div>
 </body>
 </html>
