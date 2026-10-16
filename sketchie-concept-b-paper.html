@@ -235,14 +235,20 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 .stat span{display:block;font-size:var(--t-sm);color:var(--muted);margin-top:3px}
 
 /* carousel, see .carousel below */
-/* breaks out of the text column so the row uses the full width */
+/* breaks out of the text column so the row uses the full width.
+   --sbw is the scrollbar width, measured in JS, because 100vw includes it
+   and would otherwise overflow the page by that amount. */
+:root{--sbw:0px}
 .carousel{position:relative;margin-top:34px;padding:10px 0 4px;
-  width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+  width:calc(100vw - var(--sbw));
+  margin-left:calc(50% - ((100vw - var(--sbw)) / 2));
+  margin-right:calc(50% - ((100vw - var(--sbw)) / 2))}
 .ctrack{display:flex;align-items:center;gap:clamp(18px,2.2vw,30px);
   overflow-x:auto;scroll-behavior:auto;scrollbar-width:none;
   /* half a viewport of padding each side, so the first and last card
      can still reach the middle */
   padding:14px calc(50% - (clamp(296px,32vw,412px) / 2));
+  max-width:100%;
   -webkit-overflow-scrolling:touch}
 .ctrack::-webkit-scrollbar{display:none}
 .clip{transition:transform .52s cubic-bezier(.22,.8,.26,1),opacity .42s ease;
@@ -1054,6 +1060,11 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   var next = box.querySelector('.carrow.next');
   if(!clips.length) return;
   var i = 0, lock = false;
+  function sbw(){
+    document.documentElement.style.setProperty('--sbw',
+      (window.innerWidth - document.documentElement.clientWidth) + 'px');
+  }
+  sbw();
 
   function pauseOthers(keep){
     clips.forEach(function(c){
@@ -1142,7 +1153,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   });
   var rt;
   window.addEventListener('resize', function(){
-    clearTimeout(rt); rt = setTimeout(function(){ go(i, false); }, 140);
+    clearTimeout(rt); rt = setTimeout(function(){ sbw(); go(i, false); }, 140);
   });
   render();
   centre(0, false);
