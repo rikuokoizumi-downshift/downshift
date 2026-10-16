@@ -157,7 +157,11 @@ html[data-theme="night"] .menupanel{border-color:var(--line)}
 
 .hero{padding-top:clamp(34px,5vw,64px)}
 .hero h1{margin:14px 0 18px}
-.hero .lede{max-width:40ch}
+.hero .lede{max-width:34ch}
+/* the copy block sits against the middle of the video rather than
+   leaving all of the slack beneath the buttons */
+.herocopy{align-self:center}
+@media (max-width:900px){.herocopy{align-self:start}}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .undercta{margin-top:14px;font-size:var(--t-sm);color:var(--graphite)}
 
@@ -231,6 +235,8 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 .frame .vf{display:grid;place-items:center;text-align:center;padding:20px;color:var(--graphite);font-size:var(--t-sm)}
 .framebar{display:flex;justify-content:space-between;gap:10px;padding:2px 4px 10px;font-size:var(--t-xs);color:var(--graphite)}
 .stats{margin-top:clamp(28px,4vw,52px);border-top:1px solid var(--line);padding-top:20px}
+.sico{display:block;width:38px;height:38px;margin-bottom:12px}
+.sico .ski{width:100%;height:100%}
 .stat b{display:block;font-family:var(--marker);font-size:var(--t-stat);font-weight:800;letter-spacing:-.02em}
 .stat span{display:block;font-size:var(--t-sm);color:var(--muted);margin-top:3px}
 
@@ -539,14 +545,14 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         <p class="eyebrow">Whiteboard explainers</p>
         <h1>Amazing explainer videos, <span class="accent">under a minute<svg viewBox="0 0 200 20" fill="none" aria-hidden="true"><path d="M6 14 C60 7 140 7 194 11" stroke="#FFC933" stroke-width="8" stroke-linecap="round"/></svg></span></h1>
       </div>
-      <div class="c6" style="margin-top:6px">
+      <div class="c5 herocopy">
         <p class="lede">Type a prompt or drop a document. Sketchie writes, draws and narrates it, for a fraction of the usual cost.</p>
         <div class="cta">
           <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
           <a class="btn ghost" href="#wedge">See scene editing</a>
         </div>
       </div>
-      <div class="c6">
+      <div class="c7">
         <div class="frame">
           <div class="framebar"><span>recursion-explainer.mp4</span><span>6 scenes</span></div>
           <video src="https://sketchie.ai/videos/recursion-ours.mp4" autoplay muted loop playsinline preload="metadata" aria-label="A Sketchie explainer about recursion, drawing itself"></video>
@@ -555,10 +561,10 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       </div>
 
       <div class="c12 stats g">
-        <div class="stat c3"><b>About a minute</b><span>Script, drawing, narration and word timing</span></div>
-        <div class="stat c3"><b>Scene editable</b><span>Fix one scene, not the whole video</span></div>
-        <div class="stat c3"><b>Six minutes, max</b><span>A deliberate cap. Longer becomes a series</span></div>
-        <div class="stat c3"><b>From $9.99</b><span>Rendered minutes are the only meter</span></div>
+        <div class="stat c3"><span class="sico"><svg style="--sk-c1:#FFC933" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="clock"><g class="fills" stroke="none"><g class="fill" data-region="paper"><circle cx="48" cy="48" r="35" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="ink"><circle cx="48" cy="48" r="3" fill="currentColor"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="48" r="35"/><line x1="48" y1="20" x2="48" y2="26"/><line x1="76" y1="48" x2="70" y2="48"/><line x1="48" y1="76" x2="48" y2="70"/><line x1="20" y1="48" x2="26" y2="48"/><line x1="48" y1="48" x2="48" y2="28" stroke-width="6"/><line x1="48" y1="48" x2="62" y2="55" stroke-width="6"/></g></svg></span><b>About a minute</b><span>Script, drawing, narration and word timing</span></div>
+        <div class="stat c3"><span class="sico"><svg style="--sk-c1:#6C5CE7" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="puzzle"><g class="fills" stroke="none"><g class="fill" data-region="c1"><path d="M20 30 H37 A10 10 0 1 1 57 30 H74 V47 A10 10 0 1 1 74 67 V84 H20 Z" fill="var(--sk-c1, #40C057)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 30 H37 A10 10 0 1 1 57 30 H74 V47 A10 10 0 1 1 74 67 V84 H20 Z"/></g></svg></span><b>Scene editable</b><span>Fix one scene, not the whole video</span></div>
+        <div class="stat c3"><span class="sico"><svg style="--sk-c1:#FF6B5B" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="hourglass"><g class="fills" stroke="none"><g class="fill" data-region="c1"><path d="M40 26 H56 C56 32 52 36 48 40 C44 36 40 32 40 26 Z" fill="var(--sk-c1, #FFC933)"/><path d="M36 72 H60 C58 64 52 60 48 58 C44 60 38 64 36 72 Z" fill="var(--sk-c1, #FFC933)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M28 12 H68 V22 C68 32 56 38 52 44 V52 C56 58 68 64 68 74 V84 H28 V74 C28 64 40 58 44 52 V44 C40 38 28 32 28 22 Z"/><line x1="24" y1="12" x2="72" y2="12" stroke-width="6"/><line x1="24" y1="84" x2="72" y2="84" stroke-width="6"/></g></svg></span><b>Six minutes, max</b><span>A deliberate cap. Longer becomes a series</span></div>
+        <div class="stat c3"><span class="sico"><svg style="--sk-c1:#40C057" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="gauge"><g class="fills" stroke="none"><g class="fill" data-region="paper"><path d="M14 70 A34 34 0 1 1 82 70" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><circle cx="48" cy="70" r="5" fill="var(--sk-c1, #339AF0)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 70 A34 34 0 1 1 82 70"/><line x1="14" y1="70" x2="82" y2="70"/><line x1="26" y1="42" x2="32" y2="46"/><line x1="48" y1="34" x2="48" y2="41"/><line x1="70" y1="42" x2="64" y2="46"/><line x1="48" y1="70" x2="66" y2="46" stroke="var(--sk-c2, #FF6B5B)" stroke-width="6"/><circle cx="48" cy="70" r="5"/></g></svg></span><b>From $9.99</b><span>Rendered minutes are the only meter</span></div>
       </div>
     </div>
   </section>
