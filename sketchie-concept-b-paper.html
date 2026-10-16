@@ -1268,6 +1268,9 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
       (window.innerWidth - document.documentElement.clientWidth) + 'px');
   }
   sbw();
+  window.addEventListener("load", sbw);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(sbw);
+  setTimeout(sbw, 800);
 
   function pauseOthers(keep){
     clips.forEach(function(c){
