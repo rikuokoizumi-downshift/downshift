@@ -234,9 +234,14 @@ html[data-theme="night"] .frame{border-color:var(--line);box-shadow:none}
 .stat span{display:block;font-size:var(--t-sm);color:var(--muted);margin-top:3px}
 
 /* carousel, see .carousel below */
-.carousel{position:relative;margin-top:34px;overflow:hidden;padding:6px 0 4px}
+.carousel{position:relative;margin-top:34px;padding:6px 0 4px}
 .ctrack{display:flex;align-items:center;gap:clamp(18px,2.2vw,30px);
-  transition:transform .52s cubic-bezier(.22,.8,.26,1);will-change:transform}
+  overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;
+  /* half a viewport of padding each side, so the first and last card
+     can still reach the middle */
+  padding:4px calc(50% - (clamp(296px,32vw,412px) / 2));
+  -webkit-overflow-scrolling:touch}
+.ctrack::-webkit-scrollbar{display:none}
 .clip{transition:transform .52s cubic-bezier(.22,.8,.26,1),opacity .42s ease;
   transform:scale(.88);opacity:.48;transform-origin:center center}
 .clip.is-active{transform:scale(1);opacity:1}
@@ -254,12 +259,9 @@ html[data-theme="night"] .carrow{border-color:var(--line);color:var(--text);box-
 .carrow:hover{transform:translateY(-50%) translate(-1px,-2px);box-shadow:5px 6px 0 var(--ink)}
 .carrow:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px}
 .carrow[hidden]{display:none}
-@media (prefers-reduced-motion:reduce){.ctrack,.clip,.carrow{transition:none}}
-.clip{scroll-snap-align:start;flex:0 0 clamp(296px,32vw,412px);display:flex;min-width:0}
-/* an entry point, so the eye has somewhere to land first */
-.clip.lead{flex:0 0 clamp(320px,44vw,566px)}
-.clip.lead .disc{width:68px;height:68px}
-.clip.lead .ttl{font-size:var(--t-lg);max-width:20ch}
+@media (prefers-reduced-motion:reduce){.ctrack{scroll-behavior:auto}.clip,.carrow{transition:none}}
+.clip{flex:0 0 clamp(296px,32vw,412px);display:flex;min-width:0}
+
 .clip > .player{flex:1 1 auto;width:100%;min-width:0}
 .clip video,.clip .vf{width:100%;aspect-ratio:16/9;border-radius:12px;border:2px solid var(--ink);display:block;background:var(--surface)}
 html[data-theme="night"] .clip video,html[data-theme="night"] .clip .vf{border-color:var(--line)}
@@ -1017,8 +1019,9 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
 
 
 /* ---- explainer carousel ------------------------------------------
-   One card is active and centred. Side cards sit back and are not
-   playable until they are brought to the centre. */
+   The centred card is the active one and the only one that offers play.
+   Driven by scrollLeft rather than a transform: native swipe, and it
+   survives whatever was eating the track transform. */
 (function(){
   var box = document.querySelector('[data-carousel]');
   if(!box) return;
@@ -1027,47 +1030,52 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   var prev = box.querySelector('.carrow.prev');
   var next = box.querySelector('.carrow.next');
   if(!clips.length) return;
-  var i = 0;
+  var i = 0, lock = false;
 
-  function pauseAll(except){
+  function pauseOthers(keep){
     clips.forEach(function(c){
       var v = c.querySelector('video');
-      if(v && c !== except && !v.paused) v.pause();
+      if(v && c !== keep && !v.paused) v.pause();
     });
   }
-  function layout(){
-    var card = clips[i];
-    var centre = box.clientWidth / 2;
-    var target = card.offsetLeft + card.offsetWidth / 2;
-    track.style.transform = 'translateX(' + Math.round(centre - target) + 'px)';
+  function centre(n, smooth){
+    var card = clips[n];
+    var left = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
+    if(smooth === false){
+      var prevBehavior = track.style.scrollBehavior;
+      track.style.scrollBehavior = 'auto';
+      track.scrollLeft = left;
+      track.style.scrollBehavior = prevBehavior;
+    } else {
+      track.scrollLeft = left;
+    }
   }
   function render(){
     clips.forEach(function(c, n){
       var on = n === i;
       c.classList.toggle('is-active', on);
-      c.setAttribute('aria-hidden', on ? 'false' : 'true');
-      // side cards must not be reachable by tab
-      [].forEach.call(c.querySelectorAll('button,a,video,[tabindex]'), function(el){
-        if(on){ el.removeAttribute('tabindex'); }
-        else { el.setAttribute('tabindex','-1'); }
+      [].forEach.call(c.querySelectorAll('button,a,video'), function(el){
+        if(on) el.removeAttribute('tabindex'); else el.setAttribute('tabindex','-1');
       });
     });
     prev.hidden = i === 0;
     next.hidden = i === clips.length - 1;
-    layout();
   }
-  function go(n){
+  function go(n, smooth){
     n = Math.max(0, Math.min(clips.length - 1, n));
-    if(n === i) return;
     i = n;
-    pauseAll(clips[i]);
+    pauseOthers(clips[i]);
     render();
+    lock = true;
+    centre(i, smooth);
+    clearTimeout(go._t);
+    go._t = setTimeout(function(){ lock = false; }, 600);
   }
   prev.addEventListener('click', function(){ go(i - 1); });
   next.addEventListener('click', function(){ go(i + 1); });
   clips.forEach(function(c, n){
     c.addEventListener('click', function(e){
-      if(n === i) return;                  // the centred card handles its own clicks
+      if(n === i) return;
       e.preventDefault(); e.stopPropagation();
       go(n);
     }, true);
@@ -1076,10 +1084,28 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
     if(e.key === 'ArrowRight'){ go(i + 1); e.preventDefault(); }
     else if(e.key === 'ArrowLeft'){ go(i - 1); e.preventDefault(); }
   });
-  var t;
-  window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(layout, 120); });
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  // a swipe or trackpad scroll picks whichever card is nearest the middle
+  var st;
+  track.addEventListener('scroll', function(){
+    if(lock) return;
+    clearTimeout(st);
+    st = setTimeout(function(){
+      var mid = track.scrollLeft + track.clientWidth / 2;
+      var best = 0, dist = Infinity;
+      clips.forEach(function(c, n){
+        var d = Math.abs((c.offsetLeft + c.offsetWidth / 2) - mid);
+        if(d < dist){ dist = d; best = n; }
+      });
+      if(best !== i){ i = best; pauseOthers(clips[i]); render(); }
+    }, 110);
+  });
+  var rt;
+  window.addEventListener('resize', function(){
+    clearTimeout(rt); rt = setTimeout(function(){ go(i, false); }, 140);
+  });
   render();
+  centre(0, false);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ centre(i, false); });
 })();
 
 </script>
