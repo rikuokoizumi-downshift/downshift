@@ -444,6 +444,25 @@ html[data-theme="night"] .who:hover .icobox{box-shadow:5px 6px 0 rgba(155,140,25
 
 /* the price table now sits in a panel of the same weight as the free card,
    so the row reads as a matched pair instead of a box beside loose rows */
+/* three launch plans, from the pricing proposal */
+.plan{height:100%;display:flex;flex-direction:column;gap:0;background:var(--surface);
+  border:2px solid var(--line);border-radius:16px;padding:24px 22px}
+.plan.featured{border-color:var(--accent);box-shadow:5px 6px 0 var(--accent)}
+html[data-theme="night"] .plan.featured{box-shadow:5px 6px 0 rgba(155,140,255,.4)}
+.planname{font-family:var(--ui);font-size:var(--t-xs);font-weight:700;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--accent-deep)}
+.planprice{font-family:var(--marker);font-weight:800;font-size:var(--t-h2);line-height:1;margin:12px 0 0;
+  display:flex;align-items:baseline;gap:9px}
+.planprice span{font-family:var(--ui);font-weight:300;font-size:var(--t-sm);color:var(--muted)}
+.plancredits{font-family:var(--marker);font-weight:800;font-size:var(--t-md);color:var(--accent-deep);margin:10px 0 0}
+.planwho{font-size:var(--t-sm);color:var(--muted);font-weight:300;margin:12px 0 0;flex:1 1 auto}
+.planvids{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line)}
+.planvids dt{font-family:var(--ui);font-size:var(--t-xs);font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--graphite)}
+.planvids dd{margin:6px 0 4px;font-family:var(--marker);font-weight:800;font-size:var(--t-lg);color:var(--text)}
+.planvids .vkey{font-weight:300;letter-spacing:.02em;text-transform:none;color:var(--muted)}
+.planadds{font-size:var(--t-sm);font-weight:300;color:var(--muted);margin:14px 0 0;padding-top:12px;
+  border-top:1px solid var(--line)}
 .free{background:var(--accent-tint);border:2px solid var(--accent);border-radius:16px;padding:clamp(22px,3vw,30px);height:100%;display:flex;flex-direction:column}
 .free ul{flex:1 1 auto}
 .ppanel{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:clamp(22px,3vw,30px);height:100%}
@@ -622,7 +641,7 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         <div class="stat c3"><span class="sico"><svg style="--sk-c1:#FFC933" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="clock"><g class="fills" stroke="none"><g class="fill" data-region="paper"><circle cx="48" cy="48" r="35" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="ink"><circle cx="48" cy="48" r="3" fill="currentColor"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="48" r="35"/><line x1="48" y1="20" x2="48" y2="26"/><line x1="76" y1="48" x2="70" y2="48"/><line x1="48" y1="76" x2="48" y2="70"/><line x1="20" y1="48" x2="26" y2="48"/><line x1="48" y1="48" x2="48" y2="28" stroke-width="6"/><line x1="48" y1="48" x2="62" y2="55" stroke-width="6"/></g></svg></span><b>About a minute</b><span>Script, drawing, narration, timing</span></div>
         <div class="stat c3"><span class="sico"><svg style="--sk-c1:#6C5CE7" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="puzzle"><g class="fills" stroke="none"><g class="fill" data-region="c1"><path d="M20 30 H37 A10 10 0 1 1 57 30 H74 V47 A10 10 0 1 1 74 67 V84 H20 Z" fill="var(--sk-c1, #40C057)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 30 H37 A10 10 0 1 1 57 30 H74 V47 A10 10 0 1 1 74 67 V84 H20 Z"/></g></svg></span><b>Scene editable</b><span>Fix one scene, not the whole video</span></div>
         <div class="stat c3"><span class="sico"><svg style="--sk-c1:#FF6B5B" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="hourglass"><g class="fills" stroke="none"><g class="fill" data-region="c1"><path d="M40 26 H56 C56 32 52 36 48 40 C44 36 40 32 40 26 Z" fill="var(--sk-c1, #FFC933)"/><path d="M36 72 H60 C58 64 52 60 48 58 C44 60 38 64 36 72 Z" fill="var(--sk-c1, #FFC933)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M28 12 H68 V22 C68 32 56 38 52 44 V52 C56 58 68 64 68 74 V84 H28 V74 C28 64 40 58 44 52 V44 C40 38 28 32 28 22 Z"/><line x1="24" y1="12" x2="72" y2="12" stroke-width="6"/><line x1="24" y1="84" x2="72" y2="84" stroke-width="6"/></g></svg></span><b>Six minutes, max</b><span>Deliberate, not a technical limit</span></div>
-        <div class="stat c3"><span class="sico"><svg style="--sk-c1:#40C057" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="gauge"><g class="fills" stroke="none"><g class="fill" data-region="paper"><path d="M14 70 A34 34 0 1 1 82 70" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><circle cx="48" cy="70" r="5" fill="var(--sk-c1, #339AF0)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 70 A34 34 0 1 1 82 70"/><line x1="14" y1="70" x2="82" y2="70"/><line x1="26" y1="42" x2="32" y2="46"/><line x1="48" y1="34" x2="48" y2="41"/><line x1="70" y1="42" x2="64" y2="46"/><line x1="48" y1="70" x2="66" y2="46" stroke="var(--sk-c2, #FF6B5B)" stroke-width="6"/><circle cx="48" cy="70" r="5"/></g></svg></span><b>From $9.99</b><span>Rendered minutes are the only meter</span></div>
+        <div class="stat c3"><span class="sico"><svg style="--sk-c1:#40C057" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="gauge"><g class="fills" stroke="none"><g class="fill" data-region="paper"><path d="M14 70 A34 34 0 1 1 82 70" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><circle cx="48" cy="70" r="5" fill="var(--sk-c1, #339AF0)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 70 A34 34 0 1 1 82 70"/><line x1="14" y1="70" x2="82" y2="70"/><line x1="26" y1="42" x2="32" y2="46"/><line x1="48" y1="34" x2="48" y2="41"/><line x1="70" y1="42" x2="64" y2="46"/><line x1="48" y1="70" x2="66" y2="46" stroke="var(--sk-c2, #FF6B5B)" stroke-width="6"/><circle cx="48" cy="70" r="5"/></g></svg></span><b>From $9.99</b><span>One Credit balance a month</span></div>
       </div>
     </div>
   </section>
@@ -848,45 +867,92 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
   <!-- 8. PRICING -->
   <section id="pricing" class="sunken ruled">
     <div class="wrap">
-      <div class="g"><div class="c7"><p class="eyebrow">Pricing</p><h2>Four plans. Start free with 2 videos.</h2>
-        <p class="lede" style="margin-top:16px">Minutes are the meter. Annual billing takes 40 per cent off.</p></div></div>
+      <div class="g"><div class="c7"><p class="eyebrow">Pricing</p><h2>Start with three clear plans.</h2>
+        <p class="lede" style="margin-top:16px">One monthly Credit balance. The style and length you pick set the price, and you see it before anything is generated.</p></div></div>
+
       <div class="g" style="margin-top:34px;align-items:stretch">
+          <div class="c4">
+            <div class="plan">
+              <span class="planname">Solo</span>
+              <p class="planprice">$9.99<span>per month</span></p>
+              <p class="plancredits">240 Credits</p>
+              <p class="planwho">For occasional teachers and individual creators.</p>
+              <dl class="planvids">
+                <dt>One-minute videos</dt>
+                <dd>20 / 8 / 12</dd>
+                <dt class="vkey">Icons / KIT / Doodles</dt>
+              </dl>
+              <p class="planadds">Use through the app.</p>
+            </div>
+          </div>
+          <div class="c4">
+            <div class="plan featured">
+              <span class="planname">Plus</span>
+              <p class="planprice">$19.99<span>per month</span></p>
+              <p class="plancredits">600 Credits</p>
+              <p class="planwho">For teachers and creators making videos regularly.</p>
+              <dl class="planvids">
+                <dt>One-minute videos</dt>
+                <dd>50 / 20 / 30</dd>
+                <dt class="vkey">Icons / KIT / Doodles</dt>
+              </dl>
+              <p class="planadds">Solo features plus API and MCP access.</p>
+            </div>
+          </div>
+          <div class="c4">
+            <div class="plan">
+              <span class="planname">Pro</span>
+              <p class="planprice">$49.99<span>per month</span></p>
+              <p class="plancredits">1,600 Credits</p>
+              <p class="planwho">For course creators and small businesses making branded videos.</p>
+              <dl class="planvids">
+                <dt>One-minute videos</dt>
+                <dd>133 / 53 / 80</dd>
+                <dt class="vkey">Icons / KIT / Doodles</dt>
+              </dl>
+              <p class="planadds">Plus features plus your logo, colours and fonts.</p>
+            </div>
+          </div>
+      </div>
+
+      <div class="g" style="margin-top:28px;align-items:stretch">
+        <div class="c7">
+          <div class="ppanel">
+            <div class="tw">
+              <table class="ptable">
+                <caption>What a video costs, in Credits</caption>
+                <thead><tr><th>Video style</th><th class="n">30 seconds</th><th class="n">1 minute</th><th class="n">2 minutes</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Icons</th><td class="n">6</td><td class="n">12</td><td class="n">24</td></tr>
+                  <tr><th scope="row">Icon KIT</th><td class="n">15</td><td class="n">30</td><td class="n">60</td></tr>
+                  <tr><th scope="row">Doodles</th><td class="n">10</td><td class="n">20</td><td class="n">40</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="pnotes g" style="--cols:2">
+              <p class="c6 soft"><b>You see the price first.</b> The quote is held while the video is made and only charged on delivery. A failed job returns the Credits.</p>
+              <p class="c6 soft"><b>Editing is free.</b> One re-render is included with every new video. After that a visual-only re-render is half the original quote.</p>
+            </div>
+          </div>
+        </div>
         <div class="c5">
           <div class="free">
             <h3 style="font-family:var(--marker);font-size:var(--t-md)">Start with two free videos</h3>
-            <p style="margin:10px 0 16px">The free tier is the whole product, editor included.</p>
+            <p style="margin:10px 0 16px">No card, and nothing to cancel.</p>
             <ul>
               <li><i>01</i> Two videos</li>
               <li><i>02</i> Up to one minute each</li>
               <li><i>03</i> Watermarked</li>
-              <li><i>04</i> No card required</li>
-              <li><i>05</i> Full product access</li>
+              <li><i>04</i> Icons style</li>
+              <li><i>05</i> Scene editing included</li>
             </ul>
             <a class="btn" style="margin-top:20px" href="https://sketchie.ai/app/signup">Get started</a>
           </div>
         </div>
-        <div class="c7">
-          <div class="ppanel">
-          <div class="tw">
-            <table class="ptable">
-              <caption>Published monthly prices, checked October 15, 2026</caption>
-              <thead><tr><th>Plan</th><th class="n">Monthly</th><th class="n">Minutes</th><th>Adds</th></tr></thead>
-              <tbody>
-                <tr><th scope="row">Solo</th><td class="n">$9.99</td><td class="n">40</td><td>Scene editor, all voices, all aspects</td></tr>
-                <tr><th scope="row">Plus</th><td class="n">$19.99</td><td class="n">100</td><td>API, MCP and CLI access</td></tr>
-                <tr><th scope="row">Pro</th><td class="n">$49.99</td><td class="n">300</td><td>Custom branding</td></tr>
-                <tr><th scope="row">Max</th><td class="n">$99.99</td><td class="n">750</td><td>Heavier output</td></tr>
-                <tr><th scope="row">Team</th><td class="n">$499.99</td><td class="n">5,000</td><td>Priority support</td></tr>
-                <tr><th scope="row">Enterprise</th><td class="n">Contact</td><td class="n">Custom</td><td>Dedicated support</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="pnotes g" style="--cols:2">
-            <p class="c6"><b>Annual billing takes 40% off.</b> The figures above are the published monthly prices.</p>
-            <p class="c6"><b>Overage is opt-in and off by default.</b> With it off you stop at your ceiling.</p>
-          </div>
-          </div>
-        </div>
+      </div>
+
+      <div class="g" style="margin-top:22px">
+        <p class="c12 soft">Billed monthly. Credits renew each month and do not roll over. Larger plans are planned, not committed: <b>Max</b> at $99.99 for 3,400 Credits and <b>Team</b> at $499.99 for 18,000 Credits with a shared pool. Video counts assume the whole balance spent on one-minute videos in one style, rounded down.</p>
       </div>
     </div>
   </section>
@@ -903,11 +969,11 @@ h3:hover,.rule b:hover,.stat b:hover{text-shadow:0 0 16px rgba(108,92,231,.16)}
         <details><summary data-n="03">How does a video end?</summary>
           <p>With a retrieval beat: a question, a pause, then a one line recap. The pause is deliberate.</p></details>
         <details><summary data-n="04">Can I try it without paying?</summary>
-          <p>Two watermarked videos, up to one minute each, no card required, with the editor included rather than held back.</p></details>
+          <p>Two watermarked videos, up to one minute each in the Icons style, no card required, with the editor included rather than held back.</p></details>
         <details><summary data-n="05">Is Sketchie faster than Simi?</summary>
           <p>No, and we say so. Simi is faster at first generation. The argument is time to a video you will publish, revisions included.</p></details>
         <details><summary data-n="06">Can developers drive it?</summary>
-          <p>An API returning the video and its scene graph, an MCP server for agents, and a CLI. Access starts on Plus.</p></details>
+          <p>An API returning the video and its scene graph, an MCP server for agents, and a CLI. Access starts on Plus, and an API call costs twice the in-app quote.</p></details>
       </div>
     </div>
   </section>
