@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchie revamp: source</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF8F3; --panel:#FFFFFF; --code:#F6F3EC; --ink:#1E1E28;
+  --body:#4A4F57; --faint:#6B7079; --rule:#E6E1D8;
+  --accent:#6C5CE7; --accent-soft:#F3F0FF;
+  --ui:"Inter",-apple-system,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+html[data-theme="night"]{
+  --paper:#151121; --panel:#1D1830; --code:#120F1C; --ink:#F4F1EA;
+  --body:rgba(244,241,234,.74); --faint:rgba(244,241,234,.56); --rule:rgba(244,241,234,.16);
+  --accent:#9B8CFF; --accent-soft:rgba(155,140,255,.16);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.5 var(--ui);
+  -webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+
+.bar{flex:0 0 auto;position:sticky;top:0;z-index:5;background:var(--panel);
+  border-bottom:1px solid var(--rule);padding:12px clamp(14px,2.4vw,22px);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.t{font-weight:700;letter-spacing:-.01em;font-size:15px}
+.meta{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.02em}
+.files{display:flex;gap:6px;flex-wrap:wrap}
+.files button{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;padding:7px 11px;
+  border:1px solid var(--rule);border-radius:7px;background:var(--panel);color:var(--body);cursor:pointer;
+  transition:border-color .14s ease,color .14s ease}
+.files button:hover{border-color:var(--accent);color:var(--accent)}
+.files button.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500}
+.acts{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+.acts button,.acts a{font-family:var(--ui);font-size:13px;font-weight:600;padding:8px 14px;
+  border:1px solid var(--rule);border-radius:8px;background:var(--panel);color:var(--ink);
+  cursor:pointer;text-decoration:none;transition:border-color .14s ease,background-color .14s ease}
+.acts button:hover,.acts a:hover{border-color:var(--accent)}
+.acts .primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.acts .primary:hover{filter:brightness(1.06)}
+.acts button:focus-visible,.acts a:focus-visible,.files button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.wrap{flex:1 1 auto;min-height:0;padding:clamp(12px,2vw,20px);display:flex}
+.sheet{flex:1 1 auto;min-height:0;display:flex;background:var(--code);
+  border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+pre{flex:1 1 auto;min-height:0;margin:0;overflow:auto;padding:18px 20px;
+  font-family:var(--mono);font-size:12.5px;line-height:1.62;color:var(--ink);
+  tab-size:2;white-space:pre}
+pre::-webkit-scrollbar{width:13px;height:13px}
+pre::-webkit-scrollbar-track{background:transparent}
+pre::-webkit-scrollbar-thumb{background:var(--rule);border:3px solid var(--code);border-radius:99px}
+pre::-webkit-scrollbar-thumb:hover{background:var(--faint)}
+pre{scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
+code{font:inherit;color:inherit}
+
+.state{padding:22px;font-size:14px;color:var(--body)}
+.state b{color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(8px);
+  background:var(--ink);color:var(--paper);font-size:13px;font-weight:600;
+  padding:10px 18px;border-radius:99px;opacity:0;pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;z-index:10}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+@media (max-width:620px){
+  .acts{margin-left:0;width:100%}
+  pre{font-size:11.5px}
+}
+</style>
+<script>
+(function(){var k="sketchie-source-theme";var v=null;try{v=localStorage.getItem(k)}catch(e){}
+document.documentElement.setAttribute("data-theme",v||"day");})();
+</script>
+</head>
+<body>
+
+<div class="bar">
+  <span class="t">Source</span>
+  <nav class="files" aria-label="Choose a file">
+    <button type="button" class="on" data-file="sketchie-concept-b-paper.html">revamp</button>
+    <button type="button" data-file="sketchie-brand-case.html">the case</button>
+    <button type="button" data-file="sketchie-sitemap-report.html">structure</button>
+  </nav>
+  <span class="meta" id="meta">loading</span>
+  <div class="acts">
+    <button type="button" id="theme">Theme</button>
+    <a id="raw" href="sketchie-concept-b-paper.html" download>Download</a>
+    <button type="button" class="primary" id="copy">Copy all</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="sheet">
+    <pre id="pre"><code id="code" class="state">Loading source…</code></pre>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var codeEl = document.getElementById('code');
+  var preEl  = document.getElementById('pre');
+  var metaEl = document.getElementById('meta');
+  var rawEl  = document.getElementById('raw');
+  var toastEl= document.getElementById('toast');
+  var btns   = [].slice.call(document.querySelectorAll('.files button'));
+  var current = 'sketchie-concept-b-paper.html';
+  var text = '';
+
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function(){ toastEl.classList.remove('show'); }, 1800);
+  }
+  function fmtBytes(n){
+    return n < 1024 ? n + ' B' : (n/1024).toFixed(1) + ' KB';
+  }
+  function load(file){
+    current = file;
+    rawEl.setAttribute('href', file);
+    rawEl.setAttribute('download', file);
+    codeEl.className = 'state';
+    codeEl.textContent = 'Loading ' + file + '…';
+    metaEl.textContent = 'loading';
+    btns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-file') === file); });
+
+    fetch(file + '?src=' + Date.now(), {cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error(r.status + ' ' + r.statusText); return r.text(); })
+      .then(function(t){
+        text = t;
+        codeEl.className = '';
+        codeEl.textContent = t;                     // textContent escapes: nothing executes
+        var lines = t.split('\n').length;
+        metaEl.textContent = file + ' · ' + lines.toLocaleString() + ' lines · ' + fmtBytes(new Blob([t]).size);
+        preEl.scrollTop = 0; preEl.scrollLeft = 0;
+      })
+      .catch(function(err){
+        codeEl.className = 'state';
+        codeEl.textContent = 'Could not load ' + file + ' (' + err.message + ').\n\n'
+          + 'This page reads the file over the network, so it needs to be opened from a web address '
+          + 'rather than straight off disk. Use the Download button instead.';
+        metaEl.textContent = 'unavailable';
+      });
+  }
+
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ load(b.getAttribute('data-file')); });
+  });
+
+  document.getElementById('copy').addEventListener('click', function(){
+    if(!text){ toast('Nothing loaded yet'); return; }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly','');
+      ta.style.cssText = 'position:fixed;top:-1000px;left:-1000px';
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch(e){}
+      ta.remove();
+      toast(ok ? 'Copied the whole file' : 'Copy blocked, select the code instead');
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text)
+        .then(function(){ toast('Copied the whole file'); })
+        .catch(fallback);
+    } else { fallback(); }
+  });
+
+  document.getElementById('theme').addEventListener('click', function(){
+    var root = document.documentElement;
+    var next = root.getAttribute('data-theme') === 'night' ? 'day' : 'night';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('sketchie-source-theme', next); } catch(e){}
+  });
+
+  // ctrl/cmd + A inside the sheet selects only the code
+  preEl.addEventListener('keydown', function(e){
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'a'){
+      e.preventDefault();
+      var r = document.createRange(); r.selectNodeContents(codeEl);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    }
+  });
+  preEl.tabIndex = 0;
+
+  load(current);
+})();
+</script>
+</body>
+</html>
