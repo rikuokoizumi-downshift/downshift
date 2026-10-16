@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Sketchie GTM Plays</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one slide at a time, arrow keys or buttons. Every slide shares one soft light surface; no dark or saturated full-bleed slides. */
+:root {
+  --bg: #EFEEF4; --surface: #FBFAFD; --ink: #2A2840; --muted: #66637D; --line: #DEDCE8;
+  --accent: #5A4BD1; --accent-soft: #EDEAFA; --l2: #137772; --l2-soft: #DDF0EE;
+  --warn: #9A5A12; --warn-soft: #FBEFDD; color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #16151F; --surface: #1F1E2B; --ink: #E6E4F0; --muted: #A4A1B9; --line: #323047;
+  --accent: #A69BFF; --accent-soft: #2A2652; --l2: #5CCFC6; --l2-soft: #173836;
+  --warn: #F2AE62; --warn-soft: #3B2A16; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #16151F; --surface: #1F1E2B; --ink: #E6E4F0; --muted: #A4A1B9; --line: #323047;
+  --accent: #A69BFF; --accent-soft: #2A2652; --l2: #5CCFC6; --l2-soft: #173836;
+  --warn: #F2AE62; --warn-soft: #3B2A16; color-scheme: dark }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', 'Segoe UI', Arial, sans-serif; font-size: 17px; line-height: 1.45; display: flex; flex-direction: column; }
+h1, h2, h3, p, ul, ol { margin: 0; }
+h1 { font-size: clamp(30px, 4.4vw, 48px); font-weight: 600; line-height: 1.12; letter-spacing: -0.3px; text-wrap: balance; max-width: 18ch; }
+h2 { font-size: clamp(22px, 3vw, 34px); font-weight: 600; line-height: 1.15; text-wrap: balance; }
+h3 { font-size: 17px; font-weight: 600; }
+.label { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.muted { color: var(--muted); }
+main { flex: 1; min-height: 0; display: flex; align-items: stretch; justify-content: center; padding: 24px 16px 0; }
+.slide { display: none; width: 100%; max-width: 1040px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: clamp(20px, 3vw, 40px); flex-direction: column; gap: 18px; overflow-y: auto; }
+.slide.on { display: flex; }
+.slide .foot { margin-top: auto; padding-top: 16px; font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.cover { justify-content: center; gap: 22px; border-left: 6px solid var(--accent); }
+.cover .lede { font-size: clamp(17px, 1.9vw, 21px); color: var(--muted); max-width: 46ch; line-height: 1.5; }
+.cover .meta { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 14px; color: var(--muted); padding-top: 8px; border-top: 1px solid var(--line); max-width: 640px; }
+.closing { border-left: 6px solid var(--accent); justify-content: center; }
+nav { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px)); }
+nav button { font: inherit; font-size: 15px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 8px 18px; cursor: pointer; }
+nav button:hover { border-color: var(--ink); }
+nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+nav .count { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 14px; min-width: 56px; text-align: center; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; display: flex; flex-direction: column; gap: 6px; min-width: 0; font-size: 15px; }
+.card.core { border: 2px solid var(--accent); }
+.card .label { font-size: 12px; }
+ul { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.big { font-size: clamp(20px, 2.2vw, 26px); font-weight: 500; line-height: 1.3; text-wrap: balance; max-width: 32ch; }
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.agreed { font-weight: 700; color: var(--accent); white-space: nowrap; }
+tr.core td { background: var(--accent-soft); }
+.pill { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 600; }
+.pill.core { background: var(--accent-soft); color: var(--accent); }
+.pill.grow { background: var(--l2-soft); color: var(--l2); }
+.pill.park { background: var(--warn-soft); color: var(--warn); }
+.kv { display: grid; grid-template-columns: 110px 1fr; gap: 4px 16px; font-size: 15px; }
+.kv dt { color: var(--muted); font-weight: 500; }
+.kv dd { margin: 0; }
+ol.decide { padding-left: 24px; gap: 12px; font-size: clamp(17px, 2vw, 22px); }
+@media (max-width: 600px) { body { font-size: 16px; } .kv { grid-template-columns: 1fr; } main { padding-top: 12px; } }
+@media (prefers-reduced-motion: no-preference) { .slide.on { animation: in .18s ease-out; } @keyframes in { from { opacity: .4; transform: translateY(4px); } to { opacity: 1; transform: none; } } }
+</style>
+</head>
+<body>
+<main id="deck">
+
+<section class="slide cover on">
+  <p class="label">Sketchie · Go-to-market</p>
+  <h1>The plays we run after launch</h1>
+  <p class="lede">One plan from three inputs: Baran's playbook, Olu's updated picks, and Rikuo's effort-versus-return scores. Launch is Monday, October 19.</p>
+  <div class="meta"><span>Prepared Friday, October 16</span><span>For the Monday sync</span><span>Arrow keys or buttons to move</span></div>
+</section>
+
+<section class="slide">
+  <p class="label">How we got here</p>
+  <h2>Olu's updated plan already cut Monday to the smallest useful release. What's left to agree is small.</h2>
+  <div class="cols">
+    <div class="card"><p class="label">Baran</p><p>11 plays, each with a cost, a 30-day target and a kill rule.</p></div>
+    <div class="card"><p class="label">Olu, updated Oct 16</p><p>Kept 4 plays, cut Monday to 3 lessons, 1 page, 1 post and 1 public reply, and named owners.</p></div>
+    <div class="card"><p class="label">Rikuo</p><p>Scored all 11. Same four rose to the top. Wants more outreach volume in week 1 than Olu's scope has.</p></div>
+  </div>
+  <p class="big">Merge rule: Olu's Monday scope is the floor. Outreach volume rises in week 1 because that is the one thing we're sure about.</p>
+  <div class="foot"><span>Scores: effort 1 = trivial, return 5 = big and likely within 30 days</span><span>2</span></div>
+</section>
+
+<section class="slide">
+  <p class="label">Scoreboard</p>
+  <h2>Agreed scores</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Play</th><th>Rikuo E / R</th><th>Olu E / R</th><th>Agreed E / R</th><th>Call</th></tr>
+    <tr class="core"><td>Complaint themes and public conversations</td><td class="n">2 / 4</td><td class="n">2 / 3</td><td class="agreed">2 / 4</td><td><span class="pill core">Core play</span></td></tr>
+    <tr><td>Social videos: explainers, requests, remixes</td><td class="n">2 / 3</td><td class="n">1 / 2</td><td class="agreed">2 / 3</td><td><span class="pill core">Launch week calendar</span></td></tr>
+    <tr><td>Comparison pages + SEO and AEO</td><td class="n">2 / 3</td><td class="n">2 / 3</td><td class="agreed">2 / 3</td><td><span class="pill grow">One page, then grow</span></td></tr>
+    <tr><td>Free lesson-video library</td><td class="n">5 / 3</td><td class="n">2 / 3</td><td class="agreed">3 / 3</td><td><span class="pill grow">Three lessons, then grow</span></td></tr>
+    <tr><td>Directories and launch platforms</td><td class="n">1 / 3</td><td class="n">3 / 2</td><td class="agreed">2 / 2</td><td><span class="pill park">Week 3, free listings only</span></td></tr>
+    <tr><td>Decision-maker cold outreach (Mahir)</td><td class="n">3 / 2</td><td class="n">not scored</td><td class="agreed">3 / 2</td><td><span class="pill park">Small side test</span></td></tr>
+    <tr><td>Google Ads, affiliate, ambassadors, blog</td><td class="n">low</td><td class="n">not picked</td><td class="agreed">parked</td><td><span class="pill park">Killed or needs tracking</span></td></tr>
+  </table></div>
+  <p class="muted" style="font-size:14px">Olu's numbers are Rikuo's reading of his Oct 16 document, after the scope cut. Olu confirms or corrects them Monday.</p>
+  <div class="foot"><span>E = effort, R = return, 1 to 5</span><span>3</span></div>
+</section>
+
+<section class="slide">
+  <p class="label">Play 1 · Core</p>
+  <h2>Complaint themes and public conversations</h2>
+  <p class="big">Olu's update drops the reviewer contact list. Agreed. We go for volume in public replies instead, where the rules allow and we say who we are.</p>
+  <div class="cols">
+    <div class="card core"><p class="label">By Monday (Olu's scope)</p><ul><li>Review recent complaints about one competitor, record 2 to 3 recurring themes with source links. Mahir</li><li>Match each theme to something Sketchie can show today, pick one for the first test. Mahir</li><li>One public reply with a useful answer, the Sketchie connection disclosed, and a video. Olu</li></ul></div>
+    <div class="card"><p class="label">Week 1 (Rikuo's addition)</p><ul><li>Scale to 15 to 20 public replies across Reddit, G2, Capterra, Quora and YouTube comments, same rules</li><li>Each reply logged: thread, theme, reply, result</li><li>No private contact from a public review. A name is not an identity</li><li>Apollo or Clay pilot proposed separately, only after privacy, permission and access checks</li></ul></div>
+  </div>
+  <dl class="kv"><dt>Measure</dt><dd>Useful replies, example visits, attributable signups, which themes get interest</dd><dt>Kill if</dt><dd>Under 10% of replies get any response after 40 replies</dd></dl>
+  <div class="foot"><span>Baran play 02 · Olu play 2</span><span>4</span></div>
+</section>
+
+<section class="slide">
+  <p class="label">Play 2 · Launch week calendar</p>
+  <h2>Social videos: explainers, requests, remixes</h2>
+  <p class="big">Olu's Monday scope is one explainer and, if a conversation fits, one request reply or remix. The 7 scheduled launch posts sit on top of that if the videos are ready Saturday.</p>
+  <div class="cols">
+    <div class="card"><p class="label">By Monday (Olu's scope)</p><ul><li>Reuse one library lesson as a social explainer with a tracked link. Olu</li><li>One request reply or remix if a suitable thread or post exists. Olu</li><li>Check replies and record topic requests. Olu</li></ul></div>
+    <div class="card"><p class="label">Launch week</p><ul><li>The 7 daily posts from the launch plan run as scheduled, one real Sketchie video each</li><li>If the 7 videos are not ready by Sat Oct 17, Olu's one-plus-one is the launch-week plan and nobody apologizes for it</li><li>Five a week after that, once production time is measured</li></ul></div>
+  </div>
+  <dl class="kv"><dt>Owner</dt><dd>Olu publishes, Rikuo and Norj make the videos</dd><dt>Measure</dt><dd>Shares, comments, link visits, signups by format and channel</dd></dl>
+  <div class="foot"><span>Baran plays 07 and 01 · Olu play 4</span><span>5</span></div>
+</section>
+
+<section class="slide">
+  <p class="label">Play 3 · One page, then grow</p>
+  <h2>Comparison pages + SEO and AEO</h2>
+  <p class="big">One checked page by Monday, about the competitor from the complaint review. It needs one sign-off first.</p>
+  <div class="cols">
+    <div class="card"><p class="label">By Monday (Olu's scope)</p><ul><li>Pick one existing draft, check prices, limits and claims against official sources. Rikuo, Mahir</li><li>Publish it with a video, source dates, one signup link, and a clear line on when the competitor is the better fit. Rikuo, Mahir</li><li>Title, mobile layout, HTML text, indexing, signup link checked; added to the sitemap. Mahir, Andi</li></ul></div>
+    <div class="card"><p class="label">Following weeks</p><ul><li>Search Console, canonical links, indexing fixes</li><li>Next batch 4 to 5 pages, facts checked, then assess 8 to 10</li><li>Five fixed buyer questions checked in AI answer tools every two weeks</li></ul></div>
+  </div>
+  <dl class="kv"><dt>Needs first</dt><dd>Manuel's OK to name a competitor publicly. The site today names only Simi</dd><dt>Measure</dt><dd>Indexed pages, impressions, visits, signups. Rankings are not a Monday commitment</dd></dl>
+  <div class="foot"><span>Baran plays 05, 12 and 13 · Olu play 3</span><span>6</span></div>
+</section>
+
+<section class="slide">
+  <p class="label">Play 4 · Three lessons, then grow</p>
+  <h2>Free lesson-video library</h2>
+  <p class="big">Three checked lessons by Monday, on one theme, with a working route to Sketchie. 20 to 30 is the next batch only after we've measured how long three take.</p>
+  <div class="cols">
+    <div class="card"><p class="label">By Monday (Olu's scope)</p><ul><li>Three related topics for teachers, one repeatable script format, chosen to suit current output. Rikuo</li><li>Generate and check three short lessons: facts, narration, visuals. Olu</li><li>Publish on YouTube with clear titles and a creation link; editable copy if the flow exists. Olu</li></ul></div>
+    <div class="card"><p class="label">Following weeks</p><ul><li>Transcripts and lesson pages as capacity allows</li><li>Expand the theme that gets watch time, shares or signups</li><li>Pace set from measured production and review time, not from a target</li></ul></div>
+  </div>
+  <dl class="kv"><dt>Needs first</dt><dd>Access to Sketchie's YouTube account</dd><dt>Measure</dt><dd>Lesson visits, watch time, shares, signups, first videos made</dd></dl>
+  <div class="foot"><span>Baran play 06 · Olu play 1</span><span>7</span></div>
+</section>
+
+<section class="slide">
+  <p class="label">Parked, with a reason</p>
+  <h2>What we're not doing yet</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Play</th><th>Why not now</th><th>When</th></tr>
+    <tr><td>Automated reviewer-contact outreach</td><td>Identity matching, source-use permission, opt-out rules and tool credits are all unconfirmed.</td><td>Separate pilot proposal after the checks</td></tr>
+    <tr><td>Directories and launch platforms</td><td>Most are paid, waitlists run months. Not worth spend before the product has proof.</td><td>Week 3, free listings only</td></tr>
+    <tr><td>Decision-maker cold outreach (principals, L&amp;D heads)</td><td>Different buyer. The 90-day plan says stop if they say "can't buy without SCORM or LMS".</td><td>5 to 10 messages a week as a side test</td></tr>
+    <tr><td>Creator gifting and affiliate</td><td>Needs tracking live and a way to pay commission. Neither exists yet.</td><td>After tracking (L1-T10) is in</td></tr>
+    <tr><td>Campus ambassadors (PH)</td><td>Recruiting and bounty admin nobody has time for before Oct 25.</td><td>With the Philippine school pilot</td></tr>
+    <tr><td>Google Ads</td><td>Killed on real data. Cost per click above the ceiling, spend above the whole GTM budget.</td><td>Revisit only if comparison pages rank</td></tr>
+  </table></div>
+  <div class="foot"><span>From Baran's kill rules, Olu's Oct 16 update and the Oct 13 call</span><span>8</span></div>
+</section>
+
+<section class="slide">
+  <p class="label">Rules we run by</p>
+  <h2>Six rules, mostly from Abdullah, that fit Sketchie</h2>
+  <div class="cols">
+    <div class="card"><h3>Know the what before the tool</h3><p>Outreach starts manual and public. Apollo, Clay or scraped lists come after we know the message works.</p></div>
+    <div class="card"><h3>Spend goes through Manuel, nothing else does</h3><p>Zero-spend first batches. Then one budget ask, with the numbers from batch 1.</p></div>
+    <div class="card"><h3>Outreach is the core, content is a branch</h3><p>Lessons and pages compound but take months. They never become the whole plan.</p></div>
+    <div class="card"><h3>Full gear on what we're sure of</h3><p>Sure: public replies and the launch posts. Test small: library and SEO.</p></div>
+    <div class="card"><h3>The board tells the story</h3><p>Every play is an Asana ticket with an owner and a daily log. Nobody has to ask what someone did.</p></div>
+    <div class="card"><h3>Don't pull volume we can't support</h3><p>Scale a play only while the daily failure log stays manageable for Andi and Alex.</p></div>
+  </div>
+  <div class="foot"><span>Abdullah, Oct 15 · Rikuo, Oct 13</span><span>9</span></div>
+</section>
+
+<section class="slide">
+  <p class="label">By Monday · Oct 19</p>
+  <h2>Who does what</h2>
+  <div class="tbl-wrap"><table>
+    <tr><th>Person</th><th>Owns by Monday</th><th>Then, in launch week</th></tr>
+    <tr><td>Olu</td><td>Generate, check and publish 3 lessons; one public reply; one social explainer plus one request or remix if available</td><td>Scale to 15 to 20 public replies, publish the daily posts, log replies</td></tr>
+    <tr><td>Mahir</td><td>Complaint review: 2 to 3 themes, one picked for the first test; co-check the comparison page</td><td>Evening numbers, confirm scores with Olu</td></tr>
+    <tr><td>Rikuo</td><td>Pick the 3 lesson topics; check and publish one comparison page with Mahir; get Manuel's OK to name a competitor; get YouTube and social access from ops</td><td>Sample videos with Norj, Friday review, tickets under EPIC L2</td></tr>
+    <tr><td>Andi</td><td>Page checks and sitemap entry for the comparison page, alongside the landing page</td><td>Search Console and canonical links</td></tr>
+    <tr><td>Alex</td><td>Video quality problems from the daily failure log</td><td>Ongoing</td></tr>
+  </table></div>
+  <p class="muted" style="font-size:14px">Olu's document says quantities are proposals, not commitments, until access, dependencies and time are confirmed. Same applies here.</p>
+  <div class="foot"><span>Owners from Olu's Oct 16 update, launch-week additions from Rikuo</span><span>10</span></div>
+</section>
+
+<section class="slide closing">
+  <p class="label">Monday, October 19</p>
+  <h2>Four things to settle before launch week starts</h2>
+  <ol class="decide">
+    <li>Olu confirms the scores. If any agreed score moves by 2 or more, we re-rank.</li>
+    <li>Manuel: can the first comparison page name the competitor?</li>
+    <li>Access: do we have Sketchie's YouTube and the three social accounts? Olu's Monday scope depends on it.</li>
+    <li>Are the 7 launch videos ready? If not, Olu's one-plus-one is the launch-week post plan.</li>
+  </ol>
+  <div class="foot"><span>Sketchie GTM plays</span><span>11</span></div>
+</section>
+
+</main>
+<nav aria-label="Slides">
+  <button type="button" id="prev">Previous</button>
+  <span class="count" id="count">1 / 11</span>
+  <button type="button" id="next">Next</button>
+</nav>
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0, count = document.getElementById('count');
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    count.textContent = (i + 1) + ' / ' + slides.length;
+    try { history.replaceState(null, '', '#s' + (i + 1)); } catch (e) {}
+    slides[i].scrollTop = 0;
+  }
+  document.getElementById('prev').addEventListener('click', function () { show(i - 1); });
+  document.getElementById('next').addEventListener('click', function () { show(i + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  var m = /^#s(\d+)$/.exec(location.hash || '');
+  show(m ? parseInt(m[1], 10) - 1 : 0);
+})();
+</script>
+</body>
+</html>
