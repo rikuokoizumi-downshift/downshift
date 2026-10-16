@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchie for course creators: a lesson library you own</title>
+<meta name="description" content="Build the visual half of your course without a motion designer, and correct it a year later.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiBmaWxsPSJub25lIiBkYXRhLW1hc2NvdD0iaW5rbGluZyIgc3R5bGU9ImNvbG9yOnZhcigtLXNrLWluaywjMUUxRTI4KSI+CiAgPCEtLSBDb25jZXB0IEEgIklua2xpbmciIOKAlCBjbGVhbiBkb29kbGUgb3JiLiBGbGF0IGNvbG9yIHpvbmVzIGVjaG8gdGhlIE1hbmlBSSBncmFkaWVudAogICAgICAgKHZpb2xldCAtPiBwaW5rIC0+IGNvcmFsKSByZWRyYXduIGFzIG1hcmtlciBwYXRjaGVzLiBNaW5pbWFsIGZhY2UsIG1heGltdW0gd2FybXRoLiAtLT4KICA8ZyBjbGFzcz0iZmlsbCIgc3Ryb2tlPSJub25lIj4KICAgIDxjaXJjbGUgY3g9IjYwIiBjeT0iNTgiIHI9IjQyIiBmaWxsPSJ2YXIoLS1zay1jMSwjNkM1Q0U3KSIvPgogICAgPHBhdGggZD0iTTg4IDI3IEM5OSAzNyAxMDQgNTIgOTkgNjggQzk1IDgxIDg0IDkyIDcwIDk2IEM5MCA4NCA5NyA2NiA5MyA1MCBDOTAgMzkgODYgMzIgNzkgMjYgQzgyIDI1LjUgODUgMjUuNiA4OCAyNyBaIiBmaWxsPSJ2YXIoLS1zay1jMiwjRTg1MzhGKSIvPgogICAgPHBhdGggZD0iTTk3IDYyIEM5NyA3NCA4OCA4OSA3NCA5NSBDODYgODQgOTIgNzIgOTIgNjAgQzk0IDU5IDk2IDYwIDk3IDYyIFoiIGZpbGw9InZhcigtLXNrLWMzLCNGRjZCNUIpIi8+CiAgICA8cGF0aCBkPSJNMzggMjYgQzQzIDIyIDUxIDIwIDU3IDIxIEM1MCAyNCA0NSAyOCA0MiAzMyBDMzkgMzEgMzggMjkgMzggMjYgWiIgZmlsbD0iI0ZGRkZGRiIgb3BhY2l0eT0iMC45Ii8+CiAgPC9nPgogIDxnIGNsYXNzPSJpbmsiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CiAgICA8IS0tIGRvdWJsZS1wYXNzIGhhbmQtZHJhd24gb3V0bGluZSAtLT4KICAgIDxwYXRoIGQ9Ik02MCAxNiBDODQgMTYgMTAyIDM0IDEwMiA1OCBDMTAyIDgyIDg0IDEwMCA2MCAxMDAgQzM2IDEwMCAxOCA4MiAxOCA1OCBDMTggMzUgMzcgMTYgNjAgMTYgWiIvPgogICAgPHBhdGggZD0iTTI1IDM4IEMyMSA0NCAxOSA1MSAxOSA1OCIgc3Ryb2tlLXdpZHRoPSIzLjUiIG9wYWNpdHk9IjAuNyIvPgogICAgPHBhdGggZD0iTTk2IDc0IEM5OSA2OSAxMDEgNjQgMTAxLjUgNTgiIHN0cm9rZS13aWR0aD0iMy41IiBvcGFjaXR5PSIwLjciLz4KICA8L2c+CiAgPGcgY2xhc3M9ImZhY2UiPgogICAgPGNpcmNsZSBjeD0iNDciIGN5PSI1NSIgcj0iNS41IiBmaWxsPSJjdXJyZW50Q29sb3IiLz4KICAgIDxjaXJjbGUgY3g9IjczIiBjeT0iNTUiIHI9IjUuNSIgZmlsbD0iY3VycmVudENvbG9yIi8+CiAgICA8Y2lyY2xlIGN4PSI0OC44IiBjeT0iNTMiIHI9IjEuOCIgZmlsbD0iI0ZGRkZGRiIvPgogICAgPGNpcmNsZSBjeD0iNzQuOCIgY3k9IjUzIiByPSIxLjgiIGZpbGw9IiNGRkZGRkYiLz4KICAgIDxwYXRoIGQ9Ik01MCA3MCBDNTUgNzUuNSA2NSA3NS41IDcwIDcwIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIGZpbGw9Im5vbmUiLz4KICAgIDxlbGxpcHNlIGN4PSIzOCIgY3k9IjY0IiByeD0iNSIgcnk9IjMiIGZpbGw9InZhcigtLXNrLWMyLCNFODUzOEYpIiBvcGFjaXR5PSIwLjU1Ii8+CiAgICA8ZWxsaXBzZSBjeD0iODIiIGN5PSI2NCIgcng9IjUiIHJ5PSIzIiBmaWxsPSJ2YXIoLS1zay1jMiwjRTg1MzhGKSIgb3BhY2l0eT0iMC41NSIvPgogIDwvZz4KPC9zdmc+Cg==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sketchie-site.css?v=mvb2087t">
+<script>
+(function(){
+  var KEY="sketchie-theme";
+  var q=new URLSearchParams(location.search).get("theme");
+  var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}
+  /* this concept wears the existing brand, which is light, so day is
+     its natural state unless a choice has already been made */
+  document.documentElement.setAttribute("data-theme",q||saved||"day");
+})();
+</script>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav aria-label="Primary">
+      <a class="mark" href="sketchie-concept-b-paper.html">
+        <svg class="marklogo" width="30" height="30" role="img" aria-label="Sketchie" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" data-mascot="inkling"><g class="fill" stroke="none"><circle cx="60" cy="58" r="42" fill="var(--sk-c1,#6C5CE7)"/><path d="M88 27 C99 37 104 52 99 68 C95 81 84 92 70 96 C90 84 97 66 93 50 C90 39 86 32 79 26 C82 25.5 85 25.6 88 27 Z" fill="var(--sk-c2,#E8538F)"/><path d="M97 62 C97 74 88 89 74 95 C86 84 92 72 92 60 C94 59 96 60 97 62 Z" fill="var(--sk-c3,#FF6B5B)"/><path d="M38 26 C43 22 51 20 57 21 C50 24 45 28 42 33 C39 31 38 29 38 26 Z" fill="#FFFFFF" opacity="0.9"/></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 16 C84 16 102 34 102 58 C102 82 84 100 60 100 C36 100 18 82 18 58 C18 35 37 16 60 16 Z"/><path d="M25 38 C21 44 19 51 19 58" stroke-width="3.5" opacity="0.7"/><path d="M96 74 C99 69 101 64 101.5 58" stroke-width="3.5" opacity="0.7"/></g><g class="face"><circle cx="47" cy="55" r="5.5" fill="currentColor"/><circle cx="73" cy="55" r="5.5" fill="currentColor"/><circle cx="48.8" cy="53" r="1.8" fill="#FFFFFF"/><circle cx="74.8" cy="53" r="1.8" fill="#FFFFFF"/><path d="M50 70 C55 75.5 65 75.5 70 70" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="38" cy="64" rx="5" ry="3" fill="var(--sk-c2,#E8538F)" opacity="0.55"/><ellipse cx="82" cy="64" rx="5" ry="3" fill="var(--sk-c2,#E8538F)" opacity="0.55"/></g></svg>
+        <span class="markname">Sketchie</span>
+      </a>
+      <div class="navlinks">
+        <a href="sketchie-concept-b-paper.html#wedge">Scene editing</a>
+        <a href="sketchie-concept-b-paper.html#how">How it works</a>
+        <a href="sketchie-concept-b-paper.html#rules">The science</a>
+        <a href="sketchie-for.html">Who it is for</a>
+        <a href="sketchie-concept-b-paper.html#pricing">Pricing</a>
+      </div>
+      <details class="menu"><summary>Menu</summary>
+        <div class="menupanel">
+          <a href="sketchie-concept-b-paper.html#wedge">Scene editing</a><a href="sketchie-concept-b-paper.html#how">How it works</a>
+          <a href="sketchie-concept-b-paper.html#rules">The science</a><a href="sketchie-for.html">Who it is for</a><a href="sketchie-concept-b-paper.html#pricing">Pricing</a>
+        </div>
+      </details>
+      <button class="switch" type="button" id="themeToggle" role="switch" aria-checked="false" aria-label="Night mode"><span class="knob"></span></button>
+      <a class="btn sm" href="https://sketchie.ai/app/signup">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero dotted">
+    <div class="wrap g">
+      <div class="c7 herocopy">
+        <p class="eyebrow">Course creators</p>
+        <h1><span class="sent">A lesson library that looks like yours,</span> <span class="sent">and stays editable.</span></h1>
+        <p class="lede" style="margin-top:18px">Build the visual half of your course without a motion designer. Your brand, your voice, and a scene graph you can correct a year from now.</p>
+        <div class="cta">
+          <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
+          <a class="btn ghost" href="sketchie-concept-b-paper.html#wedge">See scene editing</a>
+        </div>
+      </div>
+      <div class="c5" style="align-self:center">
+        <div class="bigico"><svg style="--sk-c1:#FFC933" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="document"><g class="fills" stroke="none"><g class="fill" data-region="paper"><path d="M24 8 H58 L76 26 V88 H24 Z" fill="var(--sk-paper, #FFFFFF)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8 H58 L76 26 V88 H24 Z"/><path d="M58 8 V26 H76"/><line x1="34" y1="42" x2="62" y2="42" stroke="var(--sk-c1, #339AF0)"/><line x1="34" y1="54" x2="62" y2="54" stroke="var(--sk-c1, #339AF0)"/><line x1="34" y1="66" x2="52" y2="66" stroke="var(--sk-c1, #339AF0)"/></g></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ruled">
+    <div class="wrap">
+      <div class="g">
+        <div class="c7"><h2>The artifact, not just the render</h2>
+          <p class="lede" style="margin-top:16px">Custom branding is included from Pro at $49.99, not held back for an enterprise tier. Your colours and your logo, on every lesson.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sunken ruled">
+    <div class="wrap">
+      <div class="g">
+        <div class="c7"><h2>The second hundred lessons cost the same as the first</h2>
+          <p class="lede" style="margin-top:16px">A course is not one video, it is a backlog. Custom animation prices that backlog out of existence. Here the cost per lesson holds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ruled">
+    <div class="wrap">
+      <div class="g">
+        <div class="c7"><h2>Publish the same course in 78 languages</h2>
+          <p class="lede" style="margin-top:16px">On-screen text, labels and narration all come out localised. You are not maintaining one master and five translations that drift.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sunken ruled">
+    <div class="wrap">
+      <div class="g">
+        <div class="c7"><h2>What this does not do</h2>
+          <p class="lede" style="margin-top:16px">There is no SCORM export, no LMS integration and no quiz layer. If your platform needs those, this makes the videos and something else delivers them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ruled">
+    <div class="wrap">
+      <div class="g"><div class="c7"><h2>Also written for</h2>
+        <p class="lede" style="margin-top:16px">Same mechanic, different starting point.</p></div></div>
+      <div class="xrow">
+        <a class="xcard" href="sketchie-for-developers.html"><span class="icobox sm"><svg style="--sk-c1:#339AF0" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="laptop"><g class="fills" stroke="none"><g class="fill" data-region="paper"><rect x="22" y="18" width="52" height="44" rx="4" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><rect x="28" y="24" width="40" height="32" rx="2" fill="var(--sk-c1, #339AF0)"/></g><g class="fill" data-region="paper"><path d="M14 62 H82 L88 74 H8 Z" fill="var(--sk-paper, #FFFFFF)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="18" width="52" height="44" rx="4"/><rect x="28" y="24" width="40" height="32" rx="2"/><path d="M14 62 H82 L88 74 H8 Z"/></g></svg></span><span class="xname">Developers</span></a>
+        <a class="xcard" href="sketchie-for-founders.html"><span class="icobox sm"><svg style="--sk-c1:#FF6B5B" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="rocket"><g class="fills" stroke="none"><g class="fill" data-region="paper"><path d="M48 6 C60 16 64 32 64 48 L58 58 H38 L32 48 C32 32 36 16 48 6 Z" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c2"><circle cx="48" cy="34" r="8" fill="var(--sk-c2, #339AF0)"/></g><g class="fill" data-region="c1"><path d="M32 44 L16 62 L32 60 Z" fill="var(--sk-c1, #FF6B5B)"/><path d="M64 44 L80 62 L64 60 Z" fill="var(--sk-c1, #FF6B5B)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M48 6 C60 16 64 32 64 48 L58 58 H38 L32 48 C32 32 36 16 48 6 Z"/><circle cx="48" cy="34" r="8"/><path d="M32 44 L16 62 L32 60 Z"/><path d="M64 44 L80 62 L64 60 Z"/><path d="M42 64 C43 74 46 80 48 86 C50 80 53 74 54 64"/></g></svg></span><span class="xname">Founders</span></a>
+        <a class="xcard" href="sketchie-for-teachers.html"><span class="icobox sm"><svg style="--sk-c1:#40C057" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="teacher"><g class="fills" stroke="none"><g class="fill" data-region="paper"><rect x="8" y="14" width="50" height="34" rx="4" fill="var(--sk-paper, #FFFFFF)"/></g><g class="fill" data-region="c1"><circle cx="70" cy="42" r="10" fill="var(--sk-c1, #6C5CE7)"/><path d="M54 84 C54 68 61 60 70 60 C79 60 88 68 88 84 Z" fill="var(--sk-c1, #6C5CE7)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="14" width="50" height="34" rx="4"/><line x1="17" y1="25" x2="47" y2="25"/><line x1="17" y1="36" x2="39" y2="36"/><circle cx="70" cy="42" r="10"/><path d="M54 84 C54 68 61 60 70 60 C79 60 88 68 88 84 Z"/><line x1="62" y1="52" x2="50" y2="42"/></g></svg></span><span class="xname">Teachers</span></a>
+        <a class="xcard" href="sketchie-for-support-teams.html"><span class="icobox sm"><svg style="--sk-c1:#E8538F" aria-hidden="true" class="ski" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="megaphone"><g class="fills" stroke="none"><g class="fill" data-region="c1"><path d="M14 40 H24 L64 22 V70 L24 52 H14 C11.8 52 10 50.2 10 48 V44 C10 41.8 11.8 40 14 40 Z" fill="var(--sk-c1, #FF6B5B)"/><path d="M28 54 L34 76 C34.6 78.2 33.3 80 31 80 H27 C24.8 80 23.4 78.4 23 76 L20 54" fill="var(--sk-c1, #FF6B5B)"/></g></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 40 H24 L64 22 V70 L24 52 H14 C11.8 52 10 50.2 10 48 V44 C10 41.8 11.8 40 14 40 Z"/><path d="M28 54 L34 76 C34.6 78.2 33.3 80 31 80 H27 C24.8 80 23.4 78.4 23 76 L20 54"/><path d="M72 34 C76 38 78 42 78 46 C78 50 76 54 72 58"/><path d="M80 26 C86 32 89 39 89 46 C89 53 86 60 80 66"/></g></svg></span><span class="xname">Support teams</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="close dotted wide">
+    <div class="wrap g">
+      <div class="c7"><h2>Build the library. Keep the source.</h2>
+        <p style="margin-top:12px">Your first 2 videos are free, up to 1 minute each, watermarked. No card required.</p></div>
+      <div class="c5" style="display:flex;align-items:center;justify-content:flex-end">
+        <a class="btn" href="https://sketchie.ai/app/signup">Get started</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap g">
+    <div class="c4">
+      <a class="mark" href="sketchie-concept-b-paper.html" style="margin-bottom:12px">
+        <svg class="marklogo" width="26" height="26" role="img" aria-label="Sketchie" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" data-mascot="inkling"><g class="fill" stroke="none"><circle cx="60" cy="58" r="42" fill="var(--sk-c1,#6C5CE7)"/><path d="M88 27 C99 37 104 52 99 68 C95 81 84 92 70 96 C90 84 97 66 93 50 C90 39 86 32 79 26 C82 25.5 85 25.6 88 27 Z" fill="var(--sk-c2,#E8538F)"/><path d="M97 62 C97 74 88 89 74 95 C86 84 92 72 92 60 C94 59 96 60 97 62 Z" fill="var(--sk-c3,#FF6B5B)"/><path d="M38 26 C43 22 51 20 57 21 C50 24 45 28 42 33 C39 31 38 29 38 26 Z" fill="#FFFFFF" opacity="0.9"/></g><g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 16 C84 16 102 34 102 58 C102 82 84 100 60 100 C36 100 18 82 18 58 C18 35 37 16 60 16 Z"/><path d="M25 38 C21 44 19 51 19 58" stroke-width="3.5" opacity="0.7"/><path d="M96 74 C99 69 101 64 101.5 58" stroke-width="3.5" opacity="0.7"/></g><g class="face"><circle cx="47" cy="55" r="5.5" fill="currentColor"/><circle cx="73" cy="55" r="5.5" fill="currentColor"/><circle cx="48.8" cy="53" r="1.8" fill="#FFFFFF"/><circle cx="74.8" cy="53" r="1.8" fill="#FFFFFF"/><path d="M50 70 C55 75.5 65 75.5 70 70" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="38" cy="64" rx="5" ry="3" fill="var(--sk-c2,#E8538F)" opacity="0.55"/><ellipse cx="82" cy="64" rx="5" ry="3" fill="var(--sk-c2,#E8538F)" opacity="0.55"/></g></svg>
+        Sketchie
+      </a>
+      <p style="font-size:var(--t-sm);max-width:30ch">Type it, and a narrated whiteboard explainer draws itself. Every scene stays editable.</p>
+      <p style="font-size:var(--t-sm);margin-top:10px">Operated by Downshift LLC.</p>
+    </div>
+    <div class="c2"><h4>Product</h4><ul>
+      <li><a href="https://sketchie.ai/examples/">Examples</a></li>
+      <li><a href="https://sketchie.ai/pricing/">Pricing</a></li>
+      <li><a href="https://sketchie.ai/icons/">Icons</a></li></ul></div>
+    <div class="c2"><h4>Developers</h4><ul>
+      <li><a href="https://sketchie.ai/api/">API</a></li>
+      <li><a href="https://sketchie.ai/docs/">Docs</a></li>
+      <li><a href="https://sketchie.ai/docs/mcp/">MCP setup</a></li></ul></div>
+    <div class="c2"><h4>Learn</h4><ul>
+      <li><a href="https://sketchie.ai/science/">Science</a></li>
+      <li><a href="https://sketchie.ai/education/">Education</a></li>
+      <li><a href="https://sketchie.ai/vs-simi/">Compared with Simi</a></li></ul></div>
+    <div class="c2"><h4>Start</h4><ul>
+      <li><a href="https://sketchie.ai/app/signup">Get started</a></li>
+      <li><a href="https://sketchie.ai/app/login">Log in</a></li></ul></div>
+    <div class="c12 fb">
+      <span>Proposed revamp of sketchie.ai. Not the live site.</span>
+      <span>Palette, type, dot grid, icon artwork and headline copy from the live site.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY="sketchie-theme";
+  var root=document.documentElement;
+  var tbtn=document.getElementById("themeToggle");
+  function paint(){
+    var night=root.getAttribute("data-theme")==="night";
+    if(tbtn){tbtn.setAttribute("aria-checked",String(night));tbtn.setAttribute("aria-label",night?"Night mode on":"Night mode off")}
+  }
+  function setTheme(m,broadcast){
+    root.setAttribute("data-theme",m);
+    try{localStorage.setItem(KEY,m)}catch(e){}
+    paint();
+    /* independent: the page does not tell the hub what theme it is in */
+  }
+  paint();
+  if(tbtn){tbtn.addEventListener("click",function(){
+    setTheme(root.getAttribute("data-theme")==="night"?"day":"night",true);
+  })}
+
+  var edits={
+    "1":['"In scene 01, show the name being typed letter by letter, and keep the window empty until it is."','Scenes 02, 03 and 04'],
+    "2":['"In scene 02, name the resolver and show the request leaving the laptop first."','Scenes 01, 03 and 04'],
+    "3":['"In scene 03, number the three servers so the order of the answer is obvious."','Scenes 01, 02 and 04'],
+    "4":['"In scene 04, hold the question on screen longer before the recap lands."','Scenes 01, 02 and 03']
+  };
+  var scenes=document.querySelectorAll(".scene");
+  var req=document.getElementById("reqtext");
+  var kept=document.getElementById("kept");
+  scenes.forEach(function(b){
+    b.addEventListener("click",function(){
+      scenes.forEach(function(x){x.setAttribute("aria-pressed","false")});
+      b.setAttribute("aria-pressed","true");
+      var e=edits[b.getAttribute("data-scene")];
+      if(e){ if(req){req.textContent=e[0]} if(kept){kept.textContent=e[1]} }
+    });
+  });
+
+  document.querySelectorAll("video").forEach(function(v){
+    function swap(){
+      if(v.dataset.swapped){return}
+      v.dataset.swapped="1";
+      var d=document.createElement("div");
+      d.className="vf";
+      d.textContent=(v.getAttribute("aria-label")||"Explainer")+" (clip unavailable right now)";
+      v.replaceWith(d);
+    }
+    v.addEventListener("error",swap,true);
+    setTimeout(function(){if(v.readyState===0&&v.networkState===3){swap()}},6000);
+  });
+})();
+
+/* ---- players -------------------------------------------------------
+   Progressive enhancement: the markup ships with native controls, so a
+   no-script reader still gets a working video. If this runs, the native
+   bar is removed and replaced with controls drawn in the page's own ink. */
+(function(){
+  var players = [].slice.call(document.querySelectorAll('[data-player]'));
+  if(!players.length) return;
+  var ICON = {
+    play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5 L18.5 12 L8 18.5 Z" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>',
+    pause:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5v13M15 5.5v13" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg>',
+    on:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h4L13 5.5v13L8 14.5H4z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16.5 9.5a4 4 0 0 1 0 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
+    off:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h4L13 5.5v13L8 14.5H4z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16.5 9.5l4 5M20.5 9.5l-4 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>'
+  };
+  function clock(t){
+    if(!isFinite(t)||t<0) t=0;
+    var m=Math.floor(t/60), sec=Math.floor(t%60);
+    return m+':'+(sec<10?'0':'')+sec;
+  }
+  players.forEach(function(fig){
+    var v = fig.querySelector('video'); if(!v) return;
+    v.removeAttribute('controls');
+    var pad = fig.querySelector('.pad');
+    var ambient = fig.classList.contains('ambient');
+
+    var ctl = document.createElement('div');
+    ctl.className = 'ctl';
+    var pp = document.createElement('button');
+    pp.type='button'; pp.className='pp'; pp.innerHTML=ICON.play; pp.setAttribute('aria-label','Play');
+    var track = document.createElement('div');
+    track.className='track'; track.tabIndex=0;
+    track.setAttribute('role','slider');
+    track.setAttribute('aria-label','Seek');
+    track.setAttribute('aria-valuemin','0');
+    track.setAttribute('aria-valuemax','100');
+    track.setAttribute('aria-valuenow','0');
+    track.innerHTML='<span class="ink"></span><span class="done"></span><span class="knob"></span>';
+    var time = document.createElement('span');
+    time.className='time'; time.textContent='0:00';
+    var full = document.createElement('button');
+    full.type='button'; full.className='full';
+    full.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 15v5h-5M20 9V4h-5M4 15v5h5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    full.setAttribute('aria-label','Full screen');
+    full.addEventListener('click', function(){
+      var el = v;
+      if(document.fullscreenElement){ document.exitFullscreen(); return; }
+      if(el.requestFullscreen) el.requestFullscreen();
+      else if(el.webkitEnterFullscreen) el.webkitEnterFullscreen();
+    });
+    var mute = document.createElement('button');
+    mute.type='button'; mute.className='mute';
+    mute.innerHTML = v.muted ? ICON.off : ICON.on;
+    mute.setAttribute('aria-label', v.muted ? 'Unmute' : 'Mute');
+    ctl.appendChild(pp); ctl.appendChild(track); ctl.appendChild(time); ctl.appendChild(mute); ctl.appendChild(full);
+    (fig.querySelector('.screen')||fig).insertAdjacentElement('afterend', ctl);
+
+    var done = track.querySelector('.done'), knob = track.querySelector('.knob');
+    function paint(){
+      var d = v.duration, pct = (isFinite(d) && d>0) ? (v.currentTime/d)*100 : 0;
+      done.style.width = pct+'%'; knob.style.left = pct+'%';
+      track.setAttribute('aria-valuenow', Math.round(pct));
+      time.textContent = clock(v.currentTime) + (isFinite(d)&&d>0 ? ' / '+clock(d) : '');
+    }
+    function setPlaying(on){
+      fig.classList.toggle('playing', on);
+      pp.innerHTML = on ? ICON.pause : ICON.play;
+      pp.setAttribute('aria-label', on ? 'Pause' : 'Play');
+    }
+    function start(){
+      players.forEach(function(o){ if(o!==fig){ var ov=o.querySelector('video'); if(ov&&!ov.paused&&!o.classList.contains('ambient')) ov.pause(); } });
+      var r = v.play(); if(r&&r.catch) r.catch(function(){});
+    }
+    // a card in the carousel opens the dedicated player instead
+    if(pad && !fig.closest('.clip')) pad.addEventListener('click', start);
+    pp.addEventListener('click', function(){ v.paused ? start() : v.pause(); });
+    mute.addEventListener('click', function(){
+      v.muted = !v.muted;
+      mute.innerHTML = v.muted ? ICON.off : ICON.on;
+      mute.setAttribute('aria-label', v.muted ? 'Unmute' : 'Mute');
+    });
+    var card = fig.closest('.clip');
+    v.addEventListener('play', function(){ setPlaying(true); if(card) card.classList.add('is-playing'); });
+    v.addEventListener('pause', function(){ setPlaying(false); if(card) card.classList.remove('is-playing'); });
+    v.addEventListener('ended', function(){ setPlaying(false); fig.classList.remove('playing'); if(card) card.classList.remove('is-playing'); });
+    v.addEventListener('timeupdate', paint);
+    v.addEventListener('loadedmetadata', paint);
+    v.addEventListener('durationchange', paint);
+
+    function seekTo(clientX){
+      var r = track.getBoundingClientRect();
+      var pct = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+      if(isFinite(v.duration) && v.duration>0){ v.currentTime = pct * v.duration; paint(); }
+    }
+    var dragging=false;
+    track.addEventListener('pointerdown', function(e){ dragging=true; track.setPointerCapture(e.pointerId); seekTo(e.clientX); });
+    track.addEventListener('pointermove', function(e){ if(dragging) seekTo(e.clientX); });
+    track.addEventListener('pointerup', function(){ dragging=false; });
+    track.addEventListener('keydown', function(e){
+      if(!isFinite(v.duration)||v.duration<=0) return;
+      var step = v.duration/20;
+      if(e.key==='ArrowRight'){ v.currentTime=Math.min(v.duration, v.currentTime+step); e.preventDefault(); }
+      else if(e.key==='ArrowLeft'){ v.currentTime=Math.max(0, v.currentTime-step); e.preventDefault(); }
+      else if(e.key===' '||e.key==='Enter'){ v.paused?start():v.pause(); e.preventDefault(); }
+      paint();
+    });
+    if(ambient) setPlaying(!v.paused);
+    paint();
+  });
+})();
+
+
+/* ---- dedicated player ---------------------------------------------
+   Opened from a carousel card. Dimmed page behind, close by button,
+   Escape, or a click on the backdrop. Focus returns to the card. */
+(function(){
+  var lb = document.getElementById('lbox');
+  if(!lb) return;
+  var fig = lb.querySelector('.lbox-player');
+  var v = fig.querySelector('video');
+  var titleEl = document.getElementById('lboxTitle');
+  var noteEl = document.getElementById('lboxNote');
+  var opener = null;
+
+  function close(){
+    if(lb.hidden) return;
+    try{ v.pause(); }catch(e){}
+    v.removeAttribute('src'); v.load();
+    lb.hidden = true;
+    document.body.classList.remove('lb-open');
+    if(opener && opener.focus) opener.focus();
+    opener = null;
+  }
+  function open(src, title, note, from){
+    opener = from || null;
+    titleEl.textContent = title || '';
+    noteEl.textContent = note || '';
+    v.src = src;
+    lb.hidden = false;
+    document.body.classList.add('lb-open');
+    var p = v.play(); if(p && p.catch) p.catch(function(){});
+    var x = lb.querySelector('.lbox-x'); if(x) x.focus();
+  }
+  window.sketchieOpenPlayer = open;
+
+  [].forEach.call(lb.querySelectorAll('[data-lbclose]'), function(el){
+    el.addEventListener('click', close);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !lb.hidden) close();
+    if(e.key === 'Tab' && !lb.hidden){
+      // keep focus inside the dialog
+      var f = lb.querySelectorAll('button, video, [tabindex]:not([tabindex="-1"])');
+      if(!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+      else if(!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+    }
+  });
+})();
+
+/* ---- explainer carousel ------------------------------------------
+   The centred card is the active one and the only one that offers play.
+   Driven by scrollLeft rather than a transform: native swipe, and it
+   survives whatever was eating the track transform. */
+(function(){
+  var box = document.querySelector('[data-carousel]');
+  if(!box) return;
+  var track = box.querySelector('.ctrack');
+  var clips = [].slice.call(track.querySelectorAll('.clip'));
+  var prev = box.querySelector('.carrow.prev');
+  var next = box.querySelector('.carrow.next');
+  if(!clips.length) return;
+  var i = 0, lock = false;
+  function sbw(){
+    document.documentElement.style.setProperty('--sbw',
+      (window.innerWidth - document.documentElement.clientWidth) + 'px');
+  }
+  sbw();
+  window.addEventListener("load", sbw);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(sbw);
+  setTimeout(sbw, 800);
+
+  function pauseOthers(keep){
+    clips.forEach(function(c){
+      var v = c.querySelector('video');
+      if(c !== keep){
+        if(v && !v.paused) v.pause();
+        c.classList.remove('is-playing');
+      }
+    });
+  }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var raf;
+  function centre(n, smooth){
+    var card = clips[n];
+    var to = Math.max(0, Math.min(track.scrollWidth - track.clientWidth,
+      card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2));
+    if(raf) cancelAnimationFrame(raf);
+    if(smooth === false || reduce){ track.scrollLeft = to; return; }
+    var from = track.scrollLeft, t0 = null, dur = 420;
+    if(Math.abs(to - from) < 1) return;
+    function step(ts){
+      if(t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      var e = p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3) / 2;   // easeInOutCubic
+      track.scrollLeft = from + (to - from) * e;
+      if(p < 1) raf = requestAnimationFrame(step); else raf = null;
+    }
+    raf = requestAnimationFrame(step);
+    /* A throttled tab, or any environment that is not issuing animation
+       frames, would otherwise leave the tween stranded part way. Land on
+       the target regardless once the duration has passed. */
+    clearTimeout(centre._settle);
+    centre._settle = setTimeout(function(){
+      if(raf){ cancelAnimationFrame(raf); raf = null; }
+      if(Math.abs(track.scrollLeft - to) > 1) track.scrollLeft = to;
+    }, dur + 90);
+  }
+  function render(){
+    clips.forEach(function(c, n){
+      var on = n === i;
+      c.classList.toggle('is-active', on);
+      [].forEach.call(c.querySelectorAll('button,a,video'), function(el){
+        if(on) el.removeAttribute('tabindex'); else el.setAttribute('tabindex','-1');
+      });
+    });
+    prev.hidden = i === 0;
+    next.hidden = i === clips.length - 1;
+  }
+  function go(n, smooth){
+    n = Math.max(0, Math.min(clips.length - 1, n));
+    i = n;
+    pauseOthers(clips[i]);
+    render();
+    lock = true;
+    centre(i, smooth);
+    clearTimeout(go._t);
+    go._t = setTimeout(function(){ lock = false; }, 600);
+  }
+  // the centred card opens the dedicated player
+  clips.forEach(function(c){
+    var pad = c.querySelector('.pad');
+    if(!pad) return;
+    pad.addEventListener('click', function(e){
+      if(!c.classList.contains('is-active')) return;   // side cards just centre
+      e.preventDefault(); e.stopPropagation();
+      var v = c.querySelector('video');
+      var t = c.querySelector('.ttl'), n = c.querySelector('figcaption .note');
+      if(window.sketchieOpenPlayer && v){
+        window.sketchieOpenPlayer(v.getAttribute('src'), t ? t.textContent.trim() : '',
+          n ? n.textContent.trim() : '', pad);
+      }
+    });
+  });
+  prev.addEventListener('click', function(){ go(i - 1); });
+  next.addEventListener('click', function(){ go(i + 1); });
+  clips.forEach(function(c, n){
+    c.addEventListener('click', function(e){
+      if(n === i) return;
+      e.preventDefault(); e.stopPropagation();
+      go(n);
+    }, true);
+  });
+  box.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ go(i + 1); e.preventDefault(); }
+    else if(e.key === 'ArrowLeft'){ go(i - 1); e.preventDefault(); }
+  });
+  // a swipe or trackpad scroll picks whichever card is nearest the middle
+  var st;
+  track.addEventListener('scroll', function(){
+    if(lock) return;
+    clearTimeout(st);
+    st = setTimeout(function(){
+      var mid = track.scrollLeft + track.clientWidth / 2;
+      var best = 0, dist = Infinity;
+      clips.forEach(function(c, n){
+        var d = Math.abs((c.offsetLeft + c.offsetWidth / 2) - mid);
+        if(d < dist){ dist = d; best = n; }
+      });
+      if(best !== i){ i = best; pauseOthers(clips[i]); render(); }
+    }, 110);
+  });
+  var rt;
+  window.addEventListener('resize', function(){
+    clearTimeout(rt); rt = setTimeout(function(){ sbw(); go(i, false); }, 140);
+  });
+  render();
+  centre(0, false);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ centre(i, false); });
+})();
+
+</script>
+</body>
+</html>
