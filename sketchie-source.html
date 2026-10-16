@@ -90,6 +90,7 @@ document.documentElement.setAttribute("data-theme",v||"day");})();
   <div class="acts">
     <button type="button" id="theme">Theme</button>
     <a id="raw" href="sketchie-concept-b-paper.html" download>Download</a>
+    <button type="button" id="select">Select all</button>
     <button type="button" class="primary" id="copy">Copy all</button>
   </div>
 </div>
@@ -164,13 +165,25 @@ document.documentElement.setAttribute("data-theme",v||"day");})();
       var ok = false;
       try { ok = document.execCommand('copy'); } catch(e){}
       ta.remove();
-      toast(ok ? 'Copied the whole file' : 'Copy blocked, select the code instead');
+      if(ok){ toast('Copied the whole file'); }
+      else { selectAll(); toast('Copy blocked. Selected it, press ctrl or cmd + C'); }
     }
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(text)
         .then(function(){ toast('Copied the whole file'); })
         .catch(fallback);
     } else { fallback(); }
+  });
+
+  function selectAll(){
+    var r = document.createRange(); r.selectNodeContents(codeEl);
+    var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    preEl.focus();
+  }
+  document.getElementById('select').addEventListener('click', function(){
+    if(!text){ toast('Nothing loaded yet'); return; }
+    selectAll();
+    toast(navigator.platform.indexOf('Mac') === 0 ? 'Selected. Press cmd + C' : 'Selected. Press ctrl + C');
   });
 
   document.getElementById('theme').addEventListener('click', function(){
