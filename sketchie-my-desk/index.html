@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<script>
+  (function () {
+    var KEY = 'sketchie-theme';
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    var theme = saved === 'night' || saved === 'day' ? saved
+      : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>My desk · Sketchie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { color-scheme: light; }
+body { margin: 0; font-size: 14px; -webkit-text-size-adjust: 100%; }
+h1, h2, h3, p, pre { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+.tag.link{border-color:var(--accent);color:var(--accent);font-weight:600;text-decoration:none}
+.tag.link:hover{background:var(--accent-soft)}
+
+
+/* Layout: one working column; a people-by-day board up top, then each epic as a ticket list you can copy from. */
+:root {
+  --bg: #F6F5FA; --surface: #FFFFFF; --ink: #1C1A2E; --muted: #5D5A75; --line: #E2E0EC;
+  --accent: #5341D6; --accent-soft: #ECE9FD; --l2: #0E6F6B; --l2-soft: #DCF1EF;
+  --warn: #9A4A06; --warn-soft: #FCEEDC; --today: #FFF6D6;
+  --sans: 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #14131D; --surface: #1D1C2A; --ink: #ECEAF6; --muted: #A6A3BE; --line: #302E45;
+  --accent: #A69BFF; --accent-soft: #2A2652; --l2: #5CCFC6; --l2-soft: #173836;
+  --warn: #F2AE62; --warn-soft: #3B2A16; --today: #2E2A17; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #14131D; --surface: #1D1C2A; --ink: #ECEAF6; --muted: #A6A3BE; --line: #302E45;
+  --accent: #A69BFF; --accent-soft: #2A2652; --l2: #5CCFC6; --l2-soft: #173836;
+  --warn: #F2AE62; --warn-soft: #3B2A16; --today: #2E2A17; color-scheme: dark }
+
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.5; padding: 32px 20px 64px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; }
+h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+h2 { font-size: 21px; font-weight: 600; }
+h3 { font-size: 15px; font-weight: 600; }
+.lede { color: var(--muted); max-width: 66ch; font-size: 16px; }
+.mono { font-family: var(--mono); font-size: 13px; }
+.label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+header { display: flex; flex-direction: column; gap: 12px; }
+.flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+.flow span.step { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; color: var(--ink); }
+.flow span.qa { border-style: dashed; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); padding-block: 10px; z-index: 5; border-bottom: 1px solid var(--line); }
+.filters button { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 14px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.filters button:focus-visible, .btn:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+section { display: flex; flex-direction: column; gap: 16px; }
+.sec-head { display: flex; flex-direction: column; gap: 4px; }
+
+/* Board */
+.board-scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.board { min-width: 1080px; display: grid; grid-template-columns: 150px 1fr; }
+.days { display: grid; grid-template-columns: repeat(14, 1fr); }
+.days div { font-size: 12px; color: var(--muted); padding: 8px 4px; text-align: center; border-left: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.days div.wk { border-left: 2px solid var(--ink); }
+.days div.is-today { background: var(--today); color: var(--ink); font-weight: 600; }
+.weeks { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+.weeks div { font-size: 12px; font-weight: 600; padding: 8px 10px; }
+.weeks div:first-child { color: var(--accent); background: var(--accent-soft); }
+.banner { background: var(--warn-soft); color: var(--warn); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-size: 14px; font-weight: 500; }
+.weeks div:last-child { color: var(--l2); background: var(--l2-soft); border-left: 2px solid var(--ink); }
+.who { padding: 10px 12px; border-top: 1px solid var(--line); font-weight: 600; font-size: 14px; display: flex; flex-direction: column; gap: 2px; }
+.who small { font-weight: 400; color: var(--muted); font-size: 12px; }
+.who.unnamed { color: var(--warn); }
+.lane { border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(14, 1fr); grid-auto-flow: row dense; gap: 4px 0; padding: 6px 0; position: relative;
+  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px); background-size: calc(100% / 14) 100%; }
+.chip { align-self: start; overflow-wrap: anywhere; margin: 0 3px; border-radius: 6px; padding: 4px 6px; font-size: 12px; line-height: 1.3; text-decoration: none; color: var(--ink); min-width: 0; overflow: hidden; display: flex; flex-direction: column; }
+.chip b { font-family: var(--mono); font-weight: 500; font-size: 11px; }
+.chip.L1 { background: var(--accent-soft); } .chip.L1 b { color: var(--accent); }
+.chip.L2 { background: var(--l2-soft); } .chip.L2 b { color: var(--l2); }
+.chip:hover { outline: 1px solid var(--ink); }
+
+/* Epics and tickets */
+.epic { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.epic-top { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; justify-content: space-between; }
+.epic-title { display: flex; flex-direction: column; gap: 4px; }
+.epic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; }
+.epic-grid p { color: var(--muted); max-width: 60ch; }
+.replaces { font-size: 13px; color: var(--muted); }
+.tickets { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.ticket { display: grid; grid-template-columns: 76px minmax(0, 1fr) 150px 120px 72px; gap: 8px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: start; scroll-margin-top: 72px; }
+.ticket:target { background: var(--today); }
+.ticket .id { font-family: var(--mono); font-size: 13px; padding-top: 1px; }
+.ticket.L1 .id { color: var(--accent); } .ticket.L2 .id { color: var(--l2); }
+.body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.done { color: var(--muted); max-width: 64ch; }
+.done strong { color: var(--ink); font-weight: 600; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: var(--muted); align-items: center; }
+.tag { border: 1px solid var(--line); border-radius: 5px; padding: 0 6px; font-size: 12px; color: var(--muted); text-decoration: none; }
+a.tag { font-family: var(--mono); color: var(--ink); }
+.tag.qa { border-style: dashed; }
+.tag.exist { background: var(--bg); }
+.pill.done { display:inline-block; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 1px 8px; background: var(--l2-soft); color: var(--l2); vertical-align: middle; margin-left: 6px; }
+.ticket.is-done h3, .ticket.is-done .done { color: var(--muted); }
+.ticket.is-done .id { opacity: .6; }
+.pill.late { display:inline-block; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 1px 8px; background: #FBE3E0; color: #9A2E22; vertical-align: middle; margin-left: 6px; }
+.pill.blocked { display:inline-block; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 1px 8px; background: var(--warn-soft); color: var(--warn); vertical-align: middle; margin-left: 6px; }
+.latest { font-size: 13px; color: var(--ink); background: var(--bg); border-left: 3px solid var(--warn); padding: 6px 10px; border-radius: 0 6px 6px 0; max-width: 64ch; }
+.chip.late { outline: 2px solid #C0392B; }
+.owner { font-size: 14px; font-weight: 500; }
+.owner.unnamed { color: var(--warn); }
+.due { font-size: 14px; font-variant-numeric: tabular-nums; }
+.btn { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.btn:hover { border-color: var(--ink); }
+details.asana { grid-column: 2 / -1; }
+details.asana summary { font-size: 13px; color: var(--muted); cursor: pointer; }
+details.asana pre { margin-top: 8px; white-space: pre-wrap; font-family: var(--mono); font-size: 12.5px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 12px; }
+
+table.ex { width: 100%; border-collapse: collapse; background: var(--surface); }
+.ex-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+table.ex th, table.ex td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 14px; }
+table.ex th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+table.ex td:first-child { font-weight: 500; min-width: 240px; }
+table.ex td.now { color: var(--muted); white-space: nowrap; }
+table.ex tr:last-child td { border-bottom: none; }
+.hidden-by-filter { display: none !important; }
+
+@media (max-width: 760px) {
+  body { padding: 20px 16px 48px; }
+  h1 { font-size: 26px; }
+  .epic-grid { grid-template-columns: 1fr; }
+  .ticket { grid-template-columns: 64px minmax(0, 1fr); }
+  .ticket .owner, .ticket .due { grid-column: 2; }
+  .ticket .copy { grid-column: 2; justify-self: start; }
+  details.asana { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+<style>
+  .tag.link { border-color: var(--accent); color: var(--accent); font-weight: 600; text-decoration: none; }
+  .tag.link:hover { background: var(--accent-soft); }
+  .ticket .done strong, .ticket .latest strong { color: var(--ink); }
+  .count { color: var(--muted); font-weight: 400; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="sec-head" style="margin-bottom:8px">
+    <p class="label">Sketchie · my desk</p>
+    <h1>Mine only</h1>
+    <p class="lede">What I answer or make myself, in the four buckets we use on Rivalize. Build tickets and open bugs stay on the <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-launch-tickets/">full board</a>. Read off Asana on Tue 27 October.</p>
+  </div>
+
+  <div class="banner">
+    3 decisions are sitting unanswered and
+    2 of them block Andi. L1-T24b and L1-T24c are finished as work
+    but not posted, so neither build ticket can start.
+  </div>
+
+  
+  <section>
+    <div class="epic-top">
+      <div class="epic-title">
+        <h2>Pending comment <span class="count">3</span></h2>
+        <span class="replaces">Needs words from me, not work.</span>
+      </div>
+    </div>
+    <div class="tickets">
+  <article class="ticket L1" id="L1-T24b-c">
+    <span class="id">L1-T24b</span>
+    <div class="body">
+      <h3>Post the card design so Andi can start <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Why it is here:</strong> The design is finished and published. The ticket's done-when is that it is linked on the ticket, and it is not yet.</p>
+      <p class="latest"><strong>Needs from you:</strong> Post the comment and tag Andi.</p>
+      <div class="meta">
+        <span>Blocks:</span><span class="tag">L1-T24d</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219838596285686" target="_blank" rel="noopener">Open in Asana</a>
+        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/" target="_blank" rel="noopener">Open the design</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sat, Oct 24</span>
+  </article>
+  <article class="ticket L1" id="L1-T24a-c">
+    <span class="id">L1-T24a</span>
+    <div class="body">
+      <h3>Answer Andi on per-plan CTAs <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Why it is here:</strong> Andi closed the audit on Oct 25 with a direct question. The ticket is complete but the question was never answered on it.</p>
+      <p class="latest"><strong>Needs from you:</strong> Confirm whether per-plan CTAs are separate follow-up work or move to L2. Same call as L1-T24c.</p>
+      <div class="meta">
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219838596284546" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sat, Oct 24</span>
+  </article>
+  <article class="ticket L1" id="L1-T24c-c">
+    <span class="id">L1-T24c</span>
+    <div class="body">
+      <h3>Decide whether the card selection ships <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Why it is here:</strong> The button question is settled: L1-T24a came back No, so per-plan buttons move to L2 and every card links to /app/signup. The selection is not settled. The design makes the cards selectable and writes ?plan= into the link, and nothing reads it yet.</p>
+      <p class="latest"><strong>Needs from you:</strong> Ship the selection as presentation, hold it until L2, or take the engineering day and make the parameter work.</p>
+      <div class="meta">
+        <span>Blocks:</span><span class="tag">L1-T24e</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219839112006844" target="_blank" rel="noopener">Open in Asana</a>
+        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/" target="_blank" rel="noopener">Open the design</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sun, Oct 25</span>
+  </article></div>
+  </section>
+  
+  <section>
+    <div class="epic-top">
+      <div class="epic-title">
+        <h2>Pending task <span class="count">10</span></h2>
+        <span class="replaces">Mine to make. Earliest due first.</span>
+      </div>
+    </div>
+    <div class="tickets">
+  <article class="ticket L1" id="L1-T12">
+    <span class="id">L1-T12</span>
+    <div class="body">
+      <h3>Set up Sketchie's social accounts <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Done when:</strong> Six profiles exist with a good name, username and description, linked from the footer and connected to a scheduler.</p>
+      <p class="latest">Blocked on ops. Jean has not provisioned access; escalated in #operations.</p>
+      <div class="meta">
+        
+        <span class="tag">with Olu</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869370" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Wed, Oct 21</span>
+  </article>
+  <article class="ticket L1" id="L1-T13">
+    <span class="id">L1-T13</span>
+    <div class="body">
+      <h3>Make the 7 launch videos <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Done when:</strong> 7 short videos made in Sketchie, one per post in the launch calendar, each watched start to finish.</p>
+      
+      <div class="meta">
+        
+        <span class="tag">with Norj</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869372" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Oct 23</span>
+  </article>
+  <article class="ticket L1" id="L1-T15">
+    <span class="id">L1-T15</span>
+    <div class="body">
+      <h3>Build the first 60 outreach prospects <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Done when:</strong> 60 people listed with name, profile link and what they teach. Course creators and teachers first.</p>
+      
+      <div class="meta">
+        
+        <span class="tag">with Olu</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Oct 23</span>
+  </article>
+  <article class="ticket L1" id="L1-T16">
+    <span class="id">L1-T16</span>
+    <div class="body">
+      <h3>Make 18 sample videos and finalise the 3 outreach messages <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Done when:</strong> 18 short videos, each from one prospect's own lesson, ready for Day 1 and Day 2.</p>
+      
+      <div class="meta">
+        <span>Needs first:</span><span class="tag">L1-T15</span>
+        <span class="tag">with Norj</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sun, Oct 25</span>
+  </article>
+  <article class="ticket L1" id="L1-T24">
+    <span class="id">L1-T24</span>
+    <div class="body">
+      <h3>Pricing section redesign <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Done when:</strong> Free, Solo, Plus and Pro as cards in one row, Team coming soon, each live plan's button going where it says.</p>
+      <p class="latest">Design is done and published. Waiting only on the two comments above.</p>
+      <div class="meta">
+        
+        <span class="tag">with Andi builds</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219839111981998" target="_blank" rel="noopener">Open in Asana</a>
+        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/" target="_blank" rel="noopener">Open the design</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sun, Oct 25</span>
+  </article>
+  <article class="ticket L2" id="L2-T07">
+    <span class="id">L2-T07</span>
+    <div class="body">
+      <h3>Publish the first comparison page</h3>
+      <p class="done"><strong>Done when:</strong> One page about the competitor chosen in L1-T21, every claim checked against their official pages and dated.</p>
+      
+      <div class="meta">
+        <span>Needs first:</span><span class="tag">L1-T21</span>
+        <span class="tag">with Mahir co-checks, Andi publishes</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219652282341198" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Wed, Oct 28</span>
+  </article>
+  <article class="ticket L2" id="L2-T04">
+    <span class="id">L2-T04</span>
+    <div class="body">
+      <h3>Make tomorrow's sample videos <span class="pill">Daily</span></h3>
+      <p class="done"><strong>Done when:</strong> 8 new sample videos ready each evening for the next day's outreach.</p>
+      
+      <div class="meta">
+        
+        <span class="tag">with Norj</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219651805749610" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Oct 30</span>
+  </article>
+  <article class="ticket L2" id="L2-T08">
+    <span class="id">L2-T08</span>
+    <div class="body">
+      <h3>Run 5 user interviews</h3>
+      <p class="done"><strong>Done when:</strong> 5 conversations with launch-week signups, notes attached.</p>
+      
+      <div class="meta">
+        
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219651805593594" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Oct 30</span>
+  </article>
+  <article class="ticket L2" id="L2-T09">
+    <span class="id">L2-T09</span>
+    <div class="body">
+      <h3>Friday review: pick 1 or 2 changes</h3>
+      <p class="done"><strong>Done when:</strong> A Slack update naming 1 or 2 changes for week 2, each a new ticket with an owner. Not ten.</p>
+      
+      <div class="meta">
+        
+        <span class="tag">with Mahir and Olu join</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219651805691624" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Oct 30</span>
+  </article>
+  <article class="ticket L2" id="L2-T10">
+    <span class="id">L2-T10</span>
+    <div class="body">
+      <h3>Week-one scorecard</h3>
+      <p class="done"><strong>Done when:</strong> Scorecard shared before the Mon Nov 2 sync, split by audience.</p>
+      
+      <div class="meta">
+        
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219651984213038" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sun, Nov 1</span>
+  </article></div>
+  </section>
+  
+  <section>
+    <div class="epic-top">
+      <div class="epic-title">
+        <h2>Archive <span class="count">3</span></h2>
+        <span class="replaces">Parked on purpose, not forgotten.</span>
+      </div>
+    </div>
+    <div class="tickets">
+  <article class="ticket is-done" id="V6quality">
+    <span class="id">V6 quality</span>
+    <div class="body">
+      <h3>Prioritise engine improvements from GTM feedback</h3>
+      <p class="done">Backlog, no due date. Planning work with Alex on generation quality, parked until after launch week.</p>
+      <div class="meta"><a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219289867847837" target="_blank" rel="noopener">Open in Asana</a></div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">No date</span>
+  </article>
+  <article class="ticket is-done" id="V6testing">
+    <span class="id">V6 testing</span>
+    <div class="body">
+      <h3>Run the representative prompt and visual-mode stress plan</h3>
+      <p class="done">Backlog, no due date. The 25-prompt stress run across Icons, Doodles and Icon KIT.</p>
+      <div class="meta"><a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219289867856609" target="_blank" rel="noopener">Open in Asana</a></div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">No date</span>
+  </article>
+  <article class="ticket is-done" id="UXAPItab">
+    <span class="id">[UX] API tab</span>
+    <div class="body">
+      <h3>“Start a plan” is plain text instead of a link</h3>
+      <p class="done">Sits in Ready to Deploy. A dev fix, not mine to build. Low priority, no functional impact.</p>
+      <div class="meta"><a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1217450959620996" target="_blank" rel="noopener">Open in Asana</a></div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">No date</span>
+  </article></div>
+  </section>
+  
+  <section>
+    <div class="epic-top">
+      <div class="epic-title">
+        <h2>Completed <span class="count">6</span></h2>
+        <span class="replaces">Most recent first.</span>
+      </div>
+    </div>
+    <div class="tickets">
+  <article class="ticket is-done" id="L1-T07-done">
+    <span class="id">L1-T07</span>
+    <div class="body">
+      <h3>Final wording check on the live page <span class="pill done">Done</span></h3>
+      
+      <div class="meta"><a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869357" target="_blank" rel="noopener">Open in Asana</a></div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Mon, Oct 26</span>
+  </article>
+  <article class="ticket is-done" id="L1-T07d-done">
+    <span class="id">L1-T07d</span>
+    <div class="body">
+      <h3>Decide Simi naming, API terms and free plan wording <span class="pill done">Done</span></h3>
+      <p class="latest">Closed without the three answers being posted on the ticket. The free-plan sentence now on staging also differs from the one proposed in it.</p>
+      <div class="meta"><a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219838454444805" target="_blank" rel="noopener">Open in Asana</a></div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Mon, Oct 26</span>
+  </article>
+  <article class="ticket is-done" id="L1-T22-done">
+    <span class="id">L1-T22</span>
+    <div class="body">
+      <h3>Record the Sketchie intro video and one-page PDF <span class="pill done">Done</span></h3>
+      
+      <div class="meta"><a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219651941898667" target="_blank" rel="noopener">Open in Asana</a></div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Mon, Oct 26</span>
+  </article>
+  <article class="ticket is-done" id="L1-T20-done">
+    <span class="id">L1-T20</span>
+    <div class="body">
+      <h3>Confirm the Oct 26 launch date and competitor naming with Manuel <span class="pill done">Done</span></h3>
+      <p class="latest">The launch board still lists this as open.</p>
+      <div class="meta"><a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219289811943659" target="_blank" rel="noopener">Open in Asana</a></div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Oct 23</span>
+  </article>
+  <article class="ticket is-done" id="L1-T05-done">
+    <span class="id">L1-T05</span>
+    <div class="body">
+      <h3>Write the landing page plan <span class="pill done">Done</span></h3>
+      
+      <div class="meta"><a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869349" target="_blank" rel="noopener">Open in Asana</a></div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Oct 16</span>
+  </article>
+  <article class="ticket is-done" id="L1-T01-done">
+    <span class="id">L1-T01</span>
+    <div class="body">
+      <h3>Name the launch-week outreach owner <span class="pill done">Done</span></h3>
+      
+      <div class="meta"><a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869338" target="_blank" rel="noopener">Open in Asana</a></div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Tue, Oct 13</span>
+  </article></div>
+  </section>
+
+</div>
+</body>
+</html>
