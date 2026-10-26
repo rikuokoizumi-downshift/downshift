@@ -29,7 +29,59 @@
   @media (max-width: 1100px) { .home-plan-grid.is-four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 900px)  { .home-plan-grid.is-four { grid-template-columns: 1fr; gap: 20px; } }
 
-  /* ---------------- NEW RULE 2: the Team coming-soon card ---------------- */
+  /* ---------------- NEW RULE 2: the card as a control --------------------
+     The brand's shadows are hard offsets, never blurs, so the lit state is
+     a deeper offset in violet rather than a glow. Transform is the only
+     thing animated: moving the border or the shadow spread reflows and
+     costs a repaint on every frame. */
+  .home-plan {
+    position: relative;
+    cursor: pointer;
+    transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+  }
+  .home-plan:hover { transform: translate(-1px, -2px); box-shadow: 5px 6px 0 var(--line); }
+  .home-plan:focus-visible { outline: 3px solid var(--violet); outline-offset: 4px; }
+
+  .home-plan.is-selected {
+    border-color: var(--violet);
+    box-shadow: 6px 7px 0 var(--violet);
+    transform: translate(-2px, -3px);
+  }
+  html[data-theme=night] .home-plan.is-selected { box-shadow: 6px 7px 0 #9b8cff; }
+
+  /* the tick that says which one is lit */
+  .home-plan-tick {
+    position: absolute; top: 14px; right: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--violet); color: var(--on-accent);
+    opacity: 0; transform: scale(.6);
+    transition: opacity .14s ease, transform .14s ease;
+  }
+  .home-plan.is-selected .home-plan-tick { opacity: 1; transform: scale(1); }
+  .home-plan-tick svg { width: 14px; height: 14px; display: block; }
+
+  /* Plus is the house pick. It keeps a label rather than the heavy ring,
+     so the ring can mean "selected" and nothing else. */
+  .home-plan.is-featured { border-color: var(--line); box-shadow: none; }
+  .home-plan.is-featured.is-selected { border-color: var(--violet); box-shadow: 6px 7px 0 var(--violet); }
+  .home-plan-pick {
+    position: absolute; top: -11px; left: 22px;
+    padding: 3px 11px; border-radius: 99px;
+    border: 2px solid var(--violet); background: var(--violet); color: var(--on-accent);
+    font-family: var(--ui); font-size: .68rem; font-weight: 700;
+    letter-spacing: .09em; text-transform: uppercase;
+  }
+
+  /* the card CTA sits at the foot of every card, aligned across the row */
+  .home-plan-cta { margin-top: 18px; width: 100%; justify-content: center; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-plan, .home-plan-tick { transition: none; }
+    .home-plan:hover, .home-plan.is-selected { transform: none; }
+  }
+
+  /* ---------------- NEW RULE 3: the Team coming-soon card ---------------- */
   .home-plan-soon {
     display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
     margin-top: clamp(14px, 1.6vw, 24px);
@@ -47,9 +99,6 @@
   }
   @media (max-width: 640px) { .home-plan-soon .soon-tag { margin-inline-start: 0; } }
 
-  /* the card CTA sits at the foot of every card, aligned across the row */
-  .home-plan-cta { margin-top: 18px; width: 100%; justify-content: center; }
-
   body { padding: 40px 0 60px; background: var(--warm2); }
   .mockbar { max-width: 1280px; margin: 0 auto 26px; padding: 0 clamp(18px,4vw,48px);
              display: flex; align-items: center; gap: 16px;
@@ -61,7 +110,7 @@
 <body class="home-page">
 
 <div class="mockbar">
-  <p>L1-T24 mock · built on the live staging stylesheets · Free, Solo, Plus, Pro in one row, Team coming soon, every button to /app/signup</p>
+  <p>L1-T24 mock · built on the live staging stylesheets · Free, Solo, Plus, Pro in one row, Team coming soon · select a card to light it</p>
   <!-- Same switch, same storage key and same data-theme attribute the live
        site uses, so what is checked here is the real night palette rather
        than an approximation of it. -->
@@ -81,9 +130,12 @@
       <p class="lead" style="margin:16px 0 0">One monthly Credit balance. The style and length you pick set the price, and you see it before anything is generated.</p>
     </div>
 
-    <div class="home-plan-grid is-four">
+    <!-- A radio group, so a keyboard reaches one card with Tab and moves
+         between them with the arrow keys, the way a native radio set does. -->
+    <div class="home-plan-grid is-four" role="radiogroup" aria-label="Choose a plan">
 
-      <article class="home-plan">
+      <article class="home-plan" role="radio" aria-checked="false" tabindex="0" data-plan="free">
+        <span class="home-plan-tick" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="home-plan-name">Free</span>
         <p class="home-plan-price">$0<span>no card</span></p>
         <p class="home-plan-credits">Two videos</p>
@@ -101,7 +153,8 @@
         <a class="btn ghost home-plan-cta" href="/app/signup">Get started free</a>
       </article>
 
-      <article class="home-plan">
+      <article class="home-plan" role="radio" aria-checked="false" tabindex="-1" data-plan="solo">
+        <span class="home-plan-tick" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="home-plan-name">Solo</span>
         <p class="home-plan-price">$9.99<span>per month</span></p>
         <p class="home-plan-credits">240 Credits</p>
@@ -115,7 +168,9 @@
         <a class="btn ghost home-plan-cta" href="/app/signup">Get started</a>
       </article>
 
-      <article class="home-plan is-featured">
+      <article class="home-plan is-featured" role="radio" aria-checked="false" tabindex="-1" data-plan="plus">
+        <span class="home-plan-pick">Most picked</span>
+        <span class="home-plan-tick" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="home-plan-name">Plus</span>
         <p class="home-plan-price">$19.99<span>per month</span></p>
         <p class="home-plan-credits">600 Credits</p>
@@ -126,10 +181,11 @@
           <dt class="home-plan-key">Icons / KIT / Doodles</dt>
         </dl>
         <p class="home-plan-adds">Solo features plus API and MCP access, subject to Credit charging verification.</p>
-        <a class="btn primary home-plan-cta" href="/app/signup">Get started</a>
+        <a class="btn ghost home-plan-cta" href="/app/signup">Get started</a>
       </article>
 
-      <article class="home-plan">
+      <article class="home-plan" role="radio" aria-checked="false" tabindex="-1" data-plan="pro">
+        <span class="home-plan-tick" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="home-plan-name">Pro</span>
         <p class="home-plan-price">$49.99<span>per month</span></p>
         <p class="home-plan-credits">1,600 Credits</p>
@@ -157,6 +213,7 @@
 </section>
 
 <script>
+  /* ---- theme ---- */
   (function () {
     var KEY = 'sketchie-theme';
     var btn = document.getElementById('themeToggle');
@@ -171,6 +228,46 @@
       document.documentElement.setAttribute('data-theme', next);
       try { localStorage.setItem(KEY, next); } catch (e) {}
       sync();
+    });
+  })();
+
+  /* ---- card selection ----
+     One card is lit at a time. The lit card's button becomes the filled
+     one and carries ?plan= so the intent is in the URL ready for L2; the
+     signup flow does not read it yet (L1-T24a). */
+  (function () {
+    var cards = [].slice.call(document.querySelectorAll('.home-plan[role="radio"]'));
+
+    function select(card, moveFocus) {
+      cards.forEach(function (c) {
+        var on = c === card;
+        c.classList.toggle('is-selected', on);
+        c.setAttribute('aria-checked', String(on));
+        c.tabIndex = on ? 0 : -1;
+        var cta = c.querySelector('.home-plan-cta');
+        cta.classList.toggle('primary', on);
+        cta.classList.toggle('ghost', !on);
+        var base = '/app/signup';
+        cta.setAttribute('href', on ? base + '?plan=' + c.dataset.plan : base);
+      });
+      if (moveFocus) card.focus();
+    }
+
+    cards.forEach(function (card) {
+      /* a click on the button is a navigation, not a selection */
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('.home-plan-cta')) return;
+        select(card, false);
+      });
+      card.addEventListener('keydown', function (e) {
+        var i = cards.indexOf(card);
+        if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); select(card, true); return; }
+        var step = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1
+                 : e.key === 'ArrowLeft'  || e.key === 'ArrowUp'   ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        select(cards[(i + step + cards.length) % cards.length], true);
+      });
     });
   })();
 </script>
