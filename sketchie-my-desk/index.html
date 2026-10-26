@@ -167,115 +167,22 @@ table.ex tr:last-child td { border-bottom: none; }
   </div>
 
   <div class="banner">
-    3 decisions are sitting unanswered and
-    2 of them block Andi. L1-T24b and L1-T24c are finished as work
-    but not posted, so neither build ticket can start.
+    Nothing is waiting on a comment. All three L1-T24 replies went to Andi on 27 October, and the
+    card selection ships as presentation for Monday, so T24d and T24e are both unblocked.
+    L1-T24b and L1-T24c are done as work and only need closing.
   </div>
 
   <div class="filters tabs" role="tablist" aria-label="My work">
-    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">3</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">10</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
+    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">0</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">12</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
   </div>
 
   <section role="tabpanel" id="panel-comment" aria-labelledby="tab-comment">
-    <p class="panel-note">Needs words from me, not work. Each one has a draft ready to copy.</p>
-    <div class="tickets">
-  <article class="ticket L1" id="L1-T24b-c">
-    <span class="id">L1-T24b</span>
-    <div class="body">
-      <h3>Post the card design so Andi can start <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> The design is finished and published. The ticket's done-when is that it is linked on the ticket, and it is not yet.</p>
-      <p class="latest"><strong>Needs from you:</strong> Post the draft below and tag Andi.</p>
-      <div class="meta">
-        <span>Blocks:</span><span class="tag">L1-T24d</span>
-        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219838596285686" target="_blank" rel="noopener">Open in Asana</a>
-        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/" target="_blank" rel="noopener">Open the design</a>
-      </div>
-    </div>
-    <span class="owner">You</span>
-    <span class="due">Sat, Oct 24</span>
-    <button class="btn copy" type="button" data-k="L1-T24b">Copy draft</button>
-    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T24b">Hi @Andi Maulana, the pricing design is ready. I built it on the current staging stylesheets, so it should drop straight into the markup that is already there.
-
-https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/
-
-It replaces the three-card grid in section#plans and the &quot;Start with two free videos&quot; panel underneath it.
-
-The row becomes four cards: Free, Solo, Plus, Pro, in that order, with Team sitting below the row as a coming-soon strip. Max stays off the page. It is not there today, and its numbers are no more settled than Team's.
-
-The heading has to change with it. &quot;Start with three clear plans.&quot; no longer fits once Free and Team are on the page, so it becomes &quot;One balance. Four ways to start.&quot; The lead sentence under it stays as it is.
-
-For the Free card: $0 with &quot;no card&quot; beside it, then &quot;Two videos&quot;, then &quot;Two watermarked Icons videos, up to one minute each, with no card required.&quot; The one-minute videos row reads 2, Icons only. I kept that row even though Free has only one number, so the rules line up across all four cards. It also reads better than &quot;2 / 0 / 0&quot;, which looks like a list of things you do not get.
-
-Solo, Plus and Pro keep their copy, prices and credits exactly as they are on staging.
-
-Team shows its name, a &quot;Coming soon&quot; tag, and one line: &quot;A shared Credit pool, member access and priority support.&quot; No price and no credits, because L1-T02 has no Team figures recorded, and the 15 October proposal treats Team and Max as planning options rather than launch commitments.
-
-One small change to Plus. It gives up the heavy violet ring and gets a &quot;Most picked&quot; label instead. The ring now shows which card is selected, so the two were competing for the same meaning.
-
-On mobile it goes four columns, then two below 1100px, then one below 900px, which matches the breakpoint already in the stylesheet. I checked it at 375px and there is no sideways scroll.
-
-There are only three new CSS rules: .home-plan-grid.is-four, the hover and selected states on .home-plan, and .home-plan-soon. Everything else reuses classes already on the page, and the colours are existing tokens, so dark mode needs nothing extra.
-
-The buttons are on L1-T24c. Thanks, and shout if anything is unclear.</pre></details>
-  </article>
-  <article class="ticket L1" id="L1-T24a-c">
-    <span class="id">L1-T24a</span>
-    <div class="body">
-      <h3>Answer Andi on per-plan CTAs <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> Andi closed the audit on 25 October with a direct question. The ticket is complete, but the question was never answered on it.</p>
-      <p class="latest"><strong>Needs from you:</strong> Post the draft below. It is the same call as L1-T24c.</p>
-      <div class="meta">
-        
-        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219838596284546" target="_blank" rel="noopener">Open in Asana</a>
-        
-      </div>
-    </div>
-    <span class="owner">You</span>
-    <span class="due">Sat, Oct 24</span>
-    <button class="btn copy" type="button" data-k="L1-T24a">Copy draft</button>
-    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T24a">Hi @Andi Maulana, thank you for the audit, and for leaving the code alone while you checked.
-
-Let us move per-plan CTAs to L2. For Monday every card will link to /app/signup with a neutral label, so nothing on the page promises a plan the flow cannot carry yet.
-
-The full button spec is on L1-T24c.</pre></details>
-  </article>
-  <article class="ticket L1" id="L1-T24c-c">
-    <span class="id">L1-T24c</span>
-    <div class="body">
-      <h3>Decide whether the card selection ships <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> The button question is settled. L1-T24a came back No, so per-plan buttons move to L2 and every card links to /app/signup. The selection is not settled. The design makes the cards selectable and writes ?plan= into the link, and nothing reads it yet.</p>
-      <p class="latest"><strong>Needs from you:</strong> Choose one of the three options in the draft, replace the marked line, then post.</p>
-      <div class="meta">
-        <span>Blocks:</span><span class="tag">L1-T24e</span>
-        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219839112006844" target="_blank" rel="noopener">Open in Asana</a>
-        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/" target="_blank" rel="noopener">Open the design</a>
-      </div>
-    </div>
-    <span class="owner">You</span>
-    <span class="due">Sun, Oct 25</span>
-    <button class="btn copy" type="button" data-k="L1-T24c">Copy draft</button>
-    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T24c">Hi @Andi Maulana, your T24a answer settles the buttons.
-
-Since signup cannot carry a plan yet, per-plan buttons move to L2 and every card links to /app/signup for launch. The labels stay neutral so each button goes where it says it goes:
-
-Free: &quot;Get started free&quot;, to /app/signup
-Solo: &quot;Get started&quot;, to /app/signup
-Plus: &quot;Get started&quot;, to /app/signup
-Pro: &quot;Get started&quot;, to /app/signup
-Team: no button, just the &quot;Coming soon&quot; tag
-
-The selected card's button is the filled one and the rest are outlined.
-
-Design: https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/
-
-One thing to confirm before you build T24e. The cards in the mock are a radio group, so clicking one lights it up and writes ?plan= into its signup link. Nothing reads that yet, which means someone could pick Pro, click through, and be asked to pick again.
-
-I have not decided that one yet. The options are to ship the selection as presentation for Monday, hold it until L2, or spend the day you estimated and make the parameter work properly. I will confirm before you reach T24e.
-
-Either way the card layout on T24b does not change, so please go ahead and start T24d now. Thanks.</pre></details>
-  </article></div>
+    <p class="panel-note">Needs words from me, not work. All three L1-T24 replies were posted on 27 October.</p>
+    <p class="done" style="padding:18px 0">Nothing here right now.</p>
+    <div class="tickets"></div>
   </section><section role="tabpanel" id="panel-task" aria-labelledby="tab-task" hidden>
     <p class="panel-note">Mine to make. Earliest due first.</p>
+    
     <div class="tickets">
   <article class="ticket L1" id="L1-T12">
     <span class="id">L1-T12</span>
@@ -324,6 +231,38 @@ Either way the card layout on T24b does not change, so please go ahead and start
     </div>
     <span class="owner">You</span>
     <span class="due">Fri, Oct 23</span>
+  </article>
+  <article class="ticket L1" id="L1-T24b">
+    <span class="id">L1-T24b</span>
+    <div class="body">
+      <h3>Design the pricing cards <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Done when:</strong> A design Andi can build from is linked on the ticket.</p>
+      <p class="latest">Done. Design posted to Asana on 27 October. Ready to close.</p>
+      <div class="meta">
+        
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219838596285686" target="_blank" rel="noopener">Open in Asana</a>
+        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/" target="_blank" rel="noopener">Open the design</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sat, Oct 24</span>
+  </article>
+  <article class="ticket L1" id="L1-T24c">
+    <span class="id">L1-T24c</span>
+    <div class="body">
+      <h3>Design the plan buttons <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Done when:</strong> Each card's button is specified: label and where it goes.</p>
+      <p class="latest">Done. Spec posted on 27 October, and the selection ships as presentation. Ready to close.</p>
+      <div class="meta">
+        
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219839112006844" target="_blank" rel="noopener">Open in Asana</a>
+        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/" target="_blank" rel="noopener">Open the design</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sun, Oct 25</span>
   </article>
   <article class="ticket L1" id="L1-T16">
     <span class="id">L1-T16</span>
@@ -439,6 +378,7 @@ Either way the card layout on T24b does not change, so please go ahead and start
   </article></div>
   </section><section role="tabpanel" id="panel-archive" aria-labelledby="tab-archive" hidden>
     <p class="panel-note">Parked on purpose, not forgotten.</p>
+    
     <div class="tickets">
   <article class="ticket is-done" id="V6quality">
     <span class="id">V6 quality</span>
@@ -472,6 +412,7 @@ Either way the card layout on T24b does not change, so please go ahead and start
   </article></div>
   </section><section role="tabpanel" id="panel-done" aria-labelledby="tab-done" hidden>
     <p class="panel-note">Most recent first.</p>
+    
     <div class="tickets">
   <article class="ticket is-done" id="L1-T07-done">
     <span class="id">L1-T07</span>
