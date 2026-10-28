@@ -105,12 +105,153 @@
              font: 13px/1.5 var(--ui); color: var(--muted); }
   .mockbar p { margin: 0; }
   .mockbar .theme-switch { margin-inline-start: auto; }
+
+/* =====================================================================
+   Review pass, 29 October. Four comments from Rikuo on the staging
+   pricing page, applied here so the change is visible rather than
+   described. Each block says what was wrong before the fix.
+   ===================================================================== */
+
+/* the two grid rules the staging pricing page carries inline, copied so
+   the new sections start from what Andi already has */
+  .price-rules { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 24px; margin-top: 36px; }
+  .price-rules p { margin-top: 0; }
+  @media (max-width: 900px) { .price-rules { grid-template-columns: 1fr; } }
+
+/* ============ REVIEW 1: line the separators up across the cards ========
+     The cards were a flex column, so each card decided for itself where
+     its two rules fell: the "who" paragraph is 1 to 3 lines and the
+     footnote is 1 or 2, and every difference pushed the rules out of
+     line. Subgrid hands the rows to the grid instead. Each card spans the
+     same seven rows, so name, price, credits, blurb, stats, footnote and
+     button all start on a shared line and the two rules read as one
+     continuous line across the row.
+
+     Kept behind @supports because the flex fallback is still correct,
+     just unaligned, on a browser without subgrid. */
+  @supports (grid-template-rows: subgrid) {
+    .home-plan-grid.is-four { grid-template-rows: repeat(7, auto); }
+    .home-plan-grid.is-four .home-plan {
+      display: grid;
+      grid-row: span 7;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+    }
+    /* the spacer that used to absorb the slack; the grid rows do it now */
+    .home-plan-grid.is-four .home-plan-who { flex: none; }
+    /* the button sits at the foot of its shared row rather than stretching */
+    .home-plan-grid.is-four .home-plan-cta { align-self: end; }
+  }
+
+/* ============ REVIEW 2: icons on the four rules ========================
+     Yes, we have them: the Sketchy Icon Library, our own, 10,385 icons,
+     MIT licensed. Using our own set here is also the cheapest possible
+     demonstration of it. Each icon takes its accent from --sk-c1 and its
+     ink from currentColor, so it follows the theme with no second asset
+     for night. */
+  .rule-ico { display: block; width: 46px; height: 46px; margin: 0 0 14px; color: var(--ink); }
+  .rule-ico svg { display: block; width: 100%; height: 100%; }
+  .price-rules h3 { margin: 0 0 8px; }
+
+/* ============ REVIEW 3: make the difference the point ==================
+     It was two headings in a three-column grid, so the right third sat
+     empty and the two lists read as one undifferentiated wall of chips.
+     Now they are two cards. Always keeps the house colours. From Pro is
+     the lighter card, a violet wash on the surface and on its chips, so
+     the upgrade reads as something added on top rather than a second
+     list of the same weight. The widths are uneven on purpose: eight
+     chips against three. */
+  .include-split {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: clamp(14px, 1.6vw, 24px);
+    margin-top: 36px;
+    align-items: start;
+  }
+  .include-card {
+    padding: 22px;
+    border: 2px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper);
+  }
+  .include-label {
+    margin: 0;
+    color: var(--violet-deep);
+    font-family: var(--ui);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .include-note { margin: 8px 0 0; color: var(--muted); font-size: .875rem; font-weight: 300; }
+  .include-card .home-chips { margin-top: 18px; }
+
+  /* the lighter card. The flat fallback comes first for anything without
+     color-mix; the brand uses no blurs, so this is a tint and a border,
+     not a glow. */
+  .include-card.is-pro { background: #f4f1ff; border-color: var(--violet); }
+  .include-card.is-pro { background: color-mix(in srgb, var(--violet) 9%, var(--paper)); }
+  .include-card.is-pro .home-chips :is(span,a) { border-color: var(--violet); color: var(--violet-deep); background: var(--paper); }
+  html[data-theme=night] .include-card.is-pro { background: #9b8cff1f; border-color: #9b8cff80; }
+  html[data-theme=night] .include-card.is-pro .home-chips :is(span,a) { border-color: #9b8cff80; color: #cfc6ff; background: transparent; }
+
+  @media (max-width: 900px) { .include-split { grid-template-columns: 1fr; } }
+
+/* ============ REVIEW 4: open and close it smoothly =====================
+     A native <details> shows and hides its content in one frame, which is
+     the abruptness. The answer gets a wrapper whose height the script
+     animates between 0 and its measured height, and the script holds the
+     element open until the closing animation has finished.
+
+     Worth knowing before anyone "simplifies" this back: the tidy
+     CSS-only version, a grid row going from 0fr to 1fr, was tried first
+     and measured. It collapses correctly but does not interpolate here,
+     so it still snapped open in one frame. Animating the height outright
+     is the thing that actually moves.
+
+     The marker is drawn as two bars rather than a "+" swapped for a "-",
+     because a glyph swap cannot be tweened: the upright bar closes to
+     nothing while the whole thing turns. */
+  /* The collapsed height is set here rather than left to the browser's own
+     way of hiding a closed <details>. Wrapping the answer was enough to
+     defeat that hiding in testing: the closed answer still held 70px of
+     layout at opacity 0, which puts a phantom gap under every question.
+     height:0 makes the closed state true whatever the engine does, and
+     the script's animation overrides it while it runs. */
+  .faq .a-wrap { overflow: hidden; height: 0; }
+  .faq details.is-open .a-wrap { height: auto; }
+  .faq .a-wrap > .a {
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity .24s ease .04s, transform .24s ease .04s;
+  }
+  .faq details.is-open .a-wrap > .a { opacity: 1; transform: none; }
+
+  .faq summary:after {
+    content: "";
+    align-self: center;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    background:
+      linear-gradient(var(--violet), var(--violet)) center / 16px 2.5px no-repeat,
+      linear-gradient(var(--violet), var(--violet)) center / 2.5px 16px no-repeat;
+    transition: transform .32s cubic-bezier(.22,.61,.36,1), background-size .32s ease;
+  }
+  .faq details.is-open summary:after { transform: rotate(180deg); background-size: 16px 2.5px, 0 16px; }
+  .faq details[open] summary:after { content: ""; }
+  .faq summary:focus-visible { outline: 3px solid var(--violet); outline-offset: -3px; border-radius: 10px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq .a-wrap > .a, .faq summary:after { transition: none; }
+    .faq .a-wrap > .a { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body class="home-page">
 
 <div class="mockbar">
-  <p>L1-T24 mock · built on the live staging stylesheets · Free, Solo, Plus, Pro in one row, Team coming soon · select a card to light it</p>
+  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes split into two cards, Pro lighter · <strong>4</strong> accordion opens and closes smoothly</p>
   <!-- Same switch, same storage key and same data-theme attribute the live
        site uses, so what is checked here is the real night palette rather
        than an approximation of it. -->
@@ -212,6 +353,67 @@
   </div>
 </section>
 
+<section class="ruled" id="rules">
+  <div class="wrap">
+    <div class="for-copy">
+      <h2><span class="for-sent">You see the price</span> <span class="for-sent">before anything starts.</span></h2>
+      <p class="lead" style="margin-top:16px">Four rules that decide what you are charged, and when.</p>
+    </div>
+    <div class="price-rules">
+      <article>
+        <span class="rule-ico" aria-hidden="true" style="--sk-c1:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="target"> <g class="fills" stroke="none"> <g class="fill" data-region="paper"> <circle cx="48" cy="48" r="32" fill="var(--sk-paper, #FFFFFF)"/> </g> <g class="fill" data-region="c1"> <circle cx="48" cy="48" r="20" fill="var(--sk-c1, #FF6B5B)"/> </g> <g class="fill" data-region="paper"> <circle cx="48" cy="48" r="8" fill="var(--sk-paper, #FFFFFF)"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="48" cy="48" r="32"/> <circle cx="48" cy="48" r="20"/> <circle cx="48" cy="48" r="8"/> </g> </svg></span>
+        <h3>Choose and confirm</h3>
+        <p>Pick a style and length. See the exact Credit price before anything starts. If the balance is short, the upgrade comes before the charge.</p>
+      </article>
+      <article>
+        <span class="rule-ico" aria-hidden="true" style="--sk-c1:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="bolt"> <g class="fills" stroke="none"> <g class="fill" data-region="c1"> <path d="M52 14 L26 54 H46 L42 82 L70 40 H50 Z" fill="var(--sk-c1, #FFC933)"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <path d="M52 14 L26 54 H46 L42 82 L70 40 H50 Z"/> </g> </svg></span>
+        <h3>Generate</h3>
+        <p>The quote is held while the video is made and only charged on delivery. No surprise charge for a video that runs long.</p>
+      </article>
+      <article>
+        <span class="rule-ico" aria-hidden="true" style="--sk-c1:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="pencil"> <g class="fills" stroke="none"> <g class="fill" data-region="c1"> <path d="M20 76 L26 58 L64 20 L76 32 L38 70 Z" fill="var(--sk-c1, #FFC933)"/> </g> <g class="fill" data-region="ink"> <path d="M20 76 L32 72 L26 58 Z" fill="currentColor"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <path d="M20 76 L26 58 L64 20 L76 32 L38 70 Z"/> <line x1="58" y1="26" x2="70" y2="38"/> <path d="M20 76 L32 72 L26 58 Z"/> </g> </svg></span>
+        <h3>Edit when needed</h3>
+        <p>Editing and previewing are free. Paid plans include one re-render per new video.</p>
+      </article>
+      <article>
+        <span class="rule-ico" aria-hidden="true" style="--sk-c1:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="umbrella"> <g class="fills" stroke="none"> <g class="fill" data-region="c1"> <path d="M14 52 C14 26 82 26 82 52 Z" fill="var(--sk-c1, #6C5CE7)"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 52 C14 26 82 26 82 52 Z"/> <line x1="48" y1="52" x2="48" y2="76"/> <path d="M48 76 C48 84 34 84 34 76"/> </g> </svg></span>
+        <h3>If it fails</h3>
+        <p>Held Credits come back after a final failure or an accepted cancellation. An automatic retry never produces a second charge.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sunken ruled" id="includes">
+  <div class="wrap">
+    <h2>What every paid plan includes</h2>
+    <div class="include-split">
+      <article class="include-card">
+        <p class="include-label">Always</p>
+        <p class="include-note">In every paid plan, from Solo up.</p>
+        <div class="home-chips"><span>Prompt input</span><span>Document input</span><span>Standard narration</span><span>Scene editing</span><span>Narration editing</span><span>Sharing</span><span>Downloads</span><span>No watermark</span></div>
+      </article>
+      <article class="include-card is-pro">
+        <p class="include-label">From Pro</p>
+        <p class="include-note">Added on top of all of it, on Pro only.</p>
+        <div class="home-chips"><span>Your logo</span><span>Your colours</span><span>Your fonts</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="ruled" id="faq">
+  <div class="wrap">
+    <h2>Pricing questions</h2>
+    <div class="faq">
+      <details><summary>How much does it cost?</summary><div class="a">Plans start at $9.99 per month for 240 Credits. Style and length set the Credit quote shown before generation. Billed monthly. Credits renew each month and do not roll over.</div></details>
+      <details><summary>How do the free videos work?</summary><div class="a">Free access is two watermarked Icons videos, up to one minute each, with no card required.</div></details>
+      <details><summary>How are API videos charged?</summary><div class="a">An API returns the video and its scene graph, with an MCP server for agents and a CLI. Solo is app-only. API and MCP access starts on Plus and is included in Pro, subject to Credit charging verification. API and MCP usage is 2x the equivalent in-app Credit quote, subject to approval and billing verification.</div></details>
+      <details><summary>What happens when I edit or a generation fails?</summary><div class="a">Editing and previewing are free. Paid plans include one re-render per new video. Held Credits come back after a final failure or an accepted cancellation. An automatic retry never produces a second charge.</div></details>
+    </div>
+  </div>
+</section>
+
 <script>
   /* ---- theme ---- */
   (function () {
@@ -267,6 +469,56 @@
         if (!step) return;
         e.preventDefault();
         select(cards[(i + step + cards.length) % cards.length], true);
+      });
+    });
+  })();
+
+  /* ---- REVIEW 4: the accordion ----
+     <details> is kept, so the open attribute, the summary semantics and
+     the keyboard all still behave. The click is taken over only to hold
+     the element open while it closes; without that the content vanishes
+     on the first frame and there is nothing left to animate. */
+  (function () {
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+    [].slice.call(document.querySelectorAll('.faq details')).forEach(function (d) {
+      var a = d.querySelector('.a');
+      if (!a) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'a-wrap';
+      a.parentNode.insertBefore(wrap, a);
+      wrap.appendChild(a);
+      if (d.open) d.classList.add('is-open');
+
+      var running = null;
+      var OPT = { duration: 300, easing: 'cubic-bezier(.22,.61,.36,1)' };
+
+      d.querySelector('summary').addEventListener('click', function (e) {
+        e.preventDefault();
+        if (reduce) {
+          d.open = !d.open;
+          d.classList.toggle('is-open', d.open);
+          return;
+        }
+        if (running) running.cancel();
+
+        if (!d.open) {
+          d.open = true;                       /* render it, then measure it */
+          d.classList.add('is-open');
+          var full = wrap.scrollHeight;
+          running = wrap.animate([{ height: '0px' }, { height: full + 'px' }], OPT);
+          running.onfinish = function () { wrap.style.height = ''; running = null; };
+        } else {
+          var from = wrap.scrollHeight;
+          d.classList.remove('is-open');
+          running = wrap.animate([{ height: from + 'px' }, { height: '0px' }], OPT);
+          running.onfinish = function () {
+            wrap.style.height = '';
+            d.open = false;                    /* only now does it leave the page */
+            running = null;
+          };
+        }
       });
     });
   })();
