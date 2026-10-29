@@ -556,38 +556,40 @@
           return;
         }
 
+        var anim = null;
+
         function settle() {
-          /* Cancel first. Clearing the inline height is not enough on its
-             own: a running animation keeps overriding the stylesheet, so a
-             frozen one, which is what a throttled background tab gives
-             you, would pin the panel at the height it stopped at. */
-          if (running) { var r = running; running = null; r.cancel(); }
+          /* Cancel, do not merely clear the inline height: a running
+             animation keeps overriding the stylesheet, so a frozen one,
+             which is what a throttled background tab gives you, would pin
+             the panel at whatever height it stopped at. */
+          if (anim && anim.playState !== 'idle') anim.cancel();
+          if (running === anim) running = null;
           wrap.style.height = '';
           if (!opening) d.open = false;   /* only now does it leave the page */
         }
 
         try {
-          running = wrap.animate([{ height: from + 'px' }, { height: to + 'px' }], OPT);
+          anim = wrap.animate([{ height: from + 'px' }, { height: to + 'px' }], OPT);
         } catch (err) {
           settle();
           return;
         }
-        running.onfinish = settle;
-        running.oncancel = function () { running = null; };
+        running = anim;
+        anim.onfinish = settle;
 
-        /* Backstop. If the animation never reports back, for instance
-           because the tab is throttled in the background, the attribute
-           would otherwise stay open on a panel that looks shut, and a
-           screen reader would announce it as expanded. */
-        var mine = running;
-        setTimeout(function () {
-          /* Only ever settle the animation this click started. Without the
-             identity check, a close that is interrupted by a reopen leaves
-             its backstop pending, and that stale timer then settles the
-             new opening animation with the old direction: the panel reads
-             as shut to a screen reader while sitting open on screen. */
-          if (running && running === mine) settle();
-        }, OPT.duration + 150);
+        /* Backstop, for an animation that never reports back: a throttled
+           background tab can leave one running indefinitely, and the open
+           attribute would then stay set on a panel that looks shut, which
+           a screen reader announces as expanded.
+
+           Both this and settle compare against this click's own animation
+           rather than a shared flag. An earlier version kept an oncancel
+           handler that nulled the shared reference; cancelling the previous
+           animation at the top of the next click fired that handler late,
+           which wiped the reference to the new animation and quietly
+           disarmed this timer. */
+        setTimeout(function () { if (running === anim) settle(); }, OPT.duration + 150);
       });
     });
   })();
