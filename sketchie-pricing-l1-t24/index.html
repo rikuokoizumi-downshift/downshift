@@ -176,96 +176,166 @@
   .price-rules h3 { margin: 0 0 8px; }
 
 /* ============ REVIEW 3: make the difference the point ==================
-     First pass: it was two headings in a three-column grid, so the right
+     Pass 1: it was two headings in a three-column grid, so the right
      third sat empty and the two lists read as one undifferentiated wall
      of chips. That became two cards, Always in the house colours and
-     From Pro on a violet wash, so the upgrade reads as something added
-     on top rather than a second list of equal weight.
+     From Pro on a violet wash.
 
-     Second pass, 29 Oct, after a design review of the section on its
-     own: the cards were right, the inside of them was not. Eight chips
-     in one bag is a list, not an answer to "what do I get", and the
-     eight are three different kinds of thing. They are now grouped and
-     each group is named, one chip per line.
+     Pass 2: eight chips in one bag is a list, not an answer to "what do
+     I get", and the eight were three different kinds of thing. They got
+     grouped and each group named, one item per line.
 
-     The grouping also fixes the geometry rather than papering over it.
-     The groups run 2, 3, 3 and 3 rows, so the tallest column in Always
-     and the only column in From Pro are both three rows, and the two
-     cards come out the same height from the content itself at any
-     width. The previous pass got there by stretching one card and
-     absorbing 50px of slack above its chips, which worked but left a
-     hole in the middle of the Pro card.
+     Pass 3, 29 Oct, a redesign rather than another tightening. The two
+     cards were the thing the first two passes kept working around. The
+     plan row at the top of this page is already four bordered cards
+     with offset shadows, so a second bordered-card block three sections
+     later says "same kind of thing" about content that is not the same
+     kind of thing. The border was also not earning its keep: this
+     section already sits in a sunken band, so the band separates it and
+     the card drew a second box inside the first.
 
-     Always and From Pro move up to real headings in the display face.
-     They were small uppercase tracked labels, which is the same
-     treatment the group names now carry, and two tiers of the same
-     micro-label in one card is muddy. The small tracked tier now does
-     work: it names groups. */
+     So: no cards. One ruled band, four columns on a shared grid, each
+     group a named checklist. The zone rule and the vertical rule carry
+     the structure the borders used to, at the brand's own 2px ink
+     weight. Three consequences worth having:
+
+       - The 2.4fr / 1fr split is gone. That ratio existed only to make
+         two boxes end at the same height, so the layout was serving the
+         geometry rather than the content. With no boxes there is no
+         height to match, the columns can simply be equal, and the Pro
+         note can wrap whenever it likes.
+
+       - Eleven identical outlined pills became eleven checklist rows
+         using the tick the plan cards already carry. Same glyph, same
+         2.4 stroke, so nothing new was drawn for this.
+
+       - Violet now does exactly one job here. It was on all four group
+         labels, which spent the accent on the three columns that are
+         not the point. It is now only on the Pro zone: its rule, its
+         label, its ticks. The other three go muted.
+
+     Not taken from the audit: the suggestion to put a background image
+     or an ambient gradient behind a flat section. There is no
+     photography anywhere on this page and the brand is flat marker
+     line-work, so that would be the one foreign object in the room. */
   .include-split {
+    --inc-gap: clamp(22px, 2.4vw, 34px);
     display: grid;
-    grid-template-columns: 2.4fr 1fr;
-    gap: clamp(14px, 1.6vw, 24px);
-    margin-top: 36px;
-    align-items: stretch;
+    /* not 3fr 1fr. The Always zone spends two of its own gaps on its
+       three columns and the Pro zone spends none, so a 3:1 split of the
+       outer space leaves the Pro column g/2 wider than the other three
+       (measured: 288 against 265 at 1440). Giving the first track half a
+       gap back makes all four columns equal at any width and any gap. */
+    grid-template-columns: calc(3 * (100% - var(--inc-gap)) / 4 + var(--inc-gap) / 2) minmax(0, 1fr);
+    gap: var(--inc-gap);
+    margin-top: 34px;
+    align-items: start;
   }
-  .include-card {
+  .include-zone { min-width: 0; }
+  /* the divider sits in the gutter rather than inside the Pro track. A
+     border plus padding on the zone would eat 36px of that track and
+     make the Pro column 42px wider than the other three, which measured
+     exactly that way on the first build. */
+  .include-zone.is-pro { position: relative; }
+  .include-zone.is-pro::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--inc-gap) / -2 - 1px);
+    width: 2px;
+    background: var(--line);
+  }
+
+  /* one line, with the rule under it. Both zone heads are a heading plus
+     a short lowercase tag so they stay one line at every width we
+     support, which is what keeps the two rules on a shared baseline. */
+  .include-zone-head {
     display: flex;
-    flex-direction: column;
-    padding: 22px 24px 24px;
-    border: 2px solid var(--line);
-    border-radius: 16px;
-    background: var(--paper);
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0 0 20px;
+    padding-bottom: 11px;
+    border-bottom: 2px solid var(--line);
   }
-  .include-card .include-head {
+  .include-head {
     margin: 0;
     max-width: none;
     font-family: var(--marker);
-    font-size: 1.3125rem;
+    font-size: 1.25rem;
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: 0;
     color: var(--ink);
   }
-  .include-note { margin: 7px 0 0; color: var(--muted); font-size: .875rem; font-weight: 300; }
+  .include-tag { color: var(--muted); font-size: .8125rem; font-weight: 400; }
+  .include-zone.is-pro .include-zone-head { border-bottom-color: var(--violet); }
+  .include-zone.is-pro .include-tag { color: var(--violet-deep); font-weight: 500; }
 
-  /* auto-fit rather than a fixed three, so the group columns thin out on
-     their own as the card narrows instead of needing a breakpoint each.
-     With three groups the empty fourth track collapses, which is what
-     auto-fit does and auto-fill would not. */
-  .include-groups {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 20px 22px;
-    margin-top: 22px;
-  }
+  /* 3 + 1 against the outer 3fr + 1.2fr with the same gap, so all four
+     columns and all four group labels sit on one grid. */
+  .include-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--inc-gap); }
+  .include-zone.is-pro .include-groups { grid-template-columns: minmax(0, 1fr); }
   .include-group-label {
-    margin: 0 0 10px;
-    color: var(--violet-deep);
+    margin: 0 0 11px;
+    color: var(--muted);
     font-family: var(--ui);
     font-size: .68rem;
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
   }
-  /* one chip per line. .home-chips is a wrapping row everywhere else on
-     the site, so this is a local override, not a change to the chip. */
-  .include-group .home-chips {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    margin-top: 0;
+  .include-zone.is-pro .include-group-label { color: var(--violet-deep); }
+
+  .include-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+  .include-list li {
+    display: grid;
+    grid-template-columns: 17px minmax(0, 1fr);
+    gap: 9px;
+    align-items: start;
+    font-family: var(--ui);
+    font-size: .9375rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--ink);
   }
+  /* 1px down. Optically centred on the x-height reads better here than
+     mathematically centred on the line box. */
+  .include-list svg { width: 17px; height: 17px; display: block; margin-top: 1px; color: var(--ink); }
+  /* --violet-deep, not --violet. The site's convention is lines in
+     --violet and text in --violet-deep, and a tick sitting on a text
+     row reads as text: at --violet it measured 4.24 against this band
+     in day while the ink ticks opposite measured 14.43, so the column
+     being singled out came out the fainter of the two. --violet-deep
+     puts it on 5.46, level with its own label and tag, and is brighter
+     again in night. The rule above it stays --violet, because that is
+     a line. */
+  .include-zone.is-pro .include-list svg { color: var(--violet-deep); }
 
-  /* the lighter card. The flat fallback comes first for anything without
-     color-mix; the brand uses no blurs, so this is a tint and a border,
-     not a glow. */
-  .include-card.is-pro { background: #f4f1ff; border-color: var(--violet); }
-  .include-card.is-pro { background: color-mix(in srgb, var(--violet) 9%, var(--paper)); }
-  .include-card.is-pro .home-chips :is(span,a) { border-color: var(--violet); color: var(--violet-deep); background: var(--paper); }
-  html[data-theme=night] .include-card.is-pro { background: #9b8cff1f; border-color: #9b8cff80; }
-  html[data-theme=night] .include-card.is-pro .home-chips :is(span,a) { border-color: #9b8cff80; color: #cfc6ff; background: transparent; }
-
-  @media (max-width: 900px) { .include-split { grid-template-columns: 1fr; } }
+  @media (max-width: 1040px) {
+    .include-split { grid-template-columns: minmax(0, 1fr); }
+    .include-zone.is-pro::before {
+      top: calc(var(--inc-gap) / -2 - 1px);
+      right: 0;
+      bottom: auto;
+      left: 0;
+      width: auto;
+      height: 2px;
+    }
+    /* stacked, the Pro zone is full width with one group in it, so its
+       three items run across instead of down and it keeps the rhythm of
+       the row above. */
+    .include-zone.is-pro .include-list { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .include-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .include-zone.is-pro .include-groups { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .include-groups { grid-template-columns: minmax(0, 1fr); }
+    .include-zone.is-pro .include-list { grid-template-columns: minmax(0, 1fr); }
+  }
 
 /* ============ REVIEW 4: open and close it smoothly =====================
      A native <details> shows and hides its content in one frame, which is
@@ -403,7 +473,7 @@
 <body class="home-page">
 
 <div class="mockbar">
-  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes split into two cards, Pro lighter, chips grouped and named · <strong>4</strong> accordion opens and closes smoothly · later pass: FAQ answer colours, a colour each for the four rule icons, and the Plus card carries a centred pick label and a violet button</p>
+  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes rebuilt as one ruled band: no cards, four equal columns, grouped checklists · <strong>4</strong> accordion opens and closes smoothly · later pass: FAQ answer colours, a colour each for the four rule icons, the Plus card carries a centred pick label and a violet button, and the includes section drops its two boxes for a spec band</p>
   <!-- Same switch, same storage key and same data-theme attribute the live
        site uses, so what is checked here is the real night palette rather
        than an approximation of it. -->
@@ -540,34 +610,38 @@
   <div class="wrap">
     <h2>What every paid plan includes</h2>
     <div class="include-split">
-      <article class="include-card">
-        <h3 class="include-head">Always</h3>
-        <p class="include-note">In every paid plan, from Solo up.</p>
+      <div class="include-zone">
+        <div class="include-zone-head">
+          <h3 class="include-head">Always</h3>
+          <span class="include-tag">every paid plan, from Solo up</span>
+        </div>
         <div class="include-groups">
           <div class="include-group">
             <p class="include-group-label">Input</p>
-            <div class="home-chips"><span>Prompt input</span><span>Document input</span></div>
+            <ul class="include-list"><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prompt input</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Document input</span></li></ul>
           </div>
           <div class="include-group">
             <p class="include-group-label">Narration and editing</p>
-            <div class="home-chips"><span>Standard narration</span><span>Scene editing</span><span>Narration editing</span></div>
+            <ul class="include-list"><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Standard narration</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Scene editing</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Narration editing</span></li></ul>
           </div>
           <div class="include-group">
             <p class="include-group-label">Output</p>
-            <div class="home-chips"><span>Sharing</span><span>Downloads</span><span>No watermark</span></div>
+            <ul class="include-list"><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sharing</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Downloads</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>No watermark</span></li></ul>
           </div>
         </div>
-      </article>
-      <article class="include-card is-pro">
-        <h3 class="include-head">From Pro</h3>
-        <p class="include-note">Added on top of all of it, on Pro only.</p>
+      </div>
+      <div class="include-zone is-pro">
+        <div class="include-zone-head">
+          <h3 class="include-head">From Pro</h3>
+          <span class="include-tag">added on top</span>
+        </div>
         <div class="include-groups">
           <div class="include-group">
             <p class="include-group-label">Your brand</p>
-            <div class="home-chips"><span>Your logo</span><span>Your colours</span><span>Your fonts</span></div>
+            <ul class="include-list"><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your logo</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your colours</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your fonts</span></li></ul>
           </div>
         </div>
-      </article>
+      </div>
     </div>
   </div>
 </section>
