@@ -520,32 +520,74 @@
 
       var running = null;
       var OPT = { duration: 300, easing: 'cubic-bezier(.22,.61,.36,1)' };
+      var canAnimate = typeof wrap.animate === 'function';
 
       d.querySelector('summary').addEventListener('click', function (e) {
         e.preventDefault();
-        if (reduce) {
-          d.open = !d.open;
-          d.classList.toggle('is-open', d.open);
+
+        /* The class owns the state, not the animation. An earlier version
+           branched on d.open and only set it back to false from the
+           animation's onfinish, so any animation that did not report back
+           left d.open true with the panel shut: every later click took the
+           closing branch again and the panel never reopened. Deriving the
+           direction from the class cannot deadlock, because the class is
+           always set synchronously on the same click. */
+        var opening = !d.classList.contains('is-open');
+
+        if (running) { running.cancel(); running = null; }
+        wrap.style.height = '';
+
+        var from, to;
+        if (opening) {
+          d.open = true;                  /* render it before measuring it */
+          d.classList.add('is-open');
+          from = 0;
+          to = wrap.scrollHeight;
+        } else {
+          from = wrap.scrollHeight;
+          to = 0;
+          d.classList.remove('is-open');
+        }
+
+        /* No motion wanted, or no support: the CSS alone is already right,
+           so just settle the open attribute and stop. */
+        if (reduce || !canAnimate) {
+          d.open = opening;
           return;
         }
-        if (running) running.cancel();
 
-        if (!d.open) {
-          d.open = true;                       /* render it, then measure it */
-          d.classList.add('is-open');
-          var full = wrap.scrollHeight;
-          running = wrap.animate([{ height: '0px' }, { height: full + 'px' }], OPT);
-          running.onfinish = function () { wrap.style.height = ''; running = null; };
-        } else {
-          var from = wrap.scrollHeight;
-          d.classList.remove('is-open');
-          running = wrap.animate([{ height: from + 'px' }, { height: '0px' }], OPT);
-          running.onfinish = function () {
-            wrap.style.height = '';
-            d.open = false;                    /* only now does it leave the page */
-            running = null;
-          };
+        function settle() {
+          /* Cancel first. Clearing the inline height is not enough on its
+             own: a running animation keeps overriding the stylesheet, so a
+             frozen one, which is what a throttled background tab gives
+             you, would pin the panel at the height it stopped at. */
+          if (running) { var r = running; running = null; r.cancel(); }
+          wrap.style.height = '';
+          if (!opening) d.open = false;   /* only now does it leave the page */
         }
+
+        try {
+          running = wrap.animate([{ height: from + 'px' }, { height: to + 'px' }], OPT);
+        } catch (err) {
+          settle();
+          return;
+        }
+        running.onfinish = settle;
+        running.oncancel = function () { running = null; };
+
+        /* Backstop. If the animation never reports back, for instance
+           because the tab is throttled in the background, the attribute
+           would otherwise stay open on a panel that looks shut, and a
+           screen reader would announce it as expanded. */
+        var mine = running;
+        setTimeout(function () {
+          /* Only ever settle the animation this click started. Without the
+             identity check, a close that is interrupted by a reopen leaves
+             its backstop pending, and that stale timer then settles the
+             new opening animation with the old direction: the panel reads
+             as shut to a screen reader while sitting open on screen. */
+          if (running && running === mine) settle();
+        }, OPT.duration + 150);
       });
     });
   })();
