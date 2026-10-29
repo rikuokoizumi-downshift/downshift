@@ -176,16 +176,34 @@
   .price-rules h3 { margin: 0 0 8px; }
 
 /* ============ REVIEW 3: make the difference the point ==================
-     It was two headings in a three-column grid, so the right third sat
-     empty and the two lists read as one undifferentiated wall of chips.
-     Now they are two cards. Always keeps the house colours. From Pro is
-     the lighter card, a violet wash on the surface and on its chips, so
-     the upgrade reads as something added on top rather than a second
-     list of the same weight. The widths are uneven on purpose: eight
-     chips against three. */
+     First pass: it was two headings in a three-column grid, so the right
+     third sat empty and the two lists read as one undifferentiated wall
+     of chips. That became two cards, Always in the house colours and
+     From Pro on a violet wash, so the upgrade reads as something added
+     on top rather than a second list of equal weight.
+
+     Second pass, 29 Oct, after a design review of the section on its
+     own: the cards were right, the inside of them was not. Eight chips
+     in one bag is a list, not an answer to "what do I get", and the
+     eight are three different kinds of thing. They are now grouped and
+     each group is named, one chip per line.
+
+     The grouping also fixes the geometry rather than papering over it.
+     The groups run 2, 3, 3 and 3 rows, so the tallest column in Always
+     and the only column in From Pro are both three rows, and the two
+     cards come out the same height from the content itself at any
+     width. The previous pass got there by stretching one card and
+     absorbing 50px of slack above its chips, which worked but left a
+     hole in the middle of the Pro card.
+
+     Always and From Pro move up to real headings in the display face.
+     They were small uppercase tracked labels, which is the same
+     treatment the group names now carry, and two tiers of the same
+     micro-label in one card is muddy. The small tracked tier now does
+     work: it names groups. */
   .include-split {
     display: grid;
-    grid-template-columns: 1.55fr 1fr;
+    grid-template-columns: 2.4fr 1fr;
     gap: clamp(14px, 1.6vw, 24px);
     margin-top: 36px;
     align-items: stretch;
@@ -193,27 +211,50 @@
   .include-card {
     display: flex;
     flex-direction: column;
-    padding: 22px;
+    padding: 22px 24px 24px;
     border: 2px solid var(--line);
     border-radius: 16px;
     background: var(--paper);
   }
-  .include-label {
+  .include-card .include-head {
     margin: 0;
+    max-width: none;
+    font-family: var(--marker);
+    font-size: 1.3125rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+  .include-note { margin: 7px 0 0; color: var(--muted); font-size: .875rem; font-weight: 300; }
+
+  /* auto-fit rather than a fixed three, so the group columns thin out on
+     their own as the card narrows instead of needing a breakpoint each.
+     With three groups the empty fourth track collapses, which is what
+     auto-fit does and auto-fill would not. */
+  .include-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 20px 22px;
+    margin-top: 22px;
+  }
+  .include-group-label {
+    margin: 0 0 10px;
     color: var(--violet-deep);
     font-family: var(--ui);
-    font-size: .72rem;
+    font-size: .68rem;
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
   }
-  .include-note { margin: 8px 0 0; color: var(--muted); font-size: .875rem; font-weight: 300; }
-  /* Both cards run to the same height and both chip groups sit on the
-     card floor, so the last row of Always and the single row of From Pro
-     share one line across the gap. padding-top is the minimum gap;
-     margin-top: auto takes whatever is left over, which is why the
-     shorter card gains air above its chips instead of stopping early. */
-  .include-card .home-chips { margin-top: auto; padding-top: 18px; }
+  /* one chip per line. .home-chips is a wrapping row everywhere else on
+     the site, so this is a local override, not a change to the chip. */
+  .include-group .home-chips {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 0;
+  }
 
   /* the lighter card. The flat fallback comes first for anything without
      color-mix; the brand uses no blurs, so this is a tint and a border,
@@ -362,7 +403,7 @@
 <body class="home-page">
 
 <div class="mockbar">
-  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes split into two cards, Pro lighter, both the same height · <strong>4</strong> accordion opens and closes smoothly · later pass: FAQ answer colours, a colour each for the four rule icons, and the Plus card carries a centred pick label and a violet button</p>
+  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes split into two cards, Pro lighter, chips grouped and named · <strong>4</strong> accordion opens and closes smoothly · later pass: FAQ answer colours, a colour each for the four rule icons, and the Plus card carries a centred pick label and a violet button</p>
   <!-- Same switch, same storage key and same data-theme attribute the live
        site uses, so what is checked here is the real night palette rather
        than an approximation of it. -->
@@ -500,14 +541,32 @@
     <h2>What every paid plan includes</h2>
     <div class="include-split">
       <article class="include-card">
-        <p class="include-label">Always</p>
+        <h3 class="include-head">Always</h3>
         <p class="include-note">In every paid plan, from Solo up.</p>
-        <div class="home-chips"><span>Prompt input</span><span>Document input</span><span>Standard narration</span><span>Scene editing</span><span>Narration editing</span><span>Sharing</span><span>Downloads</span><span>No watermark</span></div>
+        <div class="include-groups">
+          <div class="include-group">
+            <p class="include-group-label">Input</p>
+            <div class="home-chips"><span>Prompt input</span><span>Document input</span></div>
+          </div>
+          <div class="include-group">
+            <p class="include-group-label">Narration and editing</p>
+            <div class="home-chips"><span>Standard narration</span><span>Scene editing</span><span>Narration editing</span></div>
+          </div>
+          <div class="include-group">
+            <p class="include-group-label">Output</p>
+            <div class="home-chips"><span>Sharing</span><span>Downloads</span><span>No watermark</span></div>
+          </div>
+        </div>
       </article>
       <article class="include-card is-pro">
-        <p class="include-label">From Pro</p>
+        <h3 class="include-head">From Pro</h3>
         <p class="include-note">Added on top of all of it, on Pro only.</p>
-        <div class="home-chips"><span>Your logo</span><span>Your colours</span><span>Your fonts</span></div>
+        <div class="include-groups">
+          <div class="include-group">
+            <p class="include-group-label">Your brand</p>
+            <div class="home-chips"><span>Your logo</span><span>Your colours</span><span>Your fonts</span></div>
+          </div>
+        </div>
       </article>
     </div>
   </div>
