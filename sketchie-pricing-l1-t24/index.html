@@ -280,12 +280,67 @@
   html[data-theme=night] .faq details.is-open { background: #9b8cff2e; border-color: #9b8cffa6; }
 
   @media (prefers-reduced-motion: reduce) { .faq details { transition: none; } }
+
+/* ============ REVIEW 6: the Plus card reads as the pick ================
+     Three notes from Rikuo on 29 Oct. The label hung off the left corner,
+     which read like a sticker rather than a tab on the card, so it moves
+     to the centre of the top edge. The Plus CTA was the same white ghost
+     button as the other three, so the card the page recommends asked for
+     the click in exactly the same voice as the ones it does not; it is
+     now filled with the house violet.
+
+     Both themes come from the same two tokens. --violet is #6c5ce7 by day
+     and #9b8cff at night, and --on-accent flips with it, so the night
+     button is the brighter lilac on near-black text, which is the
+     highlight the night theme already uses everywhere else. The drawn
+     border and hard shadow stay in --ink so the button keeps the house
+     outline rather than turning into a flat web button. */
+  .home-plan-pick {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* the fill. Written without .ghost or .primary in the selector because
+     selecting a card swaps one class for the other, and the Plus card
+     should look the same either way. */
+  .home-plan.is-featured .home-plan-cta {
+    background: var(--violet);
+    color: var(--on-accent);
+    border-color: var(--ink);
+    box-shadow: 3px 4px 0 var(--ink);
+  }
+  .home-plan.is-featured .home-plan-cta:hover {
+    background: var(--violet-deep);
+    color: var(--on-accent);
+    box-shadow: 5px 6px 0 var(--ink), 0 0 20px #6c5ce733;
+  }
+  .home-plan.is-featured .home-plan-cta:active {
+    box-shadow: 1px 2px 0 var(--ink);
+  }
+
+  /* night needs its own pass: html[data-theme=night] .btn.ghost sets the
+     cream fill at a higher specificity than the rule above, so without
+     these the Plus button would go back to cream after dark. */
+  html[data-theme=night] .home-plan.is-featured .home-plan-cta {
+    background: var(--violet);
+    color: var(--on-accent);
+    border-color: var(--violet);
+    box-shadow: 3px 4px 0 #6f5fd6;
+  }
+  html[data-theme=night] .home-plan.is-featured .home-plan-cta:hover {
+    background: var(--violet-deep);
+    border-color: var(--violet-deep);
+    box-shadow: 5px 6px 0 #6f5fd6, 0 0 22px #9b8cff59;
+  }
+  html[data-theme=night] .home-plan.is-featured .home-plan-cta:active {
+    box-shadow: 1px 2px 0 #6f5fd6;
+  }
 </style>
 </head>
 <body class="home-page">
 
 <div class="mockbar">
-  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes split into two cards, Pro lighter, both the same height · <strong>4</strong> accordion opens and closes smoothly</p>
+  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes split into two cards, Pro lighter, both the same height · <strong>4</strong> accordion opens and closes smoothly · later pass: FAQ answer colours, and the Plus card carries a centred pick label and a violet button</p>
   <!-- Same switch, same storage key and same data-theme attribute the live
        site uses, so what is checked here is the real night palette rather
        than an approximation of it. -->
