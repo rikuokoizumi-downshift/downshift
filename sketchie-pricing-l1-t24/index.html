@@ -218,6 +218,23 @@
      or an ambient gradient behind a flat section. There is no
      photography anywhere on this page and the brand is flat marker
      line-work, so that would be the one foreign object in the room. */
+  /* Pass 4, 29 Oct, Rikuo: one card holding both halves with a divider
+     through it, keeping the ticks. Worth saying why this is not a return
+     to pass 2: that was two cards, which drew a box around each half and
+     made the two halves read as two comparable things. One card says the
+     opposite, that this is a single list of what you get, divided once.
+     It is also one box where the page previously had two, so the
+     repetition against the four plan cards at the top goes down rather
+     than up. */
+  .include-card {
+    --card-pad: clamp(22px, 2.6vw, 34px);
+    margin-top: 34px;
+    padding: var(--card-pad);
+    border: 2px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper);
+  }
+
   .include-split {
     --inc-gap: clamp(22px, 2.4vw, 34px);
     display: grid;
@@ -228,8 +245,11 @@
        gap back makes all four columns equal at any width and any gap. */
     grid-template-columns: calc(3 * (100% - var(--inc-gap)) / 4 + var(--inc-gap) / 2) minmax(0, 1fr);
     gap: var(--inc-gap);
-    margin-top: 34px;
-    align-items: start;
+    /* stretch, not start: the divider is pinned to this zone's box, so
+       the box has to be the full height of the row for the divider to
+       reach the bottom of the card. Content inside still sits at the
+       top, because stretching the box does not move what is in it. */
+    align-items: stretch;
   }
   .include-zone { min-width: 0; }
   /* the divider sits in the gutter rather than inside the Pro track. A
@@ -240,8 +260,10 @@
   .include-zone.is-pro::before {
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
+    /* out through the card's padding, so the line divides the whole card
+       rather than floating in the middle of it with a gap at each end. */
+    top: calc(var(--card-pad) * -1);
+    bottom: calc(var(--card-pad) * -1);
     left: calc(var(--inc-gap) / -2 - 1px);
     width: 2px;
     background: var(--line);
@@ -317,9 +339,9 @@
     .include-split { grid-template-columns: minmax(0, 1fr); }
     .include-zone.is-pro::before {
       top: calc(var(--inc-gap) / -2 - 1px);
-      right: 0;
+      right: calc(var(--card-pad) * -1);
       bottom: auto;
-      left: 0;
+      left: calc(var(--card-pad) * -1);
       width: auto;
       height: 2px;
     }
@@ -473,7 +495,7 @@
 <body class="home-page">
 
 <div class="mockbar">
-  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes rebuilt as one ruled band: no cards, four equal columns, grouped checklists · <strong>4</strong> accordion opens and closes smoothly · later pass: FAQ answer colours, a colour each for the four rule icons, the Plus card carries a centred pick label and a violet button, and the includes section drops its two boxes for a spec band</p>
+  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes rebuilt as one card, divided, four equal columns of grouped checklists · <strong>4</strong> accordion opens and closes smoothly · later pass: FAQ answer colours, a colour each for the four rule icons, the Plus card carries a centred pick label and a violet button, and the includes section is one divided card of checklists</p>
   <!-- Same switch, same storage key and same data-theme attribute the live
        site uses, so what is checked here is the real night palette rather
        than an approximation of it. -->
@@ -609,13 +631,14 @@
 <section class="sunken ruled" id="includes">
   <div class="wrap">
     <h2>What every paid plan includes</h2>
-    <div class="include-split">
-      <div class="include-zone">
-        <div class="include-zone-head">
-          <h3 class="include-head">Always</h3>
-          <span class="include-tag">every paid plan, from Solo up</span>
-        </div>
-        <div class="include-groups">
+    <div class="include-card">
+      <div class="include-split">
+        <div class="include-zone">
+          <div class="include-zone-head">
+            <h3 class="include-head">Always</h3>
+            <span class="include-tag">every paid plan, from Solo up</span>
+          </div>
+          <div class="include-groups">
           <div class="include-group">
             <p class="include-group-label">Input</p>
             <ul class="include-list"><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prompt input</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Document input</span></li></ul>
@@ -628,17 +651,18 @@
             <p class="include-group-label">Output</p>
             <ul class="include-list"><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sharing</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Downloads</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>No watermark</span></li></ul>
           </div>
+          </div>
         </div>
-      </div>
-      <div class="include-zone is-pro">
-        <div class="include-zone-head">
-          <h3 class="include-head">From Pro</h3>
-          <span class="include-tag">added on top</span>
-        </div>
-        <div class="include-groups">
+        <div class="include-zone is-pro">
+          <div class="include-zone-head">
+            <h3 class="include-head">From Pro</h3>
+            <span class="include-tag">added on top</span>
+          </div>
+          <div class="include-groups">
           <div class="include-group">
             <p class="include-group-label">Your brand</p>
             <ul class="include-list"><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your logo</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your colours</span></li><li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your fonts</span></li></ul>
+          </div>
           </div>
         </div>
       </div>
