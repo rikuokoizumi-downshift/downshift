@@ -166,9 +166,11 @@
     grid-template-columns: 1.55fr 1fr;
     gap: clamp(14px, 1.6vw, 24px);
     margin-top: 36px;
-    align-items: start;
+    align-items: stretch;
   }
   .include-card {
+    display: flex;
+    flex-direction: column;
     padding: 22px;
     border: 2px solid var(--line);
     border-radius: 16px;
@@ -184,7 +186,12 @@
     text-transform: uppercase;
   }
   .include-note { margin: 8px 0 0; color: var(--muted); font-size: .875rem; font-weight: 300; }
-  .include-card .home-chips { margin-top: 18px; }
+  /* Both cards run to the same height and both chip groups sit on the
+     card floor, so the last row of Always and the single row of From Pro
+     share one line across the gap. padding-top is the minimum gap;
+     margin-top: auto takes whatever is left over, which is why the
+     shorter card gains air above its chips instead of stopping early. */
+  .include-card .home-chips { margin-top: auto; padding-top: 18px; }
 
   /* the lighter card. The flat fallback comes first for anything without
      color-mix; the brand uses no blurs, so this is a tint and a border,
