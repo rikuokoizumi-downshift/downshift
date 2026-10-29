@@ -148,9 +148,31 @@
      MIT licensed. Using our own set here is also the cheapest possible
      demonstration of it. Each icon takes its accent from --sk-c1 and its
      ink from currentColor, so it follows the theme with no second asset
-     for night. */
-  .rule-ico { display: block; width: 46px; height: 46px; margin: 0 0 14px; color: var(--ink); }
+     for night.
+
+     Second pass, same day: all four were set to violet, which threw away
+     the thing that makes these icons worth showing. They are two-tone by
+     design, so each one now takes a different accent from the palette
+     and the artwork itself is untouched, which matters here because the
+     library is a Sketchie product and this page is the shop window for
+     it. A tinted tile behind each icon was tried and dropped: it shrinks
+     the drawing to make room for itself and the row stops looking like
+     ours. */
+  .rule-ico {
+    display: block;
+    width: 58px; height: 58px; margin: 0 0 14px;
+    color: var(--ink);
+    /* the paper regions inside an icon, the hole in the middle of the
+       target for one, have to match what sits behind the icon or they
+       read as a halo. This section is on --warm2 in both themes. It was
+       left at the library default of white, which showed up at night. */
+    --sk-paper: var(--warm2);
+  }
   .rule-ico svg { display: block; width: 100%; height: 100%; }
+  .rule-ico.is-violet { --sk-c1: var(--violet); }
+  .rule-ico.is-sunny  { --sk-c1: var(--sunny); }
+  .rule-ico.is-sky    { --sk-c1: var(--sky); }
+  .rule-ico.is-coral  { --sk-c1: var(--coral); }
   .price-rules h3 { margin: 0 0 8px; }
 
 /* ============ REVIEW 3: make the difference the point ==================
@@ -340,7 +362,7 @@
 <body class="home-page">
 
 <div class="mockbar">
-  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes split into two cards, Pro lighter, both the same height · <strong>4</strong> accordion opens and closes smoothly · later pass: FAQ answer colours, and the Plus card carries a centred pick label and a violet button</p>
+  <p>L1-T24 mock · review pass 29 Oct · <strong>1</strong> card rules aligned · <strong>2</strong> Sketchy icons on the four charging rules · <strong>3</strong> includes split into two cards, Pro lighter, both the same height · <strong>4</strong> accordion opens and closes smoothly · later pass: FAQ answer colours, a colour each for the four rule icons, and the Plus card carries a centred pick label and a violet button</p>
   <!-- Same switch, same storage key and same data-theme attribute the live
        site uses, so what is checked here is the real night palette rather
        than an approximation of it. -->
@@ -450,22 +472,22 @@
     </div>
     <div class="price-rules">
       <article>
-        <span class="rule-ico" aria-hidden="true" style="--sk-c1:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="target"> <g class="fills" stroke="none"> <g class="fill" data-region="paper"> <circle cx="48" cy="48" r="32" fill="var(--sk-paper, #FFFFFF)"/> </g> <g class="fill" data-region="c1"> <circle cx="48" cy="48" r="20" fill="var(--sk-c1, #FF6B5B)"/> </g> <g class="fill" data-region="paper"> <circle cx="48" cy="48" r="8" fill="var(--sk-paper, #FFFFFF)"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="48" cy="48" r="32"/> <circle cx="48" cy="48" r="20"/> <circle cx="48" cy="48" r="8"/> </g> </svg></span>
+        <span class="rule-ico is-violet" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="target"> <g class="fills" stroke="none"> <g class="fill" data-region="paper"> <circle cx="48" cy="48" r="32" fill="var(--sk-paper, #FFFFFF)"/> </g> <g class="fill" data-region="c1"> <circle cx="48" cy="48" r="20" fill="var(--sk-c1, #FF6B5B)"/> </g> <g class="fill" data-region="paper"> <circle cx="48" cy="48" r="8" fill="var(--sk-paper, #FFFFFF)"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <circle cx="48" cy="48" r="32"/> <circle cx="48" cy="48" r="20"/> <circle cx="48" cy="48" r="8"/> </g> </svg></span>
         <h3>Choose and confirm</h3>
         <p>Pick a style and length. See the exact Credit price before anything starts. If the balance is short, the upgrade comes before the charge.</p>
       </article>
       <article>
-        <span class="rule-ico" aria-hidden="true" style="--sk-c1:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="bolt"> <g class="fills" stroke="none"> <g class="fill" data-region="c1"> <path d="M52 14 L26 54 H46 L42 82 L70 40 H50 Z" fill="var(--sk-c1, #FFC933)"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <path d="M52 14 L26 54 H46 L42 82 L70 40 H50 Z"/> </g> </svg></span>
+        <span class="rule-ico is-sunny" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="bolt"> <g class="fills" stroke="none"> <g class="fill" data-region="c1"> <path d="M52 14 L26 54 H46 L42 82 L70 40 H50 Z" fill="var(--sk-c1, #FFC933)"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <path d="M52 14 L26 54 H46 L42 82 L70 40 H50 Z"/> </g> </svg></span>
         <h3>Generate</h3>
         <p>The quote is held while the video is made and only charged on delivery. No surprise charge for a video that runs long.</p>
       </article>
       <article>
-        <span class="rule-ico" aria-hidden="true" style="--sk-c1:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="pencil"> <g class="fills" stroke="none"> <g class="fill" data-region="c1"> <path d="M20 76 L26 58 L64 20 L76 32 L38 70 Z" fill="var(--sk-c1, #FFC933)"/> </g> <g class="fill" data-region="ink"> <path d="M20 76 L32 72 L26 58 Z" fill="currentColor"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <path d="M20 76 L26 58 L64 20 L76 32 L38 70 Z"/> <line x1="58" y1="26" x2="70" y2="38"/> <path d="M20 76 L32 72 L26 58 Z"/> </g> </svg></span>
+        <span class="rule-ico is-sky" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="pencil"> <g class="fills" stroke="none"> <g class="fill" data-region="c1"> <path d="M20 76 L26 58 L64 20 L76 32 L38 70 Z" fill="var(--sk-c1, #FFC933)"/> </g> <g class="fill" data-region="ink"> <path d="M20 76 L32 72 L26 58 Z" fill="currentColor"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <path d="M20 76 L26 58 L64 20 L76 32 L38 70 Z"/> <line x1="58" y1="26" x2="70" y2="38"/> <path d="M20 76 L32 72 L26 58 Z"/> </g> </svg></span>
         <h3>Edit when needed</h3>
         <p>Editing and previewing are free. Paid plans include one re-render per new video.</p>
       </article>
       <article>
-        <span class="rule-ico" aria-hidden="true" style="--sk-c1:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="umbrella"> <g class="fills" stroke="none"> <g class="fill" data-region="c1"> <path d="M14 52 C14 26 82 26 82 52 Z" fill="var(--sk-c1, #6C5CE7)"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 52 C14 26 82 26 82 52 Z"/> <line x1="48" y1="52" x2="48" y2="76"/> <path d="M48 76 C48 84 34 84 34 76"/> </g> </svg></span>
+        <span class="rule-ico is-coral" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" data-icon="umbrella"> <g class="fills" stroke="none"> <g class="fill" data-region="c1"> <path d="M14 52 C14 26 82 26 82 52 Z" fill="var(--sk-c1, #6C5CE7)"/> </g> </g> <g class="ink" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"> <path d="M14 52 C14 26 82 26 82 52 Z"/> <line x1="48" y1="52" x2="48" y2="76"/> <path d="M48 76 C48 84 34 84 34 76"/> </g> </svg></span>
         <h3>If it fails</h3>
         <p>Held Credits come back after a final failure or an accepted cancellation. An automatic retry never produces a second charge.</p>
       </article>
