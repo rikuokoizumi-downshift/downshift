@@ -246,6 +246,33 @@
     .faq .a-wrap > .a, .faq summary:after { transition: none; }
     .faq .a-wrap > .a { opacity: 1; transform: none; }
   }
+
+/* ============ REVIEW 5: make the answer carry some weight ==============
+     The answer text was #4b4b57 on #1d1830 in night: a contrast ratio of
+     1.99 to 1, where 4.5 is the floor for body text. The live site has a
+     night override for it, but the stylesheet this mock was built from
+     did not include that rule, and nothing showed the fault until the FAQ
+     was added to this page. So this is not a brightening, it is a fix.
+     Both themes are now set explicitly rather than inherited, and both
+     clear 10 to 1.
+
+     The open panel also takes the colour now. It borrows the same violet
+     wash the From Pro card uses, so "this one is active" and "this is the
+     upgrade" read as one idea across the page rather than two unrelated
+     treatments. Closed panels stay neutral, so the open one is the only
+     thing holding colour. */
+  .faq .a { color: #35353f; }
+  html[data-theme=night] .faq .a { color: rgba(244, 241, 234, .86); }
+
+  .faq details {
+    transition: border-color .24s ease, background-color .24s ease;
+  }
+  .faq details.is-open { border-color: var(--violet); }
+  .faq details.is-open { background: color-mix(in srgb, var(--violet) 9%, var(--paper)); }
+  .faq details.is-open summary { color: var(--violet-deep); }
+  html[data-theme=night] .faq details.is-open { background: #9b8cff2e; border-color: #9b8cffa6; }
+
+  @media (prefers-reduced-motion: reduce) { .faq details { transition: none; } }
 </style>
 </head>
 <body class="home-page">
