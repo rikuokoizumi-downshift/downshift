@@ -490,6 +490,34 @@
   html[data-theme=night] .home-plan.is-featured .home-plan-cta:active {
     box-shadow: 1px 2px 0 #6f5fd6;
   }
+
+  /* the pair sits together on the right, so the auto margin moves off
+     the switch and onto the button that now comes before it. */
+  .mockbar .css-copy { margin-inline-start: auto; }
+  .mockbar .theme-switch { margin-inline-start: 0; }
+  .mockbar .css-copy {
+    flex: 0 0 auto;
+    /* fixed, so the bar does not twitch when the label becomes Copied */
+    min-width: 78px;
+    padding: 4px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--paper);
+    color: var(--muted);
+    font: 600 12px/1.5 var(--ui);
+    letter-spacing: .08em;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .2s ease, color .2s ease, background-color .2s ease;
+  }
+  .mockbar .css-copy:hover { border-color: var(--violet); color: var(--violet-deep); }
+  .mockbar .css-copy:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+  .mockbar .css-copy.is-done {
+    border-color: var(--violet);
+    background: var(--violet-tint);
+    color: var(--violet-deep);
+  }
+  @media (prefers-reduced-motion: reduce) { .mockbar .css-copy { transition: none; } }
 </style>
 </head>
 <body class="home-page">
@@ -499,6 +527,7 @@
   <!-- Same switch, same storage key and same data-theme attribute the live
        site uses, so what is checked here is the real night palette rather
        than an approximation of it. -->
+  <button class="css-copy" type="button" id="cssCopy" aria-live="polite">CSS</button>
   <button class="theme-switch" type="button" id="themeToggle" role="switch"
           aria-checked="false" aria-label="Switch to dark mode"
           data-label-dark="Switch to dark mode" data-label-light="Switch to light mode">
@@ -832,6 +861,440 @@
            disarmed this timer. */
         setTimeout(function () { if (running === anim) settle(); }, OPT.duration + 150);
       });
+    });
+  })();
+</script>
+<script type="text/plain" id="cssPayload">/* L1-T24 pricing page, proposed updates
+   Sample: https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/
+
+   Six blocks. Each one opens with what it changes and why, and they
+   are independent, so any subset can be taken on its own.
+
+   Two of them need more than CSS:
+     REVIEW 3, the includes section, is a new block rather than a
+       restyle of an existing one, so it needs its markup too.
+     REVIEW 4, the accordion, needs its short script to animate the
+       open and the close.
+   Both are in this page's source, and I am happy to send them over
+   separately. */
+
+/* ============ REVIEW 1: line the separators up across the cards ========
+     The cards were a flex column, so each card decided for itself where
+     its two rules fell: the "who" paragraph is 1 to 3 lines and the
+     footnote is 1 or 2, and every difference pushed the rules out of
+     line. Subgrid hands the rows to the grid instead. Each card spans the
+     same seven rows, so name, price, credits, blurb, stats, footnote and
+     button all start on a shared line and the two rules read as one
+     continuous line across the row.
+
+     Kept behind @supports because the flex fallback is still correct,
+     just unaligned, on a browser without subgrid. */
+  @supports (grid-template-rows: subgrid) {
+    .home-plan-grid.is-four { grid-template-rows: repeat(7, auto); }
+    .home-plan-grid.is-four .home-plan {
+      display: grid;
+      grid-row: span 7;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+    }
+    /* the spacer that used to absorb the slack; the grid rows do it now */
+    .home-plan-grid.is-four .home-plan-who { flex: none; }
+    /* the button sits at the foot of its shared row rather than stretching */
+    .home-plan-grid.is-four .home-plan-cta { align-self: end; }
+  }
+
+/* ============ REVIEW 2: icons on the four rules ========================
+     Yes, we have them: the Sketchy Icon Library, our own, 10,385 icons,
+     MIT licensed. Using our own set here is also the cheapest possible
+     demonstration of it. Each icon takes its accent from --sk-c1 and its
+     ink from currentColor, so it follows the theme with no second asset
+     for night.
+
+     Second pass, same day: all four were set to violet, which threw away
+     the thing that makes these icons worth showing. They are two-tone by
+     design, so each one now takes a different accent from the palette
+     and the artwork itself is untouched, which matters here because the
+     library is a Sketchie product and this page is the shop window for
+     it. A tinted tile behind each icon was tried and dropped: it shrinks
+     the drawing to make room for itself and the row stops looking like
+     ours. */
+  .rule-ico {
+    display: block;
+    width: 58px; height: 58px; margin: 0 0 14px;
+    color: var(--ink);
+    /* the paper regions inside an icon, the hole in the middle of the
+       target for one, have to match what sits behind the icon or they
+       read as a halo. This section is on --warm2 in both themes. It was
+       left at the library default of white, which showed up at night. */
+    --sk-paper: var(--warm2);
+  }
+  .rule-ico svg { display: block; width: 100%; height: 100%; }
+  .rule-ico.is-violet { --sk-c1: var(--violet); }
+  .rule-ico.is-sunny  { --sk-c1: var(--sunny); }
+  .rule-ico.is-sky    { --sk-c1: var(--sky); }
+  .rule-ico.is-coral  { --sk-c1: var(--coral); }
+  .price-rules h3 { margin: 0 0 8px; }
+
+/* ============ REVIEW 3: make the difference the point ==================
+     Pass 1: it was two headings in a three-column grid, so the right
+     third sat empty and the two lists read as one undifferentiated wall
+     of chips. That became two cards, Always in the house colours and
+     From Pro on a violet wash.
+
+     Pass 2: eight chips in one bag is a list, not an answer to "what do
+     I get", and the eight were three different kinds of thing. They got
+     grouped and each group named, one item per line.
+
+     Pass 3, 29 Oct, a redesign rather than another tightening. The two
+     cards were the thing the first two passes kept working around. The
+     plan row at the top of this page is already four bordered cards
+     with offset shadows, so a second bordered-card block three sections
+     later says "same kind of thing" about content that is not the same
+     kind of thing. The border was also not earning its keep: this
+     section already sits in a sunken band, so the band separates it and
+     the card drew a second box inside the first.
+
+     So: no cards. One ruled band, four columns on a shared grid, each
+     group a named checklist. The zone rule and the vertical rule carry
+     the structure the borders used to, at the brand's own 2px ink
+     weight. Three consequences worth having:
+
+       - The 2.4fr / 1fr split is gone. That ratio existed only to make
+         two boxes end at the same height, so the layout was serving the
+         geometry rather than the content. With no boxes there is no
+         height to match, the columns can simply be equal, and the Pro
+         note can wrap whenever it likes.
+
+       - Eleven identical outlined pills became eleven checklist rows
+         using the tick the plan cards already carry. Same glyph, same
+         2.4 stroke, so nothing new was drawn for this.
+
+       - Violet now does exactly one job here. It was on all four group
+         labels, which spent the accent on the three columns that are
+         not the point. It is now only on the Pro zone: its rule, its
+         label, its ticks. The other three go muted.
+
+     Not taken from the audit: the suggestion to put a background image
+     or an ambient gradient behind a flat section. There is no
+     photography anywhere on this page and the brand is flat marker
+     line-work, so that would be the one foreign object in the room. */
+  /* Pass 4, 29 Oct, Rikuo: one card holding both halves with a divider
+     through it, keeping the ticks. Worth saying why this is not a return
+     to pass 2: that was two cards, which drew a box around each half and
+     made the two halves read as two comparable things. One card says the
+     opposite, that this is a single list of what you get, divided once.
+     It is also one box where the page previously had two, so the
+     repetition against the four plan cards at the top goes down rather
+     than up. */
+  .include-card {
+    --card-pad: clamp(22px, 2.6vw, 34px);
+    margin-top: 34px;
+    padding: var(--card-pad);
+    border: 2px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper);
+  }
+
+  .include-split {
+    --inc-gap: clamp(22px, 2.4vw, 34px);
+    display: grid;
+    /* not 3fr 1fr. The Always zone spends two of its own gaps on its
+       three columns and the Pro zone spends none, so a 3:1 split of the
+       outer space leaves the Pro column g/2 wider than the other three
+       (measured: 288 against 265 at 1440). Giving the first track half a
+       gap back makes all four columns equal at any width and any gap. */
+    grid-template-columns: calc(3 * (100% - var(--inc-gap)) / 4 + var(--inc-gap) / 2) minmax(0, 1fr);
+    gap: var(--inc-gap);
+    /* stretch, not start: the divider is pinned to this zone's box, so
+       the box has to be the full height of the row for the divider to
+       reach the bottom of the card. Content inside still sits at the
+       top, because stretching the box does not move what is in it. */
+    align-items: stretch;
+  }
+  .include-zone { min-width: 0; }
+  /* the divider sits in the gutter rather than inside the Pro track. A
+     border plus padding on the zone would eat 36px of that track and
+     make the Pro column 42px wider than the other three, which measured
+     exactly that way on the first build. */
+  .include-zone.is-pro { position: relative; }
+  .include-zone.is-pro::before {
+    content: "";
+    position: absolute;
+    /* out through the card's padding, so the line divides the whole card
+       rather than floating in the middle of it with a gap at each end. */
+    top: calc(var(--card-pad) * -1);
+    bottom: calc(var(--card-pad) * -1);
+    left: calc(var(--inc-gap) / -2 - 1px);
+    width: 2px;
+    background: var(--line);
+  }
+
+  /* one line, with the rule under it. Both zone heads are a heading plus
+     a short lowercase tag so they stay one line at every width we
+     support, which is what keeps the two rules on a shared baseline. */
+  .include-zone-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0 0 20px;
+    padding-bottom: 11px;
+    border-bottom: 2px solid var(--line);
+  }
+  .include-head {
+    margin: 0;
+    max-width: none;
+    font-family: var(--marker);
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+  .include-tag { color: var(--muted); font-size: .8125rem; font-weight: 400; }
+  .include-zone.is-pro .include-zone-head { border-bottom-color: var(--violet); }
+  .include-zone.is-pro .include-tag { color: var(--violet-deep); font-weight: 500; }
+
+  /* 3 + 1 against the outer 3fr + 1.2fr with the same gap, so all four
+     columns and all four group labels sit on one grid. */
+  .include-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--inc-gap); }
+  .include-zone.is-pro .include-groups { grid-template-columns: minmax(0, 1fr); }
+  .include-group-label {
+    margin: 0 0 11px;
+    color: var(--muted);
+    font-family: var(--ui);
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .include-zone.is-pro .include-group-label { color: var(--violet-deep); }
+
+  .include-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+  .include-list li {
+    display: grid;
+    grid-template-columns: 17px minmax(0, 1fr);
+    gap: 9px;
+    align-items: start;
+    font-family: var(--ui);
+    font-size: .9375rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  /* 1px down. Optically centred on the x-height reads better here than
+     mathematically centred on the line box. */
+  .include-list svg { width: 17px; height: 17px; display: block; margin-top: 1px; color: var(--ink); }
+  /* --violet-deep, not --violet. The site's convention is lines in
+     --violet and text in --violet-deep, and a tick sitting on a text
+     row reads as text: at --violet it measured 4.24 against this band
+     in day while the ink ticks opposite measured 14.43, so the column
+     being singled out came out the fainter of the two. --violet-deep
+     puts it on 5.46, level with its own label and tag, and is brighter
+     again in night. The rule above it stays --violet, because that is
+     a line. */
+  .include-zone.is-pro .include-list svg { color: var(--violet-deep); }
+
+  @media (max-width: 1040px) {
+    .include-split { grid-template-columns: minmax(0, 1fr); }
+    .include-zone.is-pro::before {
+      top: calc(var(--inc-gap) / -2 - 1px);
+      right: calc(var(--card-pad) * -1);
+      bottom: auto;
+      left: calc(var(--card-pad) * -1);
+      width: auto;
+      height: 2px;
+    }
+    /* stacked, the Pro zone is full width with one group in it, so its
+       three items run across instead of down and it keeps the rhythm of
+       the row above. */
+    .include-zone.is-pro .include-list { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .include-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .include-zone.is-pro .include-groups { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 420px) {
+    .include-groups { grid-template-columns: minmax(0, 1fr); }
+    .include-zone.is-pro .include-list { grid-template-columns: minmax(0, 1fr); }
+  }
+
+/* ============ REVIEW 4: open and close it smoothly =====================
+     A native <details> shows and hides its content in one frame, which is
+     the abruptness. The answer gets a wrapper whose height the script
+     animates between 0 and its measured height, and the script holds the
+     element open until the closing animation has finished.
+
+     Worth knowing before anyone "simplifies" this back: the tidy
+     CSS-only version, a grid row going from 0fr to 1fr, was tried first
+     and measured. It collapses correctly but does not interpolate here,
+     so it still snapped open in one frame. Animating the height outright
+     is the thing that actually moves.
+
+     The marker is drawn as two bars rather than a "+" swapped for a "-",
+     because a glyph swap cannot be tweened: the upright bar closes to
+     nothing while the whole thing turns. */
+  /* The collapsed height is set here rather than left to the browser's own
+     way of hiding a closed <details>. Wrapping the answer was enough to
+     defeat that hiding in testing: the closed answer still held 70px of
+     layout at opacity 0, which puts a phantom gap under every question.
+     height:0 makes the closed state true whatever the engine does, and
+     the script's animation overrides it while it runs. */
+  .faq .a-wrap { overflow: hidden; height: 0; }
+  .faq details.is-open .a-wrap { height: auto; }
+  .faq .a-wrap > .a {
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity .24s ease .04s, transform .24s ease .04s;
+  }
+  .faq details.is-open .a-wrap > .a { opacity: 1; transform: none; }
+
+  .faq summary:after {
+    content: "";
+    align-self: center;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    background:
+      linear-gradient(var(--violet), var(--violet)) center / 16px 2.5px no-repeat,
+      linear-gradient(var(--violet), var(--violet)) center / 2.5px 16px no-repeat;
+    transition: transform .32s cubic-bezier(.22,.61,.36,1), background-size .32s ease;
+  }
+  .faq details.is-open summary:after { transform: rotate(180deg); background-size: 16px 2.5px, 0 16px; }
+  .faq details[open] summary:after { content: ""; }
+  .faq summary:focus-visible { outline: 3px solid var(--violet); outline-offset: -3px; border-radius: 10px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq .a-wrap > .a, .faq summary:after { transition: none; }
+    .faq .a-wrap > .a { opacity: 1; transform: none; }
+  }
+
+/* ============ REVIEW 5: make the answer carry some weight ==============
+     The answer text was #4b4b57 on #1d1830 in night: a contrast ratio of
+     1.99 to 1, where 4.5 is the floor for body text. The live site has a
+     night override for it, but the stylesheet this mock was built from
+     did not include that rule, and nothing showed the fault until the FAQ
+     was added to this page. So this is not a brightening, it is a fix.
+     Both themes are now set explicitly rather than inherited, and both
+     clear 10 to 1.
+
+     The open panel also takes the colour now. It borrows the same violet
+     wash the From Pro card uses, so "this one is active" and "this is the
+     upgrade" read as one idea across the page rather than two unrelated
+     treatments. Closed panels stay neutral, so the open one is the only
+     thing holding colour. */
+  .faq .a { color: #35353f; }
+  html[data-theme=night] .faq .a { color: rgba(244, 241, 234, .86); }
+
+  .faq details {
+    transition: border-color .24s ease, background-color .24s ease;
+  }
+  .faq details.is-open { border-color: var(--violet); }
+  .faq details.is-open { background: color-mix(in srgb, var(--violet) 9%, var(--paper)); }
+  .faq details.is-open summary { color: var(--violet-deep); }
+  html[data-theme=night] .faq details.is-open { background: #9b8cff2e; border-color: #9b8cffa6; }
+
+  @media (prefers-reduced-motion: reduce) { .faq details { transition: none; } }
+
+/* ============ REVIEW 6: the Plus card reads as the pick ================
+     Three notes from Rikuo on 29 Oct. The label hung off the left corner,
+     which read like a sticker rather than a tab on the card, so it moves
+     to the centre of the top edge. The Plus CTA was the same white ghost
+     button as the other three, so the card the page recommends asked for
+     the click in exactly the same voice as the ones it does not; it is
+     now filled with the house violet.
+
+     Both themes come from the same two tokens. --violet is #6c5ce7 by day
+     and #9b8cff at night, and --on-accent flips with it, so the night
+     button is the brighter lilac on near-black text, which is the
+     highlight the night theme already uses everywhere else. The drawn
+     border and hard shadow stay in --ink so the button keeps the house
+     outline rather than turning into a flat web button. */
+  .home-plan-pick {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* the fill. Written without .ghost or .primary in the selector because
+     selecting a card swaps one class for the other, and the Plus card
+     should look the same either way. */
+  .home-plan.is-featured .home-plan-cta {
+    background: var(--violet);
+    color: var(--on-accent);
+    border-color: var(--ink);
+    box-shadow: 3px 4px 0 var(--ink);
+  }
+  .home-plan.is-featured .home-plan-cta:hover {
+    background: var(--violet-deep);
+    color: var(--on-accent);
+    box-shadow: 5px 6px 0 var(--ink), 0 0 20px #6c5ce733;
+  }
+  .home-plan.is-featured .home-plan-cta:active {
+    box-shadow: 1px 2px 0 var(--ink);
+  }
+
+  /* night needs its own pass: html[data-theme=night] .btn.ghost sets the
+     cream fill at a higher specificity than the rule above, so without
+     these the Plus button would go back to cream after dark. */
+  html[data-theme=night] .home-plan.is-featured .home-plan-cta {
+    background: var(--violet);
+    color: var(--on-accent);
+    border-color: var(--violet);
+    box-shadow: 3px 4px 0 #6f5fd6;
+  }
+  html[data-theme=night] .home-plan.is-featured .home-plan-cta:hover {
+    background: var(--violet-deep);
+    border-color: var(--violet-deep);
+    box-shadow: 5px 6px 0 #6f5fd6, 0 0 22px #9b8cff59;
+  }
+  html[data-theme=night] .home-plan.is-featured .home-plan-cta:active {
+    box-shadow: 1px 2px 0 #6f5fd6;
+  }
+</script>
+<script>
+  /* The async clipboard first, a hidden textarea second. The async API
+     needs a secure context, which this page has on Pages and on
+     localhost but would not have for anyone opening the file off disk. */
+  (function () {
+    var btn = document.getElementById('cssCopy');
+    var src = document.getElementById('cssPayload');
+    if (!btn || !src) return;
+    var text = src.textContent;
+    var revert = null;
+
+    function flash(msg) {
+      btn.textContent = msg;
+      btn.classList.add('is-done');
+      clearTimeout(revert);
+      revert = setTimeout(function () {
+        btn.textContent = 'CSS';
+        btn.classList.remove('is-done');
+      }, 1800);
+    }
+
+    function legacy() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+
+    btn.addEventListener('click', function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function () { flash('Copied'); },
+          function () { flash(legacy() ? 'Copied' : 'Copy failed'); }
+        );
+      } else {
+        flash(legacy() ? 'Copied' : 'Copy failed');
+      }
     });
   })();
 </script>
