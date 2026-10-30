@@ -82,7 +82,7 @@ body { -webkit-font-smoothing: antialiased; }
 .vs .measure { max-width: 65ch; }
 
 /* ---- hero ---- */
-.vs-hero { padding: clamp(44px, 7vw, 76px) 0 clamp(26px, 4vw, 38px); }
+.vs .vs-hero { padding-block: clamp(44px, 7vw, 76px) clamp(26px, 4vw, 38px); }
 .vs-eyebrow {
   margin: 0 0 14px; color: var(--violet-deep);
   font-size: .95rem; font-weight: 600; letter-spacing: 0;
@@ -112,7 +112,7 @@ body { -webkit-font-smoothing: antialiased; }
 .vs-credit p + p { margin-top: 10px; }
 
 /* ---- section shell ---- */
-.vs-section { padding: clamp(42px, 6vw, 68px) 0 0; }
+.vs .vs-section { padding-block: clamp(42px, 6vw, 68px) 0; }
 .vs-section > h2 {
   margin: 0 0 6px; font-family: var(--marker);
   font-size: clamp(1.5rem, 3vw, 2.05rem); font-weight: 700; line-height: 1.16;
@@ -213,7 +213,8 @@ body { -webkit-font-smoothing: antialiased; }
 .vs-cta a:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
 
 /* ---- sources ---- */
-.vs-sources { margin-top: clamp(38px, 5vw, 58px); padding: 26px 0 clamp(52px, 7vw, 82px); border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
+.vs .vs-sources { padding-block: 26px clamp(52px, 7vw, 82px); }
+.vs-sources { margin-top: clamp(38px, 5vw, 58px); border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
 .vs-sources h2 { margin: 0 0 12px; font-size: .95rem; font-weight: 600; color: var(--ink); }
 .vs-sources ul { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 7px; }
 .vs-sources a { color: var(--violet-deep); }
@@ -488,7 +489,7 @@ body { -webkit-font-smoothing: antialiased; }
 .vs .measure { max-width: 65ch; }
 
 /* ---- hero ---- */
-.vs-hero { padding: clamp(44px, 7vw, 76px) 0 clamp(26px, 4vw, 38px); }
+.vs .vs-hero { padding-block: clamp(44px, 7vw, 76px) clamp(26px, 4vw, 38px); }
 .vs-eyebrow {
   margin: 0 0 14px; color: var(--violet-deep);
   font-size: .95rem; font-weight: 600; letter-spacing: 0;
@@ -518,7 +519,7 @@ body { -webkit-font-smoothing: antialiased; }
 .vs-credit p + p { margin-top: 10px; }
 
 /* ---- section shell ---- */
-.vs-section { padding: clamp(42px, 6vw, 68px) 0 0; }
+.vs .vs-section { padding-block: clamp(42px, 6vw, 68px) 0; }
 .vs-section > h2 {
   margin: 0 0 6px; font-family: var(--marker);
   font-size: clamp(1.5rem, 3vw, 2.05rem); font-weight: 700; line-height: 1.16;
@@ -619,7 +620,8 @@ body { -webkit-font-smoothing: antialiased; }
 .vs-cta a:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
 
 /* ---- sources ---- */
-.vs-sources { margin-top: clamp(38px, 5vw, 58px); padding: 26px 0 clamp(52px, 7vw, 82px); border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
+.vs .vs-sources { padding-block: 26px clamp(52px, 7vw, 82px); }
+.vs-sources { margin-top: clamp(38px, 5vw, 58px); border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
 .vs-sources h2 { margin: 0 0 12px; font-size: .95rem; font-weight: 600; color: var(--ink); }
 .vs-sources ul { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 7px; }
 .vs-sources a { color: var(--violet-deep); }
