@@ -66,61 +66,126 @@ body { -webkit-font-smoothing: antialiased; }
 @media (prefers-reduced-motion: reduce) { .mockbar .css-copy, .mockbar .theme-switch { transition: none; } }
 
 /* Sketchie vs Simi comparison page
-   Tokens and fonts are the live ones from Base.css, so this drops into the
-   existing system without new variables. */
+
+   Carried over from the pricing page:
+     one accent, violet, with nothing else competing inside the page
+     a card only where elevation means something, otherwise a rule or space
+     one radius scale, 16px on panels and 999px on pills, nothing between
+     all caps used once, for column labels, never for every small heading
+     one measure for running text
+     side-by-side lists share a baseline, set by a rule under each head
+
+   Tokens and fonts are the live ones from Base.css. */
 
 .vs { font-family: var(--ui); color: var(--ink); background: var(--paper); }
 .vs .wrap { max-width: 1060px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px); }
+.vs .measure { max-width: 65ch; }
 
 /* ---- hero ---- */
-.vs-hero { padding: clamp(44px, 7vw, 76px) 0 clamp(28px, 4vw, 40px); }
+.vs-hero { padding: clamp(44px, 7vw, 76px) 0 clamp(26px, 4vw, 38px); }
 .vs-eyebrow {
   margin: 0 0 14px; color: var(--violet-deep);
-  font-size: .76rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  font-size: .95rem; font-weight: 600; letter-spacing: 0;
 }
 .vs-hero h1 {
   margin: 0 0 18px; max-width: 18ch;
   font-family: var(--marker); font-size: clamp(2.3rem, 5.6vw, 3.9rem);
-  font-weight: 700; line-height: 1.04; letter-spacing: -.015em;
+  font-weight: 700; line-height: 1.08; letter-spacing: -.015em;
 }
-.vs-hero h1 .vs-mid { color: var(--violet-deep); }
-.vs-lede { margin: 0; max-width: 62ch; color: var(--muted); font-size: clamp(1.02rem, 1.6vw, 1.16rem); line-height: 1.6; }
+.vs-hero h1 em { font-style: normal; color: var(--violet-deep); }
+.vs-lede { margin: 0; color: var(--muted); font-size: clamp(1.02rem, 1.6vw, 1.14rem); line-height: 1.62; }
 .vs-asof {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 22px; padding: 6px 14px;
+  display: inline-block; margin-top: 22px; padding: 6px 16px;
   border: 1px solid var(--line); border-radius: 999px;
-  background: var(--warm2); color: var(--muted); font-size: .84rem;
+  color: var(--muted); font-size: .86rem;
 }
 .vs-asof b { color: var(--ink); font-weight: 600; }
 
-/* ---- a short, genuine credit to them ---- */
+/* ---- the credit to them: a rule and space, not a box ---- */
 .vs-credit {
-  margin: clamp(30px, 5vw, 48px) 0 0; padding: 22px 24px;
-  border: 1px solid var(--line); border-left: 3px solid var(--violet);
-  border-radius: 12px; background: var(--warm);
+  margin: clamp(28px, 5vw, 44px) 0 0;
+  padding-left: clamp(18px, 2.4vw, 24px);
+  border-left: 2px solid var(--violet);
 }
-.vs-credit h2 { margin: 0 0 8px; font-family: var(--marker); font-size: 1.22rem; font-weight: 700; }
+.vs-credit h2 { margin: 0 0 8px; font-family: var(--marker); font-size: 1.2rem; font-weight: 700; }
 .vs-credit p { margin: 0; color: var(--muted); line-height: 1.65; }
 .vs-credit p + p { margin-top: 10px; }
 
 /* ---- section shell ---- */
-.vs-section { padding: clamp(40px, 6vw, 66px) 0 0; }
+.vs-section { padding: clamp(42px, 6vw, 68px) 0 0; }
 .vs-section > h2 {
   margin: 0 0 6px; font-family: var(--marker);
-  font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; line-height: 1.15;
+  font-size: clamp(1.5rem, 3vw, 2.05rem); font-weight: 700; line-height: 1.16;
 }
-.vs-section > .sub { margin: 0 0 26px; max-width: 66ch; color: var(--muted); font-size: .98rem; }
+.vs-section > .sub { margin: 0 0 26px; color: var(--muted); font-size: .97rem; line-height: 1.6; }
 
-/* ---- comparison table ----
-   A table, not cards: twelve parallel rows are a data comparison, and cards
-   would break the row-to-row scan that makes it readable. */
+/* ---- one panel, one divider ----
+   The split is 1:1, so the two tracks share a single gap and the rule sits
+   on the real centre. No calc needed, unlike the 3:1 band on pricing. */
+.vs-panel {
+  --pad: clamp(22px, 2.6vw, 34px);
+  padding: var(--pad);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+}
+.vs-split {
+  --gap: clamp(22px, 2.6vw, 36px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: stretch;
+}
+.vs-zone { min-width: 0; }
+.vs-zone.is-second { position: relative; }
+.vs-zone.is-second::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--pad) * -1);
+  bottom: calc(var(--pad) * -1);
+  left: calc(var(--gap) / -2);
+  width: 1px;
+  background: var(--line);
+}
+/* the heads sit on one baseline because each is its zone's first child
+   with the same margin and the same rule beneath it */
+.vs-zone-head {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin: 0 0 18px; padding-bottom: 11px;
+  border-bottom: 1px solid var(--line);
+}
+.vs-zone-head h3 { margin: 0; font-family: var(--marker); font-size: 1.16rem; font-weight: 700; line-height: 1.2; }
+.vs-zone-head .tag { color: var(--muted); font-size: .84rem; }
+.vs-zone.is-ours .vs-zone-head { border-bottom-color: var(--violet); }
+.vs-zone.is-ours .vs-zone-head h3 { color: var(--violet-deep); }
+
+
+/* ---- rate rows ---- */
+.vs-rate { list-style: none; margin: 0; padding: 0; }
+.vs-rate li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; font-size: .95rem; }
+.vs-rate li + li { border-top: 1px solid var(--line); }
+.vs-rate .n { font-weight: 700; font-variant-numeric: tabular-nums; }
+.vs-zone.is-ours .vs-rate .n { color: var(--violet-deep); }
+.vs-note { margin: 16px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+/* ---- point lists ---- */
+.vs-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.vs-points li {
+  display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 10px;
+  align-items: start; font-size: .94rem; line-height: 1.52;
+}
+.vs-points svg { width: 16px; height: 16px; display: block; margin-top: 2px; color: var(--muted); }
+.vs-zone.is-ours .vs-points svg { color: var(--violet-deep); }
+.vs-points b { font-weight: 600; }
+
+/* ---- table: rules, not a frame ---- */
 .vs-tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .vs-table { width: 100%; min-width: 660px; border-collapse: collapse; }
 .vs-table th, .vs-table td { text-align: left; vertical-align: top; padding: 15px 16px; }
 .vs-table thead th {
-  position: sticky; top: 0; z-index: 1;
-  background: var(--paper); border-bottom: 2px solid var(--line);
-  font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  font-size: .72rem; font-weight: 700; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--muted);
 }
 .vs-table thead th.c-us { color: var(--violet-deep); }
 .vs-table tbody tr + tr th, .vs-table tbody tr + tr td { border-top: 1px solid var(--line); }
@@ -130,34 +195,14 @@ body { -webkit-font-smoothing: antialiased; }
 .vs-table .q { display: block; margin-top: 5px; color: var(--muted); font-size: .85rem; }
 .vs-table .nd { color: var(--muted); font-style: italic; }
 
-/* ---- the price maths, stated rather than implied ---- */
-.vs-maths { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-.vs-maths .box { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; background: var(--warm); }
-.vs-maths .box.lead { border-color: var(--violet); background: var(--violet-tint); }
-.vs-maths h3 { margin: 0 0 10px; font-size: .79rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-.vs-maths .box.lead h3 { color: var(--violet-deep); }
-.vs-maths ul { list-style: none; margin: 0; padding: 0; }
-.vs-maths li { display: flex; justify-content: space-between; gap: 14px; padding: 5px 0; font-size: .92rem; }
-.vs-maths li + li { border-top: 1px dashed var(--line); }
-.vs-maths .n { font-weight: 700; font-variant-numeric: tabular-nums; }
-
-/* ---- honesty columns ---- */
-.vs-honest { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: clamp(18px, 3vw, 28px); }
-.vs-honest .col { border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; background: var(--paper); }
-.vs-honest .col.theirs { border-top: 3px solid var(--tangerine); }
-.vs-honest .col.ours { border-top: 3px solid var(--violet); }
-.vs-honest h3 { margin: 0 0 12px; font-family: var(--marker); font-size: 1.2rem; font-weight: 700; }
-.vs-honest ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
-.vs-honest li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 10px; font-size: .94rem; line-height: 1.5; }
-.vs-honest svg { width: 16px; height: 16px; margin-top: 3px; display: block; }
-.vs-honest .col.theirs svg { color: var(--tangerine); }
-.vs-honest .col.ours svg { color: var(--violet-deep); }
-.vs-honest b { font-weight: 600; }
-
-/* ---- cta ---- */
-.vs-cta { margin: clamp(44px, 7vw, 76px) 0 0; padding: clamp(30px, 5vw, 44px); border-radius: 16px; background: var(--warm2); text-align: center; }
+/* ---- cta: a tinted band, not another card ---- */
+.vs-cta {
+  margin: clamp(46px, 7vw, 78px) 0 0;
+  padding: clamp(32px, 5vw, 46px) clamp(20px, 4vw, 40px);
+  border-radius: 16px; background: var(--warm2); text-align: center;
+}
 .vs-cta h2 { margin: 0 0 8px; font-family: var(--marker); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; }
-.vs-cta p { margin: 0 0 20px; color: var(--muted); }
+.vs-cta p { margin: 0 auto 20px; max-width: 48ch; color: var(--muted); }
 .vs-cta a {
   display: inline-block; padding: 13px 30px; border-radius: 999px;
   background: var(--violet); color: var(--on-accent);
@@ -168,14 +213,22 @@ body { -webkit-font-smoothing: antialiased; }
 .vs-cta a:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
 
 /* ---- sources ---- */
-.vs-sources { margin-top: clamp(36px, 5vw, 56px); padding: 26px 0 clamp(50px, 7vw, 80px); border-top: 1px solid var(--line); color: var(--muted); font-size: .87rem; }
-.vs-sources h2 { margin: 0 0 12px; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.vs-sources { margin-top: clamp(38px, 5vw, 58px); padding: 26px 0 clamp(52px, 7vw, 82px); border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
+.vs-sources h2 { margin: 0 0 12px; font-size: .95rem; font-weight: 600; color: var(--ink); }
 .vs-sources ul { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 7px; }
 .vs-sources a { color: var(--violet-deep); }
-.vs-sources p { margin: 0; max-width: 74ch; line-height: 1.6; }
+.vs-sources p { margin: 0; line-height: 1.62; }
 
-@media (max-width: 720px) {
-  .vs-table thead th { position: static; }
+@media (max-width: 860px) {
+  .vs-split { grid-template-columns: minmax(0, 1fr); }
+  .vs-zone.is-second::before {
+    top: calc(var(--gap) / -2);
+    right: calc(var(--pad) * -1);
+    bottom: auto;
+    left: calc(var(--pad) * -1);
+    width: auto;
+    height: 1px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .vs-cta a { transition: none; }
@@ -214,26 +267,26 @@ body { -webkit-font-smoothing: antialiased; }
 
   <header class="wrap vs-hero">
     <p class="vs-eyebrow">An honest comparison</p>
-    <h1>Sketchie <span class="vs-mid">vs</span> Simi</h1>
-    <p class="vs-lede">We wrote this, so read it with that in mind. Every number below comes from a page one of us
+    <h1>Sketchie <em>vs</em> Simi</h1>
+    <p class="vs-lede measure">We wrote this, so read it with that in mind. Every number below comes from a page one of us
     publishes, and it is dated. Where Simi is better, this page says so, and it says so first.</p>
     <p class="vs-asof"><b>Checked 31 October 2026.</b> Both products change their pricing.</p>
   </header>
 
   <div class="wrap">
-    <div class="vs-credit">
+    <section class="vs-credit measure">
       <h2>Credit where it is due</h2>
       <p>Simi is a serious product from a serious team. They generate a one-minute whiteboard explainer in about
       forty seconds, they bet on pedagogical pacing while everyone else chased cinematic AI video, and they made
       enough noise about this category that the rest of us are here.</p>
       <p>If raw first-generation speed is what you care about most, they are better at it than we are. We built
       Sketchie around what happens after that first generation.</p>
-    </div>
+    </section>
   </div>
 
   <section class="wrap vs-section">
     <h2>Side by side</h2>
-    <p class="sub">Our column is what we publish about our own product. Their column is their published wording as
+    <p class="sub measure">Our column is what we publish about our own product. Their column is their published wording as
     of 31 October 2026, quoted where it is theirs, and marked not published where they are silent. We do not guess
     at their roadmap or their limits.</p>
     <div class="vs-tablewrap">
@@ -323,61 +376,73 @@ body { -webkit-font-smoothing: antialiased; }
 
   <section class="wrap vs-section">
     <h2>About the price per minute</h2>
-    <p class="sub">This is the number that matters most and the one where we lose, so here it is in full rather
+    <p class="sub measure">This is the number that matters most and the one where we lose, so here it is in full rather
     than buried. Both columns are each plan's published price divided by the minutes it buys.</p>
-    <div class="vs-maths">
-      <div class="box">
-        <h3>Simi, per finished minute</h3>
-        <ul>
-          <li><span>Plus, $19.99</span><span class="n">~$0.20</span></li>
-          <li><span>Pro, $49.99</span><span class="n">~$0.17</span></li>
-          <li><span>Max, $99.99</span><span class="n">~$0.13</span></li>
-        </ul>
-      </div>
-      <div class="box lead">
-        <h3>Sketchie, per finished minute</h3>
-        <ul>
-          <li><span>Solo, $9.99</span><span class="n">~$0.50</span></li>
-          <li><span>Plus, $19.99</span><span class="n">~$0.40</span></li>
-          <li><span>Pro, $49.99</span><span class="n">~$0.38</span></li>
-        </ul>
-      </div>
-      <div class="box">
-        <h3>What that leaves out</h3>
-        <ul>
-          <li><span>Our rate uses Icons, our cheapest style. Doodles and Icon KIT cost more.</span></li>
-          <li><span>A rate per minute counts first renders. It does not count the second attempt after a line
-          comes out wrong, which on a one-shot tool is another full generation.</span></li>
-        </ul>
+    <div class="vs-panel">
+      <div class="vs-split">
+        <div class="vs-zone">
+          <div class="vs-zone-head">
+            <h3>Simi</h3>
+            <span class="tag">per finished minute</span>
+          </div>
+          <ul class="vs-rate">
+            <li><span>Plus, $19.99</span><span class="n">~$0.20</span></li>
+            <li><span>Pro, $49.99</span><span class="n">~$0.17</span></li>
+            <li><span>Max, $99.99</span><span class="n">~$0.13</span></li>
+          </ul>
+        </div>
+        <div class="vs-zone is-second is-ours">
+          <div class="vs-zone-head">
+            <h3>Sketchie</h3>
+            <span class="tag">per finished minute</span>
+          </div>
+          <ul class="vs-rate">
+            <li><span>Solo, $9.99</span><span class="n">~$0.50</span></li>
+            <li><span>Plus, $19.99</span><span class="n">~$0.40</span></li>
+            <li><span>Pro, $49.99</span><span class="n">~$0.38</span></li>
+          </ul>
+        </div>
       </div>
     </div>
+    <p class="vs-note measure">Two things that table leaves out. Our rate uses Icons, our cheapest style, so
+    Doodles and Icon KIT cost more than it shows. And a rate per minute counts first renders only. It does not
+    count the second attempt after a line comes out wrong, which on a tool with no partial regeneration is
+    another full generation at full price.</p>
   </section>
 
   <section class="wrap vs-section">
     <h2>Where each of us is ahead</h2>
-    <p class="sub">Their column first, because a comparison page that opens with its own advantages is an advert.</p>
-    <div class="vs-honest">
-      <div class="col theirs">
-        <h3>Simi is ahead on</h3>
-        <ul>
+    <p class="sub measure">Their column first, because a comparison page that opens with its own advantages is an advert.</p>
+    <div class="vs-panel">
+      <div class="vs-split">
+        <div class="vs-zone">
+          <div class="vs-zone-head">
+            <h3>Simi is ahead on</h3>
+            <span class="tag">six things</span>
+          </div>
+          <ul class="vs-points">
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Price per minute.</b> At list price they are cheaper. Their Max plan works out near 13 cents a finished minute, our Pro near 38 cents in our cheapest style.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>First generation.</b> About 40 seconds for a one-minute explainer, by their own figure. We take a few minutes.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Languages.</b> 80+ against our 79, and theirs covers source documents as well as narration.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Long videos.</b> Past six minutes we turn material into a chaptered series. Their Business plan takes longer runtimes in one piece.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Document formats.</b> They name PDF, Word, PowerPoint, Markdown and plain text. We say document input without listing formats.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Track record.</b> Y Combinator, Foundation Capital and Link Ventures are on their page. We launched in October.</span></li>
-        </ul>
-      </div>
-      <div class="col ours">
-        <h3>Sketchie is ahead on</h3>
-        <ul>
+          </ul>
+        </div>
+        <div class="vs-zone is-second is-ours">
+          <div class="vs-zone-head">
+            <h3>Sketchie is ahead on</h3>
+            <span class="tag">six things</span>
+          </div>
+          <ul class="vs-points">
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Starting at $9.99.</b> Their lowest published plan is $19.99. If you make a handful of videos a month, the cheaper plan wins on total spend even at a higher rate per minute.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>You can try it without paying.</b> Two free videos, no card. We could not find a free tier published on their site.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>A revision is not a new video.</b> Editing and previewing are free and each video includes a re-render. On a tool with no partial regeneration, every fix is a fresh generation at full price.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Commercial use is not gated.</b> Their own FAQ puts commercial rights behind a Business agreement. Our Terms give you ownership of the videos on any plan.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Branding has a published price.</b> $49.99 on Pro, against a Business plan you have to ask about.</span></li>
           <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>You see the price first.</b> The exact Credit quote appears before anything starts, is held while the video is made, and is only charged on delivery.</span></li>
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -407,61 +472,126 @@ body { -webkit-font-smoothing: antialiased; }
 </div>
 
 <script type="text/plain" id="cssPayload">/* Sketchie vs Simi comparison page
-   Tokens and fonts are the live ones from Base.css, so this drops into the
-   existing system without new variables. */
+
+   Carried over from the pricing page:
+     one accent, violet, with nothing else competing inside the page
+     a card only where elevation means something, otherwise a rule or space
+     one radius scale, 16px on panels and 999px on pills, nothing between
+     all caps used once, for column labels, never for every small heading
+     one measure for running text
+     side-by-side lists share a baseline, set by a rule under each head
+
+   Tokens and fonts are the live ones from Base.css. */
 
 .vs { font-family: var(--ui); color: var(--ink); background: var(--paper); }
 .vs .wrap { max-width: 1060px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px); }
+.vs .measure { max-width: 65ch; }
 
 /* ---- hero ---- */
-.vs-hero { padding: clamp(44px, 7vw, 76px) 0 clamp(28px, 4vw, 40px); }
+.vs-hero { padding: clamp(44px, 7vw, 76px) 0 clamp(26px, 4vw, 38px); }
 .vs-eyebrow {
   margin: 0 0 14px; color: var(--violet-deep);
-  font-size: .76rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  font-size: .95rem; font-weight: 600; letter-spacing: 0;
 }
 .vs-hero h1 {
   margin: 0 0 18px; max-width: 18ch;
   font-family: var(--marker); font-size: clamp(2.3rem, 5.6vw, 3.9rem);
-  font-weight: 700; line-height: 1.04; letter-spacing: -.015em;
+  font-weight: 700; line-height: 1.08; letter-spacing: -.015em;
 }
-.vs-hero h1 .vs-mid { color: var(--violet-deep); }
-.vs-lede { margin: 0; max-width: 62ch; color: var(--muted); font-size: clamp(1.02rem, 1.6vw, 1.16rem); line-height: 1.6; }
+.vs-hero h1 em { font-style: normal; color: var(--violet-deep); }
+.vs-lede { margin: 0; color: var(--muted); font-size: clamp(1.02rem, 1.6vw, 1.14rem); line-height: 1.62; }
 .vs-asof {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 22px; padding: 6px 14px;
+  display: inline-block; margin-top: 22px; padding: 6px 16px;
   border: 1px solid var(--line); border-radius: 999px;
-  background: var(--warm2); color: var(--muted); font-size: .84rem;
+  color: var(--muted); font-size: .86rem;
 }
 .vs-asof b { color: var(--ink); font-weight: 600; }
 
-/* ---- a short, genuine credit to them ---- */
+/* ---- the credit to them: a rule and space, not a box ---- */
 .vs-credit {
-  margin: clamp(30px, 5vw, 48px) 0 0; padding: 22px 24px;
-  border: 1px solid var(--line); border-left: 3px solid var(--violet);
-  border-radius: 12px; background: var(--warm);
+  margin: clamp(28px, 5vw, 44px) 0 0;
+  padding-left: clamp(18px, 2.4vw, 24px);
+  border-left: 2px solid var(--violet);
 }
-.vs-credit h2 { margin: 0 0 8px; font-family: var(--marker); font-size: 1.22rem; font-weight: 700; }
+.vs-credit h2 { margin: 0 0 8px; font-family: var(--marker); font-size: 1.2rem; font-weight: 700; }
 .vs-credit p { margin: 0; color: var(--muted); line-height: 1.65; }
 .vs-credit p + p { margin-top: 10px; }
 
 /* ---- section shell ---- */
-.vs-section { padding: clamp(40px, 6vw, 66px) 0 0; }
+.vs-section { padding: clamp(42px, 6vw, 68px) 0 0; }
 .vs-section > h2 {
   margin: 0 0 6px; font-family: var(--marker);
-  font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; line-height: 1.15;
+  font-size: clamp(1.5rem, 3vw, 2.05rem); font-weight: 700; line-height: 1.16;
 }
-.vs-section > .sub { margin: 0 0 26px; max-width: 66ch; color: var(--muted); font-size: .98rem; }
+.vs-section > .sub { margin: 0 0 26px; color: var(--muted); font-size: .97rem; line-height: 1.6; }
 
-/* ---- comparison table ----
-   A table, not cards: twelve parallel rows are a data comparison, and cards
-   would break the row-to-row scan that makes it readable. */
+/* ---- one panel, one divider ----
+   The split is 1:1, so the two tracks share a single gap and the rule sits
+   on the real centre. No calc needed, unlike the 3:1 band on pricing. */
+.vs-panel {
+  --pad: clamp(22px, 2.6vw, 34px);
+  padding: var(--pad);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+}
+.vs-split {
+  --gap: clamp(22px, 2.6vw, 36px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: stretch;
+}
+.vs-zone { min-width: 0; }
+.vs-zone.is-second { position: relative; }
+.vs-zone.is-second::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--pad) * -1);
+  bottom: calc(var(--pad) * -1);
+  left: calc(var(--gap) / -2);
+  width: 1px;
+  background: var(--line);
+}
+/* the heads sit on one baseline because each is its zone's first child
+   with the same margin and the same rule beneath it */
+.vs-zone-head {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin: 0 0 18px; padding-bottom: 11px;
+  border-bottom: 1px solid var(--line);
+}
+.vs-zone-head h3 { margin: 0; font-family: var(--marker); font-size: 1.16rem; font-weight: 700; line-height: 1.2; }
+.vs-zone-head .tag { color: var(--muted); font-size: .84rem; }
+.vs-zone.is-ours .vs-zone-head { border-bottom-color: var(--violet); }
+.vs-zone.is-ours .vs-zone-head h3 { color: var(--violet-deep); }
+
+
+/* ---- rate rows ---- */
+.vs-rate { list-style: none; margin: 0; padding: 0; }
+.vs-rate li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; font-size: .95rem; }
+.vs-rate li + li { border-top: 1px solid var(--line); }
+.vs-rate .n { font-weight: 700; font-variant-numeric: tabular-nums; }
+.vs-zone.is-ours .vs-rate .n { color: var(--violet-deep); }
+.vs-note { margin: 16px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+
+/* ---- point lists ---- */
+.vs-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.vs-points li {
+  display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 10px;
+  align-items: start; font-size: .94rem; line-height: 1.52;
+}
+.vs-points svg { width: 16px; height: 16px; display: block; margin-top: 2px; color: var(--muted); }
+.vs-zone.is-ours .vs-points svg { color: var(--violet-deep); }
+.vs-points b { font-weight: 600; }
+
+/* ---- table: rules, not a frame ---- */
 .vs-tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .vs-table { width: 100%; min-width: 660px; border-collapse: collapse; }
 .vs-table th, .vs-table td { text-align: left; vertical-align: top; padding: 15px 16px; }
 .vs-table thead th {
-  position: sticky; top: 0; z-index: 1;
-  background: var(--paper); border-bottom: 2px solid var(--line);
-  font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  font-size: .72rem; font-weight: 700; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--muted);
 }
 .vs-table thead th.c-us { color: var(--violet-deep); }
 .vs-table tbody tr + tr th, .vs-table tbody tr + tr td { border-top: 1px solid var(--line); }
@@ -471,34 +601,14 @@ body { -webkit-font-smoothing: antialiased; }
 .vs-table .q { display: block; margin-top: 5px; color: var(--muted); font-size: .85rem; }
 .vs-table .nd { color: var(--muted); font-style: italic; }
 
-/* ---- the price maths, stated rather than implied ---- */
-.vs-maths { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-.vs-maths .box { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; background: var(--warm); }
-.vs-maths .box.lead { border-color: var(--violet); background: var(--violet-tint); }
-.vs-maths h3 { margin: 0 0 10px; font-size: .79rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-.vs-maths .box.lead h3 { color: var(--violet-deep); }
-.vs-maths ul { list-style: none; margin: 0; padding: 0; }
-.vs-maths li { display: flex; justify-content: space-between; gap: 14px; padding: 5px 0; font-size: .92rem; }
-.vs-maths li + li { border-top: 1px dashed var(--line); }
-.vs-maths .n { font-weight: 700; font-variant-numeric: tabular-nums; }
-
-/* ---- honesty columns ---- */
-.vs-honest { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: clamp(18px, 3vw, 28px); }
-.vs-honest .col { border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; background: var(--paper); }
-.vs-honest .col.theirs { border-top: 3px solid var(--tangerine); }
-.vs-honest .col.ours { border-top: 3px solid var(--violet); }
-.vs-honest h3 { margin: 0 0 12px; font-family: var(--marker); font-size: 1.2rem; font-weight: 700; }
-.vs-honest ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
-.vs-honest li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 10px; font-size: .94rem; line-height: 1.5; }
-.vs-honest svg { width: 16px; height: 16px; margin-top: 3px; display: block; }
-.vs-honest .col.theirs svg { color: var(--tangerine); }
-.vs-honest .col.ours svg { color: var(--violet-deep); }
-.vs-honest b { font-weight: 600; }
-
-/* ---- cta ---- */
-.vs-cta { margin: clamp(44px, 7vw, 76px) 0 0; padding: clamp(30px, 5vw, 44px); border-radius: 16px; background: var(--warm2); text-align: center; }
+/* ---- cta: a tinted band, not another card ---- */
+.vs-cta {
+  margin: clamp(46px, 7vw, 78px) 0 0;
+  padding: clamp(32px, 5vw, 46px) clamp(20px, 4vw, 40px);
+  border-radius: 16px; background: var(--warm2); text-align: center;
+}
 .vs-cta h2 { margin: 0 0 8px; font-family: var(--marker); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; }
-.vs-cta p { margin: 0 0 20px; color: var(--muted); }
+.vs-cta p { margin: 0 auto 20px; max-width: 48ch; color: var(--muted); }
 .vs-cta a {
   display: inline-block; padding: 13px 30px; border-radius: 999px;
   background: var(--violet); color: var(--on-accent);
@@ -509,14 +619,22 @@ body { -webkit-font-smoothing: antialiased; }
 .vs-cta a:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
 
 /* ---- sources ---- */
-.vs-sources { margin-top: clamp(36px, 5vw, 56px); padding: 26px 0 clamp(50px, 7vw, 80px); border-top: 1px solid var(--line); color: var(--muted); font-size: .87rem; }
-.vs-sources h2 { margin: 0 0 12px; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.vs-sources { margin-top: clamp(38px, 5vw, 58px); padding: 26px 0 clamp(52px, 7vw, 82px); border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
+.vs-sources h2 { margin: 0 0 12px; font-size: .95rem; font-weight: 600; color: var(--ink); }
 .vs-sources ul { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 7px; }
 .vs-sources a { color: var(--violet-deep); }
-.vs-sources p { margin: 0; max-width: 74ch; line-height: 1.6; }
+.vs-sources p { margin: 0; line-height: 1.62; }
 
-@media (max-width: 720px) {
-  .vs-table thead th { position: static; }
+@media (max-width: 860px) {
+  .vs-split { grid-template-columns: minmax(0, 1fr); }
+  .vs-zone.is-second::before {
+    top: calc(var(--gap) / -2);
+    right: calc(var(--pad) * -1);
+    bottom: auto;
+    left: calc(var(--pad) * -1);
+    width: auto;
+    height: 1px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .vs-cta a { transition: none; }
