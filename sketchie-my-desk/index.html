@@ -204,13 +204,56 @@ table.ex tr:last-child td { border-bottom: none; }
   </div>
 
   <div class="filters tabs" role="tablist" aria-label="My work">
-    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">0</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">12</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2<span class="n">6</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
+    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">1</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">12</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2<span class="n">6</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
   </div>
 
   <section role="tabpanel" id="panel-comment" aria-labelledby="tab-comment">
-    <p class="panel-note">Needs words from me, not work. All three L1-T24 replies were posted on 27 October.</p>
-    <p class="done" style="padding:18px 0">Nothing here right now.</p>
-    <div class="tickets"></div>
+    <p class="panel-note">Needs words from me, not work. The three L1-T24 replies went out on 27 October. The L2-T07 draft below is not posted: it asks the team to settle which competitor the comparison page is actually about.</p>
+    
+    <div class="tickets">
+  <article class="ticket L2" id="L2-T07-c">
+    <span class="id">L2-T07</span>
+    <div class="body">
+      <h3>Share the comparison page mock, and settle the competitor</h3>
+      <p class="done"><strong>Why it is here:</strong> The ticket is three days past due and its own NEEDS FIRST is not met: L1-T21 picks the competitor and is still open. A mock exists now, so the question can be answered with something to look at.</p>
+      <p class="latest"><strong>Needs from you:</strong> Post the draft below. It asks for three yes or no answers.</p>
+      <div class="meta">
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219652282341198" target="_blank" rel="noopener">Open in Asana</a>
+        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-vs-simi-mock/" target="_blank" rel="noopener">Open the mock</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Wed, Oct 28</span>
+    <button class="btn copy" type="button" data-k="L2-T07">Copy draft</button>
+    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L2-T07">Hi all, a mock of the comparison page is ready to look at.
+
+https://rikuokoizumi-downshift.github.io/downshift/sketchie-vs-simi-mock/
+
+It is a mock only. Nothing is published and the live site is untouched.
+
+I built it against Simi so there would be something real to review, but please treat that as a placeholder. L1-T21 is the ticket that picks the competitor, and it is still open, so the subject of this page is not settled.
+
+Three things came up while I was checking the figures.
+
+A comparison page is already live at sketchie.ai/vs-simi. Eight of its claims no longer match what Lamina Labs publishes today, including the $499.99 tier, the under-20-seconds generation time, and the section that argues against their one-hour video. The mock lists all eight at the top.
+
+On published list prices, Simi is cheaper per finished minute than we are. The mock states that plainly and shows the arithmetic, since anyone comparing the two pages would find it in a couple of minutes.
+
+I could not find the approval to name a competitor written down. L1-T20 is closed, but there is no comment recording what was agreed.
+
+Every figure in the mock was read from the two companies' own pages on 31 October, and the sources are listed with that date at the foot of the page.
+
+Could I get a yes or no on three things:
+
+1. Do we go ahead with Simi, or hold until L1-T21 names someone?
+2. If Simi, do we update the page that is already live rather than publish a second one?
+3. Is the approval to name a competitor recorded somewhere I have missed?
+
+Happy to turn it around quickly once the subject is settled. Thank you.
+
+Mock assisted by Claude.AI.</pre></details>
+  </article></div>
     
   </section><section role="tabpanel" id="panel-task" aria-labelledby="tab-task" hidden>
     <p class="panel-note">Mine to make. Earliest due first.</p>
@@ -333,12 +376,12 @@ table.ex tr:last-child td { border-bottom: none; }
     <div class="body">
       <h3>Publish the first comparison page</h3>
       <p class="done"><strong>Done when:</strong> One page about the competitor chosen in L1-T21, every claim checked against their official pages and dated.</p>
-      
+      <p class="latest">A mock is built and the figures are verified, but the subject is still a placeholder. L1-T21 has not picked the competitor, and a vs-Simi page is already live with eight claims that no longer hold.</p>
       <div class="meta">
         <span>Needs first:</span><span class="tag">L1-T21</span>
         <span class="tag">with Mahir co-checks, Andi publishes</span>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219652282341198" target="_blank" rel="noopener">Open in Asana</a>
-        
+        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-vs-simi-mock/" target="_blank" rel="noopener">Open the mock</a>
       </div>
     </div>
     <span class="owner">You</span>
