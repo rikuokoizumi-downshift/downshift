@@ -157,6 +157,25 @@ table.ex tr:last-child td { border-bottom: none; }
   .ticket .copyrow { grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
   .ticket .copyrow .copy { grid-column: auto; margin-top: 0; }
   @media (max-width: 760px) { .ticket .copy, .ticket .copyrow { grid-column: 1 / -1; } }
+  .ticket .log { grid-column: 2 / -1; margin-top: 12px; border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 12px 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; }
+  .ticket .log legend { padding: 0 6px; font-size: 11px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+  .ticket .log label { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
+  .ticket .log input[type="radio"] { accent-color: var(--accent); margin: 0; }
+  .ticket .log .why { flex: 1 0 100%; display: grid; gap: 5px; margin-top: 4px; }
+  .ticket .log .why label { font-size: 12px; color: var(--muted); }
+  .ticket .log textarea { width: 100%; font: inherit; font-size: 13px; color: var(--ink); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 6px; padding: 8px; resize: vertical; }
+  .ticket .log [hidden] { display: none; }
+  @media (max-width: 760px) { .ticket .log { grid-column: 1 / -1; } }
+  .recorder { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 18px; }
+  .recorder h3 { margin: 0 0 6px; font-size: 15px; }
+  .recorder p { margin: 0 0 12px; color: var(--muted); font-size: 13px; max-width: 72ch; }
+  .recorder-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .recorder-count { color: var(--muted); font-size: 13px; }
+  .recorder-out { margin-top: 12px; white-space: pre-wrap; font-family: var(--mono); font-size: 12.5px;
+    background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 12px; }
+  .recorder [hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -192,6 +211,7 @@ table.ex tr:last-child td { border-bottom: none; }
     <p class="panel-note">Needs words from me, not work. All three L1-T24 replies were posted on 27 October.</p>
     <p class="done" style="padding:18px 0">Nothing here right now.</p>
     <div class="tickets"></div>
+    
   </section><section role="tabpanel" id="panel-task" aria-labelledby="tab-task" hidden>
     <p class="panel-note">Mine to make. Earliest due first.</p>
     
@@ -388,6 +408,7 @@ table.ex tr:last-child td { border-bottom: none; }
     <span class="owner">You</span>
     <span class="due">Sun, Nov 1</span>
   </article></div>
+    
   </section><section role="tabpanel" id="panel-outreach" aria-labelledby="tab-outreach" hidden>
     <p class="panel-note">Six US prospects out of the L1-T15 workbook, with a message drafted for each. None are sent. All six are schools because the workbook puts LinkedIn on the Schools route: the Creators sheet goes through comments, Instagram or email. Individual profiles are not linked here, since the workbook's Legend says not to store them. Each row carries two drafts: one for the person on LinkedIn, and one for the school itself, because messaging an individual on LinkedIn can need Premium. The school version names the role rather than the person, so a stale title does not matter, and it goes through the school's own site. Rewritten on 30 October: these first offered to send a demo video, and now they do not. Each names what the workbook found, says in a line what Sketchie does, and asks a question. The contacts, hooks and notes are unchanged.</p>
     
@@ -413,6 +434,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm-khan-lab">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-khan-lab-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm-khan-lab" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm-khan-lab" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm-khan-lab" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm-khan-lab" hidden>
+        <label for="why-dm-khan-lab">Why not</label>
+        <textarea id="why-dm-khan-lab" data-why="dm-khan-lab" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-khan-lab">Hi Natasha, I'm Rikuo from Sketchie. With Khanmigo already in your classrooms I doubt another AI tool reads as novel, so I will stick to what is actually different about ours. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so reworking a lesson means changing one line and only that scene redraws, rather than regenerating the whole video. Is that a problem your middle school team actually has?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-khan-lab-org">Hello, I'm Rikuo from Sketchie. Could this reach your Middle School Director? With Khanmigo already in your classrooms I doubt another AI tool reads as novel, so I will stick to what is actually different about ours. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so reworking a lesson means changing one line and only that scene redraws. If that is not a problem your team has, I will happily leave it there.</pre></details>
   </article>
@@ -437,6 +468,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm-summit-atlas">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-summit-atlas-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm-summit-atlas" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm-summit-atlas" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm-summit-atlas" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm-summit-atlas" hidden>
+        <label for="why-dm-summit-atlas">Why not</label>
+        <textarea id="why-dm-summit-atlas" data-why="dm-summit-atlas" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-summit-atlas">Hi Ebony, I'm Rikuo from Sketchie. Your Self-Directed Learning cycle is published in more detail than most schools publish anything, and with applications open for 2027-28 I imagine you are explaining it to families a great deal at the moment. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so the version you show families can be updated a line at a time. Is that worth a short conversation, or is it a network-level decision?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-summit-atlas-org">Hello, I'm Rikuo from Sketchie. Could this reach your Executive Director, or whoever at Summit Public Schools decides on learning platforms? Your Self-Directed Learning cycle is published in more detail than most schools publish anything, and with applications open for 2027-28 I imagine you are explaining it to families a great deal at the moment. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so the version you show families can be updated a line at a time. Please point me to the right desk, network or school.</pre></details>
   </article>
@@ -461,6 +502,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm-nueva">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-nueva-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm-nueva" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm-nueva" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm-nueva" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm-nueva" hidden>
+        <label for="why-dm-nueva">Why not</label>
+        <textarea id="why-dm-nueva" data-why="dm-nueva" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-nueva">Hi Lee, I'm Rikuo from Sketchie. The Grade 7 wind-turbine project in your I-Lab news is the kind of work that is hard to compress into a slide, which is roughly the problem we build for. Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, so a teacher reworking one idea changes a line rather than starting the video over. Is that something your Middle School team is looking at?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-nueva-org">Hello, I'm Rikuo from Sketchie. Could this reach your Head of Middle School, or your Director of the Innovation Labs? The Grade 7 wind-turbine project in your I-Lab news is the kind of work that is hard to compress into a slide, which is roughly the problem we build for. Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, so a teacher reworking one idea changes a line rather than starting the video over. I would welcome being pointed to whoever that sits with.</pre></details>
   </article>
@@ -486,6 +537,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm-mount-vernon">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-mount-vernon-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm-mount-vernon" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm-mount-vernon" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm-mount-vernon" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm-mount-vernon" hidden>
+        <label for="why-dm-mount-vernon">Why not</label>
+        <textarea id="why-dm-mount-vernon" data-why="dm-mount-vernon" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-mount-vernon">Hi Jared, I'm Rikuo from Sketchie. There are very few people with Chief Innovation Officer on a K-12 card, so you have almost certainly seen more of these than I have sent. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, which probably matters more for Mount Vernon School Online than for a classroom, since online material gets revised rather than re-taught. Is that a fit for what MVSO is doing?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-mount-vernon-org">Hello, I'm Rikuo from Sketchie. Could this reach your Chief Innovation Officer? Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, which probably matters more for Mount Vernon School Online than for a classroom, since online material gets revised rather than re-taught. If MVSO has someone who owns that material, I would rather write to them directly than take up your time.</pre></details>
   </article>
@@ -511,6 +572,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm-dawson">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-dawson-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm-dawson" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm-dawson" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm-dawson" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm-dawson" hidden>
+        <label for="why-dm-dawson">Why not</label>
+        <textarea id="why-dm-dawson" data-why="dm-dawson" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-dawson">Hi Jeff, I'm Rikuo from Sketchie. Your middle schoolers already have the Innovation Center and the Adobe tools, so this is not a student-tool pitch. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, aimed at the teacher who explains algorithms once and then wants to revise a line next year rather than record it again. Worth a conversation?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-dawson-org">Hello, I'm Rikuo from Sketchie. Could this reach your Director of Innovation and Technology? Your middle schoolers already have the Innovation Center and the Adobe tools, so this is not a student-tool pitch. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, aimed at the teacher who explains algorithms once and then wants to revise a line next year rather than record it again. Please pass this on if it fits.</pre></details>
   </article>
@@ -536,9 +607,31 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm-ransom">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-ransom-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm-ransom" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm-ransom" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm-ransom" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm-ransom" hidden>
+        <label for="why-dm-ransom">Why not</label>
+        <textarea id="why-dm-ransom" data-why="dm-ransom" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-ransom">Hi Pete, I'm Rikuo from Sketchie. I saw that Ransom Everglades is recruiting its first Director of Educational Technology, which reads like you are setting a strategy rather than collecting tools. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so teachers revise a line instead of re-recording. Would it make sense to talk now, or to wait until the new director is in post?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-ransom-org">Hello, I'm Rikuo from Sketchie. I saw that Ransom Everglades is recruiting its first Director of Educational Technology, so until that post is filled I expect this sits with the Head of the Middle School. Could you pass it to whoever is covering it? Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so teachers revise a line instead of re-recording. I am happy to be told it is better raised once the new director is in post.</pre></details>
   </article></div>
+    
+  <div class="recorder">
+    <h3>Record what went out</h3>
+    <p>Nothing here is sent anywhere. The choices stay in this browser, so you can stop and come back to them.
+    Submit builds one block covering both batches; hand it over and it gets written into this page for good.</p>
+    <div class="recorder-actions">
+      <button class="btn" type="button" data-submit="outreach">Submit</button>
+      <button class="btn copy" type="button" data-k="log-outreach" hidden>Copy the block</button>
+      <span class="recorder-count" data-count="outreach"></span>
+    </div>
+    <pre class="recorder-out" id="pre-log-outreach" hidden></pre>
+  </div>
   </section><section role="tabpanel" id="panel-outreach2" aria-labelledby="tab-outreach2" hidden>
     <p class="panel-note">Six Philippines schools out of the same L1-T15 workbook, drafted Fri 30 October. None are sent. These six are every Philippines row the workbook marks High confidence (#1, 2, 4, 5, 7, 8); the four it marks Medium are left for a later pass. DLSZ (#2) is set aside for now, so it sits last, greyed, with no copy button: the school is on midyear break until 3 November, and its coordinator titles come from a 2020 post. That leaves five to review. Like batch 1, these do not offer a demo video: each names what the workbook found, says in a line what Sketchie does, and asks a question. Two rows have no named individual published, so those two ask to be routed to the right person rather than guessing at a name. Every row also carries a second draft addressed to the school itself, for when LinkedIn wants Premium before it will let a message through: it names the role rather than the person and goes via the school's own site. There are no email addresses anywhere here, because the workbook holds none and its Legend bans collecting them.</p>
     
@@ -567,6 +660,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm2-xavier">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm2-xavier-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm2-xavier" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm2-xavier" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm2-xavier" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm2-xavier" hidden>
+        <label for="why-dm2-xavier">Why not</label>
+        <textarea id="why-dm2-xavier" data-why="dm2-xavier" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-xavier">Hi Paolo, I'm Rikuo from Sketchie. Your NExT team has been running since 2011 and the school is into its fourth consecutive Apple Distinguished term, so I expect you have long since settled how teachers make their own material. Sketchie makes 60-second whiteboard explainers where each scene stays editable on its own, so reworking a lesson is a reworded line rather than a new recording. Is that something your JHS teachers are looking at this year?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-xavier-org">Hello, I'm Rikuo from Sketchie. Could this reach your Assistant Principal for Junior High School? Xavier has run its own NExT team since 2011 and is into a fourth consecutive Apple Distinguished term, so I am not writing to introduce edtech. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so reworking a lesson is a reworded line rather than a new recording. If someone else holds that brief, I would be glad to be pointed their way.</pre></details>
   </article>
@@ -594,6 +697,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm2-apec">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm2-apec-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm2-apec" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm2-apec" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm2-apec" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm2-apec" hidden>
+        <label for="why-dm2-apec">Why not</label>
+        <textarea id="why-dm2-apec" data-why="dm2-apec" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-apec">Hello, I'm Rikuo from Sketchie, and I am trying to reach whoever leads curriculum for the network. Your Critical Thinking-Based Learning method is developed centrally and lives in an LMS, which is the exact situation Sketchie is built for: 60-second whiteboard explainers where each scene is editable on its own, so a revision made at head office is a reworded line rather than a re-record. Who would be the right person to speak to about this?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-apec-org">Hello, I'm Rikuo from Sketchie. This is for whoever holds Head of Academics or Curriculum Director at network level, so I would be grateful if you could pass it along. Because APEC develops its curriculum centrally and keeps it in an LMS, a change made at head office has to reach every campus. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so that change is a reworded line rather than a re-record. Who should I address this to?</pre></details>
   </article>
@@ -621,6 +734,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm2-southville">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm2-southville-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm2-southville" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm2-southville" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm2-southville" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm2-southville" hidden>
+        <label for="why-dm2-southville">Why not</label>
+        <textarea id="why-dm2-southville" data-why="dm2-southville" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-southville">Hi Marie Vic, I'm Rikuo from Sketchie. Yours is the only school site I have read here that states a flipped classroom model outright, which tells me your teachers are already making or sourcing video for introductory lessons. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so when a lesson needs changing it is a reworded line rather than another recording session. Is that a problem worth solving for your team?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-southville-org">Hello, I'm Rikuo from Sketchie. Could this reach your Basic Education Principal or Academic Coordinator? Southville states a flipped classroom model outright and runs a fully online JHS programme, so your teachers are already making or sourcing video for introductory lessons. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so changing a lesson is a reworded line rather than another recording session. Happy to be pointed to whoever owns this.</pre></details>
   </article>
@@ -648,6 +771,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm2-shs-adc">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm2-shs-adc-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm2-shs-adc" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm2-shs-adc" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm2-shs-adc" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm2-shs-adc" hidden>
+        <label for="why-dm2-shs-adc">Why not</label>
+        <textarea id="why-dm2-shs-adc" data-why="dm2-shs-adc" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-shs-adc">Hi Roberto, I'm Rikuo from Sketchie. Running a MATATAG pilot means a lot of explaining to teachers and parents while the curriculum is still settling, and anything you record now may need changing next term. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so when the guidance moves you reword one line instead of starting over. Would that be useful to talk through?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-shs-adc-org">Hello, I'm Rikuo from Sketchie. Could this reach your Junior High School Principal, or your Director for Information and Communication Technology? As a DepEd pilot implementor of MATATAG you are explaining a curriculum that is still settling, and anything recorded now may need changing next term. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so when the guidance moves you reword one line instead of starting over. Please pass this to whichever of them it fits.</pre></details>
   </article>
@@ -675,6 +808,16 @@ table.ex tr:last-child td { border-bottom: none; }
       <button class="btn copy" type="button" data-k="dm2-mapua-mcm">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm2-mapua-mcm-org">Copy school message</button>
     </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm2-mapua-mcm" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm2-mapua-mcm" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm2-mapua-mcm" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm2-mapua-mcm" hidden>
+        <label for="why-dm2-mapua-mcm">Why not</label>
+        <textarea id="why-dm2-mapua-mcm" data-why="dm2-mapua-mcm" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-mapua-mcm">Hello, I'm Rikuo from Sketchie, and I am trying to reach whoever leads the Junior High School. Your E-Tutor program is built on short video microlessons, so you will already know the real cost is not making the first one, it is revising it a term later. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so a correction is a reworded line rather than a new recording. Could you point me to the right person?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-mapua-mcm-org">Hello, I'm Rikuo from Sketchie. Could this reach your Junior High School Principal or Basic Education Director? Your E-Tutor programme has run on short video microlessons since 2018, so you will know the real cost is not the first recording, it is the revision a term later. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so a correction is a reworded line. I would be grateful for the right name to write to.</pre></details>
   </article>
@@ -699,9 +842,31 @@ table.ex tr:last-child td { border-bottom: none; }
     <span class="owner">You</span>
     <span class="due">Held</span>
     
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-dm2-dlsz" value="linkedin"> Sent the LinkedIn message</label>
+      <label><input type="radio" name="log-dm2-dlsz" value="school"> Sent the school message</label>
+      <label><input type="radio" name="log-dm2-dlsz" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="dm2-dlsz" hidden>
+        <label for="why-dm2-dlsz">Why not</label>
+        <textarea id="why-dm2-dlsz" data-why="dm2-dlsz" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
     <details class="asana"><summary>Message to the person, via LinkedIn, not to send yet</summary><pre id="pre-dm2-dlsz">Hi Winnie, I'm Rikuo from Sketchie. Congratulations on the Robotics Elite Team's run at the RoboSports Carnival last week. With a standing EdTech Coordinator role and NxGBL already in place, you are further along than most schools I speak to, so I will be direct: Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, which means revising a lesson is a reworded line rather than recording the whole thing again. Worth a short conversation?</pre></details>
     <details class="asana"><summary>Message to the school, via its own site, not to send yet</summary><pre id="pre-dm2-dlsz-org">Hello, I'm Rikuo from Sketchie. Could this reach your EdTech Coordinator? Congratulations to the Robotics Elite Team on their run at the RoboSports Carnival. Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, so revising a lesson is a reworded line rather than a new recording. If that is worth a short conversation, please pass this on or tell me who to write to.</pre></details>
   </article></div>
+    
+  <div class="recorder">
+    <h3>Record what went out</h3>
+    <p>Nothing here is sent anywhere. The choices stay in this browser, so you can stop and come back to them.
+    Submit builds one block covering both batches; hand it over and it gets written into this page for good.</p>
+    <div class="recorder-actions">
+      <button class="btn" type="button" data-submit="outreach2">Submit</button>
+      <button class="btn copy" type="button" data-k="log-outreach2" hidden>Copy the block</button>
+      <span class="recorder-count" data-count="outreach2"></span>
+    </div>
+    <pre class="recorder-out" id="pre-log-outreach2" hidden></pre>
+  </div>
   </section><section role="tabpanel" id="panel-archive" aria-labelledby="tab-archive" hidden>
     <p class="panel-note">Parked on purpose, not forgotten.</p>
     
@@ -736,6 +901,7 @@ table.ex tr:last-child td { border-bottom: none; }
     <span class="owner">You</span>
     <span class="due">No date</span>
   </article></div>
+    
   </section><section role="tabpanel" id="panel-done" aria-labelledby="tab-done" hidden>
     <p class="panel-note">Most recent first.</p>
     
@@ -800,6 +966,7 @@ table.ex tr:last-child td { border-bottom: none; }
     <span class="owner">You</span>
     <span class="due">Tue, Oct 13</span>
   </article></div>
+    
   </section>
 
 </div>
@@ -863,6 +1030,103 @@ table.ex tr:last-child td { border-bottom: none; }
       setTimeout(function () { b.textContent = o; }, 2200);
     }
   });
+
+  /* ---- what actually went out ----
+     Kept in localStorage, which is per browser and per device: clearing
+     site data clears it. The block Submit produces is the record that
+     lasts, because that is what gets written back into this page. */
+  var ROWS = [{"cid":"dm-khan-lab","row":11,"school":"Khan Lab School","batch":"batch 1, US"},{"cid":"dm-summit-atlas","row":16,"school":"Summit Atlas","batch":"batch 1, US"},{"cid":"dm-nueva","row":13,"school":"The Nueva School","batch":"batch 1, US"},{"cid":"dm-mount-vernon","row":14,"school":"The Mount Vernon School","batch":"batch 1, US"},{"cid":"dm-dawson","row":20,"school":"Dawson School","batch":"batch 1, US"},{"cid":"dm-ransom","row":19,"school":"Ransom Everglades School","batch":"batch 1, US"},{"cid":"dm2-xavier","row":1,"school":"Xavier School San Juan","batch":"batch 2, PH","held":false},{"cid":"dm2-apec","row":4,"school":"APEC Schools","batch":"batch 2, PH","held":false},{"cid":"dm2-southville","row":5,"school":"Southville International School and Colleges","batch":"batch 2, PH","held":false},{"cid":"dm2-shs-adc","row":7,"school":"Sacred Heart School, Ateneo de Cebu","batch":"batch 2, PH","held":false},{"cid":"dm2-mapua-mcm","row":8,"school":"Mapua Malayan Colleges Mindanao, Junior High School","batch":"batch 2, PH","held":false},{"cid":"dm2-dlsz","row":2,"school":"De La Salle Santiago Zobel School","batch":"batch 2, PH","held":true}];
+  var LOG_KEY = 'sketchie-outreach-log-v1';
+  function loadLog() {
+    try { return JSON.parse(localStorage.getItem(LOG_KEY)) || {}; } catch (e) { return {}; }
+  }
+  function saveLog(o) {
+    try { localStorage.setItem(LOG_KEY, JSON.stringify(o)); } catch (e) {}
+  }
+  function entry(log, cid) { if (!log[cid]) log[cid] = {}; return log[cid]; }
+
+  function syncRow(cid) {
+    var sel = document.querySelector('input[name="log-' + cid + '"]:checked');
+    var wrap = document.querySelector('[data-why-wrap="' + cid + '"]');
+    if (wrap) wrap.hidden = !(sel && sel.value === 'no');
+  }
+  function counts() {
+    var log = loadLog(), done = 0;
+    ROWS.forEach(function (r) { if (log[r.cid] && log[r.cid].choice) done++; });
+    [].forEach.call(document.querySelectorAll('[data-count]'), function (el) {
+      el.textContent = done + ' of ' + ROWS.length + ' recorded';
+    });
+  }
+
+  document.addEventListener('change', function (ev) {
+    var t = ev.target;
+    if (!t.name || t.name.indexOf('log-') !== 0) return;
+    var cid = t.name.slice(4), log = loadLog();
+    entry(log, cid).choice = t.value;
+    saveLog(log); syncRow(cid); counts();
+  });
+  document.addEventListener('input', function (ev) {
+    var cid = ev.target.dataset && ev.target.dataset.why;
+    if (!cid) return;
+    var log = loadLog();
+    entry(log, cid).why = ev.target.value;
+    saveLog(log);
+  });
+
+  function report() {
+    var log = loadLog();
+    var g = { linkedin: [], school: [], no: [], none: [] };
+    ROWS.forEach(function (r) {
+      var e = log[r.cid] || {};
+      (g[e.choice] || g.none).push({ r: r, why: (e.why || '').trim() });
+    });
+    var L = ['SKETCHIE OUTREACH LOG'];
+    L.push('Recorded ' + new Date().toLocaleString() + ', from the desk page');
+    L.push(ROWS.length + ' rows, ' + (ROWS.length - g.none.length) + ' recorded, ' + g.none.length + ' not yet');
+    var name = function (x) {
+      return '  #' + x.r.row + '  ' + x.r.school + '  (' + x.r.batch + (x.r.held ? ', held' : '') + ')';
+    };
+    var block = function (title, arr, withWhy) {
+      L.push(''); L.push(title + ' (' + arr.length + ')');
+      if (!arr.length) { L.push('  none'); return; }
+      arr.forEach(function (x) {
+        L.push(name(x));
+        if (withWhy) L.push('      reason: ' + (x.why || 'not given'));
+      });
+    };
+    block('SENT, LINKEDIN MESSAGE', g.linkedin);
+    block('SENT, SCHOOL MESSAGE', g.school);
+    block('NOT SENT', g.no, true);
+    block('NOT RECORDED', g.none);
+    return L.join('\n');
+  }
+
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-submit]');
+    if (!b) return;
+    var k = b.dataset.submit;
+    var pre = document.getElementById('pre-log-' + k);
+    pre.textContent = report();
+    pre.hidden = false;
+    var c = document.querySelector('.copy[data-k="log-' + k + '"]');
+    if (c) c.hidden = false;
+    pre.scrollIntoView({ block: 'nearest' });
+  });
+
+  (function restore() {
+    var log = loadLog();
+    ROWS.forEach(function (r) {
+      var e = log[r.cid];
+      if (e && e.choice) {
+        var i = document.querySelector('input[name="log-' + r.cid + '"][value="' + e.choice + '"]');
+        if (i) i.checked = true;
+      }
+      var w = document.querySelector('[data-why="' + r.cid + '"]');
+      if (w && e && e.why) w.value = e.why;
+      syncRow(r.cid);
+    });
+    counts();
+  })();
 </script>
 </body>
 </html>
