@@ -215,7 +215,7 @@ table.ex tr:last-child td { border-bottom: none; }
     <span class="id">L1-T08</span>
     <div class="body">
       <h3>Unblock Andi's two QA checks <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> Andi asked two direct questions on 28 October and has posted three updates since without either being answered. BUG-318 and the failed-generation email check cannot run until he has the setup.</p>
+      <p class="done"><strong>Why it is here:</strong> Andi asked for the setup on 28 October, and again on BUG-318 on the 29th. Four updates later there is still no reply. BUG-318 has not run at all, and the failed-generation half of item 5 has no fixture.</p>
       <p class="latest"><strong>Needs from you:</strong> Replace the marked line with whoever owns the staging fixtures, then post.</p>
       <div class="meta">
         <span>Blocks:</span><span class="tag">BUG-318, failed-generation email check</span>
@@ -226,11 +226,13 @@ table.ex tr:last-child td { border-bottom: none; }
     <span class="owner">You</span>
     <span class="due">Sat, Oct 24</span>
     <button class="btn copy" type="button" data-k="L1-T08">Copy draft</button>
-    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T08">Hi Andi, thank you for the evidence, and apologies for leaving your two questions from 28 October unanswered.
+    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T08">Hi Andi, thank you for the evidence, and apologies for leaving your question unanswered since 28 October. You asked again on BUG-318 on the 29th and I missed that one too.
 
-I do not have the semantic-enabled staging account or the deterministic failure fixture to hand, and I would rather not send you guessing.
+I do not have the semantic-enabled staging account or a deterministic failure fixture to hand, and I would rather not send you guessing.
 
 [ REPLACE THIS LINE: name whoever owns the staging fixtures and ask them here ]
+
+Two things so the ticket reads straight. BUG-318 is unrun rather than passing, and it is sitting in In Progress with nobody assigned. On item 5, the free-used-up half is fixed and verified on staging, but the failed-generation half is still unverified because the combination that used to fail is now blocked by the composer guard. Worth splitting those two in the item, so the ticket does not look more finished than it is.
 
 On the duration findings, those look more serious to me than the email items. A 30 second request returning 1:01, and a 360 second request returning 1:10, means the requested length is not being honoured in either direction. The pricing page sells length in 30 second steps up to six minutes and charges by it, so this is a billing question as much as a quality one.
 
