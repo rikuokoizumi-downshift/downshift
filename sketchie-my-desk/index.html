@@ -154,7 +154,9 @@ table.ex tr:last-child td { border-bottom: none; }
   .tabs button .n { opacity: .6; margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
   .panel-note { color: var(--muted); font-size: 14px; margin: 18px 0 2px; }
   .ticket .copy { grid-column: 2 / -1; justify-self: start; margin-top: 10px; }
-  @media (max-width: 760px) { .ticket .copy { grid-column: 1 / -1; } }
+  .ticket .copyrow { grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .ticket .copyrow .copy { grid-column: auto; margin-top: 0; }
+  @media (max-width: 760px) { .ticket .copy, .ticket .copyrow { grid-column: 1 / -1; } }
 </style>
 </head>
 <body>
@@ -387,7 +389,7 @@ table.ex tr:last-child td { border-bottom: none; }
     <span class="due">Sun, Nov 1</span>
   </article></div>
   </section><section role="tabpanel" id="panel-outreach" aria-labelledby="tab-outreach" hidden>
-    <p class="panel-note">Six US prospects out of the L1-T15 workbook, with a message drafted for each. None are sent. All six are schools because the workbook puts LinkedIn on the Schools route: the Creators sheet goes through comments, Instagram or email. Individual profiles are not linked here, since the workbook's Legend says not to store them. Rewritten on 30 October: these first offered to send a demo video, and now they do not. Each names what the workbook found, says in a line what Sketchie does, and asks a question. The contacts, hooks and notes are unchanged.</p>
+    <p class="panel-note">Six US prospects out of the L1-T15 workbook, with a message drafted for each. None are sent. All six are schools because the workbook puts LinkedIn on the Schools route: the Creators sheet goes through comments, Instagram or email. Individual profiles are not linked here, since the workbook's Legend says not to store them. Each row carries two drafts: one for the person on LinkedIn, and one for the school itself, because messaging an individual on LinkedIn can need Premium. The school version names the role rather than the person, so a stale title does not matter, and it goes through the school's own site. Rewritten on 30 October: these first offered to send a demo video, and now they do not. Each names what the workbook found, says in a line what Sketchie does, and asks a question. The contacts, hooks and notes are unchanged.</p>
     
     <div class="tickets">
   <article class="ticket" id="dm-khan-lab">
@@ -398,16 +400,21 @@ table.ex tr:last-child td { border-bottom: none; }
       <p class="done"><strong>Hook:</strong> Student-led STEM Racing Club car, school news 3 October 2026</p>
       <p class="latest">Already uses AI in instruction, so the bar is quality and editability rather than novelty. Keep to how the format is built and say nothing about outcomes.</p>
       <div class="meta">
-        <span>LinkedIn:</span>
+        <span>Reach via:</span>
         <a class="tag link" href="https://www.linkedin.com/company/khan-lab-school" target="_blank" rel="noopener">Company page</a>
+        <a class="tag link" href="https://khanlabschool.org/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm-khan-lab">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm-khan-lab">Hi Natasha, I'm Rikuo from Sketchie. With Khanmigo already in your classrooms I doubt another AI tool reads as novel, so I will stick to what is actually different about ours. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so reworking a lesson means changing one line and only that scene redraws, rather than regenerating the whole video. Is that a problem your middle school team actually has?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm-khan-lab">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm-khan-lab-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-khan-lab">Hi Natasha, I'm Rikuo from Sketchie. With Khanmigo already in your classrooms I doubt another AI tool reads as novel, so I will stick to what is actually different about ours. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so reworking a lesson means changing one line and only that scene redraws, rather than regenerating the whole video. Is that a problem your middle school team actually has?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-khan-lab-org">Hello, I'm Rikuo from Sketchie. Could this reach your Middle School Director? With Khanmigo already in your classrooms I doubt another AI tool reads as novel, so I will stick to what is actually different about ours. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so reworking a lesson means changing one line and only that scene redraws. If that is not a problem your team has, I will happily leave it there.</pre></details>
   </article>
   <article class="ticket" id="dm-summit-atlas">
     <span class="id">Row 16</span>
@@ -417,16 +424,21 @@ table.ex tr:last-child td { border-bottom: none; }
       <p class="done"><strong>Hook:</strong> Their published Self-Directed Learning cycle: set goal, plan, reflect</p>
       <p class="latest">The page is Summit Public Schools, the network, not the campus. A site-level pilot is feasible, but platform decisions sit with the network's Chief Academic Officer.</p>
       <div class="meta">
-        <span>LinkedIn:</span>
+        <span>Reach via:</span>
         <a class="tag link" href="https://www.linkedin.com/company/summitps" target="_blank" rel="noopener">Company page</a>
+        <a class="tag link" href="https://summitps.org/our-schools/summit-atlas-west-seattle/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm-summit-atlas">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm-summit-atlas">Hi Ebony, I'm Rikuo from Sketchie. Your Self-Directed Learning cycle is published in more detail than most schools publish anything, and with applications open for 2027-28 I imagine you are explaining it to families a great deal at the moment. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so the version you show families can be updated a line at a time. Is that worth a short conversation, or is it a network-level decision?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm-summit-atlas">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm-summit-atlas-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-summit-atlas">Hi Ebony, I'm Rikuo from Sketchie. Your Self-Directed Learning cycle is published in more detail than most schools publish anything, and with applications open for 2027-28 I imagine you are explaining it to families a great deal at the moment. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so the version you show families can be updated a line at a time. Is that worth a short conversation, or is it a network-level decision?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-summit-atlas-org">Hello, I'm Rikuo from Sketchie. Could this reach your Executive Director, or whoever at Summit Public Schools decides on learning platforms? Your Self-Directed Learning cycle is published in more detail than most schools publish anything, and with applications open for 2027-28 I imagine you are explaining it to families a great deal at the moment. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so the version you show families can be updated a line at a time. Please point me to the right desk, network or school.</pre></details>
   </article>
   <article class="ticket" id="dm-nueva">
     <span class="id">Row 13</span>
@@ -436,16 +448,21 @@ table.ex tr:last-child td { border-bottom: none; }
       <p class="done"><strong>Hook:</strong> Grade 7 wind-turbine design project, from the Middle School I-Lab news</p>
       <p class="latest">The Head of Middle School is not named on the pages checked, so this is addressed to the Head of School. They host a conference for innovative educators, so a good pilot could travel.</p>
       <div class="meta">
-        <span>LinkedIn:</span>
+        <span>Reach via:</span>
         <a class="tag link" href="https://www.linkedin.com/company/the-nueva-school/" target="_blank" rel="noopener">Company page</a>
+        <a class="tag link" href="https://www.nuevaschool.org/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm-nueva">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm-nueva">Hi Lee, I'm Rikuo from Sketchie. The Grade 7 wind-turbine project in your I-Lab news is the kind of work that is hard to compress into a slide, which is roughly the problem we build for. Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, so a teacher reworking one idea changes a line rather than starting the video over. Is that something your Middle School team is looking at?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm-nueva">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm-nueva-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-nueva">Hi Lee, I'm Rikuo from Sketchie. The Grade 7 wind-turbine project in your I-Lab news is the kind of work that is hard to compress into a slide, which is roughly the problem we build for. Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, so a teacher reworking one idea changes a line rather than starting the video over. Is that something your Middle School team is looking at?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-nueva-org">Hello, I'm Rikuo from Sketchie. Could this reach your Head of Middle School, or your Director of the Innovation Labs? The Grade 7 wind-turbine project in your I-Lab news is the kind of work that is hard to compress into a slide, which is roughly the problem we build for. Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, so a teacher reworking one idea changes a line rather than starting the video over. I would welcome being pointed to whoever that sits with.</pre></details>
   </article>
   <article class="ticket" id="dm-mount-vernon">
     <span class="id">Row 14</span>
@@ -455,17 +472,22 @@ table.ex tr:last-child td { border-bottom: none; }
       <p class="done"><strong>Hook:</strong> Grade 7 math scale-modeling project, from the Middle School news</p>
       <p class="latest">The workbook notes a LinkedIn icon in the site footer but no URL captured. My own search returned only staff profiles, which the Legend says not to store, so the people search stays the route.</p>
       <div class="meta">
-        <span>LinkedIn:</span>
+        <span>Reach via:</span>
         <span class="tag">No company page in the file</span>
              <a class="tag link" href="https://www.linkedin.com/search/results/people/?keywords=The%20Mount%20Vernon%20School%20Atlanta%20Chief%20Innovation%20Officer" target="_blank" rel="noopener">People search</a>
+        <a class="tag link" href="https://mountvernonschool.org/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm-mount-vernon">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm-mount-vernon">Hi Jared, I'm Rikuo from Sketchie. There are very few people with Chief Innovation Officer on a K-12 card, so you have almost certainly seen more of these than I have sent. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, which probably matters more for Mount Vernon School Online than for a classroom, since online material gets revised rather than re-taught. Is that a fit for what MVSO is doing?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm-mount-vernon">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm-mount-vernon-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-mount-vernon">Hi Jared, I'm Rikuo from Sketchie. There are very few people with Chief Innovation Officer on a K-12 card, so you have almost certainly seen more of these than I have sent. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, which probably matters more for Mount Vernon School Online than for a classroom, since online material gets revised rather than re-taught. Is that a fit for what MVSO is doing?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-mount-vernon-org">Hello, I'm Rikuo from Sketchie. Could this reach your Chief Innovation Officer? Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, which probably matters more for Mount Vernon School Online than for a classroom, since online material gets revised rather than re-taught. If MVSO has someone who owns that material, I would rather write to them directly than take up your time.</pre></details>
   </article>
   <article class="ticket" id="dm-dawson">
     <span class="id">Row 20</span>
@@ -475,17 +497,22 @@ table.ex tr:last-child td { border-bottom: none; }
       <p class="done"><strong>Hook:</strong> Their middle-school Programming strand, which lists algorithms as a core idea</p>
       <p class="latest">Both named contacts are current on the school site. He is a former middle-school math teacher. Their students already make video, so this is positioned for teachers rather than as a student tool.</p>
       <div class="meta">
-        <span>LinkedIn:</span>
+        <span>Reach via:</span>
         <span class="tag">No company page in the file</span>
              <a class="tag link" href="https://www.linkedin.com/search/results/people/?keywords=Dawson%20School%20Lafayette%20Director%20of%20Innovation%20and%20Technology" target="_blank" rel="noopener">People search</a>
+        <a class="tag link" href="https://www.dawsonschool.org/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm-dawson">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm-dawson">Hi Jeff, I'm Rikuo from Sketchie. Your middle schoolers already have the Innovation Center and the Adobe tools, so this is not a student-tool pitch. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, aimed at the teacher who explains algorithms once and then wants to revise a line next year rather than record it again. Worth a conversation?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm-dawson">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm-dawson-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-dawson">Hi Jeff, I'm Rikuo from Sketchie. Your middle schoolers already have the Innovation Center and the Adobe tools, so this is not a student-tool pitch. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, aimed at the teacher who explains algorithms once and then wants to revise a line next year rather than record it again. Worth a conversation?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-dawson-org">Hello, I'm Rikuo from Sketchie. Could this reach your Director of Innovation and Technology? Your middle schoolers already have the Innovation Center and the Adobe tools, so this is not a student-tool pitch. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, aimed at the teacher who explains algorithms once and then wants to revise a line next year rather than record it again. Please pass this on if it fits.</pre></details>
   </article>
   <article class="ticket" id="dm-ransom">
     <span class="id">Row 19</span>
@@ -495,20 +522,25 @@ table.ex tr:last-child td { border-bottom: none; }
       <p class="done"><strong>Hook:</strong> Middle School history and geography bee, cited in the March 2025 Head of School letter</p>
       <p class="latest">A timing play. They are recruiting their first Director of Educational Technology, so message the Head of Middle School now and the new director once appointed. The named contact comes from a March 2025 letter, so confirm the title first.</p>
       <div class="meta">
-        <span>LinkedIn:</span>
+        <span>Reach via:</span>
         <span class="tag">No company page in the file</span>
              <a class="tag link" href="https://www.linkedin.com/search/results/people/?keywords=Ransom%20Everglades%20Director%20of%20Educational%20Technology" target="_blank" rel="noopener">People search</a>
+        <a class="tag link" href="https://www.ransomeverglades.org/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm-ransom">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm-ransom">Hi Pete, I'm Rikuo from Sketchie. I saw that Ransom Everglades is recruiting its first Director of Educational Technology, which reads like you are setting a strategy rather than collecting tools. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so teachers revise a line instead of re-recording. Would it make sense to talk now, or to wait until the new director is in post?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm-ransom">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm-ransom-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm-ransom">Hi Pete, I'm Rikuo from Sketchie. I saw that Ransom Everglades is recruiting its first Director of Educational Technology, which reads like you are setting a strategy rather than collecting tools. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so teachers revise a line instead of re-recording. Would it make sense to talk now, or to wait until the new director is in post?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm-ransom-org">Hello, I'm Rikuo from Sketchie. I saw that Ransom Everglades is recruiting its first Director of Educational Technology, so until that post is filled I expect this sits with the Head of the Middle School. Could you pass it to whoever is covering it? Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so teachers revise a line instead of re-recording. I am happy to be told it is better raised once the new director is in post.</pre></details>
   </article></div>
   </section><section role="tabpanel" id="panel-outreach2" aria-labelledby="tab-outreach2" hidden>
-    <p class="panel-note">Six Philippines schools out of the same L1-T15 workbook, drafted Fri 30 October. None are sent. These six are every Philippines row the workbook marks High confidence (#1, 2, 4, 5, 7, 8); the four it marks Medium are left for a later pass. DLSZ (#2) is set aside for now, so it sits last, greyed, with no copy button: the school is on midyear break until 3 November, and its coordinator titles come from a 2020 post. That leaves five to review. Like batch 1, these do not offer a demo video: each names what the workbook found, says in a line what Sketchie does, and asks a question. Two rows have no named individual published, so those two ask to be routed to the right person rather than guessing at a name. There are no email addresses here because the workbook holds none and its Legend bans collecting them.</p>
+    <p class="panel-note">Six Philippines schools out of the same L1-T15 workbook, drafted Fri 30 October. None are sent. These six are every Philippines row the workbook marks High confidence (#1, 2, 4, 5, 7, 8); the four it marks Medium are left for a later pass. DLSZ (#2) is set aside for now, so it sits last, greyed, with no copy button: the school is on midyear break until 3 November, and its coordinator titles come from a 2020 post. That leaves five to review. Like batch 1, these do not offer a demo video: each names what the workbook found, says in a line what Sketchie does, and asks a question. Two rows have no named individual published, so those two ask to be routed to the right person rather than guessing at a name. Every row also carries a second draft addressed to the school itself, for when LinkedIn wants Premium before it will let a message through: it names the role rather than the person and goes via the school's own site. There are no email addresses anywhere here, because the workbook holds none and its Legend bans collecting them.</p>
     
     <div class="tickets">
   <article class="ticket" id="dm2-xavier">
@@ -524,14 +556,19 @@ table.ex tr:last-child td { border-bottom: none; }
         <span>Reach via:</span>
         <span class="tag">No LinkedIn page in the file</span>
         <a class="tag link" href="https://www.linkedin.com/search/results/people/?keywords=Xavier%20School%20San%20Juan%20Principal" target="_blank" rel="noopener">People search</a>
+        <a class="tag link" href="https://www.xs.edu.ph/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm2-xavier">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm2-xavier">Hi Paolo, I'm Rikuo from Sketchie. Your NExT team has been running since 2011 and the school is into its fourth consecutive Apple Distinguished term, so I expect you have long since settled how teachers make their own material. Sketchie makes 60-second whiteboard explainers where each scene stays editable on its own, so reworking a lesson is a reworded line rather than a new recording. Is that something your JHS teachers are looking at this year?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm2-xavier">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm2-xavier-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-xavier">Hi Paolo, I'm Rikuo from Sketchie. Your NExT team has been running since 2011 and the school is into its fourth consecutive Apple Distinguished term, so I expect you have long since settled how teachers make their own material. Sketchie makes 60-second whiteboard explainers where each scene stays editable on its own, so reworking a lesson is a reworded line rather than a new recording. Is that something your JHS teachers are looking at this year?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-xavier-org">Hello, I'm Rikuo from Sketchie. Could this reach your Assistant Principal for Junior High School? Xavier has run its own NExT team since 2011 and is into a fourth consecutive Apple Distinguished term, so I am not writing to introduce edtech. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so reworking a lesson is a reworded line rather than a new recording. If someone else holds that brief, I would be glad to be pointed their way.</pre></details>
   </article>
   <article class="ticket" id="dm2-apec">
     <span class="id">Row 4</span>
@@ -546,14 +583,19 @@ table.ex tr:last-child td { border-bottom: none; }
         <span>Reach via:</span>
         <a class="tag link" href="https://ph.linkedin.com/company/apecschools" target="_blank" rel="noopener">LinkedIn page</a>
         <a class="tag link" href="https://www.linkedin.com/search/results/people/?keywords=APEC%20Schools%20Curriculum%20Head" target="_blank" rel="noopener">People search</a>
+        <a class="tag link" href="https://apecschools.edu.ph/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm2-apec">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm2-apec">Hello, I'm Rikuo from Sketchie, and I am trying to reach whoever leads curriculum for the network. Your Critical Thinking-Based Learning method is developed centrally and lives in an LMS, which is the exact situation Sketchie is built for: 60-second whiteboard explainers where each scene is editable on its own, so a revision made at head office is a reworded line rather than a re-record. Who would be the right person to speak to about this?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm2-apec">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm2-apec-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-apec">Hello, I'm Rikuo from Sketchie, and I am trying to reach whoever leads curriculum for the network. Your Critical Thinking-Based Learning method is developed centrally and lives in an LMS, which is the exact situation Sketchie is built for: 60-second whiteboard explainers where each scene is editable on its own, so a revision made at head office is a reworded line rather than a re-record. Who would be the right person to speak to about this?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-apec-org">Hello, I'm Rikuo from Sketchie. This is for whoever holds Head of Academics or Curriculum Director at network level, so I would be grateful if you could pass it along. Because APEC develops its curriculum centrally and keeps it in an LMS, a change made at head office has to reach every campus. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so that change is a reworded line rather than a re-record. Who should I address this to?</pre></details>
   </article>
   <article class="ticket" id="dm2-southville">
     <span class="id">Row 5</span>
@@ -568,14 +610,19 @@ table.ex tr:last-child td { border-bottom: none; }
         <span>Reach via:</span>
         <span class="tag">No LinkedIn page in the file</span>
         <a class="tag link" href="https://www.linkedin.com/search/results/people/?keywords=Southville%20International%20School%20Principal" target="_blank" rel="noopener">People search</a>
+        <a class="tag link" href="https://www.southville.edu.ph/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm2-southville">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm2-southville">Hi Marie Vic, I'm Rikuo from Sketchie. Yours is the only school site I have read here that states a flipped classroom model outright, which tells me your teachers are already making or sourcing video for introductory lessons. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so when a lesson needs changing it is a reworded line rather than another recording session. Is that a problem worth solving for your team?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm2-southville">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm2-southville-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-southville">Hi Marie Vic, I'm Rikuo from Sketchie. Yours is the only school site I have read here that states a flipped classroom model outright, which tells me your teachers are already making or sourcing video for introductory lessons. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so when a lesson needs changing it is a reworded line rather than another recording session. Is that a problem worth solving for your team?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-southville-org">Hello, I'm Rikuo from Sketchie. Could this reach your Basic Education Principal or Academic Coordinator? Southville states a flipped classroom model outright and runs a fully online JHS programme, so your teachers are already making or sourcing video for introductory lessons. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so changing a lesson is a reworded line rather than another recording session. Happy to be pointed to whoever owns this.</pre></details>
   </article>
   <article class="ticket" id="dm2-shs-adc">
     <span class="id">Row 7</span>
@@ -590,14 +637,19 @@ table.ex tr:last-child td { border-bottom: none; }
         <span>Reach via:</span>
         <span class="tag">No LinkedIn page in the file</span>
         <a class="tag link" href="https://www.linkedin.com/search/results/people/?keywords=Sacred%20Heart%20School%20Ateneo%20de%20Cebu%20Principal" target="_blank" rel="noopener">People search</a>
+        <a class="tag link" href="https://shs-adc.edu.ph/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm2-shs-adc">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm2-shs-adc">Hi Roberto, I'm Rikuo from Sketchie. Running a MATATAG pilot means a lot of explaining to teachers and parents while the curriculum is still settling, and anything you record now may need changing next term. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so when the guidance moves you reword one line instead of starting over. Would that be useful to talk through?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm2-shs-adc">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm2-shs-adc-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-shs-adc">Hi Roberto, I'm Rikuo from Sketchie. Running a MATATAG pilot means a lot of explaining to teachers and parents while the curriculum is still settling, and anything you record now may need changing next term. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so when the guidance moves you reword one line instead of starting over. Would that be useful to talk through?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-shs-adc-org">Hello, I'm Rikuo from Sketchie. Could this reach your Junior High School Principal, or your Director for Information and Communication Technology? As a DepEd pilot implementor of MATATAG you are explaining a curriculum that is still settling, and anything recorded now may need changing next term. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so when the guidance moves you reword one line instead of starting over. Please pass this to whichever of them it fits.</pre></details>
   </article>
   <article class="ticket" id="dm2-mapua-mcm">
     <span class="id">Row 8</span>
@@ -612,14 +664,19 @@ table.ex tr:last-child td { border-bottom: none; }
         <span>Reach via:</span>
         <a class="tag link" href="https://www.linkedin.com/school/mcm-mapuadavao" target="_blank" rel="noopener">LinkedIn page</a>
         <a class="tag link" href="https://www.linkedin.com/search/results/people/?keywords=Mapua%20Malayan%20Colleges%20Mindanao%20Junior%20High%20School%20Principal" target="_blank" rel="noopener">People search</a>
+        <a class="tag link" href="https://mcm.edu.ph/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
     </div>
     <span class="owner">You</span>
     <span class="due">Not sent</span>
-    <button class="btn copy" type="button" data-k="dm2-mapua-mcm">Copy message</button>
-    <details class="asana"><summary>Drafted message</summary><pre id="pre-dm2-mapua-mcm">Hello, I'm Rikuo from Sketchie, and I am trying to reach whoever leads the Junior High School. Your E-Tutor program is built on short video microlessons, so you will already know the real cost is not making the first one, it is revising it a term later. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so a correction is a reworded line rather than a new recording. Could you point me to the right person?</pre></details>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="dm2-mapua-mcm">Copy LinkedIn message</button>
+      <button class="btn copy" type="button" data-k="dm2-mapua-mcm-org">Copy school message</button>
+    </div>
+    <details class="asana"><summary>Message to the person, via LinkedIn</summary><pre id="pre-dm2-mapua-mcm">Hello, I'm Rikuo from Sketchie, and I am trying to reach whoever leads the Junior High School. Your E-Tutor program is built on short video microlessons, so you will already know the real cost is not making the first one, it is revising it a term later. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so a correction is a reworded line rather than a new recording. Could you point me to the right person?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site</summary><pre id="pre-dm2-mapua-mcm-org">Hello, I'm Rikuo from Sketchie. Could this reach your Junior High School Principal or Basic Education Director? Your E-Tutor programme has run on short video microlessons since 2018, so you will know the real cost is not the first recording, it is the revision a term later. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so a correction is a reworded line. I would be grateful for the right name to write to.</pre></details>
   </article>
   <article class="ticket is-done" id="dm2-dlsz">
     <span class="id">Row 2</span>
@@ -634,6 +691,7 @@ table.ex tr:last-child td { border-bottom: none; }
         <span>Reach via:</span>
         <span class="tag">No LinkedIn page in the file</span>
         <a class="tag link" href="https://www.linkedin.com/search/results/people/?keywords=De%20La%20Salle%20Santiago%20Zobel%20EdTech%20Coordinator" target="_blank" rel="noopener">People search</a>
+        <a class="tag link" href="https://www.dlszobel.edu.ph/" target="_blank" rel="noopener">School site</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">L1-T15</a>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
       </div>
@@ -641,7 +699,8 @@ table.ex tr:last-child td { border-bottom: none; }
     <span class="owner">You</span>
     <span class="due">Held</span>
     
-    <details class="asana"><summary>Drafted message, not to send yet</summary><pre id="pre-dm2-dlsz">Hi Winnie, I'm Rikuo from Sketchie. Congratulations on the Robotics Elite Team's run at the RoboSports Carnival last week. With a standing EdTech Coordinator role and NxGBL already in place, you are further along than most schools I speak to, so I will be direct: Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, which means revising a lesson is a reworded line rather than recording the whole thing again. Worth a short conversation?</pre></details>
+    <details class="asana"><summary>Message to the person, via LinkedIn, not to send yet</summary><pre id="pre-dm2-dlsz">Hi Winnie, I'm Rikuo from Sketchie. Congratulations on the Robotics Elite Team's run at the RoboSports Carnival last week. With a standing EdTech Coordinator role and NxGBL already in place, you are further along than most schools I speak to, so I will be direct: Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, which means revising a lesson is a reworded line rather than recording the whole thing again. Worth a short conversation?</pre></details>
+    <details class="asana"><summary>Message to the school, via its own site, not to send yet</summary><pre id="pre-dm2-dlsz-org">Hello, I'm Rikuo from Sketchie. Could this reach your EdTech Coordinator? Congratulations to the Robotics Elite Team on their run at the RoboSports Carnival. Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, so revising a lesson is a reworded line rather than a new recording. If that is worth a short conversation, please pass this on or tell me who to write to.</pre></details>
   </article></div>
   </section><section role="tabpanel" id="panel-archive" aria-labelledby="tab-archive" hidden>
     <p class="panel-note">Parked on purpose, not forgotten.</p>
@@ -788,8 +847,8 @@ table.ex tr:last-child td { border-bottom: none; }
     if (!b) return;
     var pre = document.getElementById('pre-' + b.dataset.k);
     if (!pre) return;
+    var o = b.textContent;
     var done = function () {
-      var o = b.textContent;
       b.textContent = 'Copied';
       setTimeout(function () { b.textContent = o; }, 1400);
     };
@@ -801,7 +860,7 @@ table.ex tr:last-child td { border-bottom: none; }
       var r = document.createRange(); r.selectNodeContents(pre);
       var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
       b.textContent = 'Selected, press Ctrl+C';
-      setTimeout(function () { b.textContent = 'Copy draft'; }, 2200);
+      setTimeout(function () { b.textContent = o; }, 2200);
     }
   });
 </script>
