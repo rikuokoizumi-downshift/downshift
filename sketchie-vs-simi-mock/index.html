@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchie vs Simi</title>
+<meta name="description" content="Mock of the Sketchie vs Simi comparison page, rebuilt from both products' live pages on 31 October 2026.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Shantell+Sans:wght@500;700&display=swap">
+<style>
+:root {
+  --ink: #1e1e28; --paper: #ffffff; --warm: #fbf8f3; --warm2: #f4efe7;
+  --violet: #6c5ce7; --violet-deep: #5a4bd1; --violet-tint: #f3f0ff;
+  --muted: #5b5b68; --line: #e6e1d8; --tangerine: #ff922b; --on-accent: #ffffff;
+  --marker: "Shantell Sans", "Comic Sans MS", cursive;
+  --ui: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+:root[data-theme="dark"] {
+  --ink: #f4f1ea; --paper: #1d1830; --warm: #151121; --warm2: #120f1c;
+  --violet: #9b8cff; --violet-deep: #b3a6ff; --violet-tint: rgba(155, 140, 255, .14);
+  --muted: rgba(244, 241, 234, .66); --line: rgba(244, 241, 234, .16);
+  --tangerine: #ffa94d; --on-accent: #15102a;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); }
+body { -webkit-font-smoothing: antialiased; }
+
+.mockbar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 9px clamp(14px, 3vw, 28px);
+  background: var(--warm2); border-bottom: 1px solid var(--line);
+  font: 600 12px/1.5 var(--ui); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.mockbar .tag { color: var(--violet-deep); }
+.mockbar .css-copy { margin-inline-start: auto; }
+.mockbar .css-copy, .mockbar .theme-switch {
+  flex: 0 0 auto; min-width: 78px; padding: 4px 12px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--paper); color: var(--muted);
+  font: 600 12px/1.5 var(--ui); letter-spacing: .08em;
+  text-align: center; cursor: pointer;
+  transition: border-color .2s ease, color .2s ease, background-color .2s ease;
+}
+.mockbar .css-copy:hover, .mockbar .theme-switch:hover { border-color: var(--violet); color: var(--violet-deep); }
+.mockbar .css-copy:focus-visible, .mockbar .theme-switch:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+.mockbar .css-copy.is-done { border-color: var(--violet); background: var(--violet-tint); color: var(--violet-deep); }
+
+.review {
+  margin: 0; padding: clamp(18px, 3vw, 26px) 0 0;
+}
+.review-card {
+  border: 1px solid var(--line); border-left: 3px solid var(--tangerine);
+  border-radius: 10px; background: var(--warm); padding: 18px 20px;
+}
+.review-card h2 { margin: 0 0 4px; font: 700 .95rem/1.4 var(--ui); letter-spacing: .04em; text-transform: uppercase; color: var(--tangerine); }
+.review-card p.intro { margin: 0 0 14px; color: var(--muted); font-size: .93rem; }
+.review-card ol { margin: 0; padding-left: 20px; font-size: .93rem; }
+.review-card li { margin-bottom: 9px; }
+.review-card li:last-child { margin-bottom: 0; }
+.review-card b { color: var(--ink); }
+.review-card .was { color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .mockbar .css-copy, .mockbar .theme-switch { transition: none; } }
+
+/* Sketchie vs Simi comparison page
+   Tokens and fonts are the live ones from Base.css, so this drops into the
+   existing system without new variables. */
+
+.vs { font-family: var(--ui); color: var(--ink); background: var(--paper); }
+.vs .wrap { max-width: 1060px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px); }
+
+/* ---- hero ---- */
+.vs-hero { padding: clamp(44px, 7vw, 76px) 0 clamp(28px, 4vw, 40px); }
+.vs-eyebrow {
+  margin: 0 0 14px; color: var(--violet-deep);
+  font-size: .76rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+}
+.vs-hero h1 {
+  margin: 0 0 18px; max-width: 18ch;
+  font-family: var(--marker); font-size: clamp(2.3rem, 5.6vw, 3.9rem);
+  font-weight: 700; line-height: 1.04; letter-spacing: -.015em;
+}
+.vs-hero h1 .vs-mid { color: var(--violet-deep); }
+.vs-lede { margin: 0; max-width: 62ch; color: var(--muted); font-size: clamp(1.02rem, 1.6vw, 1.16rem); line-height: 1.6; }
+.vs-asof {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 22px; padding: 6px 14px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--warm2); color: var(--muted); font-size: .84rem;
+}
+.vs-asof b { color: var(--ink); font-weight: 600; }
+
+/* ---- a short, genuine credit to them ---- */
+.vs-credit {
+  margin: clamp(30px, 5vw, 48px) 0 0; padding: 22px 24px;
+  border: 1px solid var(--line); border-left: 3px solid var(--violet);
+  border-radius: 12px; background: var(--warm);
+}
+.vs-credit h2 { margin: 0 0 8px; font-family: var(--marker); font-size: 1.22rem; font-weight: 700; }
+.vs-credit p { margin: 0; color: var(--muted); line-height: 1.65; }
+.vs-credit p + p { margin-top: 10px; }
+
+/* ---- section shell ---- */
+.vs-section { padding: clamp(40px, 6vw, 66px) 0 0; }
+.vs-section > h2 {
+  margin: 0 0 6px; font-family: var(--marker);
+  font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; line-height: 1.15;
+}
+.vs-section > .sub { margin: 0 0 26px; max-width: 66ch; color: var(--muted); font-size: .98rem; }
+
+/* ---- comparison table ----
+   A table, not cards: twelve parallel rows are a data comparison, and cards
+   would break the row-to-row scan that makes it readable. */
+.vs-tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.vs-table { width: 100%; min-width: 660px; border-collapse: collapse; }
+.vs-table th, .vs-table td { text-align: left; vertical-align: top; padding: 15px 16px; }
+.vs-table thead th {
+  position: sticky; top: 0; z-index: 1;
+  background: var(--paper); border-bottom: 2px solid var(--line);
+  font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+.vs-table thead th.c-us { color: var(--violet-deep); }
+.vs-table tbody tr + tr th, .vs-table tbody tr + tr td { border-top: 1px solid var(--line); }
+.vs-table tbody th { width: 23%; min-width: 150px; font-weight: 600; font-size: .95rem; }
+.vs-table td { font-size: .95rem; line-height: 1.55; }
+.vs-table td.c-us { background: var(--violet-tint); }
+.vs-table .q { display: block; margin-top: 5px; color: var(--muted); font-size: .85rem; }
+.vs-table .nd { color: var(--muted); font-style: italic; }
+
+/* ---- the price maths, stated rather than implied ---- */
+.vs-maths { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.vs-maths .box { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; background: var(--warm); }
+.vs-maths .box.lead { border-color: var(--violet); background: var(--violet-tint); }
+.vs-maths h3 { margin: 0 0 10px; font-size: .79rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.vs-maths .box.lead h3 { color: var(--violet-deep); }
+.vs-maths ul { list-style: none; margin: 0; padding: 0; }
+.vs-maths li { display: flex; justify-content: space-between; gap: 14px; padding: 5px 0; font-size: .92rem; }
+.vs-maths li + li { border-top: 1px dashed var(--line); }
+.vs-maths .n { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ---- honesty columns ---- */
+.vs-honest { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: clamp(18px, 3vw, 28px); }
+.vs-honest .col { border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; background: var(--paper); }
+.vs-honest .col.theirs { border-top: 3px solid var(--tangerine); }
+.vs-honest .col.ours { border-top: 3px solid var(--violet); }
+.vs-honest h3 { margin: 0 0 12px; font-family: var(--marker); font-size: 1.2rem; font-weight: 700; }
+.vs-honest ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.vs-honest li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 10px; font-size: .94rem; line-height: 1.5; }
+.vs-honest svg { width: 16px; height: 16px; margin-top: 3px; display: block; }
+.vs-honest .col.theirs svg { color: var(--tangerine); }
+.vs-honest .col.ours svg { color: var(--violet-deep); }
+.vs-honest b { font-weight: 600; }
+
+/* ---- cta ---- */
+.vs-cta { margin: clamp(44px, 7vw, 76px) 0 0; padding: clamp(30px, 5vw, 44px); border-radius: 16px; background: var(--warm2); text-align: center; }
+.vs-cta h2 { margin: 0 0 8px; font-family: var(--marker); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; }
+.vs-cta p { margin: 0 0 20px; color: var(--muted); }
+.vs-cta a {
+  display: inline-block; padding: 13px 30px; border-radius: 999px;
+  background: var(--violet); color: var(--on-accent);
+  font-weight: 700; text-decoration: none;
+  transition: background-color .2s ease;
+}
+.vs-cta a:hover { background: var(--violet-deep); }
+.vs-cta a:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+
+/* ---- sources ---- */
+.vs-sources { margin-top: clamp(36px, 5vw, 56px); padding: 26px 0 clamp(50px, 7vw, 80px); border-top: 1px solid var(--line); color: var(--muted); font-size: .87rem; }
+.vs-sources h2 { margin: 0 0 12px; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.vs-sources ul { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 7px; }
+.vs-sources a { color: var(--violet-deep); }
+.vs-sources p { margin: 0; max-width: 74ch; line-height: 1.6; }
+
+@media (max-width: 720px) {
+  .vs-table thead th { position: static; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vs-cta a { transition: none; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="mockbar">
+  <span class="tag">Mock</span>
+  <span>L2-T07 &middot; Sketchie vs Simi &middot; data checked 31 Oct 2026</span>
+  <button class="css-copy" type="button" id="cssCopy" aria-live="polite">CSS</button>
+  <button class="theme-switch" type="button" id="themeToggle" role="switch" aria-checked="false">Day mode</button>
+</div>
+
+<div class="vs">
+
+  <div class="wrap review">
+    <div class="review-card">
+      <h2>Before this ships</h2>
+      <p class="intro">The page now live at sketchie.ai/vs-simi/ is dated July 2026. Eight of its claims no longer
+      match what Lamina Labs publishes. This mock is built on today's figures; the live page still carries these.</p>
+      <ol>
+      <li><b>Top tier.</b> The live page says <span class="was">“Published tiers up to $499.99/mo” and “custom branding $499.99/mo”</span>, but their highest published self-serve plan is Max at $99.99, and branding now sits in Business with no published price.</li>
+      <li><b>Speed.</b> The live page says <span class="was">“under 20 seconds”</span>, but their site now says about 40 seconds for a one-minute explainer.</li>
+      <li><b>Length.</b> The live page says <span class="was">“up to 1 hour in one shot”, and the whole “About that 1-hour video” section</span>, but their FAQ now says most plans go up to about five minutes, longer only on Business.</li>
+      <li><b>Length steps.</b> The live page says <span class="was">“preset lengths, 1-minute steps”</span>, but their credits are priced per second, so the one-minute-steps contrast no longer holds.</li>
+      <li><b>Funding.</b> The live page says <span class="was">“they raised $3.5M”</span>, but reporting puts it at $4.8M, and their site lists three backers.</li>
+      <li><b>API.</b> The live page says <span class="was">“3x their published app rate, gated to top tiers”</span>, but no per-tier API pricing is published on their site today.</li>
+      <li><b>Free tier.</b> The live page says <span class="was">July intel said 120 free credits on signup</span>, but no free tier is published on their site today.</li>
+      <li><b>Our own line.</b> The live page says <span class="was">“We launched this week” on a page dated July 2026</span>, but launch week was 26 October to 1 November.</li>
+      </ol>
+    </div>
+  </div>
+
+  <header class="wrap vs-hero">
+    <p class="vs-eyebrow">An honest comparison</p>
+    <h1>Sketchie <span class="vs-mid">vs</span> Simi</h1>
+    <p class="vs-lede">We wrote this, so read it with that in mind. Every number below comes from a page one of us
+    publishes, and it is dated. Where Simi is better, this page says so, and it says so first.</p>
+    <p class="vs-asof"><b>Checked 31 October 2026.</b> Both products change their pricing.</p>
+  </header>
+
+  <div class="wrap">
+    <div class="vs-credit">
+      <h2>Credit where it is due</h2>
+      <p>Simi is a serious product from a serious team. They generate a one-minute whiteboard explainer in about
+      forty seconds, they bet on pedagogical pacing while everyone else chased cinematic AI video, and they made
+      enough noise about this category that the rest of us are here.</p>
+      <p>If raw first-generation speed is what you care about most, they are better at it than we are. We built
+      Sketchie around what happens after that first generation.</p>
+    </div>
+  </div>
+
+  <section class="wrap vs-section">
+    <h2>Side by side</h2>
+    <p class="sub">Our column is what we publish about our own product. Their column is their published wording as
+    of 31 October 2026, quoted where it is theirs, and marked not published where they are silent. We do not guess
+    at their roadmap or their limits.</p>
+    <div class="vs-tablewrap">
+      <table class="vs-table">
+        <thead>
+          <tr>
+            <th scope="col">&nbsp;</th>
+            <th scope="col" class="c-us">Sketchie</th>
+            <th scope="col">Simi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Entry price</th>
+            <td class="c-us"><b>$9.99/month</b>, Solo, 240 Credits</td>
+            <td><b>$19.99/month</b>, Plus, 6,000 credits<span class="q">Their lowest published plan.</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Free tier</th>
+            <td class="c-us">Two watermarked videos, up to one minute each, Icons style, no card</td>
+            <td><span class="nd">Not published on their site.</span></td>
+          </tr>
+          <tr>
+            <th scope="row">What a credit buys</th>
+            <td class="c-us">Style and length set the price. A one-minute video is 12 Credits in Icons, 20 in Doodles, 30 in Icon KIT.</td>
+            <td>“1 credit is roughly 1 second of balanced-quality video generation.”<span class="q">Their wording, so about 60 credits a minute.</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Minutes per month</th>
+            <td class="c-us">20 on Solo, 50 on Plus, 133 on Pro<span class="q">One-minute Icons videos, our cheapest style.</span></td>
+            <td>100 on Plus, 300 on Pro, 750 on Max</td>
+          </tr>
+          <tr>
+            <th scope="row">Longest video</th>
+            <td class="c-us">Six minutes, in 30-second steps</td>
+            <td>“Most plans make videos up to about five minutes; longer runtimes are set up through a Business plan.”</td>
+          </tr>
+          <tr>
+            <th scope="row">Generation time</th>
+            <td class="c-us">A few minutes</td>
+            <td>“A one-minute explainer takes about 40 seconds to generate.”</td>
+          </tr>
+          <tr>
+            <th scope="row">Editing after the first render</th>
+            <td class="c-us">Scene editing and narration editing on every paid plan. Editing and previewing are free, and each new video includes one re-render.</td>
+            <td><span class="nd">No partial regeneration documented.</span><span class="q">A change means generating again, at roughly 60 credits a minute.</span></td>
+          </tr>
+          <tr>
+            <th scope="row">When a generation fails</th>
+            <td class="c-us">Held Credits come back after a final failure or an accepted cancellation, and an automatic retry never charges twice</td>
+            <td><span class="nd">Not published.</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Commercial use</th>
+            <td class="c-us">Not restricted by plan on our pricing page</td>
+            <td>“Commercial usage rights are available exclusively to Business customers under an agreement with Lamina Labs.”</td>
+          </tr>
+          <tr>
+            <th scope="row">Your logo, colours and fonts</th>
+            <td class="c-us">Pro, <b>$49.99/month</b></td>
+            <td>Business, price not published<span class="q">Listed with custom voice, API and volume pricing.</span></td>
+          </tr>
+          <tr>
+            <th scope="row">API and MCP</th>
+            <td class="c-us">From Plus at $19.99, included in Pro, charged at twice the in-app Credit quote, subject to Credit charging verification</td>
+            <td>HTTP API, Python and Node SDKs and an MCP server. Business is the plan that lists an API.<span class="q">Per-tier API pricing is not published.</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Narration languages</th>
+            <td class="c-us">79</td>
+            <td>“80+ languages for both source documents and narrated whiteboard video output.”</td>
+          </tr>
+          <tr>
+            <th scope="row">What you can feed it</th>
+            <td class="c-us">A prompt or a document, on every paid plan</td>
+            <td>“A PDF, Word doc, PowerPoint, Markdown, or plain text file — or just type a prompt.”</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap vs-section">
+    <h2>About the price per minute</h2>
+    <p class="sub">This is the number that matters most and the one where we lose, so here it is in full rather
+    than buried. Both columns are each plan's published price divided by the minutes it buys.</p>
+    <div class="vs-maths">
+      <div class="box">
+        <h3>Simi, per finished minute</h3>
+        <ul>
+          <li><span>Plus, $19.99</span><span class="n">~$0.20</span></li>
+          <li><span>Pro, $49.99</span><span class="n">~$0.17</span></li>
+          <li><span>Max, $99.99</span><span class="n">~$0.13</span></li>
+        </ul>
+      </div>
+      <div class="box lead">
+        <h3>Sketchie, per finished minute</h3>
+        <ul>
+          <li><span>Solo, $9.99</span><span class="n">~$0.50</span></li>
+          <li><span>Plus, $19.99</span><span class="n">~$0.40</span></li>
+          <li><span>Pro, $49.99</span><span class="n">~$0.38</span></li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>What that leaves out</h3>
+        <ul>
+          <li><span>Our rate uses Icons, our cheapest style. Doodles and Icon KIT cost more.</span></li>
+          <li><span>A rate per minute counts first renders. It does not count the second attempt after a line
+          comes out wrong, which on a one-shot tool is another full generation.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap vs-section">
+    <h2>Where each of us is ahead</h2>
+    <p class="sub">Their column first, because a comparison page that opens with its own advantages is an advert.</p>
+    <div class="vs-honest">
+      <div class="col theirs">
+        <h3>Simi is ahead on</h3>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Price per minute.</b> At list price they are cheaper. Their Max plan works out near 13 cents a finished minute, our Pro near 38 cents in our cheapest style.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>First generation.</b> About 40 seconds for a one-minute explainer, by their own figure. We take a few minutes.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Languages.</b> 80+ against our 79, and theirs covers source documents as well as narration.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Long videos.</b> Past six minutes we turn material into a chaptered series. Their Business plan takes longer runtimes in one piece.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Document formats.</b> They name PDF, Word, PowerPoint, Markdown and plain text. We say document input without listing formats.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.4" fill="currentColor"/></svg><span><b>Track record.</b> Y Combinator, Foundation Capital and Link Ventures are on their page. We launched in October.</span></li>
+        </ul>
+      </div>
+      <div class="col ours">
+        <h3>Sketchie is ahead on</h3>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Starting at $9.99.</b> Their lowest published plan is $19.99. If you make a handful of videos a month, the cheaper plan wins on total spend even at a higher rate per minute.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>You can try it without paying.</b> Two free videos, no card. We could not find a free tier published on their site.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>A revision is not a new video.</b> Editing and previewing are free and each video includes a re-render. On a tool with no partial regeneration, every fix is a fresh generation at full price.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Commercial use is not gated.</b> Their own FAQ puts commercial rights behind a Business agreement. Ours is not restricted by plan.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Branding has a published price.</b> $49.99 on Pro, against a Business plan you have to ask about.</span></li>
+          <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>You see the price first.</b> The exact Credit quote appears before anything starts, is held while the video is made, and is only charged on delivery.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="vs-cta">
+      <h2>Try both on the same prompt</h2>
+      <p>Time the whole loop, not just the first render. Two Sketchie videos are free, no card.</p>
+      <a href="https://sketchie.ai/app/signup">Start free</a>
+    </div>
+  </div>
+
+  <footer class="wrap vs-sources">
+    <h2>Where these numbers came from</h2>
+    <ul>
+      <li>Sketchie plans, Credit rates, length limits, editing and failure policy: <a href="https://sketchie.ai/pricing/">sketchie.ai/pricing</a>, read 31 October 2026.</li>
+      <li>Sketchie generation time and scene editing: <a href="https://sketchie.ai/">sketchie.ai</a>, read 31 October 2026.</li>
+      <li>Sketchie narration languages: <a href="https://sketchie.ai/docs/languages/">sketchie.ai/docs/languages</a>, read 31 October 2026.</li>
+      <li>Simi plans, credits, speed, length, languages, formats, commercial rights and API: <a href="https://www.laminalabs.ai/">laminalabs.ai</a>, read 31 October 2026.</li>
+    </ul>
+    <p>Quoted text is Lamina Labs' own wording. Where their pages do not state something, this page says not
+    published rather than treating silence as an answer. If we have got something wrong, tell us and we will
+    correct it and change the date.</p>
+  </footer>
+
+</div>
+
+<script type="text/plain" id="cssPayload">/* Sketchie vs Simi comparison page
+   Tokens and fonts are the live ones from Base.css, so this drops into the
+   existing system without new variables. */
+
+.vs { font-family: var(--ui); color: var(--ink); background: var(--paper); }
+.vs .wrap { max-width: 1060px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px); }
+
+/* ---- hero ---- */
+.vs-hero { padding: clamp(44px, 7vw, 76px) 0 clamp(28px, 4vw, 40px); }
+.vs-eyebrow {
+  margin: 0 0 14px; color: var(--violet-deep);
+  font-size: .76rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+}
+.vs-hero h1 {
+  margin: 0 0 18px; max-width: 18ch;
+  font-family: var(--marker); font-size: clamp(2.3rem, 5.6vw, 3.9rem);
+  font-weight: 700; line-height: 1.04; letter-spacing: -.015em;
+}
+.vs-hero h1 .vs-mid { color: var(--violet-deep); }
+.vs-lede { margin: 0; max-width: 62ch; color: var(--muted); font-size: clamp(1.02rem, 1.6vw, 1.16rem); line-height: 1.6; }
+.vs-asof {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 22px; padding: 6px 14px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--warm2); color: var(--muted); font-size: .84rem;
+}
+.vs-asof b { color: var(--ink); font-weight: 600; }
+
+/* ---- a short, genuine credit to them ---- */
+.vs-credit {
+  margin: clamp(30px, 5vw, 48px) 0 0; padding: 22px 24px;
+  border: 1px solid var(--line); border-left: 3px solid var(--violet);
+  border-radius: 12px; background: var(--warm);
+}
+.vs-credit h2 { margin: 0 0 8px; font-family: var(--marker); font-size: 1.22rem; font-weight: 700; }
+.vs-credit p { margin: 0; color: var(--muted); line-height: 1.65; }
+.vs-credit p + p { margin-top: 10px; }
+
+/* ---- section shell ---- */
+.vs-section { padding: clamp(40px, 6vw, 66px) 0 0; }
+.vs-section > h2 {
+  margin: 0 0 6px; font-family: var(--marker);
+  font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; line-height: 1.15;
+}
+.vs-section > .sub { margin: 0 0 26px; max-width: 66ch; color: var(--muted); font-size: .98rem; }
+
+/* ---- comparison table ----
+   A table, not cards: twelve parallel rows are a data comparison, and cards
+   would break the row-to-row scan that makes it readable. */
+.vs-tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.vs-table { width: 100%; min-width: 660px; border-collapse: collapse; }
+.vs-table th, .vs-table td { text-align: left; vertical-align: top; padding: 15px 16px; }
+.vs-table thead th {
+  position: sticky; top: 0; z-index: 1;
+  background: var(--paper); border-bottom: 2px solid var(--line);
+  font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+.vs-table thead th.c-us { color: var(--violet-deep); }
+.vs-table tbody tr + tr th, .vs-table tbody tr + tr td { border-top: 1px solid var(--line); }
+.vs-table tbody th { width: 23%; min-width: 150px; font-weight: 600; font-size: .95rem; }
+.vs-table td { font-size: .95rem; line-height: 1.55; }
+.vs-table td.c-us { background: var(--violet-tint); }
+.vs-table .q { display: block; margin-top: 5px; color: var(--muted); font-size: .85rem; }
+.vs-table .nd { color: var(--muted); font-style: italic; }
+
+/* ---- the price maths, stated rather than implied ---- */
+.vs-maths { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.vs-maths .box { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; background: var(--warm); }
+.vs-maths .box.lead { border-color: var(--violet); background: var(--violet-tint); }
+.vs-maths h3 { margin: 0 0 10px; font-size: .79rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.vs-maths .box.lead h3 { color: var(--violet-deep); }
+.vs-maths ul { list-style: none; margin: 0; padding: 0; }
+.vs-maths li { display: flex; justify-content: space-between; gap: 14px; padding: 5px 0; font-size: .92rem; }
+.vs-maths li + li { border-top: 1px dashed var(--line); }
+.vs-maths .n { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ---- honesty columns ---- */
+.vs-honest { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: clamp(18px, 3vw, 28px); }
+.vs-honest .col { border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; background: var(--paper); }
+.vs-honest .col.theirs { border-top: 3px solid var(--tangerine); }
+.vs-honest .col.ours { border-top: 3px solid var(--violet); }
+.vs-honest h3 { margin: 0 0 12px; font-family: var(--marker); font-size: 1.2rem; font-weight: 700; }
+.vs-honest ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.vs-honest li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 10px; font-size: .94rem; line-height: 1.5; }
+.vs-honest svg { width: 16px; height: 16px; margin-top: 3px; display: block; }
+.vs-honest .col.theirs svg { color: var(--tangerine); }
+.vs-honest .col.ours svg { color: var(--violet-deep); }
+.vs-honest b { font-weight: 600; }
+
+/* ---- cta ---- */
+.vs-cta { margin: clamp(44px, 7vw, 76px) 0 0; padding: clamp(30px, 5vw, 44px); border-radius: 16px; background: var(--warm2); text-align: center; }
+.vs-cta h2 { margin: 0 0 8px; font-family: var(--marker); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; }
+.vs-cta p { margin: 0 0 20px; color: var(--muted); }
+.vs-cta a {
+  display: inline-block; padding: 13px 30px; border-radius: 999px;
+  background: var(--violet); color: var(--on-accent);
+  font-weight: 700; text-decoration: none;
+  transition: background-color .2s ease;
+}
+.vs-cta a:hover { background: var(--violet-deep); }
+.vs-cta a:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+
+/* ---- sources ---- */
+.vs-sources { margin-top: clamp(36px, 5vw, 56px); padding: 26px 0 clamp(50px, 7vw, 80px); border-top: 1px solid var(--line); color: var(--muted); font-size: .87rem; }
+.vs-sources h2 { margin: 0 0 12px; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.vs-sources ul { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 7px; }
+.vs-sources a { color: var(--violet-deep); }
+.vs-sources p { margin: 0; max-width: 74ch; line-height: 1.6; }
+
+@media (max-width: 720px) {
+  .vs-table thead th { position: static; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vs-cta a { transition: none; }
+}
+</script>
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  function set(mode) {
+    root.setAttribute('data-theme', mode);
+    btn.textContent = mode === 'dark' ? 'Night mode' : 'Day mode';
+    btn.setAttribute('aria-checked', String(mode === 'dark'));
+    try { localStorage.setItem('vs-simi-theme', mode); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('vs-simi-theme'); } catch (e) {}
+  set(saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  btn.addEventListener('click', function () {
+    set(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* The pane refuses the async clipboard, so the textarea path is the one
+     that actually copies. Try the nice one, fall back without complaining. */
+  var copy = document.getElementById('cssCopy');
+  var payload = document.getElementById('cssPayload');
+  function flash() {
+    copy.textContent = 'Copied';
+    copy.classList.add('is-done');
+    setTimeout(function () { copy.textContent = 'CSS'; copy.classList.remove('is-done'); }, 1800);
+  }
+  function fallback(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    flash();
+  }
+  copy.addEventListener('click', function () {
+    var text = payload.textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(flash, function () { fallback(text); });
+    } else fallback(text);
+  });
+})();
+</script>
+</body>
+</html>
