@@ -184,7 +184,7 @@ table.ex tr:last-child td { border-bottom: none; }
   <div class="sec-head" style="margin-bottom:8px">
     <p class="label">Sketchie · my desk</p>
     <h1>Mine only</h1>
-    <p class="lede">What I answer, send or make myself. Build tickets and open bugs stay on the <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-launch-tickets/">full board</a>. Tickets read off Asana on Tue 27 October, outreach batch 1 drafted Wed 28 October, batch 2 Sat 31 October.</p>
+    <p class="lede">What I answer, send or make myself. Build tickets and open bugs stay on the <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-launch-tickets/">full board</a>. Tickets read off Asana on Tue 27 October, outreach batch 1 drafted Wed 28 October, batch 2 Sat 31 October. Board re-read Mon 2 November.</p>
   </div>
 
   <div class="banner">
@@ -204,18 +204,45 @@ table.ex tr:last-child td { border-bottom: none; }
   </div>
 
   <div class="filters tabs" role="tablist" aria-label="My work">
-    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">9</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">11</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2<span class="n">4</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
+    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">11</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">11</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2<span class="n">4</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
   </div>
 
   <section role="tabpanel" id="panel-comment" aria-labelledby="tab-comment">
-    <p class="panel-note">Needs words from me, not work. Nothing here is posted. Four are replies someone is waiting on, three chase a ticket that is holding up another one, one is mine to re-scope, and one asks the team to settle the comparison page. Two of them block L2-T03, which is due today, and one blocks the scorecard due tomorrow.</p>
+    <p class="panel-note">Needs words from me, not work. Nothing here is posted. Four are replies someone is waiting on, three chase a ticket that is holding up another one, one is mine to re-scope, and one asks the team to settle the comparison page. The last two were added on 2 November after reading the whole board rather than only my own tickets: one asks whether the pricing redesign waits on the cost report, the other records why the daily posting ticket could not run. Both epics are now past due, and every relative date in these drafts was rewritten as an absolute one on 2 November.</p>
     
     <div class="tickets">
+  <article class="ticket L1" id="L1-T02-c">
+    <span class="id">L1-T02</span>
+    <div class="body">
+      <h3>Ask whether the pricing redesign waits on the cost report <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Why it is here:</strong> L1-T02 was closed on 15 October while its own subtask, Alex's cost report reviewed first, is still open. Alex's measurement ticket and Mahir's cost-backed proposal are both still open in Backlog, and L1-T24 asks me to redesign the section that presents those numbers.</p>
+      <p class="latest"><strong>Needs from you:</strong> Post as is. It asks one yes or no question and does not propose a price.</p>
+      <div class="meta">
+        <span>Blocks:</span><span class="tag">L1-T24</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869340" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Wed, Oct 14</span>
+    <button class="btn copy" type="button" data-k="L1-T02">Copy draft</button>
+    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T02">Hi Mahir, one question before I take L1-T24 any further.
+
+L1-T02 was closed on 15 October. Its subtask, &quot;Alex's cost report (Measure V6 generation and edit costs) reviewed first&quot;, is still open, and so are Alex's measurement ticket and your cost-backed pricing proposal in Backlog.
+
+I am not questioning the table. L1-T24 redesigns the section that presents it, and I would rather not style numbers whose cost basis has not been recorded yet.
+
+One thing made me want to ask rather than assume. While building the comparison mock I read both companies' published prices, and on list price Simi works out cheaper per finished minute than we do. Whether that is a positioning question or a margin question depends on what a minute costs us, which is what the cost report was meant to establish.
+
+Yes or no: do I proceed with the redesign on the current table, and treat any pricing change as a later ticket?
+
+If yes, that is fine and I will get on with it. I would just rather have the answer on the ticket than carry the assumption.</pre></details>
+  </article>
   <article class="ticket L1" id="L1-T11-c">
     <span class="id">L1-T11</span>
     <div class="body">
       <h3>Ask Mahir where the launch dashboard stands <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> Your 24 October question was answered with an open go/no-go gap and nothing since. The week-one scorecard is due tomorrow and cannot be split by source without the tagged links this ticket produces.</p>
+      <p class="done"><strong>Why it is here:</strong> Your 24 October question was answered with an open go/no-go gap and nothing since. The week-one scorecard was due on 1 November and cannot be split by source without the tagged links this ticket produces.</p>
       <p class="latest"><strong>Needs from you:</strong> Post as is.</p>
       <div class="meta">
         <span>Blocks:</span><span class="tag">L2-T10 in practice</span>
@@ -228,7 +255,7 @@ table.ex tr:last-child td { border-bottom: none; }
     <button class="btn copy" type="button" data-k="L1-T11">Copy draft</button>
     <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T11">Hi Mahir, following up on your 24 October note.
 
-The week-one scorecard, L2-T10, is due tomorrow and is meant to be split by audience. That needs what this ticket produces: signups, first videos, second videos and paid users by source, and tagged links for each channel.
+The week-one scorecard, L2-T10, was due on 1 November and is meant to be split by audience. That needs what this ticket produces: signups, first videos, second videos and paid users by source, and tagged links for each channel.
 
 If the dashboard and the tagged links are not in place, I can still write the scorecard, but it will be totals only with no source attribution. I would rather say that up front than hand over something that looks more precise than it is.
 
@@ -238,7 +265,7 @@ Where does this stand? If the tagged links exist even without the dashboard, the
     <span class="id">L1-T21</span>
     <div class="body">
       <h3>Chase Mahir for the first complaint theme <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> Eight days over, and it has no comments at all, so there is no way to tell if it has been started. It blocks L2-T03, which is due today, and L2-T07.</p>
+      <p class="done"><strong>Why it is here:</strong> Due 23 October with no comments at all, so there is no way to tell whether it has been started. It blocks L2-T03, which was due 31 October and is still open, and L2-T07.</p>
       <p class="latest"><strong>Needs from you:</strong> Post as is.</p>
       <div class="meta">
         <span>Blocks:</span><span class="tag">L2-T03, L2-T07</span>
@@ -251,7 +278,7 @@ Where does this stand? If the tagged links exist even without the dashboard, the
     <button class="btn copy" type="button" data-k="L1-T21">Copy draft</button>
     <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T21">Hi Mahir, chasing this one because two other tickets are sitting behind it.
 
-L2-T03 is due today and cannot start without the first theme. L2-T07 is the comparison page, which needs the competitor named before anything can be written about it.
+L2-T03 was due on 31 October and still cannot start without the first theme. L2-T07 is the comparison page, which needs the competitor named before anything can be written about it.
 
 There are no comments on this ticket yet, so I cannot tell whether it has been started or whether something is in the way.
 
@@ -288,7 +315,7 @@ Could you raise the duration mismatch as its own ticket rather than leaving it i
     <span class="id">L1-T19</span>
     <div class="body">
       <h3>Answer Andi on the CMS direction <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> Andi posted his investigation on 29 October and asked which of three directions to take, and who owns the one-time setup. Six days, no answer, and he is not building while it is open.</p>
+      <p class="done"><strong>Why it is here:</strong> Andi posted his investigation on 29 October and asked which of three directions to take, and who owns the one-time setup. It has gone unanswered since, and he is not building while it is open.</p>
       <p class="latest"><strong>Needs from you:</strong> Post as is. If you want to move away from the repository-based version, the second paragraph needs rewriting first.</p>
       <div class="meta">
         <span>Blocks:</span><span class="tag">L1-T19 build</span>
@@ -313,7 +340,7 @@ Separately, L2-T07 says to ship the comparison page as a plain page if this is n
     <span class="id">L1-T24</span>
     <div class="body">
       <h3>Give Andi the final review, once the deploy state is clear <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> Andi marked the five review items done and ready for your final staging review on 30 October. Production today shows the grouped includes block live but still has three plan cards, no Free card, no Team and no Most Picked label, which does not match a staging-only build.</p>
+      <p class="done"><strong>Why it is here:</strong> Andi marked the five review items done and ready for your final staging review on 30 October. Production on 31 October showed the grouped includes block live but still had three plan cards, no Free card, no Team and no Most Picked label, which does not match a staging-only build.</p>
       <p class="latest"><strong>Needs from you:</strong> Post as is. It asks Andi to confirm what is deployed where before you sign anything off.</p>
       <div class="meta">
         
@@ -326,7 +353,7 @@ Separately, L2-T07 says to ship the comparison page as a plain page if this is n
     <button class="btn copy" type="button" data-k="L1-T24">Copy draft</button>
     <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T24">Hi Andi, thank you, and thank you for turning the five items around quickly.
 
-One thing I cannot square before I give the final review. Production today shows the grouped &quot;What every paid plan includes&quot; block with the Always and From Pro split, which was item 4. It still shows three plan cards, with no Free card, no Team and no &quot;Most Picked&quot; label.
+One thing I cannot square before I give the final review. When I checked production on 31 October it showed the grouped &quot;What every paid plan includes&quot; block with the Always and From Pro split, which was item 4. It still showed three plan cards, with no Free card, no Team and no &quot;Most Picked&quot; label.
 
 So part of this looks to be in production already, while the ticket waits on a staging review of the whole thing. Could you confirm what is deployed where? I would rather not sign off a staging build that is partly live.
 
@@ -339,7 +366,7 @@ Two things once that is clear:
     <span class="id">L1-T16</span>
     <div class="body">
       <h3>Re-scope: the ticket no longer matches the work <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> It reads 18 sample videos and 3 outreach messages. The messages no longer offer a sample, and there are now two drafts per prospect rather than three messages overall. It also blocks L2-T03, which is due today.</p>
+      <p class="done"><strong>Why it is here:</strong> It reads 18 sample videos and 3 outreach messages. The messages no longer offer a sample, and there are now two drafts per prospect rather than three messages overall. It also blocks L2-T03, which was due 31 October and is still open.</p>
       <p class="latest"><strong>Needs from you:</strong> Post as is, then act on whichever answer you give yourself.</p>
       <div class="meta">
         <span>Blocks:</span><span class="tag">L2-T03</span>
@@ -360,13 +387,13 @@ There are also two drafts per prospect now rather than three messages overall: o
 
 So: do we close the sample-video half, or move it to its own ticket if we still want samples later?
 
-This blocks L2-T03, which is due today, so I would rather settle it than leave it sitting.</pre></details>
+This blocks L2-T03, which was due on 31 October, so I would rather settle it than leave it sitting.</pre></details>
   </article>
   <article class="ticket L1" id="L1-T09-c">
     <span class="id">L1-T09</span>
     <div class="body">
       <h3>Confirm the plan upgrade matrix <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> Olu's run has upgrades beyond Plus failing in production. Mahir asked on 28 October for a product decision before the failure is treated as intentional. It is on the paid path during launch week.</p>
+      <p class="done"><strong>Why it is here:</strong> Olu's run has upgrades beyond Plus failing in production. Mahir asked on 28 October for a product decision before the failure is treated as intentional. It is on the paid path and went through the whole of launch week unresolved.</p>
       <p class="latest"><strong>Needs from you:</strong> This states the matrix as every live plan reachable from any lower one. Confirm that is what you want, then post.</p>
       <div class="meta">
         <span>Blocks:</span><span class="tag">L1-T09 sign-off</span>
@@ -381,7 +408,7 @@ This blocks L2-T03, which is due today, so I would rather settle it than leave i
 
 Every live plan should be reachable from any lower one. Solo to Plus, Solo to Pro, and Plus to Pro should all work. Team is the only plan that is not live, so it is the only one that should refuse.
 
-On that basis, upgrades failing beyond Plus in production is a bug rather than an intentional gate, and it sits on the paid path during launch week.
+On that basis, upgrades failing beyond Plus in production is a bug rather than an intentional gate, and it sat on the paid path through the whole of launch week.
 
 Olu, on the next run could you capture the exact source and target tier and the error returned, so Andi has something specific to work from rather than a general failure?</pre></details>
   </article>
@@ -389,7 +416,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
     <span class="id">L2-T07</span>
     <div class="body">
       <h3>Share the comparison page mock, and settle the competitor</h3>
-      <p class="done"><strong>Why it is here:</strong> The ticket is three days past due and its own NEEDS FIRST is not met: L1-T21 picks the competitor and is still open. A mock exists now, so the question can be answered with something to look at.</p>
+      <p class="done"><strong>Why it is here:</strong> The ticket was due 28 October and its own NEEDS FIRST is not met: L1-T21 picks the competitor and is still open. A mock exists now, so the question can be answered with something to look at.</p>
       <p class="latest"><strong>Needs from you:</strong> Post the draft below. It asks for three yes or no answers.</p>
       <div class="meta">
         
@@ -432,7 +459,7 @@ Mock assisted by Claude.AI.</pre></details>
     <span class="id">L1-T13</span>
     <div class="body">
       <h3>Close the regeneration question with Mahir</h3>
-      <p class="done"><strong>Why it is here:</strong> Seven videos are due tomorrow and five exist. The regeneration question you put to Mahir on 28 October is still open, and it decides whether the last two are makeable in the time left.</p>
+      <p class="done"><strong>Why it is here:</strong> The seven videos were due on 1 November and five exist. The regeneration question you put to Mahir on 28 October is still open, and it decides whether the last two are makeable in the time left.</p>
       <p class="latest"><strong>Needs from you:</strong> Post as is.</p>
       <div class="meta">
         
@@ -443,13 +470,40 @@ Mock assisted by Claude.AI.</pre></details>
     <span class="owner">You</span>
     <span class="due">Sun, Nov 1</span>
     <button class="btn copy" type="button" data-k="L1-T13">Copy draft</button>
-    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T13">Hi Mahir, following up on the regeneration question from 28 October. The seven videos are due tomorrow, so I need to close this today.
+    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T13">Hi Mahir, following up on the regeneration question from 28 October. The seven videos were due on 1 November, so this needs closing now.
 
 Five files are with Olu for captions. Two are still to make.
 
 Yes or no: do any of the five need regenerating before they go out?
 
 If yes, please say which. Regenerating and making the last two in the same day is not realistic, and I would rather post fewer videos than rush them.</pre></details>
+  </article>
+  <article class="ticket L2" id="L2-T02-c">
+    <span class="id">L2-T02</span>
+    <div class="body">
+      <h3>Record why the daily posting ticket could not run</h3>
+      <p class="done"><strong>Why it is here:</strong> Its done-when asks for a link added here for each day from 26 October to 1 November, and it has no comments at all. Its own NEEDS FIRST names L1-T12, L1-T14 and L1-T18, and all three are still open. Left alone, the ticket reads as Olu missing seven days of work.</p>
+      <p class="latest"><strong>Needs from you:</strong> Post as is. It records the chain and asks nobody to decide anything.</p>
+      <div class="meta">
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219651984165817" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sun, Nov 1</span>
+    <button class="btn copy" type="button" data-k="L2-T02">Copy draft</button>
+    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L2-T02">Noting this before the week gets reviewed.
+
+This ticket asks for one reel and one post a day from 26 October to 1 November, with a link added here for each. There are no links, and I do not think that is Olu's to answer for.
+
+Its own NEEDS FIRST lists three tickets and all three are still open: L1-T12, L1-T14 and L1-T18. L1-T14 in turn needs L1-T12 and my own L1-T13, which is also still open. So the chain was not in place on any of the seven days.
+
+L1-T12 is on hold pending a decision that is not mine to make, and I am not pushing that decision here.
+
+What I would like to avoid is this reading later as seven missed days. Could we re-date it, or close it and raise a fresh one once the tickets ahead of it are unblocked?
+
+Olu, if reels or posts were made and simply have nowhere to go yet, it is worth saying so here so the work is on the record.</pre></details>
   </article></div>
     
   </section><section role="tabpanel" id="panel-task" aria-labelledby="tab-task" hidden>
