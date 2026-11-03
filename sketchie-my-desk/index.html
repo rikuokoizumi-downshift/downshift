@@ -162,6 +162,11 @@ table.ex tr:last-child td { border-bottom: none; }
   .ticket .log legend { padding: 0 6px; font-size: 11px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
   .ticket .log label { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
   .ticket .log input[type="radio"] { accent-color: var(--accent); margin: 0; }
+  .idea-fig { margin: 16px 0 6px; }
+  .idea-fig svg { display: block; width: 100%; height: auto; }
+  .idea-fig figcaption { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  .idea-q { margin: 6px 0 0; padding-left: 20px; color: var(--muted); font-size: 13px; }
+  .idea-q li { margin: 5px 0; }
   .ticket .log .why { flex: 1 0 100%; display: grid; gap: 5px; margin-top: 4px; }
   .ticket .log .why label { font-size: 12px; color: var(--muted); }
   .ticket .log textarea { width: 100%; font: inherit; font-size: 13px; color: var(--ink); background: var(--bg);
@@ -204,7 +209,7 @@ table.ex tr:last-child td { border-bottom: none; }
   </div>
 
   <div class="filters tabs" role="tablist" aria-label="My work">
-    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">2</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">11</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2 and on<span class="n">19</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
+    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">2</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">11</span></button><button type="button" role="tab" id="tab-idea" aria-controls="panel-idea" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="idea">Ideas<span class="n">4</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2 and on<span class="n">19</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
   </div>
 
   <section role="tabpanel" id="panel-comment" aria-labelledby="tab-comment">
@@ -445,6 +450,107 @@ Olu, on the next run could you capture the exact source and target tier and the 
     </div>
     <span class="owner">You</span>
     <span class="due">Sun, Nov 1</span>
+  </article></div>
+    
+  </section><section role="tabpanel" id="panel-idea" aria-labelledby="tab-idea" hidden>
+    <p class="panel-note">Product ideas rather than ticket work, written down as they were said on 4 November. Each card carries the idea in your own words first, then a reading of it, then the questions it opens. The reading is always labelled as a reading rather than folded in as though you had said it, and idea 2 was said in shorthand enough to be worth confirming before anything is built on it. Ideas 3 and 4 came later the same day and they pull against each other on whether students and teachers belong in the portal at all, which is flagged on idea 4 rather than smoothed over. The drawing on idea 1 is drawn here rather than scanned: the window card that prompted it is a Blazing Skills worksheet under Philippine copyright, and this page is public, so the figure shows the mechanic instead of reproducing the sheet.</p>
+    
+    <div class="tickets">
+  <article class="ticket" id="idea-1">
+    <span class="id">Idea 1</span>
+    <div class="body">
+      <h3>A form helper shaped like a window card</h3>
+      <p class="latest"><strong>In your words:</strong> Use a &quot;Form&quot; Format Helper. Functions like a Window Card. Will contain sections with &quot;Scene 1&quot;, &quot;How would you like the 1st scene to go?&quot; or something along those lines. We can even use &quot;Intro&quot; directly so people can get a gist of how it is going to be made. Intro, then Scene 1, and on.</p>
+      <p class="done"><strong>Reading it back:</strong> Replace the single free-text prompt with a short sequence of named boxes, one per scene, each asking its own small question. The window card is the right reference because the sheet teaches you the task by its shape: you can see every slot before you fill any of them, and you fill them one at a time without having to hold the whole thing in your head.</p>
+      <figure class="idea-fig">
+<svg viewBox="0 0 700 360" role="img" aria-label="A window card laid out as a form: a header strip, three short fields for topic, length and audience, then six labelled slots, Intro, Scene 1 through Scene 4 and Closing, each with a question and an empty box to fill in." xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="10" width="680" height="34" rx="4" fill="var(--ink)"/>
+  <text x="350" y="33" text-anchor="middle" fill="var(--bg)" font-size="15" font-weight="700" letter-spacing="1.5">YOUR VIDEO, SCENE BY SCENE</text>
+
+  <text x="14" y="72" fill="var(--muted)" font-size="11">Topic</text>
+  <rect x="52" y="58" width="166" height="20" rx="3" fill="none" stroke="var(--line)"/>
+  <text x="232" y="72" fill="var(--muted)" font-size="11">Length</text>
+  <rect x="276" y="58" width="104" height="20" rx="3" fill="none" stroke="var(--line)"/>
+  <text x="394" y="72" fill="var(--muted)" font-size="11">Audience</text>
+  <rect x="450" y="58" width="240" height="20" rx="3" fill="none" stroke="var(--line)"/>
+
+  <g>
+    <text x="20" y="116" fill="var(--ink)" font-size="13" font-weight="700">Intro</text>
+    <text x="20" y="134" fill="var(--muted)" font-size="11">What is this about?</text>
+    <rect x="20" y="144" width="200" height="54" rx="3" fill="none" stroke="var(--line)"/>
+  </g>
+  <g>
+    <text x="250" y="116" fill="var(--ink)" font-size="13" font-weight="700">Scene 1</text>
+    <text x="250" y="134" fill="var(--muted)" font-size="11">How should scene 1 go?</text>
+    <rect x="250" y="144" width="200" height="54" rx="3" fill="none" stroke="var(--line)"/>
+  </g>
+  <g>
+    <text x="480" y="116" fill="var(--ink)" font-size="13" font-weight="700">Scene 2</text>
+    <text x="480" y="134" fill="var(--muted)" font-size="11">Then what happens?</text>
+    <rect x="480" y="144" width="200" height="54" rx="3" fill="none" stroke="var(--line)"/>
+  </g>
+  <g>
+    <text x="20" y="244" fill="var(--ink)" font-size="13" font-weight="700">Scene 3</text>
+    <text x="20" y="262" fill="var(--muted)" font-size="11">Then what happens?</text>
+    <rect x="20" y="272" width="200" height="54" rx="3" fill="none" stroke="var(--line)"/>
+  </g>
+  <g>
+    <text x="250" y="244" fill="var(--ink)" font-size="13" font-weight="700">Scene 4</text>
+    <text x="250" y="262" fill="var(--muted)" font-size="11">Then what happens?</text>
+    <rect x="250" y="272" width="200" height="54" rx="3" fill="none" stroke="var(--line)"/>
+  </g>
+  <g>
+    <text x="480" y="244" fill="var(--ink)" font-size="13" font-weight="700">Closing</text>
+    <text x="480" y="262" fill="var(--muted)" font-size="11">What should they remember?</text>
+    <rect x="480" y="272" width="200" height="54" rx="3" fill="none" stroke="var(--line)"/>
+  </g>
+
+  <rect x="10" y="10" width="680" height="340" rx="5" fill="none" stroke="var(--line)"/>
+</svg><figcaption>The mechanic, drawn rather than scanned. A fixed set of labelled slots, a question in each, and an empty box under it.</figcaption></figure>
+      <p class="done"><strong>Why it earns its place:</strong> The section names double as a preview. Someone who has never made a video reads Intro, Scene 1, Scene 2, Closing and already knows what they are about to get, which is the part a blank prompt box cannot do. It also stops the blank-page problem, because the first question is small and answerable rather than open.</p>
+      <p class="done"><strong>What it opens:</strong></p><ul class="idea-q"><li>How many scene slots, and can a person add or remove rows, or is the count fixed?</li><li>Does this replace the prompt box, or sit beside it as a second way in for people who want the rails?</li><li>Does one filled slot become exactly one scene? If it does, a later edit lands on the right scene on its own, which is the thing the product already sells.</li></ul>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Idea</span>
+  </article>
+  <article class="ticket" id="idea-2">
+    <span class="id">Idea 2</span>
+    <div class="body">
+      <h3>Do not keep the editor and the video repository apart</h3>
+      <p class="latest"><strong>In your words:</strong> Don't editor and video repository separately.</p>
+      <p class="done"><strong>Reading it back:</strong> The editor and the place finished videos live should be one surface rather than two. Said in shorthand, so this is a reading rather than a quote with the verb filled in, and worth confirming before anything is built on it.</p>
+      
+      <p class="done"><strong>Why it earns its place:</strong> Two surfaces means a person finishes a video, leaves the editor, finds it in a library, and has to come back the other way to change anything. Since the whole pitch is that a video stays editable scene by scene, a trip out to a separate library quietly argues the opposite, that the video is done and filed.</p>
+      <p class="done"><strong>What it opens:</strong></p><ul class="idea-q"><li>Does the library open a video in place, or is there no separate library page at all?</li><li>What happens to a list of twenty videos inside an editor built for one?</li></ul>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Idea</span>
+  </article>
+  <article class="ticket" id="idea-3">
+    <span class="id">Idea 3</span>
+    <div class="body">
+      <h3>The reason to open the app is money, not learning</h3>
+      <p class="latest"><strong>In your words:</strong> Portal for students and teachers doesn't work either since it's just going to be another app added to the countless cycle. Instead, focus on making the portal for affiliates. I want my reason to opening the app is to check if I got my money in, or if I want to track my earnings.</p>
+      <p class="done"><strong>Reading it back:</strong> A student or teacher portal competes with every other school app for attention and loses, because nothing inside it is urgent. An affiliate portal has the one thing a learning app does not: the person is owed money, and checking whether it arrived is a reason to open the app that comes back on its own without being prompted.</p>
+      
+      <p class="done"><strong>Why it earns its place:</strong> It names a habit rather than a feature. Nobody has to be nudged into checking whether they got paid, which is the behaviour engagement features usually try and fail to manufacture. It also picks a user who already wants to bring other people in, so the portal and the distribution channel turn out to be the same thing.</p>
+      <p class="done"><strong>What it opens:</strong></p><ul class="idea-q"><li>What does an affiliate see on day one, before there is anything to be paid? An empty balance is a reason not to come back.</li><li>Who are the affiliates: teachers referring colleagues, creators with an audience, or a separate paid programme recruited on purpose?</li><li>Payout cadence decides how often there is genuinely something new to look at. Monthly payouts mean most visits find the same number as last time.</li></ul>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Idea</span>
+  </article>
+  <article class="ticket" id="idea-4">
+    <span class="id">Idea 4</span>
+    <div class="body">
+      <h3>One portal for everyone, with badges</h3>
+      <p class="latest"><strong>In your words:</strong> Focus on creating the Portal for affiliates and teachers, and students, or other users so they can interact and make the community &quot;solid&quot;. Add Badge System: &quot;Educator&quot;, &quot;Student&quot;, &quot;Learner&quot;, &quot;Affiliate&quot;, and so on.</p>
+      <p class="done"><strong>Reading it back:</strong> One portal rather than several, with a badge on each person saying which kind of user they are, so the roles are visible to each other instead of being split into separate products.</p>
+      
+      <p class="done"><strong>Why it earns its place:</strong> Badges do the work of separate portals without separate products to build and maintain. A single room where an Educator can see an Affiliate is also the only version of this where the word community means anything: three separate portals would just be the same app three times over.</p>
+      <p class="done"><strong>What it opens:</strong></p><ul class="idea-q"><li>Is this the stage after idea 3, or a replacement for it? Idea 3 says a student and teacher portal does not work and the focus should be affiliates. This one puts teachers and students back in. Read as a sequence they fit, with the earnings hook giving people a reason to be there before the community is asked to exist. Read as alternatives they do not, and which one is meant changes what gets built first.</li><li>Is a badge only a label, or does it gate what a person can see and do?</li><li>Student and Learner are both on the list. Are those two different people, or one person named twice?</li><li>What keeps this from becoming the extra app in the countless cycle that idea 3 warns about? So far the affiliate earnings check is the only recurring reason to return that has been named.</li></ul>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Idea</span>
   </article></div>
     
   </section><section role="tabpanel" id="panel-outreach" aria-labelledby="tab-outreach" hidden>
