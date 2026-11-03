@@ -448,7 +448,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
   </article></div>
     
   </section><section role="tabpanel" id="panel-outreach" aria-labelledby="tab-outreach" hidden>
-    <p class="panel-note">Six US prospects out of the L1-T15 workbook, with a message drafted for each. None are sent. All six are schools because the workbook puts LinkedIn on the Schools route: the Creators sheet goes through comments, Instagram or email. Individual profiles are not linked here, since the workbook's Legend says not to store them. Each row carries two drafts: one for the person on LinkedIn, and one for the school itself, because messaging an individual on LinkedIn can need Premium. The school version names the role rather than the person, so a stale title does not matter, and it goes through the school's own site. Rewritten on 30 October: these first offered to send a demo video, and now they do not. Each names what the workbook found, says in a line what Sketchie does, and asks a question. The contacts, hooks and notes are unchanged.</p>
+    <p class="panel-note">Six US prospects out of the L1-T15 workbook, with a message drafted for each. All six went out on 30 October, every one by the school message rather than LinkedIn, and they are logged in the Outreach Tracker. Their follow-ups fell due on 3 November. All six are schools because the workbook puts LinkedIn on the Schools route: the Creators sheet goes through comments, Instagram or email. Individual profiles are not linked here, since the workbook's Legend says not to store them. Each row carries two drafts: one for the person on LinkedIn, and one for the school itself, because messaging an individual on LinkedIn can need Premium. The school version names the role rather than the person, so a stale title does not matter, and it goes through the school's own site. Rewritten on 30 October: these first offered to send a demo video, and now they do not. Each names what the workbook found, says in a line what Sketchie does, and asks a question. The contacts, hooks and notes are unchanged.</p>
     
     <div class="tickets">
   <article class="ticket" id="dm-khan-lab">
@@ -662,7 +662,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
   <div class="recorder">
     <h3>Record what went out</h3>
     <p>Nothing here is sent anywhere. The choices stay in this browser, so you can stop and come back to them.
-    Submit builds one block covering both batches; hand it over and it gets written into this page for good.</p>
+    Submit builds one block covering both batches. Hand it over and every row carrying an answer is written into the Outreach Tracker sheet, which is the record that lasts.</p>
     <div class="recorder-actions">
       <button class="btn" type="button" data-submit="outreach">Submit</button>
       <button class="btn copy" type="button" data-k="log-outreach" hidden>Copy the block</button>
@@ -826,7 +826,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
   <div class="recorder">
     <h3>Record what went out</h3>
     <p>Nothing here is sent anywhere. The choices stay in this browser, so you can stop and come back to them.
-    Submit builds one block covering both batches; hand it over and it gets written into this page for good.</p>
+    Submit builds one block covering both batches. Hand it over and every row carrying an answer is written into the Outreach Tracker sheet, which is the record that lasts.</p>
     <div class="recorder-actions">
       <button class="btn" type="button" data-submit="outreach2">Submit</button>
       <button class="btn copy" type="button" data-k="log-outreach2" hidden>Copy the block</button>
@@ -1001,8 +1001,8 @@ Olu, on the next run could you capture the exact source and target tier and the 
   /* ---- what actually went out ----
      Kept in localStorage, which is per browser and per device: clearing
      site data clears it. The block Submit produces is the record that
-     lasts, because that is what gets written back into this page. */
-  var ROWS = [{"cid":"dm-khan-lab","row":11,"school":"Khan Lab School","batch":"batch 1, US"},{"cid":"dm-summit-atlas","row":16,"school":"Summit Atlas","batch":"batch 1, US"},{"cid":"dm-nueva","row":13,"school":"The Nueva School","batch":"batch 1, US"},{"cid":"dm-mount-vernon","row":14,"school":"The Mount Vernon School","batch":"batch 1, US"},{"cid":"dm-dawson","row":20,"school":"Dawson School","batch":"batch 1, US"},{"cid":"dm-ransom","row":19,"school":"Ransom Everglades School","batch":"batch 1, US"},{"cid":"dm2-hillbrook","row":12,"school":"Hillbrook School","batch":"batch 2, PH","held":false},{"cid":"dm2-design39","row":15,"school":"Design39Campus, Poway Unified School District","batch":"batch 2, PH","held":false},{"cid":"dm2-valor","row":17,"school":"Valor Collegiate Academies","batch":"batch 2, PH","held":false},{"cid":"dm2-intrinsic","row":18,"school":"Intrinsic Schools, Belmont Campus","batch":"batch 2, PH","held":false}];
+     lasts, because that is what gets written into the Outreach Tracker. */
+  var ROWS = [{"cid":"dm-khan-lab","row":11,"school":"Khan Lab School","batch":"batch 1, US"},{"cid":"dm-summit-atlas","row":16,"school":"Summit Atlas","batch":"batch 1, US"},{"cid":"dm-nueva","row":13,"school":"The Nueva School","batch":"batch 1, US"},{"cid":"dm-mount-vernon","row":14,"school":"The Mount Vernon School","batch":"batch 1, US"},{"cid":"dm-dawson","row":20,"school":"Dawson School","batch":"batch 1, US"},{"cid":"dm-ransom","row":19,"school":"Ransom Everglades School","batch":"batch 1, US"},{"cid":"dm2-hillbrook","row":12,"school":"Hillbrook School","batch":"batch 2, US","held":false},{"cid":"dm2-design39","row":15,"school":"Design39Campus, Poway Unified School District","batch":"batch 2, US","held":false},{"cid":"dm2-valor","row":17,"school":"Valor Collegiate Academies","batch":"batch 2, US","held":false},{"cid":"dm2-intrinsic","row":18,"school":"Intrinsic Schools, Belmont Campus","batch":"batch 2, US","held":false}];
   var LOG_KEY = 'sketchie-outreach-log-v1';
   function loadLog() {
     try { return JSON.parse(localStorage.getItem(LOG_KEY)) || {}; } catch (e) { return {}; }
