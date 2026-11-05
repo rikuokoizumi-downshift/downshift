@@ -209,11 +209,11 @@ table.ex tr:last-child td { border-bottom: none; }
   </div>
 
   <div class="filters tabs" role="tablist" aria-label="My work">
-    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">2</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">11</span></button><button type="button" role="tab" id="tab-idea" aria-controls="panel-idea" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="idea">Ideas<span class="n">4</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2 and on<span class="n">19</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
+    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">5</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">11</span></button><button type="button" role="tab" id="tab-idea" aria-controls="panel-idea" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="idea">Ideas<span class="n">4</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2 and on<span class="n">19</span></button><button type="button" role="tab" id="tab-followup" aria-controls="panel-followup" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="followup">Follow-ups<span class="n">6</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
   </div>
 
   <section role="tabpanel" id="panel-comment" aria-labelledby="tab-comment">
-    <p class="panel-note">Ten of these went out as comments in Asana on 2 November: L1-T02, L1-T11, L1-T21, L1-T19, L1-T24, L1-T16, L2-T07, L1-T13, L2-T02, and then L1-T08 once Andi was named as the owner of the staging fixtures. Two are below. L1-T09 is held: it states expected product behaviour in my name, and Mahir asked for the transition matrix to be confirmed or corrected before the failure is treated as a bug, so it needs an answer from me before it can go. L1-T15 was drafted on 3 November, when the second prospect batch was built, and is ready to post.</p>
+    <p class="panel-note">Ten of these went out as comments in Asana on 2 November: L1-T02, L1-T11, L1-T21, L1-T19, L1-T24, L1-T16, L2-T07, L1-T13, L2-T02, and then L1-T08 once Andi was named as the owner of the staging fixtures. Two are below. L1-T09 is held: it states expected product behaviour in my name, and Mahir asked for the transition matrix to be confirmed or corrected before the failure is treated as a bug, so it needs an answer from me before it can go. L1-T15 was drafted on 3 November, when the second prospect batch was built, and is ready to post. Three more were added on 5 November. L1-T13 closes the launch videos at five, now that video 5 is published. The other two are the week's priority order for Alex and for Andi, and neither carries an Asana link, because neither belongs on a single ticket: a list that orders eleven tickets cannot sit inside one of them, and splitting it would be eleven comments each saying where that ticket ranks. Both go to Slack, and the per-ticket decisions still go on the tickets.</p>
     
     <div class="tickets">
   <article class="ticket L1" id="L1-T15-c">
@@ -269,6 +269,89 @@ Every live plan should be reachable from any lower one. Solo to Plus, Solo to Pr
 On that basis, upgrades failing beyond Plus in production is a bug rather than an intentional gate, and it sat on the paid path through the whole of launch week.
 
 Olu, on the next run could you capture the exact source and target tier and the error returned, so Andi has something specific to work from rather than a general failure?</pre></details>
+  </article>
+  <article class="ticket L1" id="Priority, Alex-c">
+    <span class="id">Priority, Alex</span>
+    <div class="body">
+      <h3>This week's order for Alex</h3>
+      <p class="done"><strong>Why it is here:</strong> Alex has four things in front of him and no stated order, and he said on 26 October that he does not know the V2 vision. The Week 1 calendar has the V2 direction going to him tomorrow.</p>
+      <p class="latest"><strong>Needs from you:</strong> Read it before it goes. Item 4 concedes that I owe him an answer and have not given it, which is mine to say rather than something I should soften.</p>
+      <div class="meta">
+        <span>Blocks:</span><span class="tag">Ten demo videos, due 11 November</span>
+        <span class="tag">No single ticket. Send in Slack.</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Thu, Nov 5</span>
+    <button class="btn copy" type="button" data-k="Priority, Alex">Copy draft</button>
+    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-Priority, Alex">Alex, here is the order I would like things taken in this week, so you are not guessing at priorities. Each line says what it serves.
+
+1. Ten demo videos in the dev pipeline, from the ten-prompt file. Due Tuesday 11 November, watched end to end, with a note on anything the in-app product cannot do yet that the dev pipeline did. This is the one with a date attached, and the content engine, the outreach assets and the landing pages are all waiting behind it.
+
+2. Requested duration honoured. A 30 second request returned 1:01, 90 returned 1:09 and 360 returned 1:10. It is a billing problem as much as a quality one, since credits are charged by the minute. Serves every play.
+
+3. V1.1 engine fixes from my feedback and Olu's. You have had a local fix since 26 October that was never pushed.
+
+4. V2 engine PRD. This is December work and it is mine to give you, not yours to chase. You asked on 26 October what the vision is and you have not had a straight answer from me since. I owe you that tomorrow.
+
+Nothing else should jump this queue. If something does, it comes from me in writing.</pre></details>
+  </article>
+  <article class="ticket L1" id="Priority, Andi-c">
+    <span class="id">Priority, Andi</span>
+    <div class="body">
+      <h3>This week's order for Andi</h3>
+      <p class="done"><strong>Why it is here:</strong> Andi carries seven of the thirteen engineering items the plays depend on, spread across seven tickets, so no one ticket can hold the order. The first three unblock other people rather than him.</p>
+      <p class="latest"><strong>Needs from you:</strong> Read it before it goes. It ends by naming two things that are not his, so he is not left assuming the tracking and the Stripe test are waiting on him.</p>
+      <div class="meta">
+        <span>Blocks:</span><span class="tag">Content engine</span>
+        <span class="tag">No single ticket. Send in Slack.</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Thu, Nov 5</span>
+    <button class="btn copy" type="button" data-k="Priority, Andi">Copy draft</button>
+    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-Priority, Andi">Andi, here is the order I would like things taken in. Your builds are what the content engine runs on, so the first three are the ones that unblock other people.
+
+1. Content workflow build. Claude writes the copy, assets land in GHL, GHL schedules to the connected accounts, every post carries a tagged link, and there is one documented runbook at the end. Due Wednesday 12 November. Saba helps if he is available.
+
+2. Plan link attribution fix to production. It has been on staging since 3 November. Selecting a plan adds the parameter and signup still ignores it, so until this ships we cannot tell which plan page produced a signup.
+
+3. Composer: the file picker, which is on staging, and the article links returning 422.
+
+4. Plus to Pro upgrade from the Brand CTAs to production. Once it is there Olu reruns step 9 and the production journey ticket closes at nine of nine.
+
+5. Listening queue. X and LinkedIn posts matching our topic list into a Slack channel daily, copying the workflow Esteban built for Rivalize. Reddit stays manual. Due Friday 14 November.
+
+6. Simulated generation in the hero, to production after Olu's QA.
+
+7. CMS editor access and preview. The foundation is on staging. What is left is operational: Pages CMS authorisation, GitHub access for me and Olu, the preview service, then a walkthrough for non-engineers. The one-time GitHub and hosting setup still has no named owner, and that one is mine to settle, not yours to wait on quietly.
+
+Two things that are not yours, so nobody waits on you for them: the per-asset tracking in PostHog sits with Mahir and is due Friday, and the Stripe bank verification test has no named owner yet.</pre></details>
+  </article>
+  <article class="ticket L1" id="L1-T13-c">
+    <span class="id">L1-T13</span>
+    <div class="body">
+      <h3>Close the launch videos at five</h3>
+      <p class="done"><strong>Why it is here:</strong> Video 5 was published on 5 November, which makes five of seven the real count. The handover gives two options, finish the last two or close at five, and the 30 October call already moved the quality bar to Alex's ten dev videos landing on 11 November. L1-T14 and L2-T02 have been hanging off this since 28 October.</p>
+      <p class="latest"><strong>Needs from you:</strong> Yes to closing at five, or tell me to make the other two. Either way it has to be settled by 7 November.</p>
+      <div class="meta">
+        <span>Blocks:</span><span class="tag">L1-T14, L2-T02</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869372" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sat, Nov 7</span>
+    <button class="btn copy" type="button" data-k="L1-T13">Copy draft</button>
+    <details class="asana" open><summary>Drafted comment</summary><pre id="pre-L1-T13">Closing this at five.
+
+Videos 1 to 5 are published, the fifth on 5 November. The last two are dropped rather than made, since the 30 October call moved us to the ten demo videos from Alex's dev pipeline and those land on 11 November.
+
+Mahir, the regenerate question I asked on 28 October and again on 1 November is no longer blocking anything, so I am letting it go rather than chasing it.
+
+That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></details>
   </article></div>
     
   </section><section role="tabpanel" id="panel-task" aria-labelledby="tab-task" hidden>
@@ -374,7 +457,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
   <article class="ticket L2" id="L2-T07">
     <span class="id">L2-T07</span>
     <div class="body">
-      <h3>Publish the first comparison page</h3>
+      <h3>Publish the first comparison page <span class="pill late">Overdue</span></h3>
       <p class="done"><strong>Done when:</strong> One page about the competitor chosen in L1-T21, every claim checked against their official pages and dated.</p>
       <p class="latest">A mock is built and the figures are verified, but the subject is still a placeholder. L1-T21 has not picked the competitor, and a vs-Simi page is already live with eight claims that no longer hold.</p>
       <div class="meta">
@@ -390,7 +473,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
   <article class="ticket L2" id="L2-T04">
     <span class="id">L2-T04</span>
     <div class="body">
-      <h3>Make tomorrow's sample videos <span class="pill">Daily</span></h3>
+      <h3>Make tomorrow's sample videos <span class="pill late">Overdue</span> <span class="pill">Daily</span></h3>
       <p class="done"><strong>Done when:</strong> 8 new sample videos ready each evening for the next day's outreach.</p>
       
       <div class="meta">
@@ -406,7 +489,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
   <article class="ticket L2" id="L2-T08">
     <span class="id">L2-T08</span>
     <div class="body">
-      <h3>Run 5 user interviews</h3>
+      <h3>Run 5 user interviews <span class="pill late">Overdue</span></h3>
       <p class="done"><strong>Done when:</strong> 5 conversations with launch-week signups, notes attached.</p>
       
       <div class="meta">
@@ -422,7 +505,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
   <article class="ticket L2" id="L2-T09">
     <span class="id">L2-T09</span>
     <div class="body">
-      <h3>Friday review: pick 1 or 2 changes</h3>
+      <h3>Friday review: pick 1 or 2 changes <span class="pill late">Overdue</span></h3>
       <p class="done"><strong>Done when:</strong> A Slack update naming 1 or 2 changes for week 2, each a new ticket with an owner. Not ten.</p>
       
       <div class="meta">
@@ -438,7 +521,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
   <article class="ticket L2" id="L2-T10">
     <span class="id">L2-T10</span>
     <div class="body">
-      <h3>Week-one scorecard</h3>
+      <h3>Week-one scorecard <span class="pill late">Overdue</span></h3>
       <p class="done"><strong>Done when:</strong> Scorecard shared before the Mon Nov 2 sync, split by audience.</p>
       
       <div class="meta">
@@ -1495,6 +1578,232 @@ Olu, on the next run could you capture the exact source and target tier and the 
     </div>
     <pre class="recorder-out" id="pre-log-outreach2" hidden></pre>
   </div>
+  </section><section role="tabpanel" id="panel-followup" aria-labelledby="tab-followup" hidden>
+    <p class="panel-note">The second message to the six schools written to on 30 October. Not new prospects: these are the same six rows as batch 1, writing again. The follow-up was due 3 November and is two days late. Every one of the six went by the school route rather than LinkedIn, which is what the Send log records, so not one of these greets anyone by name even though batch 1 holds a named contact for all six. A follow-up opening with a first name into a general contact form reads as a different thread. Each card shows the message that actually went out underneath the new one, read from batch 1 rather than copied, so the two cannot drift apart. Nobody has replied, so every one of the six is a genuine follow-up rather than a reply. The free-plan line is the L1-T02 table, which Mahir called the approved presentation baseline on 1 November; it says watermarked and so do these, even though the execution deck's public sentence leaves that out. The signup link is the plain one, because no tracked link exists yet, so these six sends will not be attributable and that is a known cost of not waiting for L1-T11.</p>
+    
+    <div class="tickets">
+  <article class="ticket" id="fu-khan-lab">
+    <span class="id">Row 11</span>
+    <div class="body">
+      <h3>Khan Lab School <span class="pill late">Follow-up 2 days late</span></h3>
+      <p class="done"><strong>Natasha McKeown, Middle School Director</strong>, Mountain View, California</p>
+      <p class="done"><strong>Sent 30 October</strong> by the school route, not LinkedIn. Follow-up was due 3 November.</p>
+      <p class="latest">The original conceded that Khanmigo is already in their classrooms and asked a direct question. Repeating the pitch would undo that, so this only repeats the question and makes a no easy.</p>
+      <div class="meta">
+        <span>Reach via:</span>
+        <a class="tag link" href="https://khanlabschool.org/" target="_blank" rel="noopener">School site</a>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Due 3 Nov</span>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="fu-khan-lab">Copy the follow-up</button>
+    </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-fu-khan-lab" value="followup"> Sent the follow-up</label>
+      <label><input type="radio" name="log-fu-khan-lab" value="replied"> They already replied, no follow-up needed</label>
+      <label><input type="radio" name="log-fu-khan-lab" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="fu-khan-lab" hidden>
+        <label for="why-fu-khan-lab">Why not</label>
+        <textarea id="why-fu-khan-lab" data-why="fu-khan-lab" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
+    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-khan-lab">Hello, I wrote on 30 October about Sketchie, and asked whether editable scenes are a problem your middle school team actually has.
+
+I know that is easy to leave unanswered, so I will make it simple. If it is worth a short conversation, I am glad to arrange one. If it is not a fit, one line telling me so is genuinely useful and I will leave it there.
+
+If anyone would rather just look, the free plan is two videos, up to a minute each, watermarked, with no card needed: sketchie.ai/app/signup</pre></details>
+    <details class="asana"><summary>What went out on 30 October</summary><pre>Hello, I'm Rikuo from Sketchie. Could this reach your Middle School Director? With Khanmigo already in your classrooms I doubt another AI tool reads as novel, so I will stick to what is actually different about ours. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so reworking a lesson means changing one line and only that scene redraws. If that is not a problem your team has, I will happily leave it there.</pre></details>
+  </article>
+  <article class="ticket" id="fu-summit-atlas">
+    <span class="id">Row 16</span>
+    <div class="body">
+      <h3>Summit Atlas <span class="pill late">Follow-up 2 days late</span></h3>
+      <p class="done"><strong>Ebony Harvey, Executive Director</strong>, West Seattle, Washington</p>
+      <p class="done"><strong>Sent 30 October</strong> by the school route, not LinkedIn. Follow-up was due 3 November.</p>
+      <p class="latest">The original asked an open question, network desk or school desk, which is probably why it stalled. This narrows it to asking for a name or a department.</p>
+      <div class="meta">
+        <span>Reach via:</span>
+        <a class="tag link" href="https://summitps.org/our-schools/summit-atlas-west-seattle/" target="_blank" rel="noopener">School site</a>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Due 3 Nov</span>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="fu-summit-atlas">Copy the follow-up</button>
+    </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-fu-summit-atlas" value="followup"> Sent the follow-up</label>
+      <label><input type="radio" name="log-fu-summit-atlas" value="replied"> They already replied, no follow-up needed</label>
+      <label><input type="radio" name="log-fu-summit-atlas" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="fu-summit-atlas" hidden>
+        <label for="why-fu-summit-atlas">Why not</label>
+        <textarea id="why-fu-summit-atlas" data-why="fu-summit-atlas" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
+    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-summit-atlas">Hello, I wrote on 30 October about Sketchie and asked to be pointed to the right desk, whether that sits with the school or with the network.
+
+That question may be the reason it stalled, so let me narrow it. If platform decisions sit at Summit Public Schools rather than the campus, a name or a department is all I am asking for. If the answer is that this is not something you are looking at, one line saying so is genuinely useful and I will leave it there.
+
+If anyone would rather just look, the free plan is two videos, up to a minute each, watermarked, with no card needed: sketchie.ai/app/signup</pre></details>
+    <details class="asana"><summary>What went out on 30 October</summary><pre>Hello, I'm Rikuo from Sketchie. Could this reach your Executive Director, or whoever at Summit Public Schools decides on learning platforms? Your Self-Directed Learning cycle is published in more detail than most schools publish anything, and with applications open for 2027-28 I imagine you are explaining it to families a great deal at the moment. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so the version you show families can be updated a line at a time. Please point me to the right desk, network or school.</pre></details>
+  </article>
+  <article class="ticket" id="fu-nueva">
+    <span class="id">Row 13</span>
+    <div class="body">
+      <h3>The Nueva School <span class="pill late">Follow-up 2 days late</span></h3>
+      <p class="done"><strong>Lee Fertig, Head of School</strong>, Hillsborough, California</p>
+      <p class="done"><strong>Sent 30 October</strong> by the school route, not LinkedIn. Follow-up was due 3 November.</p>
+      <p class="latest">The original guessed at two roles because the Head of Middle School is not named on their site. This asks to be corrected rather than guessing a third time.</p>
+      <div class="meta">
+        <span>Reach via:</span>
+        <a class="tag link" href="https://www.nuevaschool.org/" target="_blank" rel="noopener">School site</a>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Due 3 Nov</span>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="fu-nueva">Copy the follow-up</button>
+    </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-fu-nueva" value="followup"> Sent the follow-up</label>
+      <label><input type="radio" name="log-fu-nueva" value="replied"> They already replied, no follow-up needed</label>
+      <label><input type="radio" name="log-fu-nueva" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="fu-nueva" hidden>
+        <label for="why-fu-nueva">Why not</label>
+        <textarea id="why-fu-nueva" data-why="fu-nueva" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
+    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-nueva">Hello, I wrote on 30 October about Sketchie, after reading the Grade 7 wind-turbine project in your I-Lab news, and asked to be pointed to your Head of Middle School or your Director of the Innovation Labs.
+
+If that is the wrong pair of roles, I would rather be corrected than keep guessing. And if this is simply not something Nueva is looking at, one line saying so is genuinely useful and I will leave it there.
+
+If anyone would rather just look, the free plan is two videos, up to a minute each, watermarked, with no card needed: sketchie.ai/app/signup</pre></details>
+    <details class="asana"><summary>What went out on 30 October</summary><pre>Hello, I'm Rikuo from Sketchie. Could this reach your Head of Middle School, or your Director of the Innovation Labs? The Grade 7 wind-turbine project in your I-Lab news is the kind of work that is hard to compress into a slide, which is roughly the problem we build for. Sketchie makes 60-second whiteboard explainers where every scene is editable on its own, so a teacher reworking one idea changes a line rather than starting the video over. I would welcome being pointed to whoever that sits with.</pre></details>
+  </article>
+  <article class="ticket" id="fu-mount-vernon">
+    <span class="id">Row 14</span>
+    <div class="body">
+      <h3>The Mount Vernon School <span class="pill late">Follow-up 2 days late</span></h3>
+      <p class="done"><strong>Jared Colley, Chief Innovation Officer</strong>, Atlanta, Georgia</p>
+      <p class="done"><strong>Sent 30 October</strong> by the school route, not LinkedIn. Follow-up was due 3 November.</p>
+      <p class="latest">The original rested on one assumption, that this suits Mount Vernon School Online better than a classroom. If that assumption is wrong the whole message was wrong, so this asks about it directly.</p>
+      <div class="meta">
+        <span>Reach via:</span>
+        <a class="tag link" href="https://mountvernonschool.org/" target="_blank" rel="noopener">School site</a>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Due 3 Nov</span>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="fu-mount-vernon">Copy the follow-up</button>
+    </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-fu-mount-vernon" value="followup"> Sent the follow-up</label>
+      <label><input type="radio" name="log-fu-mount-vernon" value="replied"> They already replied, no follow-up needed</label>
+      <label><input type="radio" name="log-fu-mount-vernon" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="fu-mount-vernon" hidden>
+        <label for="why-fu-mount-vernon">Why not</label>
+        <textarea id="why-fu-mount-vernon" data-why="fu-mount-vernon" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
+    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-mount-vernon">Hello, I wrote on 30 October about Sketchie, and suggested it probably matters more for Mount Vernon School Online than for a classroom, since online material gets revised rather than re-taught.
+
+If that reading is wrong, I would genuinely like to know, because it is the whole basis for writing to you. If someone owns the MVSO material and would be the right person, I am happy to write to them instead. And if it is not a fit, one line saying so and I will leave it there.
+
+If anyone would rather just look, the free plan is two videos, up to a minute each, watermarked, with no card needed: sketchie.ai/app/signup</pre></details>
+    <details class="asana"><summary>What went out on 30 October</summary><pre>Hello, I'm Rikuo from Sketchie. Could this reach your Chief Innovation Officer? Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, which probably matters more for Mount Vernon School Online than for a classroom, since online material gets revised rather than re-taught. If MVSO has someone who owns that material, I would rather write to them directly than take up your time.</pre></details>
+  </article>
+  <article class="ticket" id="fu-dawson">
+    <span class="id">Row 20</span>
+    <div class="body">
+      <h3>Dawson School <span class="pill late">Follow-up 2 days late</span></h3>
+      <p class="done"><strong>Jeff Ellenbogen, Director of Innovation and Technology</strong>, Lafayette, Colorado</p>
+      <p class="done"><strong>Sent 30 October</strong> by the school route, not LinkedIn. Follow-up was due 3 November.</p>
+      <p class="latest">The original ruled itself out as a student tool and aimed at one specific teacher. This asks whether that teacher exists, which is a question they can answer without a meeting.</p>
+      <div class="meta">
+        <span>Reach via:</span>
+        <a class="tag link" href="https://www.dawsonschool.org/" target="_blank" rel="noopener">School site</a>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Due 3 Nov</span>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="fu-dawson">Copy the follow-up</button>
+    </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-fu-dawson" value="followup"> Sent the follow-up</label>
+      <label><input type="radio" name="log-fu-dawson" value="replied"> They already replied, no follow-up needed</label>
+      <label><input type="radio" name="log-fu-dawson" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="fu-dawson" hidden>
+        <label for="why-fu-dawson">Why not</label>
+        <textarea id="why-fu-dawson" data-why="fu-dawson" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
+    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-dawson">Hello, I wrote on 30 October about Sketchie, and said up front that it is not a student-tool pitch given your Innovation Center and the Adobe tools your students already use. It was aimed at the teacher who explains something once and would rather revise a line next year than record it again.
+
+If that teacher does not exist at Dawson, that is a fair answer and one line saying so is useful. If they do, I would welcome a short conversation.
+
+If anyone would rather just look, the free plan is two videos, up to a minute each, watermarked, with no card needed: sketchie.ai/app/signup</pre></details>
+    <details class="asana"><summary>What went out on 30 October</summary><pre>Hello, I'm Rikuo from Sketchie. Could this reach your Director of Innovation and Technology? Your middle schoolers already have the Innovation Center and the Adobe tools, so this is not a student-tool pitch. Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, aimed at the teacher who explains algorithms once and then wants to revise a line next year rather than record it again. Please pass this on if it fits.</pre></details>
+  </article>
+  <article class="ticket" id="fu-ransom">
+    <span class="id">Row 19</span>
+    <div class="body">
+      <h3>Ransom Everglades School <span class="pill late">Follow-up 2 days late</span></h3>
+      <p class="done"><strong>Dr. Pete Di Pace, Head of the Middle School</strong>, Coconut Grove, Miami, Florida</p>
+      <p class="done"><strong>Sent 30 October</strong> by the school route, not LinkedIn. Follow-up was due 3 November.</p>
+      <p class="latest">The only one of the six whose original offered a built-in reason to wait, since they are recruiting their first Director of Educational Technology. This makes waiting the easy answer and commits to not writing again in the meantime.</p>
+      <div class="meta">
+        <span>Reach via:</span>
+        <a class="tag link" href="https://www.ransomeverglades.org/" target="_blank" rel="noopener">School site</a>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">L1-T16</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Due 3 Nov</span>
+    <div class="copyrow">
+      <button class="btn copy" type="button" data-k="fu-ransom">Copy the follow-up</button>
+    </div>
+    <fieldset class="log">
+      <legend>Record</legend>
+      <label><input type="radio" name="log-fu-ransom" value="followup"> Sent the follow-up</label>
+      <label><input type="radio" name="log-fu-ransom" value="replied"> They already replied, no follow-up needed</label>
+      <label><input type="radio" name="log-fu-ransom" value="no"> Not sent</label>
+      <div class="why" data-why-wrap="fu-ransom" hidden>
+        <label for="why-fu-ransom">Why not</label>
+        <textarea id="why-fu-ransom" data-why="fu-ransom" rows="2" placeholder="In your own words"></textarea>
+      </div>
+    </fieldset>
+    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-ransom">Hello, I wrote on 30 October about Sketchie and asked whether it made more sense to talk now or to wait until your first Director of Educational Technology is in post.
+
+I am happy with either answer. If waiting is the sensible course, tell me that and I will come back once the appointment is announced rather than write again in the meantime. If it is not a fit at all, one line saying so and I will leave it there.
+
+If anyone would rather just look, the free plan is two videos, up to a minute each, watermarked, with no card needed: sketchie.ai/app/signup</pre></details>
+    <details class="asana"><summary>What went out on 30 October</summary><pre>Hello, I'm Rikuo from Sketchie. I saw that Ransom Everglades is recruiting its first Director of Educational Technology, so until that post is filled I expect this sits with the Head of the Middle School. Could you pass it to whoever is covering it? Sketchie makes 60-second whiteboard explainers where each scene is editable on its own, so teachers revise a line instead of re-recording. I am happy to be told it is better raised once the new director is in post.</pre></details>
+  </article></div>
+    
+  <div class="recorder">
+    <h3>Record what went out</h3>
+    <p>Nothing here is sent anywhere. The choices stay in this browser, so you can stop and come back to them.
+    Submit builds one block covering both batches. Hand it over and every row carrying an answer is written into the Outreach Tracker sheet, which is the record that lasts.</p>
+    <div class="recorder-actions">
+      <button class="btn" type="button" data-submit="followup">Submit</button>
+      <button class="btn copy" type="button" data-k="log-followup" hidden>Copy the block</button>
+      <span class="recorder-count" data-count="followup"></span>
+    </div>
+    <pre class="recorder-out" id="pre-log-followup" hidden></pre>
+  </div>
   </section><section role="tabpanel" id="panel-archive" aria-labelledby="tab-archive" hidden>
     <p class="panel-note">Parked on purpose, not forgotten.</p>
     
@@ -1663,7 +1972,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
      Kept in localStorage, which is per browser and per device: clearing
      site data clears it. The block Submit produces is the record that
      lasts, because that is what gets written into the Outreach Tracker. */
-  var ROWS = [{"cid":"dm-khan-lab","row":11,"school":"Khan Lab School","batch":"batch 1, US"},{"cid":"dm-summit-atlas","row":16,"school":"Summit Atlas","batch":"batch 1, US"},{"cid":"dm-nueva","row":13,"school":"The Nueva School","batch":"batch 1, US"},{"cid":"dm-mount-vernon","row":14,"school":"The Mount Vernon School","batch":"batch 1, US"},{"cid":"dm-dawson","row":20,"school":"Dawson School","batch":"batch 1, US"},{"cid":"dm-ransom","row":19,"school":"Ransom Everglades School","batch":"batch 1, US"},{"cid":"dm2-hillbrook","row":12,"school":"Hillbrook School","batch":"L1-T15","held":false},{"cid":"dm2-design39","row":15,"school":"Design39Campus, Poway Unified School District","batch":"L1-T15","held":false},{"cid":"dm2-valor","row":17,"school":"Valor Collegiate Academies","batch":"L1-T15","held":false},{"cid":"dm2-intrinsic","row":18,"school":"Intrinsic Schools, Belmont Campus","batch":"L1-T15","held":false},{"cid":"dm2-peck","row":1,"school":"The Peck School","batch":"US batch 2","held":false},{"cid":"dm2-chadwick","row":2,"school":"Chadwick School","batch":"US batch 2","held":false},{"cid":"dm2-charlotteLatin","row":3,"school":"Charlotte Latin School","batch":"US batch 2","held":false},{"cid":"dm2-grissom","row":4,"school":"Virgil I. Grissom Middle School","batch":"US batch 2","held":false},{"cid":"dm2-rooseveltRf","row":5,"school":"Roosevelt Middle School","batch":"US batch 2","held":false},{"cid":"dm2-prairieView","row":6,"school":"Prairie View Middle School","batch":"US batch 2","held":false},{"cid":"dm2-aptakisic","row":7,"school":"Aptakisic Junior High School","batch":"US batch 2","held":false},{"cid":"dm2-meridian","row":8,"school":"Meridian School","batch":"US batch 2","held":false},{"cid":"dm2-lubbockCooper","row":9,"school":"Lubbock-Cooper Middle School","batch":"US batch 2","held":false},{"cid":"dm2-southridge","row":10,"school":"Southridge Tech Middle School","batch":"US batch 2","held":false},{"cid":"dm2-westtown","row":11,"school":"Westtown School","batch":"US batch 2","held":false},{"cid":"dm2-trinityNyc","row":12,"school":"Trinity School","batch":"US batch 2","held":false},{"cid":"dm2-pineCrest","row":13,"school":"Pine Crest School","batch":"US batch 2","held":false},{"cid":"dm2-fenn","row":14,"school":"The Fenn School","batch":"US batch 2","held":false},{"cid":"dm2-walker","row":15,"school":"The Walker School","batch":"US batch 2","held":false}];
+  var ROWS = [{"cid":"dm-khan-lab","row":11,"school":"Khan Lab School","batch":"batch 1, US"},{"cid":"dm-summit-atlas","row":16,"school":"Summit Atlas","batch":"batch 1, US"},{"cid":"dm-nueva","row":13,"school":"The Nueva School","batch":"batch 1, US"},{"cid":"dm-mount-vernon","row":14,"school":"The Mount Vernon School","batch":"batch 1, US"},{"cid":"dm-dawson","row":20,"school":"Dawson School","batch":"batch 1, US"},{"cid":"dm-ransom","row":19,"school":"Ransom Everglades School","batch":"batch 1, US"},{"cid":"dm2-hillbrook","row":12,"school":"Hillbrook School","batch":"L1-T15","held":false},{"cid":"dm2-design39","row":15,"school":"Design39Campus, Poway Unified School District","batch":"L1-T15","held":false},{"cid":"dm2-valor","row":17,"school":"Valor Collegiate Academies","batch":"L1-T15","held":false},{"cid":"dm2-intrinsic","row":18,"school":"Intrinsic Schools, Belmont Campus","batch":"L1-T15","held":false},{"cid":"dm2-peck","row":1,"school":"The Peck School","batch":"US batch 2","held":false},{"cid":"dm2-chadwick","row":2,"school":"Chadwick School","batch":"US batch 2","held":false},{"cid":"dm2-charlotteLatin","row":3,"school":"Charlotte Latin School","batch":"US batch 2","held":false},{"cid":"dm2-grissom","row":4,"school":"Virgil I. Grissom Middle School","batch":"US batch 2","held":false},{"cid":"dm2-rooseveltRf","row":5,"school":"Roosevelt Middle School","batch":"US batch 2","held":false},{"cid":"dm2-prairieView","row":6,"school":"Prairie View Middle School","batch":"US batch 2","held":false},{"cid":"dm2-aptakisic","row":7,"school":"Aptakisic Junior High School","batch":"US batch 2","held":false},{"cid":"dm2-meridian","row":8,"school":"Meridian School","batch":"US batch 2","held":false},{"cid":"dm2-lubbockCooper","row":9,"school":"Lubbock-Cooper Middle School","batch":"US batch 2","held":false},{"cid":"dm2-southridge","row":10,"school":"Southridge Tech Middle School","batch":"US batch 2","held":false},{"cid":"dm2-westtown","row":11,"school":"Westtown School","batch":"US batch 2","held":false},{"cid":"dm2-trinityNyc","row":12,"school":"Trinity School","batch":"US batch 2","held":false},{"cid":"dm2-pineCrest","row":13,"school":"Pine Crest School","batch":"US batch 2","held":false},{"cid":"dm2-fenn","row":14,"school":"The Fenn School","batch":"US batch 2","held":false},{"cid":"dm2-walker","row":15,"school":"The Walker School","batch":"US batch 2","held":false},{"cid":"fu-khan-lab","row":11,"school":"Khan Lab School","batch":"batch 1 follow-up"},{"cid":"fu-summit-atlas","row":16,"school":"Summit Atlas","batch":"batch 1 follow-up"},{"cid":"fu-nueva","row":13,"school":"The Nueva School","batch":"batch 1 follow-up"},{"cid":"fu-mount-vernon","row":14,"school":"The Mount Vernon School","batch":"batch 1 follow-up"},{"cid":"fu-dawson","row":20,"school":"Dawson School","batch":"batch 1 follow-up"},{"cid":"fu-ransom","row":19,"school":"Ransom Everglades School","batch":"batch 1 follow-up"}];
   var LOG_KEY = 'sketchie-outreach-log-v1';
   function loadLog() {
     try { return JSON.parse(localStorage.getItem(LOG_KEY)) || {}; } catch (e) { return {}; }
@@ -1703,7 +2012,7 @@ Olu, on the next run could you capture the exact source and target tier and the 
 
   function report() {
     var log = loadLog();
-    var g = { linkedin: [], school: [], no: [], none: [] };
+    var g = { linkedin: [], school: [], followup: [], replied: [], no: [], none: [] };
     ROWS.forEach(function (r) {
       var e = log[r.cid] || {};
       (g[e.choice] || g.none).push({ r: r, why: (e.why || '').trim() });
@@ -1724,6 +2033,8 @@ Olu, on the next run could you capture the exact source and target tier and the 
     };
     block('SENT, LINKEDIN MESSAGE', g.linkedin);
     block('SENT, SCHOOL MESSAGE', g.school);
+    block('SENT, FOLLOW-UP', g.followup);
+    block('ALREADY REPLIED, NO FOLLOW-UP NEEDED', g.replied);
     block('NOT SENT', g.no, true);
     block('NOT RECORDED', g.none);
     return L.join('\n');
