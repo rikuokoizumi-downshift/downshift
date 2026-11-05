@@ -148,6 +148,7 @@ table.ex tr:last-child td { border-bottom: none; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 </style>
 <style>
+  .ticket.L3 .id { color: var(--warn); }
   .tag.link { border-color: var(--accent); color: var(--accent); font-weight: 600; text-decoration: none; }
   .tag.link:hover { background: var(--accent-soft); }
   .ticket .done strong, .ticket .latest strong { color: var(--ink); }
@@ -189,13 +190,14 @@ table.ex tr:last-child td { border-bottom: none; }
   <div class="sec-head" style="margin-bottom:8px">
     <p class="label">Sketchie · my desk</p>
     <h1>Mine only</h1>
-    <p class="lede">What I answer, send or make myself. Build tickets and open bugs stay on the <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-launch-tickets/">full board</a>. Tickets read off Asana on Tue 27 October, outreach batch 1 drafted Wed 28 October, batch 2 Sat 31 October. Board re-read and ten comments posted Mon 2 November. Second prospect batch, 23 United States creators and 15 United States schools, built Tue 3 November.</p>
+    <p class="lede">What I answer, send or make myself. Build tickets and open bugs stay on the <a href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-launch-tickets/">full board</a>. Tickets read off Asana on Thu 5 November and set against the 4 November handover. Outreach batch 1 drafted Wed 28 October and sent Fri 30 October, batch 2 Sat 31 October and Tue 3 November, the six follow-ups drafted Thu 5 November. Ten comments posted Mon 2 November. Video 5 published Wed 5 November.</p>
   </div>
 
   <div class="banner">
-    Nothing is waiting on a comment. All three L1-T24 replies went to Andi on 27 October, and the
-    card selection ships as presentation for Monday, so T24d and T24e are both unblocked.
-    L1-T24b and L1-T24c are done as work and only need closing.
+    <strong>The plan changed on 30 October and the tickets have not caught up.</strong> That call adopted the
+    Rivalize playbook, and the 4 November handover turns it into a new epic, L3, of 24 tickets. Not one of
+    them exists in Asana, so the L3 cards below have nothing to link to. EPIC L1 and EPIC L2 are both still
+    open, and both now close by comment rather than by more work. Five comments are waiting in the first tab.
   </div>
 
   <div class="banner">
@@ -203,17 +205,20 @@ table.ex tr:last-child td { border-bottom: none; }
     opened and checked by me first, and the Checked column still reads No on all twenty school rows.
     It also warns that search results are unreliable on follower counts and recency, so the titles
     below, taken from school sites, need confirming. Then one message, one follow-up after four days,
-    and stop. A human answers replies within four hours. That gate covers both batches: all twenty rows
-    are still unchecked, batch 2 included. Batch 2 is now the four remaining United States rows, and the
-    Philippines set is parked.
+    and stop. A human answers replies within four hours. That Checked column is the first workbook's. The
+    second workbook's rows were each read on the prospect's own pages on 3 November, which is not the same
+    thing as a Checked column of its own. Batch 2 is
+    nineteen United States schools, four from the first workbook and fifteen from the second, none of them
+    sent. The Philippines set is parked. A mass send is ruled out separately: no DM without a connection
+    or an interaction.
   </div>
 
   <div class="filters tabs" role="tablist" aria-label="My work">
-    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">5</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">11</span></button><button type="button" role="tab" id="tab-idea" aria-controls="panel-idea" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="idea">Ideas<span class="n">4</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2 and on<span class="n">19</span></button><button type="button" role="tab" id="tab-followup" aria-controls="panel-followup" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="followup">Follow-ups<span class="n">6</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
+    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">5</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">21</span></button><button type="button" role="tab" id="tab-idea" aria-controls="panel-idea" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="idea">Ideas<span class="n">4</span></button><button type="button" role="tab" id="tab-outreach" aria-controls="panel-outreach" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach">Outreach batch 1<span class="n">6</span></button><button type="button" role="tab" id="tab-outreach2" aria-controls="panel-outreach2" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="outreach2">Outreach batch 2 and on<span class="n">19</span></button><button type="button" role="tab" id="tab-followup" aria-controls="panel-followup" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="followup">Follow-ups<span class="n">6</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
   </div>
 
   <section role="tabpanel" id="panel-comment" aria-labelledby="tab-comment">
-    <p class="panel-note">Ten of these went out as comments in Asana on 2 November: L1-T02, L1-T11, L1-T21, L1-T19, L1-T24, L1-T16, L2-T07, L1-T13, L2-T02, and then L1-T08 once Andi was named as the owner of the staging fixtures. Two are below. L1-T09 is held: it states expected product behaviour in my name, and Mahir asked for the transition matrix to be confirmed or corrected before the failure is treated as a bug, so it needs an answer from me before it can go. L1-T15 was drafted on 3 November, when the second prospect batch was built, and is ready to post. Three more were added on 5 November. L1-T13 closes the launch videos at five, now that video 5 is published. The other two are the week's priority order for Alex and for Andi, and neither carries an Asana link, because neither belongs on a single ticket: a list that orders eleven tickets cannot sit inside one of them, and splitting it would be eleven comments each saying where that ticket ranks. Both go to Slack, and the per-ticket decisions still go on the tickets.</p>
+    <p class="panel-note">Ten of these went out as comments in Asana on 2 November: L1-T02, L1-T11, L1-T21, L1-T19, L1-T24, L1-T16, L2-T07, L1-T13, L2-T02, and then L1-T08 once Andi was named as the owner of the staging fixtures. Five are still here. L1-T09 is held: it states expected product behaviour in my name, and Mahir asked for the transition matrix to be confirmed or corrected before the failure is treated as a bug, so it needs an answer from me before it can go. Andi has since split that failure into its own bug and fixed it on staging, which changes what is broken but not the question underneath. L1-T15 was drafted on 3 November, when the second prospect batch was built, and now carries the handover's answer as a third option. L1-T13 closes the launch videos at five, now that video 5 is published. The last two are the week's priority order for Alex and for Andi. I had both going to Slack with no ticket, on the reasoning that a list ordering eleven tickets cannot sit inside one of them. The 4 November handover overrules that with a better answer: they go on L3-T23, one ticket of their own, reordered every Friday. That ticket does not exist yet, so it has to be made before these can be posted, and the per-ticket decisions still go on the tickets themselves.</p>
     
     <div class="tickets">
   <article class="ticket L1" id="L1-T15-c">
@@ -221,7 +226,7 @@ table.ex tr:last-child td { border-bottom: none; }
     <div class="body">
       <h3>Second prospect batch is built, and the first list's US rows are used up <span class="pill late">Overdue</span></h3>
       <p class="done"><strong>Why it is here:</strong> Outreach batch 1 took six United States schools off the L1-T15 workbook and batch 2 took the other four, so the LinkedIn route has no US rows left on it. The second batch adds 23 United States creators and 15 United States schools, none of them on the first list.</p>
-      <p class="latest"><strong>Needs from you:</strong> Post as is. It ends on one question: does L1-T15 close here, or does the second batch get its own ticket?</p>
+      <p class="latest"><strong>Needs from you:</strong> Post as is. It ends on a question about where the second batch lives, now with the handover's answer offered as the third option and my own preference stated.</p>
       <div class="meta">
         <span>Blocks:</span><span class="tag">L1-T16</span>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869378" target="_blank" rel="noopener">Open in Asana</a>
@@ -245,13 +250,13 @@ Two things worth flagging before anyone is messaged. Only 5 of the 15 schools ar
 
 The file is sketchie_outreach_prospects_US_batch2.xlsx, with the same five tabs and the same columns as the first one, so the two can sit side by side or be merged.
 
-One question. This ticket's done-when was 60 people with name, profile link and what they teach, which the first list met. Do we close L1-T15 and let the second batch run under L1-T16, or does the second batch get its own ticket?</pre></details>
+One question. This ticket's done-when was 60 people with name, profile link and what they teach, which the first list met. Three ways to take it: close L1-T15 and let the second batch run under L1-T16, give the second batch its own ticket, or do what the 4 November handover proposes and rename this one Prospect list so it becomes the living lead sheet Olu adds to. I would take the third.</pre></details>
   </article>
   <article class="ticket L1" id="L1-T09-c">
     <span class="id">L1-T09</span>
     <div class="body">
       <h3>Confirm the plan upgrade matrix <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Why it is here:</strong> Olu's run has upgrades beyond Plus failing in production. Mahir asked on 28 October for a product decision before the failure is treated as intentional. It is on the paid path and went through the whole of launch week unresolved.</p>
+      <p class="done"><strong>Why it is here:</strong> Olu's run has upgrades beyond Plus failing in production. Mahir asked on 28 October for a product decision before the failure is treated as intentional. Since then Andi has split the Plus to Pro Brand failure into its own bug and fixed it on staging, on 2 November, with production unchanged, so the journey stays at 8 of 9 until it is promoted and Olu reruns step 9. The matrix question underneath it is still unanswered, and that is what this comment settles.</p>
       <p class="latest"><strong>Needs from you:</strong> This states the matrix as every live plan reachable from any lower one. Confirm that is what you want, then post.</p>
       <div class="meta">
         <span>Blocks:</span><span class="tag">L1-T09 sign-off</span>
@@ -270,15 +275,15 @@ On that basis, upgrades failing beyond Plus in production is a bug rather than a
 
 Olu, on the next run could you capture the exact source and target tier and the error returned, so Andi has something specific to work from rather than a general failure?</pre></details>
   </article>
-  <article class="ticket L1" id="Priority, Alex-c">
+  <article class="ticket L3" id="Priority, Alex-c">
     <span class="id">Priority, Alex</span>
     <div class="body">
       <h3>This week's order for Alex</h3>
-      <p class="done"><strong>Why it is here:</strong> Alex has four things in front of him and no stated order, and he said on 26 October that he does not know the V2 vision. The Week 1 calendar has the V2 direction going to him tomorrow.</p>
+      <p class="done"><strong>Why it is here:</strong> Alex has four things in front of him and no stated order, and he said on 26 October that he does not know the V2 vision. The Week 1 calendar has the V2 direction going to him tomorrow. The handover gives both lists a home I had not allowed for: L3-T23, one ticket, reordered every Friday.</p>
       <p class="latest"><strong>Needs from you:</strong> Read it before it goes. Item 4 concedes that I owe him an answer and have not given it, which is mine to say rather than something I should soften.</p>
       <div class="meta">
-        <span>Blocks:</span><span class="tag">Ten demo videos, due 11 November</span>
-        <span class="tag">No single ticket. Send in Slack.</span>
+        <span>Blocks:</span><span class="tag">L3-T04, the ten demo videos</span>
+        <span class="tag">Goes on L3-T23, once it exists</span>
         
       </div>
     </div>
@@ -297,15 +302,15 @@ Olu, on the next run could you capture the exact source and target tier and the 
 
 Nothing else should jump this queue. If something does, it comes from me in writing.</pre></details>
   </article>
-  <article class="ticket L1" id="Priority, Andi-c">
+  <article class="ticket L3" id="Priority, Andi-c">
     <span class="id">Priority, Andi</span>
     <div class="body">
       <h3>This week's order for Andi</h3>
-      <p class="done"><strong>Why it is here:</strong> Andi carries seven of the thirteen engineering items the plays depend on, spread across seven tickets, so no one ticket can hold the order. The first three unblock other people rather than him.</p>
+      <p class="done"><strong>Why it is here:</strong> Andi carries seven of the thirteen engineering items the plays depend on, spread across seven tickets. The first three unblock other people rather than him. I read that as meaning no ticket could hold the order; the handover answers it with a ticket of its own, L3-T23, reordered every Friday.</p>
       <p class="latest"><strong>Needs from you:</strong> Read it before it goes. It ends by naming two things that are not his, so he is not left assuming the tracking and the Stripe test are waiting on him.</p>
       <div class="meta">
         <span>Blocks:</span><span class="tag">Content engine</span>
-        <span class="tag">No single ticket. Send in Slack.</span>
+        <span class="tag">Goes on L3-T23, once it exists</span>
         
       </div>
     </div>
@@ -355,31 +360,15 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
   </article></div>
     
   </section><section role="tabpanel" id="panel-task" aria-labelledby="tab-task" hidden>
-    <p class="panel-note">Mine to make. Earliest due first.</p>
+    <p class="panel-note">Mine to make. Earliest due first. Rebuilt on 5 November against the 4 November handover, because the old list was still a launch-week list. The 30 October call adopted the Rivalize playbook and the handover turns it into a third epic, L3, of 24 tickets. Twelve are mine and they are the twelve amber cards here. None of them exist in Asana, so none of them has a link to open, and making them is itself the first piece of work. Everything under L1 and L2 now closes by comment rather than by more work: the pricing redesign is live, the videos are five of seven, and the launch-week plays did not run at the planned volume, which the 30 October call accepted. Three cards that were here until today, the daily sample videos, the five user interviews and the Friday review, are folded into the L2 close-out rather than quietly dropped. Social accounts stay off this page: that one is parked.</p>
     
     <div class="tickets">
-  <article class="ticket L1" id="L1-T13">
-    <span class="id">L1-T13</span>
-    <div class="body">
-      <h3>Make the 7 launch videos <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Done when:</strong> 7 short videos made in Sketchie, one per post in the launch calendar, each watched start to finish.</p>
-      
-      <div class="meta">
-        
-        <span class="tag">with Norj</span>
-        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869372" target="_blank" rel="noopener">Open in Asana</a>
-        
-      </div>
-    </div>
-    <span class="owner">You</span>
-    <span class="due">Fri, Oct 23</span>
-  </article>
   <article class="ticket L1" id="L1-T15">
     <span class="id">L1-T15</span>
     <div class="body">
       <h3>Build the first 60 outreach prospects <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Done when:</strong> 60 people listed with name, profile link and what they teach. Course creators and teachers first.</p>
-      
+      <p class="done"><strong>Done when:</strong> The handover re-points it: the sheet exists with the Content Kit columns and Olu can add to it. Renamed Prospect list and moved under L3 as the living lead sheet.</p>
+      <p class="latest">The list half is done. The first 60 were delivered and the second workbook added 23 United States creators and 15 United States schools on 3 November, which is 42 of the 100 leads the handover asks Olu to build by 18 November. The access half is not: Olu still cannot open the tracker. The comment saying the batch is built is drafted in the first tab and unposted.</p>
       <div class="meta">
         
         <span class="tag">with Olu</span>
@@ -395,7 +384,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     <div class="body">
       <h3>Design the pricing cards <span class="pill late">Overdue</span></h3>
       <p class="done"><strong>Done when:</strong> A design Andi can build from is linked on the ticket.</p>
-      <p class="latest">Done. Design posted to Asana on 27 October. Ready to close.</p>
+      <p class="latest">Shipped, not just approved. The four-card redesign went live in production on 2 November, so this is on sketchie.ai. No activity on the ticket since 27 October. Closing is the only thing left.</p>
       <div class="meta">
         
         
@@ -411,7 +400,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     <div class="body">
       <h3>Design the plan buttons <span class="pill late">Overdue</span></h3>
       <p class="done"><strong>Done when:</strong> Each card's button is specified: label and where it goes.</p>
-      <p class="latest">Done. Spec posted on 27 October, and the selection ships as presentation. Ready to close.</p>
+      <p class="latest">Shipped, and the open decision is settled. Andi's 2 November note moves the per-plan buttons to L2, which is the answer this was waiting on. It needs recording in the closing comment rather than left sitting in a thread.</p>
       <div class="meta">
         
         
@@ -426,10 +415,10 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     <span class="id">L1-T16</span>
     <div class="body">
       <h3>Make 18 sample videos and finalise the 3 outreach messages <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Done when:</strong> 18 short videos, each from one prospect's own lesson, ready for Day 1 and Day 2.</p>
-      
+      <p class="done"><strong>Done when:</strong> The handover splits it: close the sample-video half, keep the scripts as done. If samples come back as a play they get a new ticket under L3.</p>
+      <p class="latest">The scope correction went on the ticket on 1 November and has had no answer. The messages no longer offer a sample video, so the eighteen are not needed before anything goes out. This is what blocks L2-T03, which was due 31 October.</p>
       <div class="meta">
-        <span>Needs first:</span><span class="tag">L1-T15</span>
+        
         <span class="tag">with Norj</span>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869381" target="_blank" rel="noopener">Open in Asana</a>
         
@@ -443,10 +432,10 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     <div class="body">
       <h3>Pricing section redesign <span class="pill late">Overdue</span></h3>
       <p class="done"><strong>Done when:</strong> Free, Solo, Plus and Pro as cards in one row, Team coming soon, each live plan's button going where it says.</p>
-      <p class="latest">The design is done and published. It is waiting only on the two comments in the first tab.</p>
+      <p class="latest">Live in production since 2 November: four cards, Team as coming soon, Most picked on Plus. Olu checked every plan button logged out the same day and all of them open signup. One thing is left before it closes, the plan-link attribution fix, which Andi verified on staging on 3 November and has not promoted.</p>
       <div class="meta">
         
-        <span class="tag">with Andi builds</span>
+        <span class="tag">with Andi</span>
         <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219839111981998" target="_blank" rel="noopener">Open in Asana</a>
         <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-pricing-l1-t24/" target="_blank" rel="noopener">Open the design</a>
       </div>
@@ -454,76 +443,12 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     <span class="owner">You</span>
     <span class="due">Sun, Oct 25</span>
   </article>
-  <article class="ticket L2" id="L2-T07">
-    <span class="id">L2-T07</span>
-    <div class="body">
-      <h3>Publish the first comparison page <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Done when:</strong> One page about the competitor chosen in L1-T21, every claim checked against their official pages and dated.</p>
-      <p class="latest">A mock is built and the figures are verified, but the subject is still a placeholder. L1-T21 has not picked the competitor, and a vs-Simi page is already live with eight claims that no longer hold.</p>
-      <div class="meta">
-        <span>Needs first:</span><span class="tag">L1-T21</span>
-        <span class="tag">with Mahir co-checks, Andi publishes</span>
-        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219652282341198" target="_blank" rel="noopener">Open in Asana</a>
-        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-vs-simi-mock/" target="_blank" rel="noopener">Open the mock</a>
-      </div>
-    </div>
-    <span class="owner">You</span>
-    <span class="due">Wed, Oct 28</span>
-  </article>
-  <article class="ticket L2" id="L2-T04">
-    <span class="id">L2-T04</span>
-    <div class="body">
-      <h3>Make tomorrow's sample videos <span class="pill late">Overdue</span> <span class="pill">Daily</span></h3>
-      <p class="done"><strong>Done when:</strong> 8 new sample videos ready each evening for the next day's outreach.</p>
-      
-      <div class="meta">
-        
-        <span class="tag">with Norj</span>
-        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219651805749610" target="_blank" rel="noopener">Open in Asana</a>
-        
-      </div>
-    </div>
-    <span class="owner">You</span>
-    <span class="due">Fri, Oct 30</span>
-  </article>
-  <article class="ticket L2" id="L2-T08">
-    <span class="id">L2-T08</span>
-    <div class="body">
-      <h3>Run 5 user interviews <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Done when:</strong> 5 conversations with launch-week signups, notes attached.</p>
-      
-      <div class="meta">
-        
-        
-        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219651805593594" target="_blank" rel="noopener">Open in Asana</a>
-        
-      </div>
-    </div>
-    <span class="owner">You</span>
-    <span class="due">Fri, Oct 30</span>
-  </article>
-  <article class="ticket L2" id="L2-T09">
-    <span class="id">L2-T09</span>
-    <div class="body">
-      <h3>Friday review: pick 1 or 2 changes <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Done when:</strong> A Slack update naming 1 or 2 changes for week 2, each a new ticket with an owner. Not ten.</p>
-      
-      <div class="meta">
-        
-        <span class="tag">with Mahir and Olu join</span>
-        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219651805691624" target="_blank" rel="noopener">Open in Asana</a>
-        
-      </div>
-    </div>
-    <span class="owner">You</span>
-    <span class="due">Fri, Oct 30</span>
-  </article>
   <article class="ticket L2" id="L2-T10">
     <span class="id">L2-T10</span>
     <div class="body">
       <h3>Week-one scorecard <span class="pill late">Overdue</span></h3>
-      <p class="done"><strong>Done when:</strong> Scorecard shared before the Mon Nov 2 sync, split by audience.</p>
-      
+      <p class="done"><strong>Done when:</strong> Totals only, no source attribution, with the attribution gap labelled. Posted on the ticket, then the ticket closes.</p>
+      <p class="latest">Mahir's 1 November instruction sets the shape. Written from the 30 October call numbers plus whatever the spreadsheet holds. The Monday 2 November sync it was meant for has gone by, so this now closes EPIC L2 rather than opening week two.</p>
       <div class="meta">
         
         
@@ -533,6 +458,246 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     </div>
     <span class="owner">You</span>
     <span class="due">Sun, Nov 1</span>
+  </article>
+  <article class="ticket L2" id="L2-close">
+    <span class="id">L2-close</span>
+    <div class="body">
+      <h3>Close the launch-week tickets that did not run <span class="pill late">Overdue</span></h3>
+      <p class="done"><strong>Done when:</strong> One honest comment on each, then EPIC L2 closes behind the scorecard.</p>
+      <p class="latest">L2-T01, T03, T04, T05, T06, T08 and T09 have no comment on them at all. Plan B's plays did not run at the planned volume, which the 30 October call accepted, so the handover closes them with one comment each rather than re-dating them. L2-T02 closes too and the posting cadence moves to L3. Three of these were cards on this page until 5 November: the daily sample videos, the five user interviews and the Friday review.</p>
+      <div class="meta">
+        
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219652009507190" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sun, Nov 1</span>
+  </article>
+  <article class="ticket L3" id="L3-T15">
+    <span class="id">L3-T15</span>
+    <div class="body">
+      <h3>ICP sheet to Olu</h3>
+      <p class="done"><strong>Done when:</strong> Section 9 of the handover as a shared doc, so Olu can start building lead lists.</p>
+      <p class="latest">Blocked on access rather than on the writing. The Outreach Tracker is shared with my two accounts only, so Olu cannot open the sheet the lists are meant to land in. Share it first and this becomes a copy-and-paste job.</p>
+      <div class="meta">
+        
+        
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Thu, Nov 5</span>
+  </article>
+  <article class="ticket L3" id="L3-T23">
+    <span class="id">L3-T23</span>
+    <div class="body">
+      <h3>Priority list for Andi and Alex</h3>
+      <p class="done"><strong>Done when:</strong> One ticket holding both orders, reordered every Friday.</p>
+      <p class="latest">Both lists are drafted and waiting in the first tab. I had them going to Slack with no ticket, which the handover overrules: they sit on one ticket so the Friday reorder has a home. The ticket has to exist before they go.</p>
+      <div class="meta">
+        
+        <span class="tag">with Mahir</span>
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Thu, Nov 5</span>
+  </article>
+  <article class="ticket L3" id="L3-T01">
+    <span class="id">L3-T01</span>
+    <div class="body">
+      <h3>Source-of-truth file: what Sketchie does today</h3>
+      <p class="done"><strong>Done when:</strong> One file of verified features, benefits, the free plan, the L1-T02 prices, the blocked-claims list, and what the dev pipeline can do that the app cannot.</p>
+      <p class="latest">Everything in the content play is written from this, so it is the first domino rather than documentation for its own sake.</p>
+      <div class="meta">
+        
+        
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Nov 6</span>
+  </article>
+  <article class="ticket L3" id="L3-T21">
+    <span class="id">L3-T21</span>
+    <div class="body">
+      <h3>V2 engine direction to Mahir</h3>
+      <p class="done"><strong>Done when:</strong> The merged PRD posted on the V6 quality ticket.</p>
+      <p class="latest">Overdue since 28 October. Alex asked on 26 October what the vision is and has had no straight answer since. It is the one item on his priority list that is mine and not his.</p>
+      <div class="meta">
+        
+        
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Nov 6</span>
+  </article>
+  <article class="ticket L3" id="L3-T22">
+    <span class="id">L3-T22</span>
+    <div class="body">
+      <h3>V1.1 feedback batch to Alex</h3>
+      <p class="done"><strong>Done when:</strong> One consolidated list with prompts, links and screenshots, on the existing V6 quality ticket.</p>
+      <p class="latest">Alex has had a local fix since 26 October that was never pushed, and it goes to staging after this lands.</p>
+      <div class="meta">
+        
+        <span class="tag">with Olu</span>
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Fri, Nov 6</span>
+  </article>
+  <article class="ticket L3" id="L3-T02">
+    <span class="id">L3-T02</span>
+    <div class="body">
+      <h3>100 reasons brainstorm and content buckets</h3>
+      <p class="done"><strong>Done when:</strong> 100 one-line reasons a teacher, course creator or school would use Sketchie, sorted into educational, entertaining, thought-provoking and product.</p>
+      <p class="latest">Feeds the 21-prompt week-one pack, which is Mahir's and due the same day.</p>
+      <div class="meta">
+        <span>Needs first:</span><span class="tag">L3-T01</span>
+        <span class="tag">with Olu</span>
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sat, Nov 7</span>
+  </article>
+  <article class="ticket L1" id="L1-T13">
+    <span class="id">L1-T13</span>
+    <div class="body">
+      <h3>Make the 7 launch videos</h3>
+      <p class="done"><strong>Done when:</strong> Either the last two are made, or this closes at five published and two dropped. Mine to call.</p>
+      <p class="latest">Five are published, the fifth on 5 November. Mahir never answered the regenerate question, asked on 28 October and again on 1 November. The handover wants it settled by 7 November so L1-T14 and L2-T02 stop hanging off it; the ticket in Asana still reads 1 November. The closing comment is drafted in the first tab.</p>
+      <div class="meta">
+        
+        <span class="tag">with Norj</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219413009869372" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sat, Nov 7</span>
+  </article>
+  <article class="ticket L3" id="L3-T19">
+    <span class="id">L3-T19</span>
+    <div class="body">
+      <h3>Decide the 100 free credits for educators</h3>
+      <p class="done"><strong>Done when:</strong> Yes or no, and if yes how the grant is made and recorded against the L1-T02 table.</p>
+      <p class="latest">A decision rather than a build. It gates the school and course-creator offer, so leaving it open leaves the outreach without anything to offer.</p>
+      <div class="meta">
+        
+        <span class="tag">with Mahir, and Manuel on price</span>
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Tue, Nov 10</span>
+  </article>
+  <article class="ticket L3" id="L3-T04">
+    <span class="id">L3-T04</span>
+    <div class="body">
+      <h3>Write the ten prompts for Alex's demo videos</h3>
+      <p class="done"><strong>Done when:</strong> One file of ten prompts covering the grade-level lesson set and the feature demos. Alex renders them.</p>
+      <p class="latest">The file is mine, the videos are Alex's, and the 30 October call put the quality bar here rather than on the in-app output. The content engine, the outreach assets and the ICP landing pages all wait behind the ten.</p>
+      <div class="meta">
+        
+        <span class="tag">with Mahir</span>
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Wed, Nov 11</span>
+  </article>
+  <article class="ticket L2" id="L2-T07">
+    <span class="id">L2-T07</span>
+    <div class="body">
+      <h3>Publish the first comparison page</h3>
+      <p class="done"><strong>Done when:</strong> My three questions answered on the ticket, then the live vs-Simi page corrected or replaced, every figure dated.</p>
+      <p class="latest">Mine to unblock, not Mahir's. The three questions are in my own 1 November comment and nobody has answered them, me included. The handover moves this under L3 with a 12 November date, ships it as a plain page so it does not wait for the CMS, and gives L1-T21 until 6 November to name a theme before Simi proceeds without one.</p>
+      <div class="meta">
+        
+        <span class="tag">with Mahir and Andi</span>
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1219652282341198" target="_blank" rel="noopener">Open in Asana</a>
+        <a class="tag link" href="https://rikuokoizumi-downshift.github.io/downshift/sketchie-vs-simi-mock/" target="_blank" rel="noopener">Open the mock</a>
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Thu, Nov 12</span>
+  </article>
+  <article class="ticket L3" id="L3-T11">
+    <span class="id">L3-T11</span>
+    <div class="body">
+      <h3>Ask Manuel for the paid budget</h3>
+      <p class="done"><strong>Done when:</strong> The ask made: $500 a month on Meta and $3 to $5 X boosts on winners. First spend only after the first Friday review.</p>
+      <p class="latest">Nothing can be spent until per-asset attribution is live, which is Mahir's L1-T11, so this is an ask with a gate in front of it rather than work I can start.</p>
+      <div class="meta">
+        <span>Needs first:</span><span class="tag">L1-T11, and one organic winner</span>
+        
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sat, Nov 14</span>
+  </article>
+  <article class="ticket L3" id="L3-T14">
+    <span class="id">L3-T14</span>
+    <div class="body">
+      <h3>Grade-level lesson set</h3>
+      <p class="done"><strong>Done when:</strong> One grade, one subject, about ten lessons, made in Sketchie or the dev pipeline, each watched end to end.</p>
+      <p class="latest">This is the school outreach asset and the lead magnet, so school outreach does not restart until it exists.</p>
+      <div class="meta">
+        
+        <span class="tag">with Norj</span>
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sat, Nov 14</span>
+  </article>
+  <article class="ticket L3" id="L3-T10">
+    <span class="id">L3-T10</span>
+    <div class="body">
+      <h3>Friday review <span class="pill">Weekly</span></h3>
+      <p class="done"><strong>Done when:</strong> One Slack post: winners by asset, the kill list, MRR, cost per signup where paid ran, and one or two changes as tickets. Not ten.</p>
+      <p class="latest">Mine to run every Friday from 14 November. Jorge is invited once there are numbers worth showing him.</p>
+      <div class="meta">
+        
+        <span class="tag">with Mahir and Olu</span>
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Sat, Nov 14</span>
+  </article>
+  <article class="ticket L3" id="L3-T17">
+    <span class="id">L3-T17</span>
+    <div class="body">
+      <h3>School outreach <span class="pill">10 a week</span></h3>
+      <p class="done"><strong>Done when:</strong> Ten prospects a week, two drafts each, the lesson set attached, every one logged.</p>
+      <p class="latest">Recurring, with no start date of its own. The earliest it can begin is 18 November, when Olu's lead lists are due, since the lesson set lands on the 14th. Until then the nineteen already drafted are what gets finished, and a mass send is ruled out anyway: no DM without a connection or an interaction.</p>
+      <div class="meta">
+        <span>Needs first:</span><span class="tag">L3-T14, L3-T16</span>
+        
+        <span class="tag">Not in Asana yet</span>
+        
+      </div>
+    </div>
+    <span class="owner">You</span>
+    <span class="due">Wed, Nov 18</span>
   </article></div>
     
   </section><section role="tabpanel" id="panel-idea" aria-labelledby="tab-idea" hidden>
@@ -656,7 +821,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
       </div>
     </div>
     <span class="owner">You</span>
-    <span class="due">Not sent</span>
+    <span class="due">Sent 30 Oct</span>
     <div class="copyrow">
       <button class="btn copy" type="button" data-k="dm-khan-lab">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-khan-lab-org">Copy school message</button>
@@ -690,7 +855,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
       </div>
     </div>
     <span class="owner">You</span>
-    <span class="due">Not sent</span>
+    <span class="due">Sent 30 Oct</span>
     <div class="copyrow">
       <button class="btn copy" type="button" data-k="dm-summit-atlas">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-summit-atlas-org">Copy school message</button>
@@ -724,7 +889,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
       </div>
     </div>
     <span class="owner">You</span>
-    <span class="due">Not sent</span>
+    <span class="due">Sent 30 Oct</span>
     <div class="copyrow">
       <button class="btn copy" type="button" data-k="dm-nueva">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-nueva-org">Copy school message</button>
@@ -759,7 +924,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
       </div>
     </div>
     <span class="owner">You</span>
-    <span class="due">Not sent</span>
+    <span class="due">Sent 30 Oct</span>
     <div class="copyrow">
       <button class="btn copy" type="button" data-k="dm-mount-vernon">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-mount-vernon-org">Copy school message</button>
@@ -794,7 +959,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
       </div>
     </div>
     <span class="owner">You</span>
-    <span class="due">Not sent</span>
+    <span class="due">Sent 30 Oct</span>
     <div class="copyrow">
       <button class="btn copy" type="button" data-k="dm-dawson">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-dawson-org">Copy school message</button>
@@ -829,7 +994,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
       </div>
     </div>
     <span class="owner">You</span>
-    <span class="due">Not sent</span>
+    <span class="due">Sent 30 Oct</span>
     <div class="copyrow">
       <button class="btn copy" type="button" data-k="dm-ransom">Copy LinkedIn message</button>
       <button class="btn copy" type="button" data-k="dm-ransom-org">Copy school message</button>
@@ -1610,7 +1775,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
         <textarea id="why-fu-khan-lab" data-why="fu-khan-lab" rows="2" placeholder="In your own words"></textarea>
       </div>
     </fieldset>
-    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-khan-lab">Hello, I wrote on 30 October about Sketchie, and asked whether editable scenes are a problem your middle school team actually has.
+    <details class="asana"><summary>The follow-up, via the school site</summary><pre id="pre-fu-khan-lab">Hello, I wrote on 30 October about Sketchie, and asked whether editable scenes are a problem your middle school team actually has.
 
 I know that is easy to leave unanswered, so I will make it simple. If it is worth a short conversation, I am glad to arrange one. If it is not a fit, one line telling me so is genuinely useful and I will leave it there.
 
@@ -1645,7 +1810,7 @@ If anyone would rather just look, the free plan is two videos, up to a minute ea
         <textarea id="why-fu-summit-atlas" data-why="fu-summit-atlas" rows="2" placeholder="In your own words"></textarea>
       </div>
     </fieldset>
-    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-summit-atlas">Hello, I wrote on 30 October about Sketchie and asked to be pointed to the right desk, whether that sits with the school or with the network.
+    <details class="asana"><summary>The follow-up, via the school site</summary><pre id="pre-fu-summit-atlas">Hello, I wrote on 30 October about Sketchie and asked to be pointed to the right desk, whether that sits with the school or with the network.
 
 That question may be the reason it stalled, so let me narrow it. If platform decisions sit at Summit Public Schools rather than the campus, a name or a department is all I am asking for. If the answer is that this is not something you are looking at, one line saying so is genuinely useful and I will leave it there.
 
@@ -1680,7 +1845,7 @@ If anyone would rather just look, the free plan is two videos, up to a minute ea
         <textarea id="why-fu-nueva" data-why="fu-nueva" rows="2" placeholder="In your own words"></textarea>
       </div>
     </fieldset>
-    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-nueva">Hello, I wrote on 30 October about Sketchie, after reading the Grade 7 wind-turbine project in your I-Lab news, and asked to be pointed to your Head of Middle School or your Director of the Innovation Labs.
+    <details class="asana"><summary>The follow-up, via the school site</summary><pre id="pre-fu-nueva">Hello, I wrote on 30 October about Sketchie, after reading the Grade 7 wind-turbine project in your I-Lab news, and asked to be pointed to your Head of Middle School or your Director of the Innovation Labs.
 
 If that is the wrong pair of roles, I would rather be corrected than keep guessing. And if this is simply not something Nueva is looking at, one line saying so is genuinely useful and I will leave it there.
 
@@ -1715,7 +1880,7 @@ If anyone would rather just look, the free plan is two videos, up to a minute ea
         <textarea id="why-fu-mount-vernon" data-why="fu-mount-vernon" rows="2" placeholder="In your own words"></textarea>
       </div>
     </fieldset>
-    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-mount-vernon">Hello, I wrote on 30 October about Sketchie, and suggested it probably matters more for Mount Vernon School Online than for a classroom, since online material gets revised rather than re-taught.
+    <details class="asana"><summary>The follow-up, via the school site</summary><pre id="pre-fu-mount-vernon">Hello, I wrote on 30 October about Sketchie, and suggested it probably matters more for Mount Vernon School Online than for a classroom, since online material gets revised rather than re-taught.
 
 If that reading is wrong, I would genuinely like to know, because it is the whole basis for writing to you. If someone owns the MVSO material and would be the right person, I am happy to write to them instead. And if it is not a fit, one line saying so and I will leave it there.
 
@@ -1750,7 +1915,7 @@ If anyone would rather just look, the free plan is two videos, up to a minute ea
         <textarea id="why-fu-dawson" data-why="fu-dawson" rows="2" placeholder="In your own words"></textarea>
       </div>
     </fieldset>
-    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-dawson">Hello, I wrote on 30 October about Sketchie, and said up front that it is not a student-tool pitch given your Innovation Center and the Adobe tools your students already use. It was aimed at the teacher who explains something once and would rather revise a line next year than record it again.
+    <details class="asana"><summary>The follow-up, via the school site</summary><pre id="pre-fu-dawson">Hello, I wrote on 30 October about Sketchie, and said up front that it is not a student-tool pitch given your Innovation Center and the Adobe tools your students already use. It was aimed at the teacher who explains something once and would rather revise a line next year than record it again.
 
 If that teacher does not exist at Dawson, that is a fair answer and one line saying so is useful. If they do, I would welcome a short conversation.
 
@@ -1785,7 +1950,7 @@ If anyone would rather just look, the free plan is two videos, up to a minute ea
         <textarea id="why-fu-ransom" data-why="fu-ransom" rows="2" placeholder="In your own words"></textarea>
       </div>
     </fieldset>
-    <details class="asana" open><summary>The follow-up, via the school site</summary><pre id="pre-fu-ransom">Hello, I wrote on 30 October about Sketchie and asked whether it made more sense to talk now or to wait until your first Director of Educational Technology is in post.
+    <details class="asana"><summary>The follow-up, via the school site</summary><pre id="pre-fu-ransom">Hello, I wrote on 30 October about Sketchie and asked whether it made more sense to talk now or to wait until your first Director of Educational Technology is in post.
 
 I am happy with either answer. If waiting is the sensible course, tell me that and I will come back once the appointment is announced rather than write again in the meantime. If it is not a fit at all, one line saying so and I will leave it there.
 
