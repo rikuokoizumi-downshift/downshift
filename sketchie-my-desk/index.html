@@ -149,6 +149,16 @@ table.ex tr:last-child td { border-bottom: none; }
 </style>
 <style>
   .ticket.L3 .id { color: var(--warn); }
+  table.checks { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.checks th, table.checks td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); }
+  table.checks thead th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 2px solid var(--line); }
+  table.checks tbody th { font-weight: 600; width: 23%; }
+  table.checks td:nth-child(2) { width: 17%; white-space: nowrap; }
+  table.checks .pill { margin-left: 0; }
+  @media (max-width: 760px) { table.checks, table.checks tbody, table.checks tr, table.checks th, table.checks td { display: block; width: auto; }
+    table.checks thead { display: none; }
+    table.checks tr { border-bottom: 1px solid var(--line); padding: 10px 0; }
+    table.checks th, table.checks td { border: 0; padding: 2px 0; } }
   .tag.link { border-color: var(--accent); color: var(--accent); font-weight: 600; text-decoration: none; }
   .tag.link:hover { background: var(--accent-soft); }
   .ticket .done strong, .ticket .latest strong { color: var(--ink); }
@@ -216,7 +226,7 @@ table.ex tr:last-child td { border-bottom: none; }
   </div>
 
   <div class="filters tabs" role="tablist" aria-label="My work">
-    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">5</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">21</span></button><button type="button" role="tab" id="tab-idea" aria-controls="panel-idea" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="idea">Ideas<span class="n">4</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
+    <button type="button" role="tab" id="tab-comment" aria-controls="panel-comment" aria-selected="true" aria-pressed="true" tabindex="0" data-k="comment">Pending comment<span class="n">5</span></button><button type="button" role="tab" id="tab-task" aria-controls="panel-task" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="task">Pending task<span class="n">24</span></button><button type="button" role="tab" id="tab-idea" aria-controls="panel-idea" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="idea">Ideas<span class="n">4</span></button><button type="button" role="tab" id="tab-check" aria-controls="panel-check" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="check">Prospect check<span class="n">19</span></button><button type="button" role="tab" id="tab-archive" aria-controls="panel-archive" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="archive">Archive<span class="n">3</span></button><button type="button" role="tab" id="tab-done" aria-controls="panel-done" aria-selected="false" aria-pressed="false" tabindex="-1" data-k="done">Completed<span class="n">6</span></button>
   </div>
 
   <section role="tabpanel" id="panel-comment" aria-labelledby="tab-comment">
@@ -362,7 +372,7 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
   </article></div>
     
   </section><section role="tabpanel" id="panel-task" aria-labelledby="tab-task" hidden>
-    <p class="panel-note">Mine to make. Earliest due first. Rebuilt on 5 November against the 4 November handover, because the old list was still a launch-week list. The 30 October call adopted the Rivalize playbook and the handover turns it into a third epic, L3, of 24 tickets. Twelve are mine and they are the twelve amber cards here. None of them exist in Asana, so none of them has a link to open, and making them is itself the first piece of work. Everything under L1 and L2 now closes by comment rather than by more work: the pricing redesign is live, the videos are five of seven, and the launch-week plays did not run at the planned volume, which the 30 October call accepted. Three cards that were here until today, the daily sample videos, the five user interviews and the Friday review, are folded into the L2 close-out rather than quietly dropped. Social accounts stay off this page: that one is parked.</p>
+    <p class="panel-note">Mine to make. Earliest due first. Rebuilt on 5 November against the 4 November handover, because the old list was still a launch-week list. The 30 October call adopted the Rivalize playbook and the handover turns it into a third epic, L3, of 24 tickets. Twelve are mine and they are the twelve amber cards here. None of them exist in Asana, so none of them has a link to open, and making them is itself the first piece of work. Everything under L1 and L2 now closes by comment rather than by more work: the pricing redesign is live, the videos are five of seven, and the launch-week plays did not run at the planned volume, which the 30 October call accepted. Three cards that were here until today, the daily sample videos, the five user interviews and the Friday review, are folded into the L2 close-out rather than quietly dropped. Social accounts stay off this page: that one is parked. Three more arrived on 5 November, built on PostHog numbers and listed here although Mahir owns them, because all three name me in their done-when and none can close while I sit on them. A fourth from the same batch, confirming generation reliability as customers grow, is due on 11 November and has no assignee at all; it is engineering work so it is not a card here, but an unowned ticket five days out is worth someone saying out loud. Backend bugs stay on the full board as always.</p>
     
     <div class="tickets">
   <article class="ticket L1" id="L1-T15">
@@ -605,6 +615,22 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     <span class="owner">You</span>
     <span class="due">Tue, Nov 10</span>
   </article>
+  <article class="ticket L3" id="GTM paywall">
+    <span class="id">GTM paywall</span>
+    <div class="body">
+      <h3>Take the zero-conversion paywall finding to Manuel</h3>
+      <p class="done"><strong>Done when:</strong> Manuel has reviewed the finding and a direction is agreed.</p>
+      <p class="latest">Seven real customers used up their free videos, saw the pricing page and not one picked a plan. Sixty days, zero conversions. The price is Manuel's call, but how pricing is presented is explicitly Mahir's and mine, which puts half of this on me. It also sits directly on top of L1-T24, the redesign that went live on 2 November.</p>
+      <div class="meta">
+        
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1220236860621497" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">Mahir</span>
+    <span class="due">Tue, Nov 10</span>
+  </article>
   <article class="ticket L3" id="L3-T04">
     <span class="id">L3-T04</span>
     <div class="body">
@@ -621,6 +647,22 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     <span class="owner">You</span>
     <span class="due">Wed, Nov 11</span>
   </article>
+  <article class="ticket L3" id="GTM signup drop">
+    <span class="id">GTM signup drop</span>
+    <div class="body">
+      <h3>Fix the drop-off between signup and first video</h3>
+      <p class="done"><strong>Done when:</strong> Findings and a proposed fix agreed with me.</p>
+      <p class="latest">Of 56 real signups in the last 30 days, 17 never asked for a video at all. They arrived, signed up and left without trying the product. Mahir owns the ticket but the done-when names me, so it cannot close while I sit on it.</p>
+      <div class="meta">
+        
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1220236616676655" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">Mahir</span>
+    <span class="due">Thu, Nov 12</span>
+  </article>
   <article class="ticket L2" id="L2-T07">
     <span class="id">L2-T07</span>
     <div class="body">
@@ -636,6 +678,22 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     </div>
     <span class="owner">You</span>
     <span class="due">Thu, Nov 12</span>
+  </article>
+  <article class="ticket L3" id="GTM AI channel">
+    <span class="id">GTM AI channel</span>
+    <div class="body">
+      <h3>Grow the ChatGPT and AI assistant channel</h3>
+      <p class="done"><strong>Done when:</strong> A short plan agreed with me. The ticket does not close without it.</p>
+      <p class="latest">The most interesting number anyone has produced this month. AI assistants brought 16 signups in 30 days, more than Google and more than every other channel, and about one visitor in six signs up. That is Sketchie's best source of real customers and nobody planned it. It also gives L3-T13, the answer-engine pages, a reason to move up from 28 November.</p>
+      <div class="meta">
+        
+        
+        <a class="tag link" href="https://app.asana.com/1/1206769047111602/project/1216701497745190/task/1220236667876285" target="_blank" rel="noopener">Open in Asana</a>
+        
+      </div>
+    </div>
+    <span class="owner">Mahir</span>
+    <span class="due">Fri, Nov 13</span>
   </article>
   <article class="ticket L3" id="L3-T11">
     <span class="id">L3-T11</span>
@@ -802,6 +860,110 @@ That frees L1-T14 and L2-T02, which have both been hanging off this one.</pre></
     <span class="owner">You</span>
     <span class="due">Idea</span>
   </article></div>
+    
+  </section><section role="tabpanel" id="panel-check" aria-labelledby="tab-check" hidden>
+    <p class="panel-note">Every one of the nineteen drafted schools, re-read on its own site on 6 November. This is the checking the Legend asks for, not the outreach coming back: there are no contacts, no drafts and no messages here. Seven are ready, five lead with something I cannot find on the school's site, four rest on a recognition the school does not publish, and three sit behind a splash page too thin to prove anything either way. Two of the five unverified hooks are rated High in the workbook, which is the real finding: the Confidence column does not track what can actually be verified. Separately, six rows lead with 'they are recruiting X, starting [date]' and every one of those dates has now passed, Trinity on 1 July, Westtown on 1 August, Peck on 24 August, Charlotte Latin, Walker and Fenn across the 2026-27 year. Those need rewriting rather than rechecking, and where the role was filled the new post-holder is a better contact than the generic one. The check was done by me, which is a staleness pass and not a second pair of eyes, since I wrote the rows in the first place.</p>
+    
+    <div class="tickets">
+  <table class="checks">
+    <thead><tr><th scope="col">School</th><th scope="col">Verdict</th><th scope="col">What it needs</th></tr></thead>
+    <tbody>
+  <tr>
+    <th scope="row">Grissom</th>
+    <td><span class="pill ok">Ready</span></td>
+    <td>Apple Distinguished 2024-27 is on their own page. Send as written.</td>
+  </tr>
+  <tr>
+    <th scope="row">Prairie View</th>
+    <td><span class="pill ok">Ready</span></td>
+    <td>Their own page carries the same 2024-27 banner. The row saying it was reported only in local news is wrong. Upgrade to High and let the message state it.</td>
+  </tr>
+  <tr>
+    <th scope="row">The Peck School</th>
+    <td><span class="pill ok">Ready</span></td>
+    <td>Colleen Larionoff is still in post and the title is right. One word to fix: the lab is the Osborn Idea and Design Lab, and the draft says Osborne.</td>
+  </tr>
+  <tr>
+    <th scope="row">Charlotte Latin</th>
+    <td><span class="pill ok">Ready</span></td>
+    <td>The Fab Lab is on their homepage in almost the row's own words. Their Middle School is grades 6-8, not 7-8. Drop the hiring line.</td>
+  </tr>
+  <tr>
+    <th scope="row">Design39Campus</th>
+    <td><span class="pill ok">Ready</span></td>
+    <td>Design thinking and the learner-agency language are confirmed. The LOFT is not on the site, so cut it from the hook.</td>
+  </tr>
+  <tr>
+    <th scope="row">Valor Collegiate</th>
+    <td><span class="pill ok">Ready</span></td>
+    <td>The Compass model is confirmed. Compass Camp is not, and the camp was the actual pitch, so that line goes.</td>
+  </tr>
+  <tr>
+    <th scope="row">Chadwick School</th>
+    <td><span class="pill ok">Ready</span></td>
+    <td>Middle School is grades 7-8, confirmed, which is the audience the plan names. The city is still not published anywhere, so keep it out of the message.</td>
+  </tr>
+  <tr>
+    <th scope="row">Hillbrook</th>
+    <td><span class="pill late">Hook unverified</span></td>
+    <td>Rated High, and neither the Apple designation nor the Regatta appears on their site. They have also opened an Upper School in downtown San Jose, so the school has changed shape since the row was written.</td>
+  </tr>
+  <tr>
+    <th scope="row">Roosevelt Middle</th>
+    <td><span class="pill late">Hook unverified</span></td>
+    <td>Rated High, and the Apple 2025-2028 claim is not on their page. Two gains: Tina Steketee is Principal, and there is a fresher hook, every River Forest school was awarded an Exemplary Designation on 30 October.</td>
+  </tr>
+  <tr>
+    <th scope="row">Intrinsic Schools</th>
+    <td><span class="pill late">Hook unverified</span></td>
+    <td>The pod model is the entire hook and the word does not appear on the site. The Belmont campus address is confirmed.</td>
+  </tr>
+  <tr>
+    <th scope="row">Pine Crest</th>
+    <td><span class="pill late">Hook unverified</span></td>
+    <td>Innovation and Robotics are both absent from the homepage. The two campuses, Fort Lauderdale and Boca Raton, are confirmed.</td>
+  </tr>
+  <tr>
+    <th scope="row">The Fenn School</th>
+    <td><span class="pill late">Hook unverified</span></td>
+    <td>Innovation, Design Thinking and the Stone space are all absent, and the job posting had already gone when the row was built. The weakest of the nineteen.</td>
+  </tr>
+  <tr>
+    <th scope="row">Aptakisic Junior High</th>
+    <td><span class="pill ">Keep the hedge</span></td>
+    <td>The Apple designation is not on the district site, so the message must keep asking rather than asserting. City confirmed: Buffalo Grove, Illinois.</td>
+  </tr>
+  <tr>
+    <th scope="row">Meridian School</th>
+    <td><span class="pill ">Keep the hedge</span></td>
+    <td>Not on the district site either, so the hedge stays. Greg Michels is Principal, where the row said no name was published.</td>
+  </tr>
+  <tr>
+    <th scope="row">Southridge Tech</th>
+    <td><span class="pill ">Keep the hedge</span></td>
+    <td>Microsoft Showcase is not on their site. The principal is Mrs. Knight. They have their own site at southridgetech.fusd.net, and the row points at the district root.</td>
+  </tr>
+  <tr>
+    <th scope="row">Lubbock-Cooper</th>
+    <td><span class="pill ">Keep the hedge</span></td>
+    <td>Their Apple Distinguished page exists, is titled, and is completely empty, so the earlier note about it not loading was not a glitch. City confirmed: Lubbock, Texas.</td>
+  </tr>
+  <tr>
+    <th scope="row">Westtown</th>
+    <td><span class="pill ">Inconclusive</span></td>
+    <td>Homepage under 2,000 characters, so finding nothing proves nothing. West Chester and the Middle School are confirmed. The hook needs a deeper page.</td>
+  </tr>
+  <tr>
+    <th scope="row">Trinity School</th>
+    <td><span class="pill ">Inconclusive</span></td>
+    <td>Same. Middle School is grades 5-8, confirmed. Nothing on technology on the front page, but there is very little on it at all.</td>
+  </tr>
+  <tr>
+    <th scope="row">The Walker School</th>
+    <td><span class="pill ">Inconclusive</span></td>
+    <td>A 1,861-character splash page. Marietta and the two campuses are confirmed. Already the only Low row, and still unresolved.</td>
+  </tr></tbody>
+  </table></div>
     
   </section><section role="tabpanel" id="panel-archive" aria-labelledby="tab-archive" hidden>
     <p class="panel-note">Parked on purpose, not forgotten.</p>
