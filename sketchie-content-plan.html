@@ -270,6 +270,10 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;
   .foot{padding-top:18px}
   .card{padding:17px 20px}
   .rule{margin:18px 0}
+  .ramp div{padding:10px 14px}
+  .ramp b{font-size:clamp(26px,3.2vw,32px)}
+  .mix{gap:9px}
+  .mix-track{height:22px}
 }
 
 /* ---------- chrome ---------- */
@@ -336,7 +340,7 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;
 <section class="slide">
   <p class="eyebrow">Sketchie &middot; social plan &middot; 16 November 2026</p>
   <h1>Draw the thing kids are actually confused about.</h1>
-  <p class="sub">A four-week break-in month, posted by hand: three videos the first week, then five. The plan is a list, not a calendar, so dates get stamped on when you ask and nothing goes stale.</p>
+  <p class="sub">A three-week break-in run, posted by hand: one post a day on each account for a fortnight, then two a day. The plan is a list, not a calendar, so dates get stamped on when you ask and nothing goes stale.</p>
   <div class="grid g3">
     <div class="card"><h3>One position</h3><p>Not a topic. We show the moment a wrong idea breaks.</p></div>
     <div class="card"><h3>Three roles</h3><p>Each judged on a different number, so a flat week on one is not a flat week.</p></div>
@@ -400,42 +404,41 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;
 <section class="slide">
   <div class="split">
     <div>
-      <p class="eyebrow">The break-in month</p>
-      <h2>Start small, because the accounts are cold</h2>
-      <p class="sub">Posts per account per week. Both accounts have been dormant since 10 November, so these are their first posts ever.</p>
-      <div class="ramp">
-        <div><b>3</b><span>Week 1</span></div>
-        <div><b>5</b><span>Week 2</span></div>
-        <div><b>5</b><span>Week 3</span></div>
-        <div><b>5</b><span>Week 4</span></div>
+      <p class="eyebrow">The break-in run</p>
+      <h2>Flat for a fortnight, then double</h2>
+      <p class="sub">Posts per account per day. Both accounts have been dormant since 10 November, so these are their first posts ever.</p>
+      <div class="ramp" style="grid-template-columns:repeat(3,1fr)">
+        <div><b>1</b><span>Week 1 &middot; a day</span></div>
+        <div><b>1</b><span>Week 2 &middot; a day</span></div>
+        <div style="border-top-color:var(--role-misconception)"><b>2</b><span>Week 3 &middot; a day</span></div>
       </div>
-      <p class="lede" style="margin-top:16px;font-size:16px"><b>The engine will not do this for us.</b> Its caps ramp on account age from <code>created_on</code>, so by the first post both accounts are already 13 days old and full volume is permitted. The ramp has to live in the calendar.</p>
-      <p class="lede" style="margin-top:12px;font-size:16px"><b>And these numbers are a starting point, not a rule.</b> Post fewer in a busy week, more if the early ones land. The plan is a list consumed in order, so a lighter week just pushes the rest along.</p>
+      <p class="lede" style="margin-top:16px;font-size:16px"><b>Week 3 needed a cap raised.</b> Instagram sits at 1 a day until <code>scale_ok</code> is TRUE, and the lint refused the plan until it was switched on. Worth knowing: that cap was written as 1 Reel plus 1 static, and we are running 2 Reels.</p>
+      <p class="lede" style="margin-top:12px;font-size:16px"><b>The cadence is a starting point, not a rule.</b> Post fewer on a busy day, more if the early ones land. The plan is a list consumed in order, so a skipped day just pushes the rest along.</p>
     </div>
     <div>
       <p class="eyebrow">The mix</p>
-      <h2 style="font-size:clamp(25px,3vw,34px)">18 videos, 36 posts</h2>
+      <h2 style="font-size:clamp(25px,3vw,34px)">28 videos, 56 posts</h2>
       <p class="sub" style="font-size:16px;margin-bottom:18px">One generation serves both accounts. Instagram gets the reel, X gets the wide cut 37 hours later, which clears the engine's spacing rule.</p>
       <div class="mix">
         <div class="mix-row">
           <span class="mix-label" style="color:var(--role-misconception)">Misconception</span>
           <span class="mix-track"><span class="mix-fill" style="--c:var(--role-misconception);--w:100%"></span></span>
-          <span class="mix-n">7 / 18</span>
+          <span class="mix-n">12 / 28</span>
         </div>
         <div class="mix-row">
           <span class="mix-label" style="color:var(--role-lesson)">Lesson</span>
-          <span class="mix-track"><span class="mix-fill" style="--c:var(--role-lesson);--w:86%"></span></span>
-          <span class="mix-n">6 / 18</span>
+          <span class="mix-track"><span class="mix-fill" style="--c:var(--role-lesson);--w:75%"></span></span>
+          <span class="mix-n">9 / 28</span>
         </div>
         <div class="mix-row">
           <span class="mix-label" style="color:#8a6400">Move</span>
-          <span class="mix-track"><span class="mix-fill" style="--c:var(--role-move);--w:57%"></span></span>
-          <span class="mix-n">4 / 18</span>
+          <span class="mix-track"><span class="mix-fill" style="--c:var(--role-move);--w:42%"></span></span>
+          <span class="mix-n">5 / 28</span>
         </div>
         <div class="mix-row">
           <span class="mix-label" style="color:var(--role-product)">Product</span>
-          <span class="mix-track"><span class="mix-fill" style="--c:var(--role-product);--w:14%"></span></span>
-          <span class="mix-n">1 / 18</span>
+          <span class="mix-track"><span class="mix-fill" style="--c:var(--role-product);--w:17%"></span></span>
+          <span class="mix-n">2 / 28</span>
         </div>
       </div>
       <p class="note" style="margin-top:18px">The one product post lands in week 4, after sixteen posts of real teaching.</p>
@@ -475,7 +478,7 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;
       </tbody>
     </table>
   </div>
-  <p class="lede" style="margin-top:20px"><b>Net:</b> 13 of the 16 kept, 3 feature tours held, and <b>5 new videos written</b> to fill the ramp. That is 18 videos and 36 posts across the break-in month.</p>
+  <p class="lede" style="margin-top:20px"><b>Net:</b> 14 of the original 16 are in the run, 2 feature tours stay held, and <b>14 new videos were written</b> to feed the daily cadence. That is 28 videos and 56 posts across three weeks.</p>
 </section>
 
 <!-- 6 ............................................................. -->
@@ -496,7 +499,7 @@ code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;
       <span class="yn"><span>Yes</span><span>No</span></span>
     </div>
     <div class="dec-row">
-      <p><b>4.</b> After the break-in month, hold five a week before changing cadence?</p>
+      <p><b>4.</b> After week 3, hold two a day before changing cadence again?</p>
       <span class="yn"><span>Yes</span><span>No</span></span>
     </div>
     <div class="dec-row blocked">
